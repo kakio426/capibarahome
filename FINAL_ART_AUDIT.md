@@ -4,7 +4,7 @@
 
 ## Audit 기준
 
-이번 pass의 기준은 "작동하는 RC UI"가 아니라 "앱스토어에서 보고 설치하고 싶은 모바일 idle game 화면"이다. 이전 SVG 중심 pass는 asset 수량은 늘렸지만 final game art로 보기에는 실패였다. 이번 pass는 핵심 감정/캐릭터/스토어 이미지를 PNG raster asset으로 교체하고, SVG는 보조 icon 역할로 낮춘다.
+이번 pass의 기준은 "작동하는 RC UI"가 아니라 "앱스토어에서 보고 설치하고 싶은 모바일 idle game 화면"이다. 이전 SVG 중심 pass는 asset 수량은 늘렸지만 final game art로 보기에는 실패였다. 첫 raster pass도 PNG는 있었지만 흰 rounded web card와 generic app panel이 화면을 지배해 실패로 재분류했다. v2 pass는 핵심 감정/캐릭터/스토어 이미지를 professional raster 후보로 교체하고, UI skin도 wood/parchment/orange HUD로 다시 잡는다.
 
 ## Before Raster Pass Screen Audit
 
@@ -19,11 +19,11 @@
 | 오프라인 보상 | 귤 바구니 icon과 작은 과일 파티클로 이해 가능 | 중간 | 낮음 | 보상 modal 일부 | 복귀 보상 chest/수확 scene 감정 부족 | P1: offline return illustration 연결 |
 | 스토어 스크린샷 | 카피는 있으나 앱 캡처형 구도와 큰 빈 여백이 남음 | 낮음 | 중간 | store 후보이나 final marketing key visual 부족 | 캐릭터/key visual과 화면의 결합이 약함 | P1: final key visual/frame overlay로 10장 재생성 |
 
-## After Raster Pass Screen Audit
+## After V2 Raster/HUD Pass Screen Audit
 
 | 화면 | 변경 결과 | 판정 | 남은 리스크 |
 | --- | --- | --- | --- |
-| 홈 | raster orchard background와 transparent main capybara character가 hero 영역의 중심이 되도록 재구성했다. 숫자는 scene overlay/HUD로 낮췄다. | 내부 P1 해결 | idle animation depth는 P2 |
+| 홈 | integrated raster orchard/capybara scene이 hero 영역의 중심이 되도록 재구성했다. 숫자는 wood HUD plaque로 낮추고 별도 CSS/SVG character overlay는 숨겼다. | 내부 P1 해결 | idle animation depth는 P2 |
 | 앨범/컬렉션 | companion portrait PNG를 sticker room과 companion card에 연결해 list/grid 인상을 낮췄다. | 내부 P1 해결 | 자유 배치형 room decorating은 P2 |
 | 환생 | golden leaf ritual PNG가 상단 key scene이 되고 계산 정보는 의사결정 패널로 내려갔다. | 내부 P1 해결 | ritual animation은 P2 |
 | 상점 | reward banner PNG와 offer shelf 구성을 연결했고 실제 결제로 오해될 문구는 피했다. | 내부 P1 해결 | 실제 SDK 연결 전까지 sandbox |
@@ -34,8 +34,8 @@
 
 | 요구 항목 | Raster asset | 실제 연결 |
 | --- | --- | --- |
-| main hero background | `src/assets/raster/home/main-hero-background.png` | `MainGameScreen.tsx`, `.hero-raster-background` |
-| main capybara character | `src/assets/raster/home/main-capybara-character.png` | `MainGameScreen.tsx`, `.hero-raster-character` |
+| main hero background | `src/assets/raster/home/main-hero-background.png` | `MainGameScreen.tsx`, `.hero-raster-background`, `CollectionScreen.tsx` album room background |
+| main capybara crop candidate | `src/assets/raster/home/main-capybara-character.png` | `RasterAssetRegistry`, app icon/fallback candidate. Home v2 uses the integrated hero scene instead of a duplicate overlay |
 | 8 companion portraits | `src/assets/raster/companions/capybara-*.png` | `CollectionScreen.tsx`, `.companion-portrait`, `.album-sticker` |
 | prestige ritual illustration | `src/assets/raster/release/prestige-ritual.png` | `PrestigePanel.tsx`, `.prestige-visual` |
 | shop reward banner | `src/assets/raster/release/shop-reward-banner.png` | `MonetizationPanel.tsx`, `.shop-banner-visual` |
@@ -80,7 +80,7 @@
 | Save modal after | 완료 | `qa-screenshots/390x844-save-modal.png`, `qa-screenshots/360x740-save-modal.png` |
 | Store after | 완료 | `store-screenshots/iphone-01-home.png`, `store-screenshots/android-01-home.png` |
 
-Latest validation:
+Latest standalone visual validation:
 
 ```txt
 npx playwright test e2e/visual-regression.spec.ts --reporter=line
@@ -92,4 +92,4 @@ npx playwright test e2e/store-screenshot-pack.spec.ts --reporter=line
 
 ## Final Judgment
 
-SVG-only final art 선언은 폐기한다. 현재 후보는 generated raster art를 실제 UI에 연결한 release-candidate art pass다. 실제 스토어 제출 전 commissioned art 소유권/법무 확정, 플랫폼별 icon/splash export, 물리 기기 store screenshot 재촬영은 P1 external art readiness로 남긴다.
+SVG-only final art 선언과 첫 raster pass의 성공 선언은 폐기한다. 현재 후보는 v2 generated raster art와 wood/parchment/orange game HUD skin을 실제 UI에 연결한 release-candidate art pass다. 내부 P0/P1 visual blocker는 현재 없다. 실제 스토어 제출 전 commissioned art 소유권/법무 확정, 플랫폼별 icon/splash export, 물리 기기 store screenshot 재촬영은 P1 external art readiness로 남긴다.

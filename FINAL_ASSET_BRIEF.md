@@ -4,14 +4,14 @@
 
 ## 제작 결정
 
-이전 SVG 중심 pass는 실패로 본다. 이번 pass는 built-in image generation으로 생성한 PNG를 workspace에 복사하고, chroma-key removal/crop/resize 후 `RasterAssetRegistry`로 실제 UI에 연결한다. SVG는 currency, tab, small badge 같은 보조 icon으로만 남긴다.
+이전 SVG 중심 pass와 첫 raster pass는 실패로 본다. 첫 raster pass는 PNG가 있어도 UI가 흰 rounded web card 중심이라 모바일 게임 화면으로 보이지 않았다. 이번 v2 pass는 built-in image generation으로 생성한 PNG를 workspace에 복사하고, crop/resize 후 `RasterAssetRegistry`로 실제 UI에 연결한다. SVG는 currency, tab, small badge 같은 보조 icon으로만 남긴다.
 
 ## Final 후보 Asset Set
 
 | Asset | Key | 경로 | 실제 연결 |
 | --- | --- | --- | --- |
 | 메인 hero background | `main-hero-background` | `src/assets/raster/home/main-hero-background.png` | 홈 수확 scene |
-| 메인 카피바라 character | `main-capybara-character` | `src/assets/raster/home/main-capybara-character.png` | 홈 수확 character |
+| 메인 카피바라 crop candidate | `main-capybara-character` | `src/assets/raster/home/main-capybara-character.png` | registry fallback/app icon 후보. 홈 v2는 integrated hero scene 우선 |
 | 카피바라 8마리 portrait | `companion-{id}` | `src/assets/raster/companions/capybara-{id}.png` | 앨범 sticker/companion card |
 | 귤 currency icon | `orange` | `src/assets/generated/icons/orange.svg` | currency display |
 | 황금 나뭇잎 currency icon | `leaf` | `src/assets/generated/icons/leaf.svg` | currency display/prestige |
@@ -40,4 +40,4 @@
 
 ## 남은 External Art
 
-이번 pass는 generated raster release candidate asset이다. 실제 스토어 제출 전 commissioned art 소유권/법무 확정, platform icon/splash export, 실제 store device frame polish는 P1 external art readiness로 남긴다.
+이번 pass는 generated v2 raster release candidate asset과 custom game HUD skin이다. 실제 스토어 제출 전 commissioned art 소유권/법무 확정, platform icon/splash export, 실제 store device frame polish는 P1 external art readiness로 남긴다.

@@ -2,80 +2,86 @@
 
 기준일: 2026-05-05
 
-## 목표
+## North Star
 
-`카피바라 집사기`는 업무용 대시보드가 아니라 모바일 idle/clicker 게임으로 보여야 한다. 첫 화면에서 카피바라, 귤, 다음 목표, 보상 수령 가능성, 성장 구간이 즉시 읽혀야 하며, 화면을 만졌을 때 아이가 기대감을 잃지 않는 따뜻한 수집 게임 톤을 기준으로 한다.
+`카피바라 집사기`는 “React 앱에 귀여운 그림을 붙인 화면”이 아니라, 작은 모바일 idle game처럼 보여야 한다. 390x844 첫 화면에서 사용자는 카드 UI를 읽기 전에 귤 정원, 카피바라, 수확 버튼, 보상 상태를 먼저 느껴야 한다.
 
-## 감정 키워드
+목표 reference quality:
+- Cats & Soup: 따뜻한 hand-painted 공간감, 캐릭터성, 보상 연출
+- Egg, Inc.: 숫자 성장의 즉시성, 큰 터치 영역, 명확한 경제 HUD
+- Cookie Clicker: 핵심 행동이 화면의 주인공인 구조
 
-- 따뜻함: 밝은 햇살, 나무 질감, 말랑한 버튼, 부드러운 그림자
-- 느긋함: 카피바라의 낮은 긴장감, 둥근 실루엣, 과밀하지 않은 홈 화면
-- 귤 향: 주황색 포인트와 잎사귀, 과일 바구니, 수확 축제 느낌
-- 정원 돌봄: 마당, 물길, 그늘막, 창고, 온천, 대나무 정원, 황금 숲으로 이어지는 진행감
-- 수집 보상감: 업적/퀘스트/동료/장식이 단순 리스트가 아니라 앨범과 보상판으로 읽히는 구조
+경쟁작의 에셋/문구/UI를 복제하지 않는다. 기준은 polish와 정보 위계다.
 
-## 금지 키워드
+## Art Pillars
 
-- SaaS dashboard
-- generic card app
-- emoji placeholder
-- bland beige UI
-- AI-generated filler
-- flat icon spam
-- developer debug surface
-- spreadsheet upgrade list
-
-## 팔레트
-
-| 용도 | 색상 | 사용 원칙 |
+| Pillar | Required Feeling | Implementation Direction |
 | --- | --- | --- |
-| 배경 | `#fff4d8`, `#f7dfac`, `#bfe7c2` | 귤밭/마당 계열의 따뜻한 바탕 |
-| 주요 UI | `#fffaf0`, `#f6d28d`, `#8b5a2b` | 버튼/패널은 종이와 나무 질감에 가깝게 |
-| 귤 보상 | `#f68b2d`, `#ffbf57`, `#cf5e24` | 수확/구매 가능/보상 강조 |
-| 황금잎 | `#f6c84f`, `#b97924`, `#fff1a8` | 환생, 영구 보상, 고급 보상 |
-| 자연/정원 | `#6fb978`, `#3f8f61`, `#5c7f3a` | 성장 구간과 장식의 시각적 기반 |
-| 물/온천 | `#82d7da`, `#c8f3ef`, `#4aa6a6` | 온천/물길/복귀 보상 연출 |
-| 위험/주의 | `#b64b3b`, `#ffe1d1` | import 실패, 초기화 확인처럼 드물게 사용 |
+| Cozy orchard | 실제 귤 정원에 들어온 느낌 | painted orchard background, harvest stall, water/stone/wood detail |
+| Character warmth | 도형 얼굴이 아닌 살아 있는 카피바라 | fur texture, cheek volume, clear snout, expressive eyes, props |
+| Butler craft | 집사가 정원을 돌보는 손맛 | gloves, basket, ledger, wooden tools, brass trims |
+| Reward glow | 수확/광고/환생 보상감 | orange/golden leaf glow, chest, ribbon, stamp, sparkle restraint |
+| Game HUD skin | 웹 카드가 아니라 게임 UI | wood frame, parchment fill, carved plaques, leaf tabs, orange lacquer buttons |
 
-## 형태 언어
+## P0 Visual Bans
 
-- Radius: 작은 칩과 버튼은 12-18px, 큰 게임 패널은 22-28px를 기준으로 한다.
-- Stroke: SVG는 7-10px의 따뜻한 갈색 stroke를 사용해 작은 모바일 화면에서도 실루엣이 읽히게 한다.
-- Highlight: 귤/잎/카피바라 얼굴은 작은 하이라이트를 넣어 납작한 아이콘처럼 보이지 않게 한다.
-- Depth: 버튼과 카드에는 얇은 테두리, 안쪽 하이라이트, 낮은 그림자를 조합한다.
-- Layering: 홈은 배경, 성장 구간, 시설, 카피바라, 수확 CTA가 층으로 보여야 한다.
-- Motion: 터치 floating text와 particle cap은 반응감을 만들되 화면을 덮지 않는다.
+- large white rounded web cards as the dominant visual
+- generic pill chips without game material treatment
+- flat vector/CSS/SVG shapes used as core emotional art
+- Figma placeholder rectangles/circles/capsules
+- dashboard/spreadsheet upgrade list
+- modal that looks like a util dialog instead of reward/game ledger
+- store screenshots that are app captures with marketing copy only
 
-## 카피바라 캐릭터 원칙
+## Raster Art Requirements
 
-- 몸통과 얼굴은 큰 둥근 덩어리로 유지해 360px에서도 카피바라로 읽혀야 한다.
-- 눈/코/입은 단순하지만 표정 상태가 다르다: 기본, 기쁨, 졸림, 먹기, 환생 축하.
-- 8마리 portrait는 색만 바꾸지 않고 소품, 표정, 잎/스카프/안경/리본/작업도구로 구분한다.
-- "선생님이 만든 게임 캐릭터"처럼 보이기 위해 너무 기계적이거나 로봇처럼 보이는 표현을 피한다.
-- 캐릭터는 홈/앨범/보상 UI에서 같은 registry key로 교체 가능해야 한다.
+Core raster assets must be professional mobile game illustration candidates:
+- home hero: integrated scene with capybara, orchard, harvest stall, depth, no UI text
+- key visual: store-facing illustration with big composition and readable characters
+- companion portraits: 8 distinct capybaras with props, expression, fur, silhouette
+- prestige scene: golden leaf ritual, altar, orchard, warm glow, no calculation UI
+- shop banner: harvest market stall, reward chest, shopkeeper capybara, no real-payment implication
+- offline reward: return harvest scene, basket/chest/oranges, calm reward mood
 
-## 시설/장식 원칙
+SVG remains acceptable only for small auxiliary icons, not for core emotion.
 
-- 시설 아이콘은 기능을 먼저 읽히게 한다: 바구니, 창고, 온천, 대나무 수레, 황금 숲 장치가 서로 다른 실루엣을 가져야 한다.
-- 성장 구간 5개는 색감과 구조가 달라야 한다: 마당, 귤 창고, 온천, 대나무 정원, 황금 숲.
-- 장식 25개는 홈 visual class와 연결되어, 단순 수집 수치가 아니라 화면 변화로 이어진다.
-- 퀘스트/업적 배지는 수령 가능한 보상과 완료감을 강조한다.
+## UI Skin Rules
 
-## UI 원칙
+| Component | Required Skin |
+| --- | --- |
+| App top bar | dark orchard canopy / carved sign board, not plain header |
+| Save button | lacquered wood/orange button with bevel and dark underside |
+| Currency HUD | wooden or parchment plaques pinned over scene, icon medallions, compact |
+| Primary button | orange lacquer / fruit crate button, thick lower shadow, high contrast |
+| Secondary button | parchment/leaf button with carved border |
+| Tab bar | wooden dock with individual carved slots and leaf/orange active state |
+| Upgrade card | shop shelf/workbench card, left icon medallion, cost plaque, material depth |
+| Modal | parchment scroll in wood frame, reward glow for positive modal |
+| Progress | ribbon or carved groove, not generic thin web progress |
+| Metric tiles | small plaques, not standalone white rounded cards |
 
-- 홈은 게임 HUD다. 가장 큰 시각 신호는 카피바라와 수확 버튼이며, 숫자는 보조 정보다.
-- 업그레이드는 spreadsheet가 아니라 게임 상점이다. 구매 가능 상태, 비용, 효과, 다음 unlock이 한눈에 보여야 한다.
-- 환생은 숫자 패널이 아니라 황금잎 의식/축제 느낌을 준다.
-- 상점은 mock이어도 실제 결제로 오해되는 문구를 쓰지 않으며, 샌드박스 보상임을 명확히 한다.
-- 설정/세이브는 기능적이되 게임 톤을 유지한다.
+## Screen Direction
 
-## QA Gate
+| Screen | Direction |
+| --- | --- |
+| Home | one playable orchard scene. HUD overlays must feel attached to the scene. Below-scene panels should be parchment/wood plaques, not cards. |
+| Upgrades | market/workbench shelf. The user should feel they are buying tools/facilities, not reading a table. |
+| Album | sticker book / collection room. Portraits are framed photos/stickers with stamps and ribbons. |
+| Prestige | golden leaf ritual. Calculation is a support layer on carved plaques. |
+| Shop | harvest festival stall. Rewarded ad mock remains clearly sandboxed but visually rewarding. |
+| Offline reward | chest/basket return scene. Claim action is a game reward, not a form submit. |
+| Settings | butler ledger. Toggles and save/import controls are organized as game settings, not admin settings. |
 
-| 항목 | 현재 판정 | 근거 |
-| --- | --- | --- |
-| 런타임 외부 이미지/CDN 없음 | 통과 | `visualAssetIntegrity.test.ts`, SVG source audit |
-| 수제 SVG asset pack | 통과 | 245 SVG files, icons/items/mascots/portraits/release/tiers |
-| CSS override 누적 위험 제거 | 통과 | `layout.css` 전면 정리, runtime visual banned-pattern audit |
-| 모바일 360/390/430/desktop 스크린샷 | 통과 | `qa-screenshots/` 48 PNG |
-| store screenshot 후보 | 통과 | `store-screenshots/` 10 PNG |
-| final bespoke animation / art ownership | P1 external | 실제 제출 전 commissioned/final art 소유권, 법무 검토, animation polish 확정 필요 |
+## QA Review Rubric
+
+For every screenshot:
+- Does the first read look like a mobile game, not a website?
+- Is the largest visual signal an illustrated place/character/reward?
+- Are cards/buttons/tabs using wood/parchment/orange/leaf material cues?
+- Is any white rounded rectangle dominating the screen? If yes, P0.
+- Does any core emotional visual look SVG/CSS/flat-vector? If yes, P0.
+- Would the screen look acceptable beside Cats & Soup / Egg, Inc. / Cookie Clicker screenshots as an idle game candidate? If not, document the gap and fix or mark blocker.
+
+## Current Gate
+
+The previous raster pass did not pass because the UI skin still read as white rounded web cards. The v2 pass replaces that surface language with integrated raster scenes and wood/parchment/orange HUD skin. Completion still requires `VISUAL_QA.md` evidence, fresh build/test/E2E, and no P0/P1 contradiction across release docs.

@@ -73,9 +73,6 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
 
         <button className={`capybara-touch mood-${mascotMood}`} type="button" onPointerDown={onTap} data-tutorial-target="capybara">
           <RasterAssetImage assetKey="main-hero-background" className="hero-raster-background" />
-          <span className="hero-character-wrap" aria-hidden="true">
-            <RasterAssetImage assetKey="main-capybara-character" className="hero-raster-character" />
-          </span>
           <span className={highlightedQuest?.readyToClaim ? "scene-reward-badge is-ready" : "scene-reward-badge"}>
             {highlightedQuest?.readyToClaim ? "보상 수령 가능" : currentTier.name}
           </span>

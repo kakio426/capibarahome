@@ -16,14 +16,14 @@
 | content inflation P1 | 없음 | `CONTENT_INTEGRATION_AUDIT.md`, 누락 decoration hero visual 11개 수정 |
 | visual defect P1 | 없음 | `VISUAL_DEFECTS.md`, save modal/tab/toast 수정 |
 | RC-1 reward feel P1 | 없음 | companion passive, achievement claim reward, long-term goal, WebAudio mute, RC-1 tests/E2E 추가 |
-| direct art/CSS readiness P1 | 없음 | `layout.css` 통합 정리, 253 SVG auxiliary files, 18 raster PNG core art assets, `visualAssetIntegrity.test.ts`, `rasterAssetIntegrity.test.ts`, art direction docs |
+| direct art/CSS readiness P1 | 없음 | 첫 raster pass 실패 기록 후 v2 HUD/raster pass 적용, `layout.css` 통합 정리, 253 SVG auxiliary files, 15 raster PNG core/release assets, `visualAssetIntegrity.test.ts`, `rasterAssetIntegrity.test.ts`, art direction docs |
 | RC-3 playtest/balance/bug bash P1 | 없음 | 첫 환생 33분, 실제 5분권 E2E, migration/corrupt import/rapid tap/reward duplicate tests, store screenshot 재감사 |
 
 ## Source Budget Audit Gate
 
 | 항목 | 판정 | 근거 |
 | --- | --- | --- |
-| generated/config/docs 제외 구현량 | 기록 완료 | runtime 6,366 LOC, handwritten tests/E2E 2,225 LOC |
+| generated/config/docs 제외 구현량 | 기록 완료 | runtime 6,721 LOC, handwritten tests/E2E 2,285 LOC |
 | 이전 대형 `src` LOC 주장 | 완료 근거로 사용 금지 | generated SVG/registry 11,533 LOC와 generated tests 5,846 LOC는 별도 분리 |
 | 콘텐츠 실제 연결성 | 통과 | 30 upgrades/facilities, 50 quests, 40 achievements with claim rewards, 25 decorations, 8 capybaras with passive abilities, 5 tiers 항목별 감사 |
 
@@ -48,4 +48,4 @@
 
 ## Decision
 
-현재 감사 기준에서 내부 P0/P1 release blocker는 없다. 실제 스토어 제출 완료로 주장하지 않으며, commissioned/final art ownership, real audio files, SDK, signing, 물리 기기 QA는 P1 external readiness blocker로 남긴다.
+현재 감사 기준에서 내부 P0/P1 release blocker는 없다. 실제 스토어 제출 완료로 주장하지 않으며, commissioned/final art ownership, real audio files, SDK, signing, platform icon/splash export, 물리 기기 QA는 P1 external readiness blocker로 남긴다.

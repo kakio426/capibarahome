@@ -38,7 +38,7 @@
 | 광고/IAP mock provider | 완료 | `AdsManager.ts`, `IAPManager.ts`, `MonetizationEventManager.ts` | `monetization.test.ts`, `monetization-mock.spec.ts` |
 | 디버그 도구 | 완료 | `DebugManager.ts`, `?debug=1` gated panel | `debug-cheat-flow.spec.ts` |
 | analytics mock | 완료 | `AnalyticsManager.ts` | unit/E2E action flows |
-| 에셋 파이프라인 | 완료 | `AssetManager.ts`, `builtinAssets.ts`, `scripts/generateVisualAssets.mjs`, 253 hand-authored SVG auxiliary files, `RasterAssetRegistry.ts`, `RasterAssetImage.tsx`, 18 raster PNG files | `assetRegistryMatrix.test.ts`, `visualAssetIntegrity.test.ts`, `rasterAssetIntegrity.test.ts`, screenshots |
+| 에셋 파이프라인 | 완료 | `AssetManager.ts`, `builtinAssets.ts`, `scripts/generateVisualAssets.mjs`, 253 hand-authored SVG auxiliary files, `RasterAssetRegistry.ts`, `RasterAssetImage.tsx`, 15 raster PNG files | `assetRegistryMatrix.test.ts`, `visualAssetIntegrity.test.ts`, `rasterAssetIntegrity.test.ts`, screenshots |
 | release QA | 완료 | `QA_REPORT.md`, `VISUAL_QA.md`, `PERFORMANCE_QA.md`, `RELEASE_BLOCKERS.md` | final command outputs |
 
 ## Expanded Content Scope
@@ -58,17 +58,17 @@
 | app icon/splash/store art 후보 | 완료 | `src/assets/raster/release/app-icon-candidate.png`, `store-key-visual.png`; splash/frame SVG 후보는 `src/assets/generated/release/`에 보조 후보로 유지 |
 | balance simulation | 완료 | `BalanceSimulator.ts`, `balanceSimulation.test.ts`, `BALANCE_SIMULATION.md` |
 | source budget report | 완료 | `SOURCE_BUDGET_REPORT.md` |
-| source budget 재검증 | 완료 | handwritten runtime 6,366 LOC, handwritten tests/E2E 2,225 LOC, generated/config/docs 제외 기준 `SOURCE_BUDGET_REPORT.md` |
+| source budget 재검증 | 완료 | handwritten runtime 6,721 LOC, handwritten tests/E2E 2,285 LOC, generated/config/docs 제외 기준 `SOURCE_BUDGET_REPORT.md` |
 
 ## Design Requirements
 
 | 요구사항 | 상태 | 근거 |
 | --- | --- | --- |
-| 첫 화면부터 실제 게임처럼 보임 | 완료 | raster orchard scene, main capybara character, scene reward badge, next goal, 장기 목표, prestige mini progress, collection shelf, screenshots |
+| 첫 화면부터 실제 게임처럼 보임 | 완료 | v2 raster orchard/capybara integrated scene, carved header, wood currency plaques, next goal, 장기 목표, prestige mini progress, collection shelf, screenshots |
 | 임시 개발자 UI 숨김 | 완료 | Debug panel hidden by default, only `?debug=1` in dev |
 | 360x740 / 390x844 / 430x932 / desktop 중앙 패널 | 완료 | `visual-regression.spec.ts`, 52 screenshots |
 | 버튼/탭/모달/카드/상점/설정/튜토리얼 polish | 완료 | `layout.css`, screenshots, visual QA |
-| 직접 제작 visual asset | 완료 | 253 generated SVG auxiliary icon/quest/badge/decor/tier assets, 18 raster PNG core art assets, CSS game scene, `ART_FAILURE_REVIEW.md`, `ASSET_PRODUCTION_BRIEF.md`, `FINAL_ASSET_BRIEF.md` |
+| 직접 제작 visual asset | 완료 | 253 generated SVG auxiliary icon/quest/badge/decor/tier assets, 15 raster PNG core/release assets, v2 game HUD skin, `ART_FAILURE_REVIEW.md`, `ASSET_PRODUCTION_BRIEF.md`, `FINAL_ASSET_BRIEF.md` |
 | Playwright screenshots | 완료 | `qa-screenshots/` 52 current PNG files, `store-screenshots/` 10 store 후보 PNG files, `qa-screenshots/rc1-before/` archive |
 | Visual QA document | 완료 | `VISUAL_QA.md` |
 
@@ -103,8 +103,8 @@
 | `ASSET_CREDITS.md` | 완료 | generated/CSS/SVG asset 출처와 라이선스 상태 |
 | `ART_DIRECTION.md` | 완료 | 감정 키워드, 금지 키워드, 팔레트, 형태 언어, UI 원칙, QA gate |
 | `ASSET_PRODUCTION_BRIEF.md` | 완료 | SVG auxiliary pack과 raster core art pack breakdown, registry/test contract, 교체 원칙 |
-| `FINAL_ASSET_BRIEF.md` | 완료 | raster final-style key visual 제작 범위와 연결 gate |
-| `FINAL_ART_AUDIT.md` | 완료 | SVG pass 실패 판단, raster before/after visual QA evidence |
+| `FINAL_ASSET_BRIEF.md` | 완료 | v2 raster key visual 제작 범위와 연결 gate |
+| `FINAL_ART_AUDIT.md` | 완료 | SVG pass와 첫 raster pass 실패 판단, v2 HUD/raster before/after visual QA evidence |
 | `AUDIO_ASSET_PLAN.md` | 완료 | audio slot/file replacement plan |
 | `STORE_SCREENSHOT_PLAN.md` | 완료 | iPhone/Android store screenshot 후보 목록 |
 | `NATIVE_BUILD_GUIDE.md` | 완료 | Capacitor readiness, icon/splash 경로, signing gap |

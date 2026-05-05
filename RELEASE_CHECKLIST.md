@@ -14,12 +14,12 @@
 - [x] Story bible added and connected to UI/config
 - [x] Balance simulation added and tested
 - [x] Source budget re-audited without generated/config/docs/screenshots/build output
-- [x] Handwritten implementation scale recorded (`runtime 6,366 LOC`, `handwritten tests/E2E 2,225 LOC`)
+- [x] Handwritten implementation scale recorded (`runtime 6,721 LOC`, `handwritten tests/E2E 2,285 LOC`)
 - [x] Content integration audit completed in `CONTENT_INTEGRATION_AUDIT.md`
 - [x] Visual defects audit completed in `VISUAL_DEFECTS.md`
 - [x] RC-1 product-feel hardening completed: companion passive, achievement claim rewards, long-term goal, WebAudio feedback
 - [x] Direct art direction pass completed: integrated `layout.css`, 253 hand-authored SVG auxiliary files, mascot/tier/item/release support pack
-- [x] Raster final-style art pass completed: home hero background, main capybara character, 8 companion portraits, prestige ritual, shop banner, offline reward, store key visual, app icon candidate
+- [x] V2 raster/HUD art pass completed after rejecting the first raster pass: integrated home hero background, 8 companion portraits, prestige ritual, shop banner, offline reward, store key visual, app icon candidate, wood/parchment/orange game UI skin
 - [x] Visual asset integrity tests added for SVG count, raster PNG integrity, coverage, external-reference bans, runtime visual styling audit
 - [x] Art production docs added: `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`
 - [x] RC-2 audio readiness completed: file-ready audio slots and synthetic WebAudio fallback

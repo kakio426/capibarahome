@@ -6,7 +6,7 @@
 
 현재 RC asset pack은 외부 CDN, 상용 아이콘팩, 경쟁작 이미지, 스톡 이미지를 쓰지 않는다. 보조 아이콘/아이템은 `scripts/generateVisualAssets.mjs`가 게임 config와 직접 작성한 SVG drawing helper를 기반으로 생성한다. 핵심 감정/캐릭터/스토어 이미지는 built-in image generation으로 만든 PNG를 후처리해 `src/assets/raster/`에 두고, `RasterAssetRegistry`와 `RasterAssetImage`로 실제 UI에 연결한다.
 
-이전 SVG 중심 final art pass는 실패로 재분류했다. SVG는 currency, tab, upgrade, badge, decoration 같은 보조 visual 역할로 낮추고, 홈/앨범/환생/상점/오프라인/스토어의 주인공 이미지는 raster 후보를 쓴다.
+이전 SVG 중심 final art pass와 첫 raster pass는 실패로 재분류했다. 첫 raster pass는 PNG가 있어도 흰 둥근 카드와 웹앱 패널이 화면을 지배했다. SVG는 currency, tab, upgrade, badge, decoration 같은 보조 visual 역할로 낮추고, 홈/앨범/환생/상점/오프라인/스토어의 주인공 이미지는 v2 raster 후보와 game HUD skin으로 처리한다.
 
 ## 총량
 
@@ -19,14 +19,14 @@
 | Release/final candidates | 16 | `src/assets/generated/release/*.svg` |
 | Tier backgrounds | 5 | `src/assets/generated/tiers/*.svg` |
 | Total SVG files | 253 | `src/assets/generated/` |
-| Raster source/working PNG | 18 | `src/assets/raster/**/*.png` |
+| Raster PNG files | 15 | `src/assets/raster/**/*.png` |
 
 ## 필수 Asset Mapping
 
 | 요구 asset | 현재 산출물 | 크기/용도 |
 | --- | --- | --- |
 | 메인 hero background | `src/assets/raster/home/main-hero-background.png` | 홈 수확 scene |
-| 메인 카피바라 character | `src/assets/raster/home/main-capybara-character.png` | 홈 tap target character |
+| 메인 카피바라 crop candidate | `src/assets/raster/home/main-capybara-character.png` | app icon/fallback candidate. 홈 v2는 integrated hero scene을 우선 사용 |
 | mascot 기본 | `mascots/mascot-default.svg` | 평상시 홈 |
 | mascot 기쁨 | `mascots/mascot-happy.svg` | 구매/보상 반응 |
 | mascot 졸림 | `mascots/mascot-sleepy.svg` | idle 상태 |
@@ -63,4 +63,4 @@
 
 ## 남은 Art Risk
 
-현재 pack은 RC 제출 후보 검증용 직접 제작 SVG auxiliary pack + generated raster core art pack이다. 실제 스토어 출시 전에는 commissioned/final art 소유권과 법무 검토, platform app icon/adaptive icon/splash export, 물리 기기 store screenshot 재촬영이 P1 external readiness로 남아 있다.
+현재 pack은 RC 제출 후보 검증용 직접 제작 SVG auxiliary pack + generated v2 raster core art pack이다. 실제 스토어 출시 전에는 commissioned/final art 소유권과 법무 검토, platform app icon/adaptive icon/splash export, 물리 기기 store screenshot 재촬영이 P1 external readiness로 남아 있다.

@@ -526,11 +526,7 @@
     0 14px 22px rgba(31, 44, 36, 0.13);
 }
 
-.scene-backdrop,
-.sun-glow,
-.capybara-illustration,
 .hero-raster-background,
-.hero-character-wrap,
 .scene-reward-badge,
 .tap-copy {
   position: absolute;
@@ -559,34 +555,6 @@
     radial-gradient(circle at 50% 58%, rgba(255, 245, 199, 0.26), transparent 34%);
 }
 
-.hero-character-wrap {
-  left: 50%;
-  bottom: 54px;
-  z-index: 2;
-  width: min(276px, 72vw);
-  transform: translateX(-50%);
-  pointer-events: none;
-  filter: drop-shadow(0 18px 22px rgba(31, 44, 36, 0.34));
-}
-
-.hero-raster-character {
-  width: 100%;
-  height: auto;
-}
-
-.mood-happy .hero-character-wrap,
-.mood-celebrate .hero-character-wrap {
-  animation: mascot-bounce 1.1s ease-in-out infinite;
-}
-
-.mood-eating .hero-character-wrap {
-  animation: mascot-chew 1.2s ease-in-out infinite;
-}
-
-.mood-sleepy .hero-character-wrap {
-  animation: mascot-sway 2.2s ease-in-out infinite;
-}
-
 .scene-reward-badge {
   top: 86px;
   left: 14px;
@@ -608,152 +576,6 @@
 .scene-reward-badge.is-ready {
   color: #4f311f;
   background: rgba(255, 213, 104, 0.9);
-}
-
-.scene-backdrop {
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.32;
-  background:
-    radial-gradient(circle at 22% 18%, rgba(255, 213, 104, 0.52), transparent 62px),
-    linear-gradient(180deg, transparent 46%, rgba(47, 134, 93, 0.16) 47%, rgba(47, 134, 93, 0.24) 100%);
-}
-
-.scene-tree {
-  position: absolute;
-  bottom: 52px;
-  width: 86px;
-  height: 124px;
-}
-
-.scene-tree::before,
-.scene-tree::after {
-  content: "";
-  position: absolute;
-}
-
-.scene-tree::before {
-  left: 34px;
-  bottom: 0;
-  width: 18px;
-  height: 72px;
-  border-radius: 14px;
-  background: #7b4f2f;
-}
-
-.scene-tree::after {
-  left: 5px;
-  top: 2px;
-  width: 76px;
-  height: 76px;
-  border-radius: 50% 44% 50% 45%;
-  background:
-    radial-gradient(circle at 30% 38%, #ff982a 0 7px, transparent 8px),
-    radial-gradient(circle at 62% 28%, #ffb64b 0 7px, transparent 8px),
-    radial-gradient(circle at 54% 62%, #d95618 0 7px, transparent 8px),
-    #4f9d67;
-  box-shadow: 12px 24px 0 #2f865d;
-}
-
-.scene-tree-left {
-  left: 4px;
-}
-
-.scene-tree-right {
-  right: 2px;
-  bottom: 80px;
-  transform: scale(0.72);
-  opacity: 0.72;
-}
-
-.scene-facility {
-  position: absolute;
-  left: 30px;
-  bottom: 34px;
-  width: 74px;
-  height: 38px;
-  border-radius: 10px;
-  background:
-    linear-gradient(90deg, rgba(79, 49, 31, 0.22) 0 5px, transparent 5px 12px),
-    linear-gradient(180deg, #b27a48, #7b4f2f);
-  box-shadow: inset 0 0 0 3px rgba(255, 245, 199, 0.2);
-}
-
-.scene-pond {
-  position: absolute;
-  right: 26px;
-  bottom: 34px;
-  width: 112px;
-  height: 38px;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 30% 42%, rgba(255, 253, 242, 0.6), transparent 16px),
-    linear-gradient(180deg, #8ee0df, #4ba7b9);
-  box-shadow: inset 0 -7px 0 rgba(40, 124, 154, 0.24);
-}
-
-.scene-orange {
-  position: absolute;
-  width: 17px;
-  height: 17px;
-  border-radius: 50%;
-  background: #ff982a;
-  box-shadow: inset -4px -4px 0 rgba(217, 86, 24, 0.26);
-}
-
-.scene-orange-one {
-  left: 118px;
-  bottom: 58px;
-}
-
-.scene-orange-two {
-  right: 116px;
-  bottom: 88px;
-}
-
-.scene-orange-three {
-  left: 162px;
-  bottom: 42px;
-}
-
-.sun-glow {
-  top: 18px;
-  left: 50%;
-  width: 146px;
-  height: 146px;
-  pointer-events: none;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 213, 104, 0.5), rgba(255, 213, 104, 0));
-  animation: scene-breathe 3.6s ease-in-out infinite;
-}
-
-.capybara-illustration {
-  left: 50%;
-  top: 12px;
-  width: min(232px, 64vw);
-  aspect-ratio: 1;
-  pointer-events: none;
-  transform: translateX(-50%);
-  filter: drop-shadow(0 16px 0 rgba(79, 49, 31, 0.14)) drop-shadow(0 24px 22px rgba(31, 44, 36, 0.18));
-}
-
-.hero-mascot-asset {
-  width: 100%;
-  height: 100%;
-}
-
-.mood-happy .capybara-illustration,
-.mood-celebrate .capybara-illustration {
-  animation: mascot-bounce 1.1s ease-in-out infinite;
-}
-
-.mood-eating .capybara-illustration {
-  animation: mascot-chew 1.2s ease-in-out infinite;
-}
-
-.mood-sleepy .capybara-illustration {
-  animation: mascot-sway 2.2s ease-in-out infinite;
 }
 
 .tap-copy {
@@ -1766,103 +1588,63 @@
 }
 
 .decor-sunny-yard {
-  --tier-a: rgba(255, 213, 104, 0.3);
+  --decor-accent: rgba(255, 213, 104, 0.28);
+  --decor-x: 28%;
+  --decor-y: 24%;
 }
 
-.decor-basket-corner .scene-facility,
-.decor-storehouse-sign .scene-facility,
-.decor-crate-lane .scene-facility,
-.decor-fragrance-shelf .scene-facility,
-.decor-cart-stop .scene-facility {
-  width: 92px;
-  background:
-    radial-gradient(circle at 72% 42%, #ff982a 0 8px, transparent 9px),
-    linear-gradient(180deg, #b27a48, #7b4f2f);
+.decor-basket-corner,
+.decor-storehouse-sign,
+.decor-crate-lane,
+.decor-fragrance-shelf,
+.decor-cart-stop {
+  --decor-accent: rgba(255, 152, 42, 0.24);
+  --decor-x: 20%;
+  --decor-y: 76%;
 }
 
-.decor-paw-stamp .scene-backdrop::after,
-.decor-leaf-path .scene-backdrop::after,
-.decor-cart-track .scene-backdrop::after {
-  content: "";
-  position: absolute;
-  left: 86px;
-  right: 70px;
-  bottom: 20px;
-  height: 28px;
-  border-radius: 50%;
-  background:
-    repeating-radial-gradient(circle at 12px 14px, rgba(123, 79, 47, 0.22) 0 4px, transparent 5px 22px);
+.decor-paw-stamp,
+.decor-leaf-path,
+.decor-cart-track {
+  --decor-accent: rgba(255, 239, 177, 0.2);
+  --decor-x: 50%;
+  --decor-y: 86%;
 }
 
-.decor-nap-mat .scene-facility,
-.decor-towel-rack .scene-facility,
-.decor-snack-counter .scene-facility {
-  left: 46px;
-  bottom: 42px;
-  width: 96px;
-  height: 26px;
-  border-radius: 50% 50% 16px 16px;
-  background: linear-gradient(180deg, #fff1bd, #ff982a);
+.decor-nap-mat,
+.decor-towel-rack,
+.decor-snack-counter {
+  --decor-accent: rgba(255, 193, 91, 0.2);
+  --decor-x: 36%;
+  --decor-y: 80%;
 }
 
-.decor-watering-rill .scene-pond,
-.decor-pond-stones .scene-pond,
-.decor-onsen-mist .scene-pond {
-  width: 138px;
-  height: 46px;
-  background:
-    radial-gradient(circle at 34% 38%, rgba(255, 253, 242, 0.74), transparent 18px),
-    linear-gradient(180deg, #bcecf4, #287c9a);
+.decor-watering-rill,
+.decor-pond-stones,
+.decor-onsen-mist {
+  --decor-accent: rgba(142, 224, 223, 0.22);
+  --decor-x: 74%;
+  --decor-y: 76%;
 }
 
-.decor-onsen-mist .scene-backdrop::before,
-.decor-wind-chime .scene-backdrop::before,
-.decor-orange-lanterns .scene-backdrop::before,
-.decor-festival-ribbon .scene-backdrop::before,
-.decor-moon-observatory .scene-backdrop::before {
-  content: "";
-  position: absolute;
-  left: 44px;
-  right: 44px;
-  top: 28px;
-  height: 34px;
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at 20% 50%, rgba(255, 253, 242, 0.56), transparent 24px),
-    radial-gradient(circle at 50% 40%, rgba(255, 253, 242, 0.46), transparent 28px),
-    radial-gradient(circle at 80% 50%, rgba(255, 253, 242, 0.5), transparent 24px);
+.decor-bamboo-gate,
+.decor-wind-chime,
+.decor-orange-lanterns,
+.decor-festival-ribbon,
+.decor-moon-observatory {
+  --decor-accent: rgba(255, 245, 199, 0.2);
+  --decor-x: 72%;
+  --decor-y: 26%;
 }
 
-.decor-bamboo-gate .scene-tree-right,
-.decor-cart-track .scene-tree-right,
-.decor-wind-chime .scene-tree-right,
-.decor-orange-lanterns .scene-tree-right {
-  opacity: 1;
-  transform: scale(0.9);
-}
-
-.decor-golden-arch .scene-backdrop,
-.decor-leaf-plaque .scene-backdrop,
-.decor-leaf-path .scene-backdrop,
-.decor-compost-greenhouse .scene-backdrop,
-.decor-memory-gate .scene-backdrop,
-.decor-release-board .scene-backdrop {
-  background:
-    radial-gradient(circle at 50% 18%, rgba(255, 213, 104, 0.56), transparent 86px),
-    linear-gradient(180deg, transparent 42%, rgba(154, 125, 45, 0.16) 43%, rgba(39, 136, 102, 0.22) 100%);
-}
-
-@keyframes scene-breathe {
-  0%,
-  100% {
-    transform: translateX(-50%) scale(1);
-    opacity: 0.72;
-  }
-
-  50% {
-    transform: translateX(-50%) scale(1.08);
-    opacity: 1;
-  }
+.decor-golden-arch,
+.decor-leaf-plaque,
+.decor-compost-greenhouse,
+.decor-memory-gate,
+.decor-release-board {
+  --decor-accent: rgba(255, 213, 104, 0.28);
+  --decor-x: 50%;
+  --decor-y: 30%;
 }
 
 @keyframes mascot-bounce {
@@ -1926,6 +1708,415 @@
   }
 }
 
+/* RC4 game skin pass: remove the white web-card surface language. */
+.app-frame {
+  background:
+    radial-gradient(circle at 50% 110%, rgba(255, 152, 42, 0.24), transparent 28rem),
+    radial-gradient(circle at 10% 10%, rgba(61, 124, 78, 0.28), transparent 22rem),
+    linear-gradient(180deg, #244637 0%, #142b23 100%);
+}
+
+.game-shell {
+  --skin-wood: #6a3f22;
+  --skin-wood-dark: #2f1b12;
+  --skin-parchment: #f5dfaa;
+  --skin-ink: #2b1d14;
+  --skin-green: #1d4937;
+  --skin-orange: #ef7f22;
+  --skin-orange-dark: #a93f12;
+  --hud-line: rgba(64, 36, 18, 0.42);
+  --hud-shadow: 0 12px 0 rgba(47, 27, 18, 0.28), 0 24px 42px rgba(18, 35, 27, 0.26);
+
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 50% -4%, rgba(255, 201, 78, 0.18), transparent 18rem),
+    linear-gradient(180deg, #213f32 0%, #d4c089 18%, #d8b56a 100%);
+  box-shadow:
+    0 34px 92px rgba(0, 0, 0, 0.34),
+    0 0 0 5px rgba(61, 34, 17, 0.72),
+    inset 0 0 0 2px rgba(255, 235, 174, 0.4);
+}
+
+.top-bar {
+  height: 90px;
+  padding: 16px 17px 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 220, 133, 0.2), transparent 36%),
+    repeating-linear-gradient(90deg, rgba(255, 236, 177, 0.08) 0 10px, transparent 10px 38px),
+    linear-gradient(135deg, #244936 0%, #183326 38%, #5d341d 100%);
+  border-bottom: 5px solid #3f2414;
+  box-shadow: inset 0 -2px 0 rgba(255, 232, 154, 0.24), 0 12px 0 rgba(47, 27, 18, 0.2);
+}
+
+.top-bar h1 {
+  color: #fff4cc;
+  text-shadow: 0 4px 0 #352012, 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+.save-dot {
+  border: 3px solid #3a2416;
+  border-radius: 16px;
+  color: #fff1bf;
+  background: linear-gradient(180deg, #b97535 0%, #7c4727 55%, #3b2115 100%);
+  box-shadow: 0 8px 0 #24140d, inset 0 2px 0 rgba(255, 240, 194, 0.4);
+}
+
+.content-shell {
+  padding: 12px 12px 102px;
+  background:
+    radial-gradient(circle at 50% 0, rgba(255, 231, 143, 0.22), transparent 15rem),
+    linear-gradient(180deg, rgba(36, 73, 54, 0.18), rgba(77, 51, 27, 0.12)),
+    repeating-linear-gradient(118deg, rgba(68, 41, 22, 0.08) 0 2px, transparent 2px 18px);
+}
+
+.screen-header,
+.panel,
+.stats-panel,
+.today-quest-panel,
+.tier-story-panel,
+.long-term-panel,
+.goal-panel,
+.collection-panel,
+.album-hero,
+.quest-board,
+.companion-board,
+.decoration-board,
+.badge-board,
+.shop-feature-card,
+.settings-panel,
+.settings-actions,
+.upgrade-card,
+.quest-card,
+.product-card,
+.modal {
+  border: 4px solid var(--skin-wood-dark);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 244, 204, 0.86), rgba(235, 193, 114, 0.8)),
+    repeating-linear-gradient(90deg, rgba(88, 52, 27, 0.08) 0 6px, transparent 6px 24px),
+    var(--skin-parchment);
+  box-shadow:
+    0 9px 0 rgba(47, 27, 18, 0.34),
+    0 18px 26px rgba(18, 35, 27, 0.18),
+    inset 0 2px 0 rgba(255, 246, 212, 0.72),
+    inset 0 -3px 0 rgba(112, 66, 31, 0.16);
+}
+
+.screen-header {
+  padding: 12px 14px;
+  color: #fff2c2;
+  background:
+    linear-gradient(180deg, rgba(255, 213, 104, 0.18), transparent),
+    repeating-linear-gradient(90deg, rgba(255, 236, 177, 0.08) 0 8px, transparent 8px 34px),
+    linear-gradient(135deg, #70411f, #3a2114);
+}
+
+.screen-header::after {
+  width: 64px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(255, 198, 74, 0.16);
+  box-shadow: -26px 20px 0 rgba(255, 241, 191, 0.06);
+}
+
+.screen-header p,
+.screen-header .app-kicker {
+  color: rgba(255, 242, 194, 0.84);
+}
+
+.btn,
+.tap-copy {
+  border: 3px solid #5a2e16;
+  border-radius: 14px;
+  color: #fff9df;
+  background: linear-gradient(180deg, #ffc55b 0%, var(--skin-orange) 50%, #c24a16 100%);
+  box-shadow:
+    0 8px 0 var(--skin-orange-dark),
+    0 14px 22px rgba(91, 42, 15, 0.28),
+    inset 0 2px 0 rgba(255, 248, 216, 0.42);
+  text-shadow: 0 2px 0 rgba(98, 42, 12, 0.36);
+}
+
+.btn-secondary,
+.btn-ghost {
+  color: var(--skin-ink);
+  background: linear-gradient(180deg, #fff0c6, #e0b464);
+  box-shadow: 0 7px 0 rgba(74, 42, 20, 0.36), inset 0 2px 0 rgba(255, 250, 228, 0.6);
+}
+
+.bottom-tabs {
+  left: 10px;
+  right: 10px;
+  bottom: calc(8px + var(--safe-bottom));
+  gap: 5px;
+  border: 4px solid #2f1b12;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #8c5a2f 0%, #5d351d 58%, #2f1b12 100%);
+  box-shadow: 0 14px 0 rgba(47, 27, 18, 0.28), 0 24px 42px rgba(0, 0, 0, 0.22), inset 0 2px 0 rgba(255, 230, 164, 0.22);
+}
+
+.bottom-tabs button {
+  min-height: 58px;
+  border: 2px solid rgba(255, 225, 142, 0.16);
+  border-radius: 10px;
+  color: #e9c989;
+  background: rgba(47, 27, 18, 0.24);
+}
+
+.bottom-tabs button.is-active {
+  color: #2c1c12;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 248, 211, 0.48), transparent 38%),
+    linear-gradient(180deg, #ffd875 0%, #ef9a2f 64%, #bf521b 100%);
+  box-shadow: 0 6px 0 #6e2d12, inset 0 0 0 2px rgba(255, 246, 208, 0.34);
+}
+
+.tab-icon,
+.currency-icon,
+.upgrade-icon,
+.product-icon {
+  filter: drop-shadow(0 3px 0 rgba(47, 27, 18, 0.34));
+}
+
+.hero-card {
+  min-height: 532px;
+  border: 6px solid #2f1b12;
+  border-radius: 16px;
+  background: #12281f;
+  box-shadow:
+    0 12px 0 rgba(47, 27, 18, 0.42),
+    0 28px 42px rgba(18, 35, 27, 0.26),
+    inset 0 0 0 2px rgba(255, 225, 142, 0.24);
+}
+
+.capybara-touch {
+  min-height: 532px;
+  border-radius: 9px;
+  background: #11281f;
+  box-shadow: inset 0 -38px 0 rgba(18, 35, 27, 0.32);
+}
+
+.hero-raster-background {
+  object-position: 50% 48%;
+  filter: saturate(1.08) contrast(1.05);
+}
+
+.capybara-touch::after {
+  background:
+    linear-gradient(180deg, rgba(14, 31, 24, 0.04) 0%, rgba(14, 31, 24, 0.02) 48%, rgba(14, 31, 24, 0.44) 100%),
+    radial-gradient(circle at var(--decor-x, 78%) var(--decor-y, 30%), var(--decor-accent, rgba(255, 224, 132, 0.16)), transparent 24%),
+    radial-gradient(circle at 50% 48%, rgba(255, 224, 132, 0.22), transparent 30%);
+}
+
+.currency-grid {
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  gap: 8px;
+}
+
+.currency-display {
+  min-height: 58px;
+  grid-template-columns: 42px minmax(0, 1fr);
+  border: 3px solid rgba(47, 27, 18, 0.9);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(109, 64, 31, 0.92), rgba(52, 30, 18, 0.9));
+  box-shadow: 0 7px 0 rgba(30, 17, 10, 0.64), inset 0 2px 0 rgba(255, 224, 132, 0.18);
+  backdrop-filter: blur(4px);
+}
+
+.currency-icon {
+  border-radius: 10px;
+  background: linear-gradient(180deg, #ffe29c, #d99635);
+  box-shadow: inset 0 0 0 2px rgba(255, 248, 216, 0.4);
+}
+
+.currency-label {
+  color: rgba(255, 237, 184, 0.78);
+}
+
+.currency-display strong {
+  color: #fff7d8;
+  text-shadow: 0 2px 0 rgba(30, 17, 10, 0.5);
+}
+
+.scene-reward-badge {
+  top: 82px;
+  left: 11px;
+  border: 3px solid #3a2114;
+  border-radius: 10px;
+  color: #fff0c2;
+  background: linear-gradient(180deg, #426d39, #1d4937);
+  box-shadow: 0 6px 0 rgba(47, 27, 18, 0.44);
+}
+
+.hero-card .income-grid {
+  bottom: 74px;
+  gap: 8px;
+}
+
+.metric-tile,
+.stats-panel > div,
+.prestige-grid > div,
+.album-score-grid > div,
+.tier-meta-row span,
+.tier-reward-row span,
+.long-term-track span,
+.prestige-mini,
+.toggle-row,
+.segmented,
+.save-code-textarea,
+.save-import-textarea {
+  border: 3px solid rgba(65, 38, 20, 0.48);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(255, 239, 190, 0.86), rgba(216, 166, 88, 0.42));
+  box-shadow: inset 0 2px 0 rgba(255, 250, 224, 0.5), 0 4px 0 rgba(65, 38, 20, 0.12);
+}
+
+.hero-card .metric-tile {
+  color: #fff3c9;
+  border-color: rgba(47, 27, 18, 0.86);
+  background: rgba(67, 39, 21, 0.82);
+  box-shadow: 0 7px 0 rgba(30, 17, 10, 0.54), inset 0 2px 0 rgba(255, 224, 132, 0.14);
+  backdrop-filter: blur(4px);
+}
+
+.hero-card .metric-label,
+.hero-card .metric-tile strong {
+  color: #fff4cc;
+}
+
+.stats-panel,
+.today-quest-panel,
+.tier-story-panel,
+.long-term-panel,
+.goal-panel,
+.collection-panel,
+.album-hero,
+.quest-board,
+.companion-board,
+.decoration-board,
+.badge-board,
+.settings-panel,
+.settings-actions {
+  background:
+    linear-gradient(180deg, rgba(255, 238, 186, 0.94), rgba(222, 179, 102, 0.86)),
+    repeating-linear-gradient(90deg, rgba(95, 55, 27, 0.08) 0 8px, transparent 8px 28px);
+}
+
+.upgrade-card,
+.quest-card,
+.product-card,
+.companion-card,
+.decoration-card,
+.collection-badge {
+  border: 3px solid rgba(57, 33, 17, 0.66);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 238, 184, 0.92), rgba(203, 145, 72, 0.48)),
+    repeating-linear-gradient(90deg, rgba(98, 56, 28, 0.08) 0 6px, transparent 6px 24px);
+  box-shadow: 0 7px 0 rgba(55, 32, 17, 0.22), inset 0 2px 0 rgba(255, 250, 224, 0.45);
+}
+
+.upgrade-card.is-buyable,
+.quest-card.is-ready,
+.collection-badge.can-claim {
+  border-color: #9b4b18;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(255, 209, 86, 0.55), transparent 104px),
+    linear-gradient(180deg, #ffe8a6, #d58d3e);
+}
+
+.upgrade-card::before {
+  width: 12px;
+  background: linear-gradient(180deg, #ffd35f, #e8751d 56%, #5b341c);
+  opacity: 1;
+}
+
+.upgrade-icon {
+  border: 3px solid rgba(71, 41, 20, 0.42);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffe8a6, #c57b35);
+}
+
+.goal-chip,
+.collection-count,
+.boost-status,
+.owned-chip,
+.reward-chip,
+.upgrade-tier-chip,
+.upgrade-ready-chip,
+.upgrade-meta span,
+.companion-ability span {
+  border: 2px solid rgba(58, 34, 18, 0.38);
+  border-radius: 9px;
+  color: #2f1d12;
+  background: linear-gradient(180deg, #ffe9aa, #d7a55a);
+}
+
+.album-room-scene,
+.prestige-visual,
+.shop-banner-visual,
+.offline-visual {
+  border: 5px solid #2f1b12;
+  border-radius: 12px;
+  box-shadow: 0 8px 0 rgba(47, 27, 18, 0.38), inset 0 0 0 2px rgba(255, 230, 157, 0.18);
+}
+
+.album-sticker,
+.companion-portrait {
+  border: 5px solid #f8d981;
+  border-radius: 12px;
+  background: #5b341c;
+  box-shadow: 0 8px 0 rgba(47, 27, 18, 0.32), 0 14px 18px rgba(18, 35, 27, 0.18);
+}
+
+.prestige-card,
+.shop-feature-card {
+  border-color: #2f1b12;
+  background:
+    radial-gradient(circle at 70% 20%, rgba(247, 201, 78, 0.32), transparent 136px),
+    linear-gradient(160deg, #1d4937 0%, #3d2a1b 55%, #5f321a 100%);
+}
+
+.prestige-card h3,
+.prestige-card strong,
+.shop-feature-card h3,
+.shop-feature-card strong {
+  color: #fff4cc;
+}
+
+.modal-backdrop {
+  background: rgba(15, 30, 23, 0.58);
+}
+
+.modal {
+  border-width: 5px;
+  background:
+    radial-gradient(circle at 82% 0, rgba(255, 203, 80, 0.32), transparent 118px),
+    linear-gradient(180deg, #ffeab0, #d8a05a);
+}
+
+.modal-header {
+  border-bottom: 4px solid #2f1b12;
+  background:
+    linear-gradient(180deg, rgba(255, 222, 120, 0.16), transparent),
+    linear-gradient(135deg, #244936, #5b341c);
+}
+
+.modal-actions {
+  border-top: 3px solid rgba(64, 36, 18, 0.36);
+  background: rgba(104, 60, 30, 0.18);
+}
+
+.offline-reward {
+  border: 3px solid #7b4018;
+  border-radius: 10px;
+  color: #fff4cc;
+  background: linear-gradient(180deg, #ad5b22, #6b3418);
+  box-shadow: 0 6px 0 rgba(47, 27, 18, 0.3);
+}
+
 @media (max-width: 420px) {
   .app-frame {
     padding: 0;
@@ -1971,16 +2162,11 @@
   }
 
   .capybara-touch {
-    min-height: 390px;
+    min-height: min(500px, calc(100vh - 246px));
   }
 
   .hero-card {
-    min-height: 390px;
-  }
-
-  .hero-character-wrap {
-    bottom: 50px;
-    width: min(238px, 70vw);
+    min-height: min(500px, calc(100vh - 246px));
   }
 
   .scene-reward-badge {

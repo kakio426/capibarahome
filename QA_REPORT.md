@@ -50,12 +50,13 @@ Fix:
 ## Raster Art/CSS Production Pass
 
 - 이전 SVG 중심 final art 선언은 실패로 재분류했고, 근거를 `ART_FAILURE_REVIEW.md`에 남겼다.
+- 첫 번째 raster pass도 실패로 재분류했다. 핵심 PNG는 있었지만 흰 둥근 웹 카드와 generic app panel이 화면을 지배했기 때문이다.
 - `scripts/generateVisualAssets.mjs`의 253개 SVG pack은 currency, tab, upgrade, badge 같은 보조 visual로 유지한다.
-- built-in image generation과 후처리 workflow로 18개 PNG raster file을 추가했다. 핵심 UI에서 직접 쓰는 후보는 home hero background, main capybara character, 8 companion portraits, prestige ritual, shop reward banner, offline reward, store key visual, app icon candidate다.
+- built-in image generation과 후처리 workflow로 v2 PNG raster file 15개를 유지한다. 핵심 UI에서 직접 쓰는 후보는 integrated home hero background, 8 companion portraits, prestige ritual, shop reward banner, offline reward, store key visual이며, app icon candidate와 main capybara crop은 release/fallback 후보로 registry에 남겼다.
 - `RasterAssetRegistry.ts`와 `RasterAssetImage.tsx`를 추가해 핵심 raster asset을 key 기반으로 연결했다.
 - legacy visual fallback을 제거하고 `src/assets/builtinAssets.ts` fallback map으로 교체했다.
-- `layout.css`를 누적 override가 아니라 통합 게임 UI stylesheet로 전면 정리했다.
-- 홈 hero는 `main-hero-background.png`와 `main-capybara-character.png`가 주인공인 game scene으로 재구성했다.
+- `layout.css`를 누적 override가 아니라 wood/parchment/orange lacquer HUD 중심의 통합 게임 UI stylesheet로 전면 정리했다.
+- 홈 hero는 `main-hero-background.png` 안의 통합 orchard/capybara scene이 주인공이 되도록 재구성했고, 별도 도형 overlay는 숨겼다.
 - 앨범은 raster companion portrait를 sticker/companion card에 연결했다.
 - 환생 `prestige-ritual.png`, 상점 `shop-reward-banner.png`, 오프라인 보상 `offline-reward.png`, store screenshot `store-key-visual.png`을 실제 화면/스크린샷 흐름에 연결했다.
 - `visualAssetIntegrity.test.ts`는 253개 SVG 보조 asset, 게임 config coverage, 외부 image/href/url 부재, runtime visual styling banned pattern을 검증한다.
@@ -75,7 +76,7 @@ Fix:
 - 콘텐츠 config: 30개 업그레이드/시설, 50개 quest, 40개 achievement, 25개 decoration, 5개 tier, 8개 character.
 - 퀘스트/컬렉션: 동료 친밀도, 장식 배치, 보상 수령 중복 방지.
 - Release matrix: 242 registry asset key와 158 content record 연결성.
-- Visual asset integrity: 253 SVG auxiliary files, 18 raster PNG files, 외부 참조 없음, runtime visual styling audit.
+- Visual asset integrity: 253 SVG auxiliary files, 15 raster PNG files, 외부 참조 없음, runtime visual styling audit.
 - 저장/불러오기: 동일 상태 복구, 손상 Base64, checksum 불일치, v1/v2/v3 migration.
 - 오프라인 보상, 환생, 튜토리얼, 설정, 광고/IAP mock.
 - RC reward loops: companion passive, achievement claim reward, permanent multiplier, progression unlock, sound mute.
@@ -103,24 +104,24 @@ Fix:
 
 ## 시각 QA
 
-- Playwright screenshot 52개를 `qa-screenshots/`에 갱신했다.
+- Playwright visual flow가 52개 current screenshot을 갱신했다. `qa-screenshots/` 전체에는 archived before shots를 포함해 88개 PNG가 있다.
 - Store 후보 10개를 `store-screenshots/`에 갱신했다.
 - 360x740, 390x844, 430x932, desktop 1280x900 중앙 패널에서 overflow assertion 통과.
-- 홈 raster orchard scene/main capybara, 앨범 raster sticker portraits, 환생 ritual raster, 상점 reward banner raster, 오프라인 보상 raster, save modal 긴 code scroll을 재확인했다.
+- 홈 v2 raster orchard/capybara integrated scene, 앨범 raster sticker portraits, 환생 ritual raster, 상점 reward banner raster, 오프라인 보상 raster, save modal 긴 code scroll을 재확인했다.
 - Store 후보 10개는 raster store key visual을 full-screen background로 두고 gameplay panel/copy를 얹는 구성으로 재생성했다.
 - CSS audit: runtime visual files에서 temporary override marker, generic UI marker, external asset fallback marker를 제거했다.
 
 ## Source Budget Gate
 
-- handwritten runtime implementation: 6,538 LOC.
+- handwritten runtime implementation: 6,721 LOC.
 - handwritten tests/E2E: 2,285 LOC.
-- pure handwritten gameplay/UI/system/test total: 8,823 LOC.
+- pure handwritten gameplay/UI/system/test total: 9,006 LOC.
 - excluded config: 2,529 LOC.
 - excluded generated SVG/registry: 11,533 LOC.
 - excluded generated matrix tests: 5,846 LOC.
 - generated SVG files: 253.
 - registry asset keys: 242.
-- raster PNG files: 18, 23M total.
+- raster PNG files: 15, 19M total.
 
 ## 남은 리스크
 

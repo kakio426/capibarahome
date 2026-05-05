@@ -26,8 +26,8 @@ npm run cap:sync
 - 퀘스트 50종, 장식 25종, 카피바라 동료 친밀도/고유 passive ability와 별도 앨범 화면
 - 40개 업적 보상 claim UX: 귤, 황금 나뭇잎, 장식 해금, 친밀도, 영구 multiplier
 - 5개 성장 구간별 unlock toast, 보상 설명, 홈 장기 목표
-- 직접 제작한 SVG auxiliary asset pack 253개와 핵심 raster PNG art pack 18개 연결
-- raster home/prestige/shop/offline/store key visual 후보와 store screenshot 후보 10장
+- 직접 제작한 SVG auxiliary asset pack 253개와 핵심 raster PNG art pack 15개 연결
+- v2 raster home/prestige/shop/offline/store key visual 후보, wood/parchment/orange game HUD skin, store screenshot 후보 10장
 - RC-3 playtest pass: 첫 환생 33분 목표, 1/5/15/30/120분 밸런스 checkpoint, 실제 5분권 E2E
 - `STORY_BIBLE.md`와 연결된 8마리 카피바라 캐릭터/짧은 인게임 대사
 - 환생과 황금 나뭇잎 영구 배율
@@ -49,7 +49,7 @@ npm run cap:sync
 
 - IAP 샌드박스 보상은 개발 모드에서만 UI 버튼으로 실행합니다.
 - 경쟁작 벤치마크는 공식 스토어/공식 사이트의 공개 정보를 구조적 품질 기준으로만 참고했고, 에셋/문구/UI는 복제하지 않았습니다.
-- 현재 visual은 프로젝트 내부 수제 SVG auxiliary pack + generated raster core art 후보이며, commissioned store art로 교체할 수 있도록 registry/component 구조를 둡니다. 스토어 후보 이미지는 `store-screenshots/`에 있습니다.
+- 현재 visual은 프로젝트 내부 수제 SVG auxiliary pack + generated v2 raster core art 후보이며, commissioned store art로 교체할 수 있도록 registry/component 구조를 둡니다. 스토어 후보 이미지는 `store-screenshots/`에 있습니다.
 - 현재 효과음은 file-ready slot을 갖춘 WebAudio fallback입니다. 최종 음원 파일과 라이선스는 사용자가 제출 전 확정해야 합니다.
 - E2E는 Playwright로 실행하며, 실제 유저 플로우와 debug/cheat 플로우를 분리했습니다.
 - Base64는 저장 코드 전달 형식일 뿐 보안 암호화로 설명하지 않습니다.

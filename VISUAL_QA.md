@@ -4,57 +4,58 @@
 
 ## Summary
 
-Playwright visual flow captured 52 QA screenshots for 360x740, 390x844, 430x932, and desktop 1280x900 central panel. Store screenshot flow generated 10 promotional candidates under `store-screenshots/`. 이번 pass는 단순 기능 존재가 아니라 교사/학생이 첫 화면과 모달, 상점, 환생, 앨범, 오프라인 보상을 봤을 때 실제 모바일 게임 서비스처럼 느끼는지를 기준으로 확인했다.
+이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체하고 `layout.css`를 나무/귤/잎/집사 도구 테마의 game HUD skin으로 다시 정리했다.
 
-Commands:
+Current evidence:
 
 ```txt
 npx playwright test e2e/visual-regression.spec.ts --reporter=line
+4 passed, 52 screenshots regenerated
+
 npx playwright test e2e/store-screenshot-pack.spec.ts --reporter=line
-npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
+2 passed, 10 store screenshots regenerated
 ```
 
-Latest standalone result:
+Current asset baseline:
 
 ```txt
-visual-regression: 4 passed
-store-screenshot-pack: 2 passed
-combined final-art visual/store check: 6 passed
+src/assets/raster: 15 PNG files / 19M
+src/assets/generated: 253 SVG auxiliary files
+qa-screenshots: 88 PNG files including archived before shots
+store-screenshots: 10 PNG candidates
 ```
 
-Manual final screenshot spot check:
-- `qa-screenshots/390x844-home.png`: 카피바라/귤 정원이 숫자 카드보다 먼저 읽히는 scene 중심 화면으로 확인.
-- `qa-screenshots/390x844-collection.png`: companion raster portraits가 sticker room처럼 노출되는 앨범 화면으로 확인.
-- `qa-screenshots/390x844-prestige.png`: golden leaf ritual raster scene이 계산 패널보다 먼저 읽히는 환생 화면으로 확인.
-- `store-screenshots/iphone-01-home.png`: raster key art full-screen background 위에 gameplay panel/copy가 얹힌 store-facing composition으로 확인.
+## Before/After Judgment
 
-## Art/UI Fixes From Final Audit
-
-| Issue | Status | Evidence |
-| --- | --- | --- |
-| CSS가 누적 override처럼 보일 위험 | 해결 | `layout.css` 전면 재정리, runtime visual banned-pattern audit |
-| 외부/임시 visual fallback 의존 | 해결 | `builtinAssets.ts`, `scripts/generateVisualAssets.mjs`, 253 SVG auxiliary files, 18 raster PNG files |
-| 홈 key visual 부족 | 해결 | `main-hero-background.png`, `main-capybara-character.png`, `qa-screenshots/390x844-home.png` |
-| 환생/상점/오프라인 보상이 util 화면처럼 보일 위험 | 해결 | `prestige-ritual.png`, `shop-reward-banner.png`, `offline-reward.png`, refreshed screenshots |
-| 홈 카피바라가 보상/CTA보다 약하게 보이는 문제 | 해결 | `.hero-raster-background`, `.hero-raster-character`, `.scene-reward-badge`, refreshed `qa-screenshots/360x740-home.png` |
-| reload 직후 오프라인 모달/toast가 탭 클릭을 가로막음 | 해결 | offline min 60s, reward < 1 차단, toast pointer-events none, reload E2E assertion |
-| 상점/환생 screenshot에 toast 잔상이 남음 | 해결 | seeded visual flow에서 안정화 대기 후 capture |
-| 환생 progress label 대비 부족 | 해결 | `.prestige-card .progress-label` contrast 보강 |
-| generated matrix가 비대한 파일 크기를 품질로 오판 | 해결 | SVG 구조/외부 참조/깨진 문자 무결성 기준으로 변경 |
-| store 후보가 단순 앱 캡처처럼 보일 위험 | 해결 | iPhone/Android 후보 10장, raster store key visual full-screen background + gameplay panel + copy 구성 |
+| Gate | 이전 raster pass 판정 | v2 pass 판정 | 근거 |
+| --- | --- | --- | --- |
+| 390x844 home first impression | 실패. 핵심 이미지는 있었지만 흰 카드형 웹앱 UI가 먼저 보임 | 통과. 통합 orchard raster scene, carved header, wood tab dock, dark currency plaques가 먼저 읽힘 | `qa-screenshots/390x844-home.png` |
+| Core art quality | 실패. 일부 화면이 CSS/SVG/flat-vector 보조물처럼 보임 | 통과. home/prestige/shop/offline/store/companion에 professional raster 후보 연결 | `src/assets/raster/**/*.png`, `rasterAssetIntegrity.test.ts` |
+| UI skin | 실패. 카드/패널/버튼이 generic app 느낌 | 통과. wood/parchment/orange lacquer HUD로 교체 | `src/ui/styles/layout.css` |
+| Store screenshot | 부분 실패. 앱 캡처 포장 느낌이 강함 | 통과. key visual background + gameplay panel + store copy 구성 | `store-screenshots/iphone-01-home.png` |
+| 설정/저장 util 냄새 | 부분 실패 | 부분 통과. 게임 skin은 적용됐지만 긴 코드 box 자체는 기능형 UI라 P3 polish로 남김 | `qa-screenshots/390x844-save-modal.png` |
 
 ## Screen-by-Screen Review
 
-| Screen | 첫인상 | 캐릭터성 | 보상감 | placeholder 냄새 | 양산형 앱 UI 냄새 | 모바일 가독성 | 텍스트 잘림 | 버튼 터치성 | 화면 밀도 | 경쟁작 대비 부족한 점 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 홈 | 카피바라/귤/다음 목표가 즉시 보임 | raster orchard와 main capybara character가 중심 | 터치 CTA, scene reward badge, floating text, 목표/컬렉션 shelf | 낮음 | 낮음 | 360/390/430 통과 | 없음 | CTA 44px 이상 | 적정 | final idle animation은 아직 P2 |
-| 성장 | 구매 가능/비용/효과가 게임 상점처럼 보임 | 아이템 SVG가 시설 차이를 만듦 | 구매 가능 상태와 효과 meta 확인 | 낮음 | 중간 이하 | 통과 | 없음 | 카드 버튼 안정 | 다소 높지만 스캔 가능 | 장기적으로 quick-buy polish 가능 |
-| 앨범 | 캐릭터/장식/업적 분리 | raster companion sticker room과 8 portrait로 구분 | 보상 claim/친밀도/능력 표시 | 낮음 | 낮음 | 1열 companion card로 통과 | 없음 | claim 버튼 안정 | 풍부함 | 방 꾸미기 자유도는 P2 |
-| 환생 | 황금잎 보상 축제 톤 | raster ritual scene | 예상 잎/배율/progress가 명확 | 낮음 | 낮음 | 통과 | 없음 | 확인 버튼 안정 | 적정 | 환생 연출 animation은 P2 |
-| 상점 | mock임을 유지하면서 게임 상점처럼 구성 | raster reward banner 사용 | 광고 버프/샌드박스 보상 상태 표시 | 낮음 | 낮음 | 통과 | 없음 | 상품 버튼 안정 | 적정 | 실제 SDK 연결 전까지 sandbox |
-| 설정/세이브 | 기능적이지만 게임 톤 유지 | 작은 visual asset과 warm panel | export/import/reset 흐름 명확 | 낮음 | 중간 이하 | modal scroll 통과 | 없음 | 위험 행동 확인 | 적정 | native 저장 QA는 실기기 필요 |
-| 튜토리얼 | 첫 사용자가 막히지 않음 | highlighted target과 mascot tone | 다음 행동을 짧게 안내 | 낮음 | 낮음 | 360px 통과 | 없음 | 이전/다음/건너뛰기 안정 | 낮음 | 단계별 animation은 P2 |
-| 오프라인 보상 | 복귀 보상이 즉시 이해됨 | raster harvest/rest illustration 사용 | claim modal로 보상감 있음 | 낮음 | 낮음 | 통과 | 없음 | 수령 버튼 안정 | 적정 | 장시간 복귀 chest animation은 P2 |
+| Screen | v2 판정 | 확인 내용 | 경쟁작 대비 남은 부족점 |
+| --- | --- | --- | --- |
+| 홈 | 완료 | 카피바라와 귤 정원이 숫자보다 먼저 보이고, tap CTA/재화 HUD/하단 탭이 같은 wood HUD skin으로 통일됨 | Cats & Soup 같은 hand-drawn idle animation depth는 P2 |
+| 성장 | 완료 | spreadsheet형 white list에서 parchment/wood tool card로 이동. 구매 가능/불가능, 비용, 효과가 즉시 구분됨 | Egg, Inc.식 quick-buy 반복 조작 최적화는 P2 |
+| 앨범 | 완료 | v2 companion portrait 8종과 orchard room background가 보이고, 카드도 game shelf 톤으로 정리됨 | 방 꾸미기 자유 배치와 staged reveal은 P2 |
+| 환생 | 완료 | golden leaf ritual raster scene이 계산보다 먼저 보임. 예상 보상/진행률/확인 flow가 명확함 | ritual animation과 reset ceremony는 P2 |
+| 상점 | 완료 | reward banner가 mock shop을 게임 상점처럼 잡아주고, 실제 결제 오해 문구는 없음 | 실제 광고/IAP SDK 연결 전까지 sandbox |
+| 오프라인 보상 | 완료 | harvest/rest raster illustration과 보상 숫자가 모달 첫 시선으로 들어옴 | 장시간 복귀 chest opening animation은 P2 |
+| 설정/저장 | 완료 | tab/modal/textarea가 모바일에서 잘리지 않고 export/import 사용법이 보임 | native save/restore와 final code panel polish는 P3 |
+| 튜토리얼 | 완료 | 첫 사용자가 터치/성장/보상 흐름을 막히지 않고 볼 수 있음 | 단계별 mascot animation은 P3 |
+
+## Manual Spot Check
+
+- `qa-screenshots/390x844-home.png`: 첫인상은 웹 대시보드가 아니라 모바일 게임 home scene이다. 큰 흰 카드가 주인공이 되지 않는다.
+- `qa-screenshots/390x844-upgrades.png`: 아직 목록 구조지만 parchment/wood skin, icon plinth, orange CTA가 적용되어 개발자 UI 냄새는 P0가 아니다.
+- `qa-screenshots/390x844-collection.png`: portrait sticker room과 companion card가 보이며, 캐릭터 구분력이 이전보다 확실하다.
+- `qa-screenshots/390x844-prestige.png`: golden leaf ritual art가 화면 성격을 결정한다.
+- `qa-screenshots/390x844-shop.png`: reward banner와 상품 shelf가 mock provider 화면을 서비스 화면으로 보이게 한다.
+- `store-screenshots/iphone-01-home.png`: store-facing key art와 gameplay panel이 함께 보여 단순 앱 캡처 수준에서 벗어났다.
 
 ## Viewports
 
@@ -99,4 +100,4 @@ Manual final screenshot spot check:
 
 ## Remaining Visual Risk
 
-현재 화면은 내부 수제 SVG 253개를 보조 icon pack으로 유지하면서, 핵심 감정/캐릭터/스토어 이미지는 18개 raster PNG 후보로 교체한 release candidate 수준이다. 다만 commissioned art 소유권/법무 확정, platform icon/adaptive icon/splash export, 실제 device store screenshot 재촬영은 제출 전 P1 external art readiness로 남긴다.
+내부 P0/P1 visual blocker는 현재 없음으로 본다. 남은 항목은 final commissioned art ownership/legal approval, 실제 app icon/adaptive icon/splash export, 물리 기기 store screenshot 재촬영, 더 깊은 idle animation/chest reveal처럼 제출 전 또는 출시 후 polish에 해당한다.
