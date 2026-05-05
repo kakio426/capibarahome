@@ -14,7 +14,7 @@
 - [x] Story bible added and connected to UI/config
 - [x] Balance simulation added and tested
 - [x] Source budget re-audited without generated/config/docs/screenshots/build output
-- [x] Handwritten implementation scale recorded (`runtime 6,467 LOC`, `handwritten tests/E2E 1,678 LOC`)
+- [x] Handwritten implementation scale recorded (`runtime 6,604 LOC`, `handwritten tests/E2E 2,049 LOC`)
 - [x] Content integration audit completed in `CONTENT_INTEGRATION_AUDIT.md`
 - [x] Visual defects audit completed in `VISUAL_DEFECTS.md`
 - [x] RC-1 product-feel hardening completed: companion passive, achievement claim rewards, long-term goal, WebAudio feedback
@@ -22,6 +22,10 @@
 - [x] RC-2 audio readiness completed: file-ready audio slots and placeholder tone fallback
 - [x] RC-2 store screenshot pack generated: 10 candidates in `store-screenshots/`
 - [x] Native/store compliance docs added: asset credits, audio plan, native guide, device QA checklist
+- [x] RC-3 playtest/balance pass completed: first prestige 33m target, 1/5/15/30/120 minute checkpoint report
+- [x] RC-3 bug bash completed: save migration, corrupt import, rapid tap, duplicate rewards, prestige save/load, mute persistence
+- [x] RC-3 first five-minute real-user E2E added without debug shortcuts
+- [x] RC-3 store screenshot polish completed: album crop, prestige multiplier, save copy rechecked
 - [x] Save/import failure paths do not crash the app
 - [x] Offline reward, prestige, save/load, export/import flows tested
 - [x] Visual screenshots captured for 360x740, 390x844, 430x932, desktop

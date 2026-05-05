@@ -21,7 +21,7 @@ const shots = [
     id: "02-album",
     tab: "앨범",
     title: "8마리 친구와 정원 앨범",
-    subtitle: "카피바라별 능력과 퀘스트 보상을 모아 장기 목표를 이어갑니다",
+    subtitle: "카피바라별 능력과 보상으로 장기 목표를 이어갑니다",
   },
   {
     id: "03-prestige",
@@ -39,7 +39,7 @@ const shots = [
     id: "05-save",
     tab: "설정",
     title: "저장, 복구, 오프라인 보상까지",
-    subtitle: "export/import와 설정 토글을 모바일에서 바로 관리합니다",
+    subtitle: "export/import와 설정 토글을 모바일에서 관리합니다",
     modal: "save",
   },
 ];
@@ -191,7 +191,11 @@ for (const device of devices) {
         await page.getByRole("button", { name: shot.tab }).click();
       }
       if (shot.id === "02-album") {
-        await page.locator(".companion-board").scrollIntoViewIfNeeded();
+        await page.locator(".companion-board").evaluate((element) => {
+          const shell = document.querySelector(".content-shell");
+          if (!(shell instanceof HTMLElement) || !(element instanceof HTMLElement)) return;
+          shell.scrollTop = Math.max(0, element.offsetTop - 90);
+        });
       }
       if (shot.modal === "save") {
         await page.getByRole("button", { name: "세이브 Export/Import" }).click();

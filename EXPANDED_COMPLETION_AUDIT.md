@@ -43,8 +43,8 @@
 | debug 기반 장기 성장 QA E2E | 완료 | `debug-cheat-flow.spec.ts` |
 | 모바일 screenshot QA | 완료 | `visual-regression.spec.ts`, `qa-screenshots/`, `store-screenshot-pack.spec.ts`, `store-screenshots/` |
 | `SOURCE_BUDGET_REPORT.md` | 완료 | generated/config/docs 제외 기준으로 재감사 |
-| handwritten runtime 구현 규모 | 완료 | 6,467 LOC |
-| handwritten tests/E2E 규모 | 완료 | 1,678 LOC |
+| handwritten runtime 구현 규모 | 완료 | 6,604 LOC |
+| handwritten tests/E2E 규모 | 완료 | 2,049 LOC |
 | generated/config LOC 분리 | 완료 | generated SVG 41,077 LOC, generated tests 4,746 LOC, config 2,528 LOC |
 | 스토리/콘텐츠가 실제 UI와 연결 | 완료 | 홈, 튜토리얼, offline modal, achievement collection/toast, upgrade unlock copy |
 
@@ -52,8 +52,8 @@
 
 ```txt
 npm run build: passed
-npm test: 18 files / 454 tests passed
-npm run test:e2e: 19 passed
+npm test: 19 files / 462 tests passed
+npm run test:e2e: 21 passed
 npm run cap:sync: passed
 ```
 

@@ -23,3 +23,4 @@
 
 - 현재 이미지는 store submission 후보 pack이지만 최종 제출 전 실제 iOS/Android simulator 또는 물리 기기에서 다시 캡처해야 한다.
 - 실제 광고/IAP SDK가 붙기 전에는 상점 스크린샷/문구가 mock provider 상태임을 과장하지 않는다.
+- RC-3에서 album crop, prestige multiplier, save copy를 재점검했지만, 최종 제출 전 실제 store 기기 프레임과 final art 기준으로 다시 캡처한다.

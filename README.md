@@ -28,6 +28,7 @@ npm run cap:sync
 - 5개 성장 구간별 unlock toast, 보상 설명, 홈 장기 목표
 - generated SVG visual asset registry와 UI 연결
 - RC-2 app icon/splash/store screenshot frame 초안과 store screenshot 후보 10장
+- RC-3 playtest pass: 첫 환생 33분 목표, 1/5/15/30/120분 밸런스 checkpoint, 실제 5분권 E2E
 - `STORY_BIBLE.md`와 연결된 8마리 카피바라 캐릭터/짧은 인게임 대사
 - 환생과 황금 나뭇잎 영구 배율
 - localStorage 저장/로드, checksum, Base64 export/import, migration
@@ -40,6 +41,7 @@ npm run cap:sync
 - Capacitor iOS/Android 패키징 준비 config
 - `NATIVE_BUILD_GUIDE.md`, `DEVICE_QA_CHECKLIST.md`, `ASSET_CREDITS.md`, `AUDIO_ASSET_PLAN.md`
 - balance simulation과 source budget report
+- `PLAYTEST_REPORT.md` 기반 RC-3 bug bash와 store screenshot 재점검
 - expanded completion audit
 
 ## 기본 가정

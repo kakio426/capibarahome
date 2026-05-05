@@ -21,6 +21,8 @@
 | 1 second EPS simulation | 완료 | `src/tests/gameLoop.test.ts` |
 | tap gain simulation | 완료 | `src/tests/gameLoop.test.ts` |
 | delta clamp | 완료 | `src/tests/gameLoop.test.ts` |
+| hidden tab RAF guard | 완료 | `src/tests/gameLoop.test.ts` |
+| 150 rapid taps without negative/corrupt state | 완료 | `src/tests/rc3BugBash.test.ts` |
 | no horizontal overflow on target viewports | 완료 | `e2e/visual-regression.spec.ts` |
 | heavy visual screens render in mobile profile | 완료 | `npm run test:e2e` |
 | store screenshot pack renders high-resolution compositions | 완료 | `e2e/store-screenshot-pack.spec.ts`, 10 PNG outputs |
@@ -29,12 +31,12 @@
 
 ```txt
 npm test
-18 files passed, 454 tests passed
+19 files passed, 462 tests passed
 ```
 
 ```txt
 npm run test:e2e
-19 passed
+21 passed
 ```
 
 ```txt

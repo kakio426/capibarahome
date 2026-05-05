@@ -18,13 +18,13 @@ find src/tests/generated -type f \( -name '*.ts' -o -name '*.tsx' \) | sort | xa
 
 | 항목 | LOC | 감사 판정 |
 | --- | ---: | --- |
-| 순수 handwritten runtime 구현 `src/app src/core src/game src/state src/systems src/ui` | 6,467 | 실제 gameplay/UI/system 구현 규모 |
-| 순수 handwritten unit/E2E tests `src/tests e2e` excluding generated matrix | 1,678 | 실제 사람이 작성한 검증 규모 |
-| 순수 handwritten gameplay/UI/system/test 합계 | 8,145 | 이번 감사의 기준값 |
+| 순수 handwritten runtime 구현 `src/app src/core src/game src/state src/systems src/ui` | 6,604 | 실제 gameplay/UI/system 구현 규모 |
+| 순수 handwritten unit/E2E tests `src/tests e2e` excluding generated matrix | 2,049 | 실제 사람이 작성한 검증 규모 |
+| 순수 handwritten gameplay/UI/system/test 합계 | 8,653 | 이번 감사의 기준값 |
 | 반복 config `src/config` | 2,528 | 콘텐츠/오디오 데이터이므로 구현 LOC에서 제외 |
 | generated SVG/asset registry `src/assets/generated` | 41,077 | visual asset 산출물이므로 구현 LOC에서 제외 |
 | generated matrix tests `src/tests/generated` | 4,746 | 항목별 스냅샷 검증으로 인정하되 handwritten test LOC에서 제외 |
-| handwritten runtime+test byte size | 281,466 bytes | docs/build/assets 제외 기준 |
+| handwritten runtime+test byte size | 304,694 bytes | docs/build/assets 제외 기준 |
 
 ## 콘텐츠 수량 재검증
 
@@ -39,4 +39,4 @@ find src/tests/generated -type f \( -name '*.ts' -o -name '*.tsx' \) | sort | xa
 
 ## 판단
 
-이전의 `src` 54K LOC 주장은 generated SVG와 generated matrix test 비중이 커서 실제 구현 규모 근거로 쓰기 어렵다. 순수 handwritten 구현은 약 6.5K LOC, handwritten 검증까지 합치면 약 8.1K LOC다. RC-2에서 store screenshot pack, audio slot config, visual asset pass를 추가했으므로 남은 리스크는 final bespoke art, 실제 파일 기반 사운드, 실제 SDK, 물리 기기 QA 쪽으로 이동했다.
+이전의 `src` 54K LOC 주장은 generated SVG와 generated matrix test 비중이 커서 실제 구현 규모 근거로 쓰기 어렵다. 순수 handwritten 구현은 약 6.6K LOC, handwritten 검증까지 합치면 약 8.7K LOC다. RC-3에서 playtest/balance/bug bash와 store screenshot polish를 추가했으므로 남은 리스크는 final bespoke art, 실제 파일 기반 사운드, 실제 SDK, 물리 기기 QA 쪽으로 이동했다.

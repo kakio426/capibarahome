@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { GameConfig } from "../../config/GameConfig";
+import { BigNumberLite } from "../../core/BigNumberLite";
 import { getPrestigeStatus } from "../../systems/PrestigeManager";
 import { GameActions } from "../../game/GameActions";
 import { useGameStore } from "../../state/useGameStore";
@@ -7,6 +8,14 @@ import { Button } from "../components/Button";
 import { Modal } from "../components/Modal";
 import { Panel } from "../components/Panel";
 import { ProgressBar } from "../components/ProgressBar";
+
+function formatMultiplier(value: BigNumberLite) {
+  const safe = value.toNumberSafe();
+  if (safe > 0 && safe < 1000) {
+    return safe.toFixed(2).replace(/\.?0+$/, "");
+  }
+  return value.format();
+}
 
 export function PrestigePanel() {
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -40,11 +49,11 @@ export function PrestigePanel() {
         <div className="prestige-grid">
           <div>
             <span className="metric-label">현재 배율</span>
-            <strong>x{status.currentMultiplier.format("scientific")}</strong>
+            <strong>x{formatMultiplier(status.currentMultiplier)}</strong>
           </div>
           <div>
             <span className="metric-label">환생 후</span>
-            <strong>x{status.nextMultiplier.format("scientific")}</strong>
+            <strong>x{formatMultiplier(status.nextMultiplier)}</strong>
           </div>
         </div>
         <Button fullWidth disabled={!status.canPrestige} onClick={() => setConfirmOpen(true)}>

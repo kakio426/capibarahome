@@ -7,8 +7,8 @@
 | 항목 | 상태 | 근거 |
 | --- | --- | --- |
 | TypeScript/build 실패 | 없음 | `npm run build` 통과 |
-| unit/simulation test 실패 | 없음 | `npm test` 18 files / 454 tests passed |
-| E2E 실패 | 없음 | `npm run test:e2e` 19 passed |
+| unit/simulation test 실패 | 없음 | `npm test` 19 files / 462 tests passed |
+| E2E 실패 | 없음 | `npm run test:e2e` 21 passed |
 | 실제 유저 플로우 debug 의존 | 없음 | debug는 `e2e/debug-cheat-flow.spec.ts`에 격리 |
 | 모바일 overflow/주요 화면 깨짐 | 없음 | `visual-regression.spec.ts` screenshot/overflow 검증 통과 |
 | 저장/환생/오프라인 보상 blocking issue | 없음 | unit + E2E coverage |
@@ -17,12 +17,13 @@
 | visual defect P1 | 없음 | `VISUAL_DEFECTS.md`, save modal/tab/toast 수정 |
 | RC-1 reward feel P1 | 없음 | companion passive, achievement claim reward, long-term goal, WebAudio mute, RC-1 tests/E2E 추가 |
 | RC-2 presentation readiness P1 | 없음 | emoji UI reduction, portrait accessories, store screenshot pack 10장, audio slots, native/compliance docs |
+| RC-3 playtest/balance/bug bash P1 | 없음 | 첫 환생 33분, 실제 5분권 E2E, migration/corrupt import/rapid tap/reward duplicate tests, store screenshot 재감사 |
 
 ## Source Budget Audit Gate
 
 | 항목 | 판정 | 근거 |
 | --- | --- | --- |
-| generated/config/docs 제외 구현량 | 기록 완료 | runtime 6,467 LOC, handwritten tests/E2E 1,678 LOC |
+| generated/config/docs 제외 구현량 | 기록 완료 | runtime 6,604 LOC, handwritten tests/E2E 2,049 LOC |
 | 이전 54K `src` LOC 주장 | 완료 근거로 사용 금지 | generated SVG 41,077 LOC와 generated tests 4,746 LOC가 커서 별도 분리 |
 | 콘텐츠 실제 연결성 | 통과 | 30 upgrades/facilities, 50 quests, 40 achievements with claim rewards, 25 decorations, 8 capybaras with passive abilities, 5 tiers 항목별 감사 |
 
@@ -35,7 +36,7 @@
 - Bundle ID / package name 최종 확정
 - iOS signing certificate / provisioning profile
 - Android signing key
-- final app icon / splash / store screenshot assets. RC-2 초안과 후보 pack은 있음
+- final app icon / splash / store screenshot assets. RC-3 후보 pack은 있음
 - privacy policy URL
 - support URL
 - age rating answers

@@ -1,4 +1,5 @@
 import { BigNumberLite } from "../core/BigNumberLite";
+import { GameConfig } from "../config/GameConfig";
 import { selectEps } from "../game/GameSelectors";
 import { GameState } from "../game/GameTypes";
 import { restartTutorial } from "./TutorialManager";
@@ -66,15 +67,17 @@ export const DebugManager = {
   },
 
   makePrestigeReady(state: GameState, nowMs = Date.now()) {
+    const requirement = BigNumberLite.from(GameConfig.prestige.requirement);
+    const orangeGrant = requirement.subtract(state.currencies.orange).max(0);
     return stamp({
       ...state,
       currencies: {
         ...state.currencies,
-        orange: state.currencies.orange.add("1000000"),
+        orange: state.currencies.orange.add(orangeGrant),
       },
       lifetime: {
         ...state.lifetime,
-        totalOrangesEarned: state.lifetime.totalOrangesEarned.max("1000000"),
+        totalOrangesEarned: state.lifetime.totalOrangesEarned.max(requirement),
       },
     }, "환생 가능 상태로 변경", nowMs);
   },

@@ -3,7 +3,7 @@ import { seedSave, setOrange } from "./helpers";
 
 test("prestige flow preserves permanent currency and resets regular progress", async ({ page }) => {
   await seedSave(page, (state) => {
-    setOrange(state, "4000000");
+    setOrange(state, "100000000");
     state.upgrades.soft_paw = 3;
     state.generators.orange_basket = 5;
   });

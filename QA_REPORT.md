@@ -7,20 +7,20 @@
 ```txt
 npm run build
 tsc -b && vite build
-89 modules transformed
+90 modules transformed
 built successfully
 ```
 
 ```txt
 npm test
-Test Files  18 passed (18)
-Tests       454 passed (454)
+Test Files  19 passed (19)
+Tests       462 passed (462)
 ```
 
 ```txt
 npm run test:e2e
-Running 19 tests using 5 workers
-19 passed
+Running 21 tests using 5 workers
+21 passed
 ```
 
 ```txt
@@ -30,6 +30,14 @@ npm run build && cap sync
 built successfully
 Sync finished
 ```
+
+## RC-3 Playtest, Balance & Bug Bash
+
+- `BalanceSimulator`를 실제 플레이 cadence에 맞춰 조정했다. tick마다 무제한 구매하던 봇성 구매를 제한하고, 1분/5분/15분/30분/2시간/첫 환생/환생 후 30분 checkpoint를 기록한다.
+- 첫 환생 기준을 `25,000,000` 누적 귤로 상향했다. RC-3 기준 첫 환생 가능 시간은 33분 0초이며 목표권 30-60분 안에 있다.
+- 신규 실제 유저 E2E `e2e/first-five-minute-playtest.spec.ts`를 추가했다. debug 없이 터치, 퀘스트/업적 보상, 업그레이드, 장식 배치, 동료 보너스, 저장/reload, 오프라인 보상 중복 방지를 검증한다.
+- `src/tests/rc3BugBash.test.ts`를 추가해 v1/v2/v3 save migration, 손상 import/checksum, rapid tap, double purchase, reward duplicate, prestige save/load, mute persistence, long number format을 검증했다.
+- store screenshot pack 재감사에서 album crop, prestige multiplier `e0` 표기, save copy 길이를 수정하고 iPhone/Android 10장을 다시 생성/확인했다.
 
 ## RC-2 Native Store Readiness & Presentation Polish
 
@@ -51,7 +59,7 @@ Sync finished
 ## 이번 감사에서 확인한 것
 
 - `SOURCE_BUDGET_REPORT.md`를 generated/config/docs 제외 기준으로 재작성했다.
-- 순수 handwritten runtime 구현은 6,467 LOC, handwritten tests/E2E는 1,678 LOC로 산정했다.
+- 순수 handwritten runtime 구현은 6,604 LOC, handwritten tests/E2E는 2,049 LOC로 산정했다.
 - 이전의 54K `src` LOC는 generated SVG/registry와 generated matrix test 비중이 커서 실제 구현 규모 근거로 쓰지 않도록 정정했다.
 - `CONTENT_INTEGRATION_AUDIT.md`를 추가해 30 upgrades/facilities, 50 quests, 40 achievements, 25 decorations, 8 capybaras, 5 tiers의 UI/save/test/play impact를 항목별 검증했다.
 - 장식 25개 중 홈 hero visual class가 없던 11개를 CSS로 보강했다.
@@ -69,7 +77,8 @@ Sync finished
 - 오프라인 보상, 환생, 튜토리얼, 설정, 광고/IAP mock
 - RC-1 reward loops: companion passive, achievement claim reward, permanent multiplier, progression unlock, sound mute
 - RC-2 audio readiness: required slots, placeholder tone fallback, sound/music mute state
-- balance simulation: 1분/5분/30분/2시간 checkpoint, 첫 환생, 환생 후 30분, 광고 버프, 환생 후 성장 비교
+- RC-3 bug bash: save migration v1/v2/v3, corrupt import/checksum, rapid taps, duplicate reward guards, prestige save/load, mute persistence, long number formatting
+- balance simulation: 1분/5분/15분/30분/2시간 checkpoint, 첫 환생, 환생 후 30분, 광고 버프, 환생 후 성장 비교
 
 ## E2E 커버리지
 
@@ -88,6 +97,7 @@ Sync finished
 | `e2e/store-screenshot-pack.spec.ts` | 완료 | iPhone/Android store screenshot 후보 10장, debug shortcut 미사용 |
 | `e2e/debug-cheat-flow.spec.ts` | 완료 | `?debug=1` 격리와 장기 성장 QA |
 | `e2e/rc1-product-feel.spec.ts` | 완료 | 업적 보상 claim, 카피바라 passive 표시/수익, sound mute, 장기 목표 |
+| `e2e/first-five-minute-playtest.spec.ts` | 완료 | debug 없이 5분권 실제 플레이 보상/저장/장식/동료/오프라인 복귀 |
 
 ## 시각 QA
 
@@ -97,13 +107,13 @@ Sync finished
 - 하단 탭의 `업그레이드` visible label은 `성장`으로 줄여 360px 줄바꿈을 제거했고, aria-label은 유지했다.
 - toast는 자동 dismiss되고 compact width로 줄어 상점 버튼을 덮지 않는다.
 - 앨범/collection은 companion ability와 achievement reward claim을 표시한다. 390px에서 2열 companion card가 빽빽한 문제는 1열로 수정했다.
-- Store 후보 대표 이미지는 iPhone home과 Android save modal을 직접 확인했고, 긴 제목 줄바꿈과 toast 노출 문제를 수정했다.
+- Store 후보 10장을 직접 확인했다. RC-3에서 album crop, prestige multiplier `e0` 표기, save copy 길이를 수정했다.
 
 ## Source Budget Gate
 
-- handwritten runtime implementation: 6,467 LOC
-- handwritten tests/E2E: 1,678 LOC
-- pure handwritten gameplay/UI/system/test total: 8,145 LOC
+- handwritten runtime implementation: 6,604 LOC
+- handwritten tests/E2E: 2,049 LOC
+- pure handwritten gameplay/UI/system/test total: 8,653 LOC
 - excluded config: 2,528 LOC
 - excluded generated SVG/registry: 41,077 LOC
 - excluded generated matrix tests: 4,746 LOC

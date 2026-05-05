@@ -14,8 +14,8 @@
 | gap backlog와 P0/P1 해결 | 완료 | `PRODUCTION_GAP_BACKLOG.md` |
 | release blocker 분리 | 완료 | `RELEASE_BLOCKERS.md` |
 | `npm run build` | 완료 | `tsc -b && vite build`, success |
-| `npm test` | 완료 | Vitest 18 files, 454 tests passed |
-| `npm run test:e2e` | 완료 | Playwright 19 tests passed |
+| `npm test` | 완료 | Vitest 19 files, 462 tests passed |
+| `npm run test:e2e` | 완료 | Playwright 21 tests passed |
 | Capacitor packaging prep | 완료 | `capacitor.config.ts`, scripts, `npm run cap:sync` success |
 | 실제 스토어 업로드 미수행 | 완료 | 계정/인증서/프로비저닝 미제공. `RELEASE_CHECKLIST.md`와 `RELEASE_BLOCKERS.md`에 사용자 작업으로 분리 |
 
@@ -58,7 +58,7 @@
 | app icon/splash 초안 | 완료 | `src/assets/generated/release/app-icon-rc2.svg`, `src/assets/generated/release/splash-rc2.svg`, `src/assets/generated/release/store-screenshot-frame-rc2.svg` |
 | balance simulation | 완료 | `BalanceSimulator.ts`, `balanceSimulation.test.ts`, `BALANCE_SIMULATION.md` |
 | source budget report | 완료 | `SOURCE_BUDGET_REPORT.md` |
-| source budget 재검증 | 완료 | handwritten runtime 6,467 LOC, handwritten tests/E2E 1,678 LOC, generated/config/docs 제외 기준 `SOURCE_BUDGET_REPORT.md` |
+| source budget 재검증 | 완료 | handwritten runtime 6,604 LOC, handwritten tests/E2E 2,049 LOC, generated/config/docs 제외 기준 `SOURCE_BUDGET_REPORT.md` |
 
 ## Design Requirements
 
@@ -87,6 +87,7 @@
 | debug/cheat QA | 완료: `e2e/debug-cheat-flow.spec.ts` | 별도 `?debug=1`에서만 사용 |
 | RC-1 제품 감각 플로우 | 완료: `e2e/rc1-product-feel.spec.ts` | 사용 안 함 |
 | RC-2 store screenshot pack | 완료: `e2e/store-screenshot-pack.spec.ts` | 사용 안 함, store용 seed save fixture 사용 |
+| RC-3 first five-minute playtest | 완료: `e2e/first-five-minute-playtest.spec.ts` | 사용 안 함, 실제 유저 플로우와 저장/오프라인 복귀 분리 |
 
 ## Store Submission Artifacts
 
@@ -106,7 +107,7 @@
 | `DEVICE_QA_CHECKLIST.md` | 완료 | iPhone/Android physical QA 항목 |
 | `VISUAL_QA.md` | 완료 | screenshots and viewport audit |
 | `PERFORMANCE_QA.md` | 완료 | RAF/effects/storage/perf checks |
-| 기존 문서 최신화 | 완료 | README/DEVELOPER/BALANCE/SAVE/QA updated |
+| 기존 문서 최신화 | 완료 | README/DEVELOPER/BALANCE/SAVE/QA/PLAYTEST updated |
 
 ## P0/P1 Blockers
 

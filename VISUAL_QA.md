@@ -4,7 +4,7 @@
 
 ## Summary
 
-Playwright visual flow captured 48 current QA screenshots for 360x740, 390x844, 430x932, and desktop 1280x900 central panel. RC-2 also generated 10 store screenshot candidates under `store-screenshots/`. RC-1 before screenshots are archived under `qa-screenshots/rc1-before/`. This pass manually reviewed screenshots for text clipping, touch area, dense cards, developer UI feel, placeholder feel, reward visibility, and store presentation quality.
+Playwright visual flow captured 48 current QA screenshots for 360x740, 390x844, 430x932, and desktop 1280x900 central panel. RC-3 also generated and rechecked 10 store screenshot candidates under `store-screenshots/`. RC-1 before screenshots are archived under `qa-screenshots/rc1-before/`. This pass manually reviewed screenshots for text clipping, touch area, dense cards, developer UI feel, placeholder feel, reward visibility, first-prestige readability, and store presentation quality.
 
 Command:
 
@@ -37,6 +37,9 @@ Result:
 | Currency/product/offline UI still used emoji placeholders | 해결 | `CurrencyDisplay`, `MonetizationPanel`, offline reward modal now use generated assets and text units |
 | 8 capybara portraits looked too similar | 해결 | generated portrait accessory pass in `scripts/generateVisualAssets.mjs` |
 | Store screenshot home title wrapped awkwardly and toast appeared | 해결 | store screenshot copy shortened, toast hidden in store composition, refreshed `iphone-01-home.png` |
+| Store album screenshot cropped the useful companion/decoration area | 해결 | album screenshot scroll target adjusted, refreshed `iphone-02-album.png`, `android-02-album.png` |
+| Prestige multiplier displayed developer-style scientific suffix like `x1.35e0` | 해결 | `PrestigePanel.tsx` multiplier formatting changed to `x1.35` / `x1.4`, refreshed prestige screenshots |
+| Store save screenshot copy was too long for mobile composition | 해결 | store save subtitle shortened, refreshed `iphone-05-save.png`, `android-05-save.png` |
 
 ## Viewports
 
@@ -80,4 +83,4 @@ Result:
 
 ## Remaining Visual Risk
 
-현재 화면은 RC-2 후보로 읽을 수 있는 보상/능력/장기 목표와 store screenshot pack을 갖췄지만, Cats & Soup 수준의 bespoke hand-drawn animation과 final commissioned store art는 아직 아니다. 물리 기기 screenshot QA와 final character/store art 교체는 실제 제출 전 필요하다.
+현재 화면은 RC-3 후보로 읽을 수 있는 보상/능력/장기 목표/환생 가독성과 store screenshot pack을 갖췄지만, Cats & Soup 수준의 bespoke hand-drawn animation과 final commissioned store art는 아직 아니다. 물리 기기 screenshot QA와 final character/store art 교체는 실제 제출 전 필요하다.

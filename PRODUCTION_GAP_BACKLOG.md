@@ -38,6 +38,9 @@
 | 8마리 portrait 구분력 부족 | 앨범에서 색만 다른 카드처럼 보일 수 있음 | portrait generator에 캐릭터별 소품 추가 | 해결 |
 | 스토어 screenshot 부재 | QA screenshot만으로는 제출 후보 presentation을 판단하기 어려움 | iPhone/Android store screenshot pack 10장 생성 | 해결 |
 | audio 파일 교체 경로 부재 | WebAudio tone에서 실제 음원으로 넘어갈 연결 지점이 없음 | `AudioConfig.ts` 슬롯과 `fileSrc` pipeline 추가 | 해결 |
+| 첫 환생이 너무 빠르게 열릴 위험 | 초반 보상을 적극 수령하면 환생이 5분권으로 당겨져 30분 플레이 목표가 무너짐 | 구매 cadence simulation과 prestige requirement `25M` 조정, 첫 환생 33분 기록 | 해결 |
+| 실제 5분권 유저 플로우 검증 부족 | 단위 테스트만으로 보상/저장/장식/동료 루프의 실제 사용성을 판단하기 어려움 | `first-five-minute-playtest.spec.ts` 추가, debug 없이 reward/save/deco/companion/offline 검증 | 해결 |
+| store 후보 이미지 세부 polish 부족 | album crop, prestige `e0` 표기, save copy 길이가 제출 후보 인상을 낮춤 | store screenshot spec과 `PrestigePanel` formatting 보정 후 10장 재생성/검수 | 해결 |
 
 ## P2
 
@@ -61,4 +64,4 @@
 
 ## Current Gate
 
-재감사와 RC-1 hardening 중 발견한 내부 P1은 코드/CSS/테스트/E2E로 수정했다. 남은 항목은 final art, 실제 SDK, 물리 기기 QA, 더 깊은 수집 연출처럼 외부 준비나 추가 제품 확장에 가까운 P2/P3이다. 현재 감사 기준에서 P0/P1 release blocker는 없다.
+재감사, RC-1/RC-2 hardening, RC-3 playtest/balance/bug bash 중 발견한 내부 P1은 코드/CSS/테스트/E2E로 수정했다. 남은 항목은 final art, 실제 SDK, 물리 기기 QA, 더 깊은 수집 연출처럼 외부 준비나 추가 제품 확장에 가까운 P2/P3이다. 현재 감사 기준에서 P0/P1 release blocker는 없다.

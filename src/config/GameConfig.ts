@@ -7,7 +7,7 @@ export const GameConfig = {
     baseGain: "1",
   },
   prestige: {
-    requirement: "1000000",
+    requirement: "25000000",
     goldenLeafPower: 0.05,
   },
   offline: {

@@ -65,7 +65,7 @@ for (const viewport of viewports) {
     await expectNoHorizontalOverflow(page);
 
     await seedSave(page, (state) => {
-      setOrange(state, "4000000");
+      setOrange(state, "100000000");
       state.generators.orange_basket = 5;
       state.epsAtLastSave = BigNumberLite.from("1");
     });

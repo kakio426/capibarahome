@@ -96,6 +96,12 @@ Debug panel은 개발 모드에서도 기본 노출하지 않습니다. `/?debug
 
 `e2e/store-screenshot-pack.spec.ts`는 QA screenshot과 별도로 `store-screenshots/`에 iPhone/Android 후보 PNG를 생성합니다. 일반 유저 플로우와 동일하게 debug shortcut을 사용하지 않고, deterministic save fixture만 사용합니다.
 
+RC-3에서는 album scroll target, prestige multiplier formatting, save screenshot copy를 보정했다. store 후보 10장은 `VISUAL_QA.md`와 `STORE_SCREENSHOT_PLAN.md`에 기록한다.
+
+## Balance Playtest Pipeline
+
+`BalanceSimulator.ts`는 1분/5분/15분/30분/2시간, 첫 환생, 환생 후 30분 checkpoint를 기록합니다. RC-3 기준 첫 환생 가능 시간은 33분 0초이며, 자세한 playtest 판정은 `PLAYTEST_REPORT.md`와 `BALANCE_SIMULATION.md`를 기준으로 봅니다.
+
 ## 재화 추가
 
 1. `GameConfig.currency`에 재화 메타를 추가합니다.

@@ -13,8 +13,8 @@ describe("prestige", () => {
 
   it("grants golden leaves and resets regular progression", () => {
     const state = makeState();
-    state.currencies.orange = state.currencies.orange.add("1000000");
-    state.lifetime.totalOrangesEarned = state.lifetime.totalOrangesEarned.add("4000000");
+    state.currencies.orange = state.currencies.orange.add("25000000");
+    state.lifetime.totalOrangesEarned = state.lifetime.totalOrangesEarned.add("100000000");
     state.upgrades.soft_paw = 5;
     state.generators.orange_basket = 10;
 

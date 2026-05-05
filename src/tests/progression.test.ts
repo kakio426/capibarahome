@@ -32,7 +32,7 @@ describe("progression selectors", () => {
     state.lifetime.totalTaps = 1;
     state.upgrades.soft_paw = 1;
     state.generators.orange_basket = 1;
-    state.lifetime.totalOrangesEarned = BigNumberLite.from("1000000");
+    state.lifetime.totalOrangesEarned = BigNumberLite.from("25000000");
 
     const badges = selectCollectionBadges(state);
 

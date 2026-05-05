@@ -60,6 +60,8 @@
 | RC-2 store screenshot pack | 완료 | `e2e/store-screenshot-pack.spec.ts`, `store-screenshots/` 10 PNG 후보, `STORE_SCREENSHOT_PLAN.md` |
 | RC-2 audio readiness | 완료 | `AudioConfig.ts`, file-ready `SoundManager.ts`, `audio.test.ts`, `AUDIO_ASSET_PLAN.md` |
 | RC-2 native/store compliance docs | 완료 | `NATIVE_BUILD_GUIDE.md`, `DEVICE_QA_CHECKLIST.md`, `ASSET_CREDITS.md`, `PRIVACY_NOTES.md`, `STORE_LISTING_DRAFT.md` |
+| RC-3 playtest/balance bug bash | 완료 | `PLAYTEST_REPORT.md`, `BalanceSimulator.ts`, `balanceSimulation.test.ts`, `rc3BugBash.test.ts`, `first-five-minute-playtest.spec.ts` |
+| RC-3 store screenshot polish | 완료 | album crop, prestige multiplier formatting, save screenshot copy 수정, `store-screenshots/` 10장 재생성 |
 
 ## Trace Gate
 

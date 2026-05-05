@@ -1,11 +1,15 @@
 import { GameConfig } from "../config/GameConfig";
 import { BigNumberLite } from "../core/BigNumberLite";
 import { calculateOfflineReward } from "../core/gameMath";
-import { selectCanPrestige, selectEps, selectTapGain } from "../game/GameSelectors";
+import { selectCanPrestige, selectEps, selectNextUpgradeGoal, selectPrestigeGain, selectTapGain } from "../game/GameSelectors";
 import { GameState } from "../game/GameTypes";
 import { createInitialState } from "../state/initialState";
+import { applyAchievementUnlocks, claimAchievementReward, getAchievementViewModels } from "./AchievementManager";
 import { getCompanionBonuses } from "./CompanionBonusManager";
+import { equipDecoration, getCollectionSummary, getDecorationViewModels } from "./CollectionManager";
 import { performPrestige } from "./PrestigeManager";
+import { applyProgressionUnlocks, getNextProgressionReward } from "./ProgressionRewardManager";
+import { claimQuestReward, getQuestBoardSummary } from "./QuestManager";
 import { getUpgradeViewModels, purchaseUpgrade } from "./UpgradeManager";
 
 export type BalanceCheckpoint = {
@@ -17,6 +21,19 @@ export type BalanceCheckpoint = {
   tapGain: string;
   upgradesOwned: number;
   unlockedUpgrades: number;
+  buyableUpgradeNames: string[];
+  readyQuestTitles: string[];
+  claimedQuestCount: number;
+  unlockedAchievementCount: number;
+  claimableAchievementCount: number;
+  claimedAchievementCount: number;
+  unlockedCompanionCount: number;
+  unlockedDecorationCount: number;
+  equippedDecorationCount: number;
+  systemsSeen: string[];
+  nextQuest: string;
+  nextGoal: string;
+  prestigeGain: string;
   canPrestige: boolean;
 };
 
@@ -34,6 +51,7 @@ export type BalanceSimulationOptions = {
   durationSeconds: number;
   tickSeconds?: number;
   tapsPerSecond?: number;
+  maxPurchasesPerTick?: number;
   adBoostActive?: boolean;
   startingGoldenLeaf?: string;
 };
@@ -41,6 +59,7 @@ export type BalanceSimulationOptions = {
 const CHECKPOINTS = [
   { label: "첫 1분", seconds: 60 },
   { label: "첫 5분", seconds: 300 },
+  { label: "첫 15분", seconds: 900 },
   { label: "첫 30분", seconds: 1800 },
   { label: "첫 2시간", seconds: 7200 },
 ];
@@ -70,10 +89,10 @@ function applyIncome(state: GameState, seconds: number, tapsPerSecond: number, n
   };
 }
 
-function autoBuyAffordable(state: GameState, nowMs: number) {
+function autoBuyAffordable(state: GameState, nowMs: number, maxPurchases: number) {
   let nextState = state;
   let safety = 0;
-  while (safety < 200) {
+  while (safety < maxPurchases) {
     safety += 1;
     const target = getUpgradeViewModels(nextState)
       .filter((item) => item.unlocked && item.canBuy)
@@ -86,8 +105,95 @@ function autoBuyAffordable(state: GameState, nowMs: number) {
   return nextState;
 }
 
+function applyUnlocks(state: GameState, nowMs: number) {
+  return applyProgressionUnlocks(applyAchievementUnlocks(state, nowMs), nowMs);
+}
+
+function autoClaimReadyRewards(state: GameState, nowMs: number) {
+  let nextState = applyUnlocks(state, nowMs);
+  let safety = 0;
+  while (safety < 80) {
+    safety += 1;
+    const readyQuest = getQuestBoardSummary(nextState, nowMs).ready[0];
+    if (readyQuest) {
+      const result = claimQuestReward(nextState, readyQuest.id, nowMs);
+      if (result.ok) {
+        nextState = applyUnlocks(result.state, nowMs);
+        continue;
+      }
+    }
+
+    const readyAchievement = getAchievementViewModels(nextState, nowMs).find((achievement) => achievement.canClaimReward);
+    if (readyAchievement) {
+      const result = claimAchievementReward(nextState, readyAchievement.id, nowMs);
+      if (result.ok) {
+        nextState = applyUnlocks(result.state, nowMs);
+        continue;
+      }
+    }
+
+    break;
+  }
+  return nextState;
+}
+
+function autoEquipUnlockedDecorations(state: GameState, nowMs: number) {
+  let nextState = state;
+  const occupiedSlots = new Set(Object.keys(nextState.decorations.equippedBySlot));
+  for (const decoration of getDecorationViewModels(nextState)) {
+    if (!decoration.unlocked || decoration.equipped || occupiedSlots.has(decoration.slot)) continue;
+    const result = equipDecoration(nextState, decoration.id, nowMs);
+    if (result.ok) {
+      nextState = result.state;
+      occupiedSlots.add(decoration.slot);
+    }
+  }
+  return nextState;
+}
+
+function applyPlayerMaintenance(state: GameState, nowMs: number) {
+  const withRewards = autoClaimReadyRewards(state, nowMs);
+  const withDecorations = autoEquipUnlockedDecorations(withRewards, nowMs);
+  return applyUnlocks(withDecorations, nowMs);
+}
+
+function advancePlayerDecisionCycle(state: GameState, nowMs: number, maxPurchases: number) {
+  const withRewards = applyPlayerMaintenance(state, nowMs);
+  const withPurchases = autoBuyAffordable(withRewards, nowMs, maxPurchases);
+  return applyPlayerMaintenance(withPurchases, nowMs);
+}
+
+function checkpointNextGoal(state: GameState, nowMs: number) {
+  const questBoard = getQuestBoardSummary(state, nowMs);
+  const nextUpgrade = selectNextUpgradeGoal(state);
+  const nextTier = getNextProgressionReward(state);
+  if (questBoard.ready[0]) return `퀘스트 보상 수령: ${questBoard.ready[0].title}`;
+  if (selectCanPrestige(state)) return `환생 가능: 황금 나뭇잎 ${selectPrestigeGain(state).format(state.settings.numberFormat)}개`;
+  if (nextUpgrade) return `${nextUpgrade.name}: ${nextUpgrade.actionLabel}`;
+  if (nextTier) return `${nextTier.name}까지 누적 ${BigNumberLite.from(nextTier.requiredLifetimeOranges).format(state.settings.numberFormat)} 귤`;
+  return "앨범 보상과 장식 배치를 마무리";
+}
+
+function checkpointSystemsSeen(state: GameState, nowMs: number) {
+  const achievements = getAchievementViewModels(state, nowMs);
+  const collection = getCollectionSummary(state);
+  const systems = [
+    ownedLevels(state) > 0 ? "upgrade" : null,
+    selectEps(state, nowMs).compare(0) > 0 ? "idle" : null,
+    state.quests.claimedIds.length > 0 ? "quest" : null,
+    achievements.some((achievement) => achievement.unlocked || achievement.rewardClaimed) ? "album" : null,
+    collection.unlockedCompanions > 0 ? "companion" : null,
+    collection.equippedDecorations.length > 1 ? "decoration" : null,
+    selectCanPrestige(state) ? "prestige" : null,
+  ];
+  return systems.filter((system): system is string => Boolean(system));
+}
+
 function createCheckpoint(label: string, seconds: number, state: GameState, nowMs: number): BalanceCheckpoint {
   const upgrades = getUpgradeViewModels(state);
+  const questBoard = getQuestBoardSummary(state, nowMs);
+  const achievements = getAchievementViewModels(state, nowMs);
+  const collection = getCollectionSummary(state);
   return {
     label,
     seconds,
@@ -97,6 +203,23 @@ function createCheckpoint(label: string, seconds: number, state: GameState, nowM
     tapGain: selectTapGain(state, nowMs).format(state.settings.numberFormat),
     upgradesOwned: ownedLevels(state),
     unlockedUpgrades: upgrades.filter((item) => item.unlocked).length,
+    buyableUpgradeNames: upgrades
+      .filter((item) => item.unlocked && item.canBuy)
+      .sort((a, b) => a.cost.compare(b.cost))
+      .slice(0, 5)
+      .map((item) => `${item.name} Lv.${item.level + 1}`),
+    readyQuestTitles: questBoard.ready.map((quest) => quest.title),
+    claimedQuestCount: questBoard.claimed.length,
+    unlockedAchievementCount: achievements.filter((achievement) => achievement.unlocked).length,
+    claimableAchievementCount: achievements.filter((achievement) => achievement.canClaimReward).length,
+    claimedAchievementCount: state.achievements.claimedRewardIds.length,
+    unlockedCompanionCount: collection.unlockedCompanions,
+    unlockedDecorationCount: collection.unlockedDecorations,
+    equippedDecorationCount: collection.equippedDecorations.length,
+    systemsSeen: checkpointSystemsSeen(state, nowMs),
+    nextQuest: questBoard.next?.title ?? "없음",
+    nextGoal: checkpointNextGoal(state, nowMs),
+    prestigeGain: selectPrestigeGain(state).format(state.settings.numberFormat),
     canPrestige: selectCanPrestige(state),
   };
 }
@@ -104,11 +227,13 @@ function createCheckpoint(label: string, seconds: number, state: GameState, nowM
 export function runBalanceSimulation(options: BalanceSimulationOptions): BalanceSimulationResult {
   const tickSeconds = options.tickSeconds ?? 5;
   const tapsPerSecond = options.tapsPerSecond ?? 1.2;
+  const maxPurchasesPerTick = options.maxPurchasesPerTick ?? 4;
   const startMs = 1_700_000_000_000;
   let state = createInitialState(startMs);
   state.tutorial.completed = true;
   state.tutorial.visible = false;
   state.currencies.goldenLeaf = BigNumberLite.from(options.startingGoldenLeaf ?? "0");
+  state = applyPlayerMaintenance(state, startMs);
   if (options.adBoostActive) {
     state.monetization.adBoostUntil = startMs + options.durationSeconds * 1000 + 60_000;
   }
@@ -121,7 +246,7 @@ export function runBalanceSimulation(options: BalanceSimulationOptions): Balance
   for (let elapsed = tickSeconds; elapsed <= options.durationSeconds; elapsed += tickSeconds) {
     const nowMs = startMs + elapsed * 1000;
     state = applyIncome(state, tickSeconds, tapsPerSecond, nowMs);
-    state = autoBuyAffordable(state, nowMs);
+    state = advancePlayerDecisionCycle(state, nowMs, maxPurchasesPerTick);
     if (firstPrestigeSeconds === null && selectCanPrestige(state)) {
       firstPrestigeSeconds = elapsed;
       firstPrestigeCheckpoint = createCheckpoint("첫 환생 가능", elapsed, state, nowMs);
@@ -131,7 +256,7 @@ export function runBalanceSimulation(options: BalanceSimulationOptions): Balance
         for (let postElapsed = tickSeconds; postElapsed <= 1800; postElapsed += tickSeconds) {
           const postNow = nowMs + postElapsed * 1000;
           postPrestigeState = applyIncome(postPrestigeState, tickSeconds, tapsPerSecond, postNow);
-          postPrestigeState = autoBuyAffordable(postPrestigeState, postNow);
+          postPrestigeState = advancePlayerDecisionCycle(postPrestigeState, postNow, maxPurchasesPerTick);
         }
         postPrestigeThirtyMinuteCheckpoint = createCheckpoint(
           "환생 후 30분",

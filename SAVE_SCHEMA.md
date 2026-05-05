@@ -94,6 +94,12 @@ Capacitor native wrapper에서도 같은 WebView storage 계층을 사용합니�
 
 구버전 save에는 achievement 필드가 없으므로 migration에서 빈 배열과 `null`을 기본값으로 채웁니다.
 
+## Version 1 기준
+
+초기 save는 currency/lifetime/upgrades/generators/settings/tutorial/monetization/epsAtLastSave 중심입니다. `settings.vibrationEnabled`, `settings.numberFormat`, `monetization.purchasedProductIds`, achievement/quest/companion/decoration/progression 필드가 없을 수 있습니다.
+
+RC-3 bug bash에서 v1/v2/v3 payload를 checksum 포함 import하고 현재 v4 state로 안전하게 변환되는지 `src/tests/rc3BugBash.test.ts`로 검증합니다.
+
 ## Checksum
 
 `SaveManager`는 checksum 필드를 제외한 payload를 key 정렬 stringify한 뒤 FNV-1a 기반 checksum을 계산합니다. Import 시 checksum이 다르면 거부하고 앱은 유지됩니다.
