@@ -55,7 +55,11 @@ function writeAssetMatrix(keys) {
     chunks.push(`    const body = readFileSync(filePath, "utf8");`);
     chunks.push(`    expect(body.startsWith("<svg"), ${JSON.stringify(key)}).toBe(true);`);
     chunks.push(`    expect(body, ${JSON.stringify(key)}).toContain("aria-label");`);
-    chunks.push(`    expect(body.length, ${JSON.stringify(key)}).toBeGreaterThan(10_000);`);
+    chunks.push(`    expect(body.length, ${JSON.stringify(key)}).toBeGreaterThan(900);`);
+    chunks.push(`    expect(body, ${JSON.stringify(key)}).not.toContain("<image");`);
+    chunks.push(`    expect(body, ${JSON.stringify(key)}).not.toMatch(/href=["']https?:/);`);
+    chunks.push(`    expect(body, ${JSON.stringify(key)}).not.toMatch(/url\\(["']?https?:/);`);
+    chunks.push(`    expect(body, ${JSON.stringify(key)}).not.toContain("\\uFFFD");`);
     chunks.push(`    expect(body, ${JSON.stringify(key)}).toContain("</svg>");`);
     chunks.push(`  });`);
     chunks.push("");

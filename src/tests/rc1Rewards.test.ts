@@ -64,8 +64,8 @@ describe("RC-1 reward loops", () => {
 
     boosted.epsAtLastSave = BigNumberLite.from("10");
     boosted.lastSavedAt = 0;
-    const offline = createOfflineReward(boosted, 10_000);
-    expect(offline?.oranges.compare(75)).toBeGreaterThan(0);
+    const offline = createOfflineReward(boosted, 120_000);
+    expect(offline?.oranges.compare(900)).toBeGreaterThan(0);
   });
 
   it("lets players claim achievement rewards once and turns permanent rewards into multipliers", () => {

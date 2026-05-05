@@ -14,12 +14,14 @@
 - [x] Story bible added and connected to UI/config
 - [x] Balance simulation added and tested
 - [x] Source budget re-audited without generated/config/docs/screenshots/build output
-- [x] Handwritten implementation scale recorded (`runtime 6,604 LOC`, `handwritten tests/E2E 2,049 LOC`)
+- [x] Handwritten implementation scale recorded (`runtime 6,374 LOC`, `handwritten tests/E2E 2,186 LOC`)
 - [x] Content integration audit completed in `CONTENT_INTEGRATION_AUDIT.md`
 - [x] Visual defects audit completed in `VISUAL_DEFECTS.md`
 - [x] RC-1 product-feel hardening completed: companion passive, achievement claim rewards, long-term goal, WebAudio feedback
-- [x] RC-2 visual asset pass completed: emoji UI reduction, 8 portrait accessory pass, app icon/splash/frame drafts
-- [x] RC-2 audio readiness completed: file-ready audio slots and placeholder tone fallback
+- [x] Direct art direction pass completed: integrated `layout.css`, 245 hand-authored SVG files, mascot/portrait/tier/item/release asset pack
+- [x] Visual asset integrity test added for SVG count, coverage, external-reference bans, runtime visual styling audit
+- [x] Art production docs added: `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`
+- [x] RC-2 audio readiness completed: file-ready audio slots and synthetic WebAudio fallback
 - [x] RC-2 store screenshot pack generated: 10 candidates in `store-screenshots/`
 - [x] Native/store compliance docs added: asset credits, audio plan, native guide, device QA checklist
 - [x] RC-3 playtest/balance pass completed: first prestige 33m target, 1/5/15/30/120 minute checkpoint report
@@ -37,7 +39,7 @@
 - [x] Scripts added: `cap:sync`, `cap:open:ios`, `cap:open:android`
 - [x] Capacitor CLI available: `npx cap --version`
 - [x] `npm run cap:sync` completes for web assets
-- [x] `NATIVE_BUILD_GUIDE.md` documents app id/package placeholder and icon/splash paths
+- [x] `NATIVE_BUILD_GUIDE.md` documents temporary app id/package values and icon/splash paths
 - [ ] Native platform folders generated with `npx cap add ios` and `npx cap add android`
 - [ ] iOS project opened and signed in Xcode
 - [ ] Android project opened and signed in Android Studio

@@ -25,8 +25,8 @@
 | 홈/업그레이드/환생/상점/설정/튜토리얼/오프라인 polish | 완료 | 6탭 모바일 UI, album/quest/decor screen, visual assets, screenshots |
 | achievement/collection 화면 | 완료 | `CollectionScreen.tsx`, quest board, companions, abilities, decorations, reward claim badge board |
 | 성장 구간별 background visual | 완료 | tier CSS variables/classes in `layout.css` |
-| mascot visual 5상태 | 완료 | `mood-default/happy/sleepy/eating/celebrate` |
-| 귤/황금 나뭇잎/시설 icon set | 완료 | `scripts/generateVisualAssets.mjs`, `src/assets/generated`, `VisualAssetIcon.tsx` |
+| mascot visual 5상태 | 완료 | `mascot-default/happy/sleepy/eating/celebrate`, `VisualAssetIcon` |
+| 귤/황금 나뭇잎/시설 icon set | 완료 | 직접 제작 SVG 245개, `scripts/generateVisualAssets.mjs`, `src/assets/generated`, `VisualAssetIcon.tsx` |
 | app icon/splash 초안 | 완료 | `app-icon-rc2.svg`, `splash-rc2.svg`, `store-screenshot-frame-rc2.svg` |
 | 터치 feedback/숫자/구매/환생/offline/unlock/achievement effects | 완료 | touch transform, floating text, particles, toast, WebAudio, quest/achievement/decoration feedback |
 | effect cap와 설정 반영 | 완료 | `AppShell.tsx`, `ParticleLayer`, settings |
@@ -43,16 +43,16 @@
 | debug 기반 장기 성장 QA E2E | 완료 | `debug-cheat-flow.spec.ts` |
 | 모바일 screenshot QA | 완료 | `visual-regression.spec.ts`, `qa-screenshots/`, `store-screenshot-pack.spec.ts`, `store-screenshots/` |
 | `SOURCE_BUDGET_REPORT.md` | 완료 | generated/config/docs 제외 기준으로 재감사 |
-| handwritten runtime 구현 규모 | 완료 | 6,604 LOC |
-| handwritten tests/E2E 규모 | 완료 | 2,049 LOC |
-| generated/config LOC 분리 | 완료 | generated SVG 41,077 LOC, generated tests 4,746 LOC, config 2,528 LOC |
+| handwritten runtime 구현 규모 | 완료 | 6,374 LOC |
+| handwritten tests/E2E 규모 | 완료 | 2,186 LOC |
+| generated/config LOC 분리 | 완료 | generated SVG/registry 11,076 LOC, generated tests 5,718 LOC, config 2,529 LOC |
 | 스토리/콘텐츠가 실제 UI와 연결 | 완료 | 홈, 튜토리얼, offline modal, achievement collection/toast, upgrade unlock copy |
 
 ## Command Evidence
 
 ```txt
 npm run build: passed
-npm test: 19 files / 462 tests passed
+npm test: 20 files / 469 tests passed
 npm run test:e2e: 21 passed
 npm run cap:sync: passed
 ```

@@ -12,6 +12,7 @@ export const GameConfig = {
   },
   offline: {
     efficiency: 0.75,
+    minSeconds: 60,
     maxSeconds: 28800,
   },
   save: {

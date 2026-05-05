@@ -19,7 +19,7 @@ describe("audio readiness", () => {
       const slot = AudioConfig.slots[slotName];
       expect(slot, slotName).toBeDefined();
       expect(slot.requiredForStore, slotName).toBe(true);
-      expect(slot.licenseStatus, slotName).toBe("placeholder_tone");
+      expect(slot.licenseStatus, slotName).toBe("synthetic_tone");
       expect(slot.fileSrc, slotName).toBeNull();
       expect(Number.isFinite(slot.fallbackTone.frequency), slotName).toBe(true);
       expect(slot.fallbackTone.duration, slotName).toBeGreaterThan(0);

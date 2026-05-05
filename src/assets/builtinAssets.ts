@@ -1,4 +1,4 @@
-export const placeholderAssets = {
+export const builtinAssets = {
   "capybara.main": {
     type: "generated",
     value: "mascot-default",

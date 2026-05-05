@@ -1,4 +1,5 @@
 import { calculateOfflineReward } from "../core/gameMath";
+import { GameConfig } from "../config/GameConfig";
 import { GameState, OfflineRewardState } from "../game/GameTypes";
 import { getCompanionBonuses } from "./CompanionBonusManager";
 
@@ -9,7 +10,7 @@ export function createOfflineReward(state: GameState, nowMs = Date.now()): Offli
     nowMs,
     bonusMultiplier: getCompanionBonuses(state).offlineMultiplier,
   });
-  if (reward.seconds <= 0 || reward.reward.isZero()) {
+  if (reward.seconds < GameConfig.offline.minSeconds || reward.reward.lt(1)) {
     return null;
   }
   return {

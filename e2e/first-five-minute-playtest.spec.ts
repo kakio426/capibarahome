@@ -73,6 +73,7 @@ test("first five-minute manual playtest covers reward, save, decoration, and com
   await page.getByRole("button", { name: "설정" }).click();
   await page.getByRole("button", { name: "강제 저장" }).click();
   await page.reload();
+  await expect(page.getByRole("dialog", { name: "오프라인 보상" })).toHaveCount(0);
   await page.getByRole("button", { name: "업그레이드" }).click();
   await expect(page.locator(".upgrade-card", { hasText: "말랑 앞발" }).getByText("Lv.1")).toBeVisible();
   await page.getByRole("button", { name: "앨범" }).click();

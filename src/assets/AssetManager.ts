@@ -1,15 +1,15 @@
 import { AssetConfig } from "../config/AssetConfig";
-import { placeholderAssets } from "./placeholderAssets";
+import { builtinAssets } from "./builtinAssets";
 
 export type AssetKey = keyof typeof AssetConfig;
-type PlaceholderAssetMap = Partial<Record<AssetKey, (typeof placeholderAssets)[keyof typeof placeholderAssets]>>;
+type BuiltinAssetMap = Partial<Record<AssetKey, (typeof builtinAssets)[keyof typeof builtinAssets]>>;
 
 export const AssetManager = {
   get(key: AssetKey) {
-    const assets: PlaceholderAssetMap = placeholderAssets;
+    const assets: BuiltinAssetMap = builtinAssets;
     return assets[key] ?? {
-      type: "emoji",
-      value: AssetConfig[key] ?? "□",
+      type: "css",
+      value: AssetConfig[key] ?? "asset-missing",
       alt: key,
     };
   },

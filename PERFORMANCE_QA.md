@@ -31,7 +31,7 @@
 
 ```txt
 npm test
-19 files passed, 462 tests passed
+20 files passed, 469 tests passed
 ```
 
 ```txt

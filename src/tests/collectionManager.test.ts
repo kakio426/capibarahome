@@ -59,7 +59,7 @@ describe("collection manager", () => {
     expect(momo?.progress).toBeCloseTo(0.65, 5);
   });
 
-  it("keeps locked companion cards informative instead of empty placeholders", () => {
+  it("keeps locked companion cards informative instead of empty slots", () => {
     const state = makeState();
     const hanul = getCompanionCards(state).find((card) => card.id === "hanul");
     expect(hanul?.unlocked).toBe(false);

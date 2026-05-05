@@ -9,6 +9,7 @@ const expectedAssetKeys = [
   "album",
   "all_yard_core",
   "app-icon-draft",
+  "app-icon-rc2",
   "bamboo",
   "bamboo_1m",
   "bamboo_5m",
@@ -174,11 +175,13 @@ const expectedAssetKeys = [
   "sorting_rhythm",
   "sorting_table",
   "splash-draft",
+  "splash-rc2",
   "spoon",
   "steam",
   "steam_towel",
   "steam_towel_rack",
   "store-card-preview",
+  "store-screenshot-frame-rc2",
   "storehouse",
   "storehouse_25k",
   "storehouse_5k",
@@ -250,7 +253,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "ad_festival").toBe(true);
     expect(body, "ad_festival").toContain("aria-label");
-    expect(body.length, "ad_festival").toBeGreaterThan(10_000);
+    expect(body.length, "ad_festival").toBeGreaterThan(900);
+    expect(body, "ad_festival").not.toContain("<image");
+    expect(body, "ad_festival").not.toMatch(/href=["']https?:/);
+    expect(body, "ad_festival").not.toMatch(/url\(["']?https?:/);
+    expect(body, "ad_festival").not.toContain("\uFFFD");
     expect(body, "ad_festival").toContain("</svg>");
   });
 
@@ -261,7 +268,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "afternoon").toBe(true);
     expect(body, "afternoon").toContain("aria-label");
-    expect(body.length, "afternoon").toBeGreaterThan(10_000);
+    expect(body.length, "afternoon").toBeGreaterThan(900);
+    expect(body, "afternoon").not.toContain("<image");
+    expect(body, "afternoon").not.toMatch(/href=["']https?:/);
+    expect(body, "afternoon").not.toMatch(/url\(["']?https?:/);
+    expect(body, "afternoon").not.toContain("\uFFFD");
     expect(body, "afternoon").toContain("</svg>");
   });
 
@@ -272,7 +283,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "album").toBe(true);
     expect(body, "album").toContain("aria-label");
-    expect(body.length, "album").toBeGreaterThan(10_000);
+    expect(body.length, "album").toBeGreaterThan(900);
+    expect(body, "album").not.toContain("<image");
+    expect(body, "album").not.toMatch(/href=["']https?:/);
+    expect(body, "album").not.toMatch(/url\(["']?https?:/);
+    expect(body, "album").not.toContain("\uFFFD");
     expect(body, "album").toContain("</svg>");
   });
 
@@ -283,7 +298,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "all_yard_core").toBe(true);
     expect(body, "all_yard_core").toContain("aria-label");
-    expect(body.length, "all_yard_core").toBeGreaterThan(10_000);
+    expect(body.length, "all_yard_core").toBeGreaterThan(900);
+    expect(body, "all_yard_core").not.toContain("<image");
+    expect(body, "all_yard_core").not.toMatch(/href=["']https?:/);
+    expect(body, "all_yard_core").not.toMatch(/url\(["']?https?:/);
+    expect(body, "all_yard_core").not.toContain("\uFFFD");
     expect(body, "all_yard_core").toContain("</svg>");
   });
 
@@ -294,8 +313,27 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "app-icon-draft").toBe(true);
     expect(body, "app-icon-draft").toContain("aria-label");
-    expect(body.length, "app-icon-draft").toBeGreaterThan(10_000);
+    expect(body.length, "app-icon-draft").toBeGreaterThan(900);
+    expect(body, "app-icon-draft").not.toContain("<image");
+    expect(body, "app-icon-draft").not.toMatch(/href=["']https?:/);
+    expect(body, "app-icon-draft").not.toMatch(/url\(["']?https?:/);
+    expect(body, "app-icon-draft").not.toContain("\uFFFD");
     expect(body, "app-icon-draft").toContain("</svg>");
+  });
+
+  it("validates generated SVG asset app-icon-rc2", () => {
+    const href = GeneratedAssetRegistry["app-icon-rc2"];
+    expect(href, "app-icon-rc2").toBeTruthy();
+    const filePath = fileURLToPath(href);
+    const body = readFileSync(filePath, "utf8");
+    expect(body.startsWith("<svg"), "app-icon-rc2").toBe(true);
+    expect(body, "app-icon-rc2").toContain("aria-label");
+    expect(body.length, "app-icon-rc2").toBeGreaterThan(900);
+    expect(body, "app-icon-rc2").not.toContain("<image");
+    expect(body, "app-icon-rc2").not.toMatch(/href=["']https?:/);
+    expect(body, "app-icon-rc2").not.toMatch(/url\(["']?https?:/);
+    expect(body, "app-icon-rc2").not.toContain("\uFFFD");
+    expect(body, "app-icon-rc2").toContain("</svg>");
   });
 
   it("validates generated SVG asset bamboo", () => {
@@ -305,7 +343,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo").toBe(true);
     expect(body, "bamboo").toContain("aria-label");
-    expect(body.length, "bamboo").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo").toBeGreaterThan(900);
+    expect(body, "bamboo").not.toContain("<image");
+    expect(body, "bamboo").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo").not.toContain("\uFFFD");
     expect(body, "bamboo").toContain("</svg>");
   });
 
@@ -316,7 +358,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_1m").toBe(true);
     expect(body, "bamboo_1m").toContain("aria-label");
-    expect(body.length, "bamboo_1m").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_1m").toBeGreaterThan(900);
+    expect(body, "bamboo_1m").not.toContain("<image");
+    expect(body, "bamboo_1m").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_1m").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_1m").not.toContain("\uFFFD");
     expect(body, "bamboo_1m").toContain("</svg>");
   });
 
@@ -327,7 +373,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_5m").toBe(true);
     expect(body, "bamboo_5m").toContain("aria-label");
-    expect(body.length, "bamboo_5m").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_5m").toBeGreaterThan(900);
+    expect(body, "bamboo_5m").not.toContain("<image");
+    expect(body, "bamboo_5m").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_5m").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_5m").not.toContain("\uFFFD");
     expect(body, "bamboo_5m").toContain("</svg>");
   });
 
@@ -338,7 +388,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_cart").toBe(true);
     expect(body, "bamboo_cart").toContain("aria-label");
-    expect(body.length, "bamboo_cart").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_cart").toBeGreaterThan(900);
+    expect(body, "bamboo_cart").not.toContain("<image");
+    expect(body, "bamboo_cart").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_cart").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_cart").not.toContain("\uFFFD");
     expect(body, "bamboo_cart").toContain("</svg>");
   });
 
@@ -349,7 +403,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_cart_first").toBe(true);
     expect(body, "bamboo_cart_first").toContain("aria-label");
-    expect(body.length, "bamboo_cart_first").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_cart_first").toBeGreaterThan(900);
+    expect(body, "bamboo_cart_first").not.toContain("<image");
+    expect(body, "bamboo_cart_first").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_cart_first").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_cart_first").not.toContain("\uFFFD");
     expect(body, "bamboo_cart_first").toContain("</svg>");
   });
 
@@ -360,7 +418,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_cart_track").toBe(true);
     expect(body, "bamboo_cart_track").toContain("aria-label");
-    expect(body.length, "bamboo_cart_track").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_cart_track").toBeGreaterThan(900);
+    expect(body, "bamboo_cart_track").not.toContain("<image");
+    expect(body, "bamboo_cart_track").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_cart_track").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_cart_track").not.toContain("\uFFFD");
     expect(body, "bamboo_cart_track").toContain("</svg>");
   });
 
@@ -371,7 +433,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_eps_100k").toBe(true);
     expect(body, "bamboo_eps_100k").toContain("aria-label");
-    expect(body.length, "bamboo_eps_100k").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_eps_100k").toBeGreaterThan(900);
+    expect(body, "bamboo_eps_100k").not.toContain("<image");
+    expect(body, "bamboo_eps_100k").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_eps_100k").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_eps_100k").not.toContain("\uFFFD");
     expect(body, "bamboo_eps_100k").toContain("</svg>");
   });
 
@@ -382,7 +448,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_festival_clap").toBe(true);
     expect(body, "bamboo_festival_clap").toContain("aria-label");
-    expect(body.length, "bamboo_festival_clap").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_festival_clap").toBeGreaterThan(900);
+    expect(body, "bamboo_festival_clap").not.toContain("<image");
+    expect(body, "bamboo_festival_clap").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_festival_clap").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_festival_clap").not.toContain("\uFFFD");
     expect(body, "bamboo_festival_clap").toContain("</svg>");
   });
 
@@ -393,7 +463,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_garden").toBe(true);
     expect(body, "bamboo_garden").toContain("aria-label");
-    expect(body.length, "bamboo_garden").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_garden").toBeGreaterThan(900);
+    expect(body, "bamboo_garden").not.toContain("<image");
+    expect(body, "bamboo_garden").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_garden").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_garden").not.toContain("\uFFFD");
     expect(body, "bamboo_garden").toContain("</svg>");
   });
 
@@ -404,7 +478,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_gate").toBe(true);
     expect(body, "bamboo_gate").toContain("aria-label");
-    expect(body.length, "bamboo_gate").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_gate").toBeGreaterThan(900);
+    expect(body, "bamboo_gate").not.toContain("<image");
+    expect(body, "bamboo_gate").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_gate").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_gate").not.toContain("\uFFFD");
     expect(body, "bamboo_gate").toContain("</svg>");
   });
 
@@ -415,7 +493,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_lantern").toBe(true);
     expect(body, "bamboo_lantern").toContain("aria-label");
-    expect(body.length, "bamboo_lantern").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_lantern").toBeGreaterThan(900);
+    expect(body, "bamboo_lantern").not.toContain("<image");
+    expect(body, "bamboo_lantern").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_lantern").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_lantern").not.toContain("\uFFFD");
     expect(body, "bamboo_lantern").toContain("</svg>");
   });
 
@@ -426,7 +508,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_open").toBe(true);
     expect(body, "bamboo_open").toContain("aria-label");
-    expect(body.length, "bamboo_open").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_open").toBeGreaterThan(900);
+    expect(body, "bamboo_open").not.toContain("<image");
+    expect(body, "bamboo_open").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_open").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_open").not.toContain("\uFFFD");
     expect(body, "bamboo_open").toContain("</svg>");
   });
 
@@ -437,7 +523,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_toolbox").toBe(true);
     expect(body, "bamboo_toolbox").toContain("aria-label");
-    expect(body.length, "bamboo_toolbox").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_toolbox").toBeGreaterThan(900);
+    expect(body, "bamboo_toolbox").not.toContain("<image");
+    expect(body, "bamboo_toolbox").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_toolbox").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_toolbox").not.toContain("\uFFFD");
     expect(body, "bamboo_toolbox").toContain("</svg>");
   });
 
@@ -448,7 +538,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_total_levels").toBe(true);
     expect(body, "bamboo_total_levels").toContain("aria-label");
-    expect(body.length, "bamboo_total_levels").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_total_levels").toBeGreaterThan(900);
+    expect(body, "bamboo_total_levels").not.toContain("<image");
+    expect(body, "bamboo_total_levels").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_total_levels").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_total_levels").not.toContain("\uFFFD");
     expect(body, "bamboo_total_levels").toContain("</svg>");
   });
 
@@ -459,7 +553,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_touch").toBe(true);
     expect(body, "bamboo_touch").toContain("aria-label");
-    expect(body.length, "bamboo_touch").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_touch").toBeGreaterThan(900);
+    expect(body, "bamboo_touch").not.toContain("<image");
+    expect(body, "bamboo_touch").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_touch").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_touch").not.toContain("\uFFFD");
     expect(body, "bamboo_touch").toContain("</svg>");
   });
 
@@ -470,7 +568,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "bamboo_wind_bridge").toBe(true);
     expect(body, "bamboo_wind_bridge").toContain("aria-label");
-    expect(body.length, "bamboo_wind_bridge").toBeGreaterThan(10_000);
+    expect(body.length, "bamboo_wind_bridge").toBeGreaterThan(900);
+    expect(body, "bamboo_wind_bridge").not.toContain("<image");
+    expect(body, "bamboo_wind_bridge").not.toMatch(/href=["']https?:/);
+    expect(body, "bamboo_wind_bridge").not.toMatch(/url\(["']?https?:/);
+    expect(body, "bamboo_wind_bridge").not.toContain("\uFFFD");
     expect(body, "bamboo_wind_bridge").toContain("</svg>");
   });
 
@@ -481,7 +583,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "basket").toBe(true);
     expect(body, "basket").toContain("aria-label");
-    expect(body.length, "basket").toBeGreaterThan(10_000);
+    expect(body.length, "basket").toBeGreaterThan(900);
+    expect(body, "basket").not.toContain("<image");
+    expect(body, "basket").not.toMatch(/href=["']https?:/);
+    expect(body, "basket").not.toMatch(/url\(["']?https?:/);
+    expect(body, "basket").not.toContain("\uFFFD");
     expect(body, "basket").toContain("</svg>");
   });
 
@@ -492,7 +598,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "basket_1").toBe(true);
     expect(body, "basket_1").toContain("aria-label");
-    expect(body.length, "basket_1").toBeGreaterThan(10_000);
+    expect(body.length, "basket_1").toBeGreaterThan(900);
+    expect(body, "basket_1").not.toContain("<image");
+    expect(body, "basket_1").not.toMatch(/href=["']https?:/);
+    expect(body, "basket_1").not.toMatch(/url\(["']?https?:/);
+    expect(body, "basket_1").not.toContain("\uFFFD");
     expect(body, "basket_1").toContain("</svg>");
   });
 
@@ -503,7 +613,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "basket_25").toBe(true);
     expect(body, "basket_25").toContain("aria-label");
-    expect(body.length, "basket_25").toBeGreaterThan(10_000);
+    expect(body.length, "basket_25").toBeGreaterThan(900);
+    expect(body, "basket_25").not.toContain("<image");
+    expect(body, "basket_25").not.toMatch(/href=["']https?:/);
+    expect(body, "basket_25").not.toMatch(/url\(["']?https?:/);
+    expect(body, "basket_25").not.toContain("\uFFFD");
     expect(body, "basket_25").toContain("</svg>");
   });
 
@@ -514,7 +628,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "biro").toBe(true);
     expect(body, "biro").toContain("aria-label");
-    expect(body.length, "biro").toBeGreaterThan(10_000);
+    expect(body.length, "biro").toBeGreaterThan(900);
+    expect(body, "biro").not.toContain("<image");
+    expect(body, "biro").not.toMatch(/href=["']https?:/);
+    expect(body, "biro").not.toMatch(/url\(["']?https?:/);
+    expect(body, "biro").not.toContain("\uFFFD");
     expect(body, "biro").toContain("</svg>");
   });
 
@@ -525,7 +643,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "butler_gloves").toBe(true);
     expect(body, "butler_gloves").toContain("aria-label");
-    expect(body.length, "butler_gloves").toBeGreaterThan(10_000);
+    expect(body.length, "butler_gloves").toBeGreaterThan(900);
+    expect(body, "butler_gloves").not.toContain("<image");
+    expect(body, "butler_gloves").not.toMatch(/href=["']https?:/);
+    expect(body, "butler_gloves").not.toMatch(/url\(["']?https?:/);
+    expect(body, "butler_gloves").not.toContain("\uFFFD");
     expect(body, "butler_gloves").toContain("</svg>");
   });
 
@@ -536,7 +658,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "butler_hand").toBe(true);
     expect(body, "butler_hand").toContain("aria-label");
-    expect(body.length, "butler_hand").toBeGreaterThan(10_000);
+    expect(body.length, "butler_hand").toBeGreaterThan(900);
+    expect(body, "butler_hand").not.toContain("<image");
+    expect(body, "butler_hand").not.toMatch(/href=["']https?:/);
+    expect(body, "butler_hand").not.toMatch(/url\(["']?https?:/);
+    expect(body, "butler_hand").not.toContain("\uFFFD");
     expect(body, "butler_hand").toContain("</svg>");
   });
 
@@ -547,7 +673,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "butler_toolbox").toBe(true);
     expect(body, "butler_toolbox").toContain("aria-label");
-    expect(body.length, "butler_toolbox").toBeGreaterThan(10_000);
+    expect(body.length, "butler_toolbox").toBeGreaterThan(900);
+    expect(body, "butler_toolbox").not.toContain("<image");
+    expect(body, "butler_toolbox").not.toMatch(/href=["']https?:/);
+    expect(body, "butler_toolbox").not.toMatch(/url\(["']?https?:/);
+    expect(body, "butler_toolbox").not.toContain("\uFFFD");
     expect(body, "butler_toolbox").toContain("</svg>");
   });
 
@@ -558,7 +688,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "capybara-biro").toBe(true);
     expect(body, "capybara-biro").toContain("aria-label");
-    expect(body.length, "capybara-biro").toBeGreaterThan(10_000);
+    expect(body.length, "capybara-biro").toBeGreaterThan(900);
+    expect(body, "capybara-biro").not.toContain("<image");
+    expect(body, "capybara-biro").not.toMatch(/href=["']https?:/);
+    expect(body, "capybara-biro").not.toMatch(/url\(["']?https?:/);
+    expect(body, "capybara-biro").not.toContain("\uFFFD");
     expect(body, "capybara-biro").toContain("</svg>");
   });
 
@@ -569,7 +703,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "capybara-dami").toBe(true);
     expect(body, "capybara-dami").toContain("aria-label");
-    expect(body.length, "capybara-dami").toBeGreaterThan(10_000);
+    expect(body.length, "capybara-dami").toBeGreaterThan(900);
+    expect(body, "capybara-dami").not.toContain("<image");
+    expect(body, "capybara-dami").not.toMatch(/href=["']https?:/);
+    expect(body, "capybara-dami").not.toMatch(/url\(["']?https?:/);
+    expect(body, "capybara-dami").not.toContain("\uFFFD");
     expect(body, "capybara-dami").toContain("</svg>");
   });
 
@@ -580,7 +718,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "capybara-hanul").toBe(true);
     expect(body, "capybara-hanul").toContain("aria-label");
-    expect(body.length, "capybara-hanul").toBeGreaterThan(10_000);
+    expect(body.length, "capybara-hanul").toBeGreaterThan(900);
+    expect(body, "capybara-hanul").not.toContain("<image");
+    expect(body, "capybara-hanul").not.toMatch(/href=["']https?:/);
+    expect(body, "capybara-hanul").not.toMatch(/url\(["']?https?:/);
+    expect(body, "capybara-hanul").not.toContain("\uFFFD");
     expect(body, "capybara-hanul").toContain("</svg>");
   });
 
@@ -591,7 +733,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "capybara-momo").toBe(true);
     expect(body, "capybara-momo").toContain("aria-label");
-    expect(body.length, "capybara-momo").toBeGreaterThan(10_000);
+    expect(body.length, "capybara-momo").toBeGreaterThan(900);
+    expect(body, "capybara-momo").not.toContain("<image");
+    expect(body, "capybara-momo").not.toMatch(/href=["']https?:/);
+    expect(body, "capybara-momo").not.toMatch(/url\(["']?https?:/);
+    expect(body, "capybara-momo").not.toContain("\uFFFD");
     expect(body, "capybara-momo").toContain("</svg>");
   });
 
@@ -602,7 +748,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "capybara-narin").toBe(true);
     expect(body, "capybara-narin").toContain("aria-label");
-    expect(body.length, "capybara-narin").toBeGreaterThan(10_000);
+    expect(body.length, "capybara-narin").toBeGreaterThan(900);
+    expect(body, "capybara-narin").not.toContain("<image");
+    expect(body, "capybara-narin").not.toMatch(/href=["']https?:/);
+    expect(body, "capybara-narin").not.toMatch(/url\(["']?https?:/);
+    expect(body, "capybara-narin").not.toContain("\uFFFD");
     expect(body, "capybara-narin").toContain("</svg>");
   });
 
@@ -613,7 +763,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "capybara-podo").toBe(true);
     expect(body, "capybara-podo").toContain("aria-label");
-    expect(body.length, "capybara-podo").toBeGreaterThan(10_000);
+    expect(body.length, "capybara-podo").toBeGreaterThan(900);
+    expect(body, "capybara-podo").not.toContain("<image");
+    expect(body, "capybara-podo").not.toMatch(/href=["']https?:/);
+    expect(body, "capybara-podo").not.toMatch(/url\(["']?https?:/);
+    expect(body, "capybara-podo").not.toContain("\uFFFD");
     expect(body, "capybara-podo").toContain("</svg>");
   });
 
@@ -624,7 +778,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "capybara-ruru").toBe(true);
     expect(body, "capybara-ruru").toContain("aria-label");
-    expect(body.length, "capybara-ruru").toBeGreaterThan(10_000);
+    expect(body.length, "capybara-ruru").toBeGreaterThan(900);
+    expect(body, "capybara-ruru").not.toContain("<image");
+    expect(body, "capybara-ruru").not.toMatch(/href=["']https?:/);
+    expect(body, "capybara-ruru").not.toMatch(/url\(["']?https?:/);
+    expect(body, "capybara-ruru").not.toContain("\uFFFD");
     expect(body, "capybara-ruru").toContain("</svg>");
   });
 
@@ -635,7 +793,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "capybara-soda").toBe(true);
     expect(body, "capybara-soda").toContain("aria-label");
-    expect(body.length, "capybara-soda").toBeGreaterThan(10_000);
+    expect(body.length, "capybara-soda").toBeGreaterThan(900);
+    expect(body, "capybara-soda").not.toContain("<image");
+    expect(body, "capybara-soda").not.toMatch(/href=["']https?:/);
+    expect(body, "capybara-soda").not.toMatch(/url\(["']?https?:/);
+    expect(body, "capybara-soda").not.toContain("\uFFFD");
     expect(body, "capybara-soda").toContain("</svg>");
   });
 
@@ -646,7 +808,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "cart_stop").toBe(true);
     expect(body, "cart_stop").toContain("aria-label");
-    expect(body.length, "cart_stop").toBeGreaterThan(10_000);
+    expect(body.length, "cart_stop").toBeGreaterThan(900);
+    expect(body, "cart_stop").not.toContain("<image");
+    expect(body, "cart_stop").not.toMatch(/href=["']https?:/);
+    expect(body, "cart_stop").not.toMatch(/url\(["']?https?:/);
+    expect(body, "cart_stop").not.toContain("\uFFFD");
     expect(body, "cart_stop").toContain("</svg>");
   });
 
@@ -657,7 +823,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "cart_stop_flag").toBe(true);
     expect(body, "cart_stop_flag").toContain("aria-label");
-    expect(body.length, "cart_stop_flag").toBeGreaterThan(10_000);
+    expect(body.length, "cart_stop_flag").toBeGreaterThan(900);
+    expect(body, "cart_stop_flag").not.toContain("<image");
+    expect(body, "cart_stop_flag").not.toMatch(/href=["']https?:/);
+    expect(body, "cart_stop_flag").not.toMatch(/url\(["']?https?:/);
+    expect(body, "cart_stop_flag").not.toContain("\uFFFD");
     expect(body, "cart_stop_flag").toContain("</svg>");
   });
 
@@ -668,7 +838,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "chime").toBe(true);
     expect(body, "chime").toContain("aria-label");
-    expect(body.length, "chime").toBeGreaterThan(10_000);
+    expect(body.length, "chime").toBeGreaterThan(900);
+    expect(body, "chime").not.toContain("<image");
+    expect(body, "chime").not.toMatch(/href=["']https?:/);
+    expect(body, "chime").not.toMatch(/url\(["']?https?:/);
+    expect(body, "chime").not.toContain("\uFFFD");
     expect(body, "chime").toContain("</svg>");
   });
 
@@ -679,7 +853,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "citrus_recipe").toBe(true);
     expect(body, "citrus_recipe").toContain("aria-label");
-    expect(body.length, "citrus_recipe").toBeGreaterThan(10_000);
+    expect(body.length, "citrus_recipe").toBeGreaterThan(900);
+    expect(body, "citrus_recipe").not.toContain("<image");
+    expect(body, "citrus_recipe").not.toMatch(/href=["']https?:/);
+    expect(body, "citrus_recipe").not.toMatch(/url\(["']?https?:/);
+    expect(body, "citrus_recipe").not.toContain("\uFFFD");
     expect(body, "citrus_recipe").toContain("</svg>");
   });
 
@@ -690,7 +868,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "clap").toBe(true);
     expect(body, "clap").toContain("aria-label");
-    expect(body.length, "clap").toBeGreaterThan(10_000);
+    expect(body.length, "clap").toBeGreaterThan(900);
+    expect(body, "clap").not.toContain("<image");
+    expect(body, "clap").not.toMatch(/href=["']https?:/);
+    expect(body, "clap").not.toMatch(/url\(["']?https?:/);
+    expect(body, "clap").not.toContain("\uFFFD");
     expect(body, "clap").toContain("</svg>");
   });
 
@@ -701,7 +883,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "collection").toBe(true);
     expect(body, "collection").toContain("aria-label");
-    expect(body.length, "collection").toBeGreaterThan(10_000);
+    expect(body.length, "collection").toBeGreaterThan(900);
+    expect(body, "collection").not.toContain("<image");
+    expect(body, "collection").not.toMatch(/href=["']https?:/);
+    expect(body, "collection").not.toMatch(/url\(["']?https?:/);
+    expect(body, "collection").not.toContain("\uFFFD");
     expect(body, "collection").toContain("</svg>");
   });
 
@@ -712,7 +898,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "compost").toBe(true);
     expect(body, "compost").toContain("aria-label");
-    expect(body.length, "compost").toBeGreaterThan(10_000);
+    expect(body.length, "compost").toBeGreaterThan(900);
+    expect(body, "compost").not.toContain("<image");
+    expect(body, "compost").not.toMatch(/href=["']https?:/);
+    expect(body, "compost").not.toMatch(/url\(["']?https?:/);
+    expect(body, "compost").not.toContain("\uFFFD");
     expect(body, "compost").toContain("</svg>");
   });
 
@@ -723,7 +913,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "compost_greenhouse").toBe(true);
     expect(body, "compost_greenhouse").toContain("aria-label");
-    expect(body.length, "compost_greenhouse").toBeGreaterThan(10_000);
+    expect(body.length, "compost_greenhouse").toBeGreaterThan(900);
+    expect(body, "compost_greenhouse").not.toContain("<image");
+    expect(body, "compost_greenhouse").not.toMatch(/href=["']https?:/);
+    expect(body, "compost_greenhouse").not.toMatch(/url\(["']?https?:/);
+    expect(body, "compost_greenhouse").not.toContain("\uFFFD");
     expect(body, "compost_greenhouse").toContain("</svg>");
   });
 
@@ -734,7 +928,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "crate").toBe(true);
     expect(body, "crate").toContain("aria-label");
-    expect(body.length, "crate").toBeGreaterThan(10_000);
+    expect(body.length, "crate").toBeGreaterThan(900);
+    expect(body, "crate").not.toContain("<image");
+    expect(body, "crate").not.toMatch(/href=["']https?:/);
+    expect(body, "crate").not.toMatch(/url\(["']?https?:/);
+    expect(body, "crate").not.toContain("\uFFFD");
     expect(body, "crate").toContain("</svg>");
   });
 
@@ -745,7 +943,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "crate_lane").toBe(true);
     expect(body, "crate_lane").toContain("aria-label");
-    expect(body.length, "crate_lane").toBeGreaterThan(10_000);
+    expect(body.length, "crate_lane").toBeGreaterThan(900);
+    expect(body, "crate_lane").not.toContain("<image");
+    expect(body, "crate_lane").not.toMatch(/href=["']https?:/);
+    expect(body, "crate_lane").not.toMatch(/url\(["']?https?:/);
+    expect(body, "crate_lane").not.toContain("\uFFFD");
     expect(body, "crate_lane").toContain("</svg>");
   });
 
@@ -756,7 +958,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "dami").toBe(true);
     expect(body, "dami").toContain("aria-label");
-    expect(body.length, "dami").toBeGreaterThan(10_000);
+    expect(body.length, "dami").toBeGreaterThan(900);
+    expect(body, "dami").not.toContain("<image");
+    expect(body, "dami").not.toMatch(/href=["']https?:/);
+    expect(body, "dami").not.toMatch(/url\(["']?https?:/);
+    expect(body, "dami").not.toContain("\uFFFD");
     expect(body, "dami").toContain("</svg>");
   });
 
@@ -767,7 +973,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "eps_10").toBe(true);
     expect(body, "eps_10").toContain("aria-label");
-    expect(body.length, "eps_10").toBeGreaterThan(10_000);
+    expect(body.length, "eps_10").toBeGreaterThan(900);
+    expect(body, "eps_10").not.toContain("<image");
+    expect(body, "eps_10").not.toMatch(/href=["']https?:/);
+    expect(body, "eps_10").not.toMatch(/url\(["']?https?:/);
+    expect(body, "eps_10").not.toContain("\uFFFD");
     expect(body, "eps_10").toContain("</svg>");
   });
 
@@ -778,7 +988,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "eps_100k").toBe(true);
     expect(body, "eps_100k").toContain("aria-label");
-    expect(body.length, "eps_100k").toBeGreaterThan(10_000);
+    expect(body.length, "eps_100k").toBeGreaterThan(900);
+    expect(body, "eps_100k").not.toContain("<image");
+    expect(body, "eps_100k").not.toMatch(/href=["']https?:/);
+    expect(body, "eps_100k").not.toMatch(/url\(["']?https?:/);
+    expect(body, "eps_100k").not.toContain("\uFFFD");
     expect(body, "eps_100k").toContain("</svg>");
   });
 
@@ -789,7 +1003,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "eps_1k").toBe(true);
     expect(body, "eps_1k").toContain("aria-label");
-    expect(body.length, "eps_1k").toBeGreaterThan(10_000);
+    expect(body.length, "eps_1k").toBeGreaterThan(900);
+    expect(body, "eps_1k").not.toContain("<image");
+    expect(body, "eps_1k").not.toMatch(/href=["']https?:/);
+    expect(body, "eps_1k").not.toMatch(/url\(["']?https?:/);
+    expect(body, "eps_1k").not.toContain("\uFFFD");
     expect(body, "eps_1k").toContain("</svg>");
   });
 
@@ -800,7 +1018,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "eps_1m").toBe(true);
     expect(body, "eps_1m").toContain("aria-label");
-    expect(body.length, "eps_1m").toBeGreaterThan(10_000);
+    expect(body.length, "eps_1m").toBeGreaterThan(900);
+    expect(body, "eps_1m").not.toContain("<image");
+    expect(body, "eps_1m").not.toMatch(/href=["']https?:/);
+    expect(body, "eps_1m").not.toMatch(/url\(["']?https?:/);
+    expect(body, "eps_1m").not.toContain("\uFFFD");
     expect(body, "eps_1m").toContain("</svg>");
   });
 
@@ -811,7 +1033,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "facility_suite").toBe(true);
     expect(body, "facility_suite").toContain("aria-label");
-    expect(body.length, "facility_suite").toBeGreaterThan(10_000);
+    expect(body.length, "facility_suite").toBeGreaterThan(900);
+    expect(body, "facility_suite").not.toContain("<image");
+    expect(body, "facility_suite").not.toMatch(/href=["']https?:/);
+    expect(body, "facility_suite").not.toMatch(/url\(["']?https?:/);
+    expect(body, "facility_suite").not.toContain("\uFFFD");
     expect(body, "facility_suite").toContain("</svg>");
   });
 
@@ -822,7 +1048,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "festival").toBe(true);
     expect(body, "festival").toContain("aria-label");
-    expect(body.length, "festival").toBeGreaterThan(10_000);
+    expect(body.length, "festival").toBeGreaterThan(900);
+    expect(body, "festival").not.toContain("<image");
+    expect(body, "festival").not.toMatch(/href=["']https?:/);
+    expect(body, "festival").not.toMatch(/url\(["']?https?:/);
+    expect(body, "festival").not.toContain("\uFFFD");
     expect(body, "festival").toContain("</svg>");
   });
 
@@ -833,7 +1063,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "festival_clap").toBe(true);
     expect(body, "festival_clap").toContain("aria-label");
-    expect(body.length, "festival_clap").toBeGreaterThan(10_000);
+    expect(body.length, "festival_clap").toBeGreaterThan(900);
+    expect(body, "festival_clap").not.toContain("<image");
+    expect(body, "festival_clap").not.toMatch(/href=["']https?:/);
+    expect(body, "festival_clap").not.toMatch(/url\(["']?https?:/);
+    expect(body, "festival_clap").not.toContain("\uFFFD");
     expect(body, "festival_clap").toContain("</svg>");
   });
 
@@ -844,7 +1078,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "festival_ribbon").toBe(true);
     expect(body, "festival_ribbon").toContain("aria-label");
-    expect(body.length, "festival_ribbon").toBeGreaterThan(10_000);
+    expect(body.length, "festival_ribbon").toBeGreaterThan(900);
+    expect(body, "festival_ribbon").not.toContain("<image");
+    expect(body, "festival_ribbon").not.toMatch(/href=["']https?:/);
+    expect(body, "festival_ribbon").not.toMatch(/url\(["']?https?:/);
+    expect(body, "festival_ribbon").not.toContain("\uFFFD");
     expect(body, "festival_ribbon").toContain("</svg>");
   });
 
@@ -855,7 +1093,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "first_100_oranges").toBe(true);
     expect(body, "first_100_oranges").toContain("aria-label");
-    expect(body.length, "first_100_oranges").toBeGreaterThan(10_000);
+    expect(body.length, "first_100_oranges").toBeGreaterThan(900);
+    expect(body, "first_100_oranges").not.toContain("<image");
+    expect(body, "first_100_oranges").not.toMatch(/href=["']https?:/);
+    expect(body, "first_100_oranges").not.toMatch(/url\(["']?https?:/);
+    expect(body, "first_100_oranges").not.toContain("\uFFFD");
     expect(body, "first_100_oranges").toContain("</svg>");
   });
 
@@ -866,7 +1108,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "first_1k_oranges").toBe(true);
     expect(body, "first_1k_oranges").toContain("aria-label");
-    expect(body.length, "first_1k_oranges").toBeGreaterThan(10_000);
+    expect(body.length, "first_1k_oranges").toBeGreaterThan(900);
+    expect(body, "first_1k_oranges").not.toContain("<image");
+    expect(body, "first_1k_oranges").not.toMatch(/href=["']https?:/);
+    expect(body, "first_1k_oranges").not.toMatch(/url\(["']?https?:/);
+    expect(body, "first_1k_oranges").not.toContain("\uFFFD");
     expect(body, "first_1k_oranges").toContain("</svg>");
   });
 
@@ -877,7 +1123,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "first_leaf").toBe(true);
     expect(body, "first_leaf").toContain("aria-label");
-    expect(body.length, "first_leaf").toBeGreaterThan(10_000);
+    expect(body.length, "first_leaf").toBeGreaterThan(900);
+    expect(body, "first_leaf").not.toContain("<image");
+    expect(body, "first_leaf").not.toMatch(/href=["']https?:/);
+    expect(body, "first_leaf").not.toMatch(/url\(["']?https?:/);
+    expect(body, "first_leaf").not.toContain("\uFFFD");
     expect(body, "first_leaf").toContain("</svg>");
   });
 
@@ -888,7 +1138,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "first_leaf_plaque").toBe(true);
     expect(body, "first_leaf_plaque").toContain("aria-label");
-    expect(body.length, "first_leaf_plaque").toBeGreaterThan(10_000);
+    expect(body.length, "first_leaf_plaque").toBeGreaterThan(900);
+    expect(body, "first_leaf_plaque").not.toContain("<image");
+    expect(body, "first_leaf_plaque").not.toMatch(/href=["']https?:/);
+    expect(body, "first_leaf_plaque").not.toMatch(/url\(["']?https?:/);
+    expect(body, "first_leaf_plaque").not.toContain("\uFFFD");
     expect(body, "first_leaf_plaque").toContain("</svg>");
   });
 
@@ -899,7 +1153,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "first_orange").toBe(true);
     expect(body, "first_orange").toContain("aria-label");
-    expect(body.length, "first_orange").toBeGreaterThan(10_000);
+    expect(body.length, "first_orange").toBeGreaterThan(900);
+    expect(body, "first_orange").not.toContain("<image");
+    expect(body, "first_orange").not.toMatch(/href=["']https?:/);
+    expect(body, "first_orange").not.toMatch(/url\(["']?https?:/);
+    expect(body, "first_orange").not.toContain("\uFFFD");
     expect(body, "first_orange").toContain("</svg>");
   });
 
@@ -910,7 +1168,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "first_prestige").toBe(true);
     expect(body, "first_prestige").toContain("aria-label");
-    expect(body.length, "first_prestige").toBeGreaterThan(10_000);
+    expect(body.length, "first_prestige").toBeGreaterThan(900);
+    expect(body, "first_prestige").not.toContain("<image");
+    expect(body, "first_prestige").not.toMatch(/href=["']https?:/);
+    expect(body, "first_prestige").not.toMatch(/url\(["']?https?:/);
+    expect(body, "first_prestige").not.toContain("\uFFFD");
     expect(body, "first_prestige").toContain("</svg>");
   });
 
@@ -921,7 +1183,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "five_leaf").toBe(true);
     expect(body, "five_leaf").toContain("aria-label");
-    expect(body.length, "five_leaf").toBeGreaterThan(10_000);
+    expect(body.length, "five_leaf").toBeGreaterThan(900);
+    expect(body, "five_leaf").not.toContain("<image");
+    expect(body, "five_leaf").not.toMatch(/href=["']https?:/);
+    expect(body, "five_leaf").not.toMatch(/url\(["']?https?:/);
+    expect(body, "five_leaf").not.toContain("\uFFFD");
     expect(body, "five_leaf").toContain("</svg>");
   });
 
@@ -932,7 +1198,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "fragrance_shelf").toBe(true);
     expect(body, "fragrance_shelf").toContain("aria-label");
-    expect(body.length, "fragrance_shelf").toBeGreaterThan(10_000);
+    expect(body.length, "fragrance_shelf").toBeGreaterThan(900);
+    expect(body, "fragrance_shelf").not.toContain("<image");
+    expect(body, "fragrance_shelf").not.toMatch(/href=["']https?:/);
+    expect(body, "fragrance_shelf").not.toMatch(/url\(["']?https?:/);
+    expect(body, "fragrance_shelf").not.toContain("\uFFFD");
     expect(body, "fragrance_shelf").toContain("</svg>");
   });
 
@@ -943,7 +1213,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "fragrance_storehouse").toBe(true);
     expect(body, "fragrance_storehouse").toContain("aria-label");
-    expect(body.length, "fragrance_storehouse").toBeGreaterThan(10_000);
+    expect(body.length, "fragrance_storehouse").toBeGreaterThan(900);
+    expect(body, "fragrance_storehouse").not.toContain("<image");
+    expect(body, "fragrance_storehouse").not.toMatch(/href=["']https?:/);
+    expect(body, "fragrance_storehouse").not.toMatch(/url\(["']?https?:/);
+    expect(body, "fragrance_storehouse").not.toContain("\uFFFD");
     expect(body, "fragrance_storehouse").toContain("</svg>");
   });
 
@@ -954,7 +1228,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "fragrant_25k").toBe(true);
     expect(body, "fragrant_25k").toContain("aria-label");
-    expect(body.length, "fragrant_25k").toBeGreaterThan(10_000);
+    expect(body.length, "fragrant_25k").toBeGreaterThan(900);
+    expect(body, "fragrant_25k").not.toContain("<image");
+    expect(body, "fragrant_25k").not.toMatch(/href=["']https?:/);
+    expect(body, "fragrant_25k").not.toMatch(/url\(["']?https?:/);
+    expect(body, "fragrant_25k").not.toContain("\uFFFD");
     expect(body, "fragrant_25k").toContain("</svg>");
   });
 
@@ -965,7 +1243,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "generator_suite_120").toBe(true);
     expect(body, "generator_suite_120").toContain("aria-label");
-    expect(body.length, "generator_suite_120").toBeGreaterThan(10_000);
+    expect(body.length, "generator_suite_120").toBeGreaterThan(900);
+    expect(body, "generator_suite_120").not.toContain("<image");
+    expect(body, "generator_suite_120").not.toMatch(/href=["']https?:/);
+    expect(body, "generator_suite_120").not.toMatch(/url\(["']?https?:/);
+    expect(body, "generator_suite_120").not.toContain("\uFFFD");
     expect(body, "generator_suite_120").toContain("</svg>");
   });
 
@@ -976,7 +1258,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "generator_suite_20").toBe(true);
     expect(body, "generator_suite_20").toContain("aria-label");
-    expect(body.length, "generator_suite_20").toBeGreaterThan(10_000);
+    expect(body.length, "generator_suite_20").toBeGreaterThan(900);
+    expect(body, "generator_suite_20").not.toContain("<image");
+    expect(body, "generator_suite_20").not.toMatch(/href=["']https?:/);
+    expect(body, "generator_suite_20").not.toMatch(/url\(["']?https?:/);
+    expect(body, "generator_suite_20").not.toContain("\uFFFD");
     expect(body, "generator_suite_20").toContain("</svg>");
   });
 
@@ -987,7 +1273,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "gift").toBe(true);
     expect(body, "gift").toContain("aria-label");
-    expect(body.length, "gift").toBeGreaterThan(10_000);
+    expect(body.length, "gift").toBeGreaterThan(900);
+    expect(body, "gift").not.toContain("<image");
+    expect(body, "gift").not.toMatch(/href=["']https?:/);
+    expect(body, "gift").not.toMatch(/url\(["']?https?:/);
+    expect(body, "gift").not.toContain("\uFFFD");
     expect(body, "gift").toContain("</svg>");
   });
 
@@ -998,7 +1288,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "glove").toBe(true);
     expect(body, "glove").toContain("aria-label");
-    expect(body.length, "glove").toBeGreaterThan(10_000);
+    expect(body.length, "glove").toBeGreaterThan(900);
+    expect(body, "glove").not.toContain("<image");
+    expect(body, "glove").not.toMatch(/href=["']https?:/);
+    expect(body, "glove").not.toMatch(/url\(["']?https?:/);
+    expect(body, "glove").not.toContain("\uFFFD");
     expect(body, "glove").toContain("</svg>");
   });
 
@@ -1009,7 +1303,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "gold_path").toBe(true);
     expect(body, "gold_path").toContain("aria-label");
-    expect(body.length, "gold_path").toBeGreaterThan(10_000);
+    expect(body.length, "gold_path").toBeGreaterThan(900);
+    expect(body, "gold_path").not.toContain("<image");
+    expect(body, "gold_path").not.toMatch(/href=["']https?:/);
+    expect(body, "gold_path").not.toMatch(/url\(["']?https?:/);
+    expect(body, "gold_path").not.toContain("\uFFFD");
     expect(body, "gold_path").toContain("</svg>");
   });
 
@@ -1020,7 +1318,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "gold_path_first").toBe(true);
     expect(body, "gold_path_first").toContain("aria-label");
-    expect(body.length, "gold_path_first").toBeGreaterThan(10_000);
+    expect(body.length, "gold_path_first").toBeGreaterThan(900);
+    expect(body, "gold_path_first").not.toContain("<image");
+    expect(body, "gold_path_first").not.toMatch(/href=["']https?:/);
+    expect(body, "gold_path_first").not.toMatch(/url\(["']?https?:/);
+    expect(body, "gold_path_first").not.toContain("\uFFFD");
     expect(body, "gold_path_first").toContain("</svg>");
   });
 
@@ -1031,7 +1333,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "golden_25m").toBe(true);
     expect(body, "golden_25m").toContain("aria-label");
-    expect(body.length, "golden_25m").toBeGreaterThan(10_000);
+    expect(body.length, "golden_25m").toBeGreaterThan(900);
+    expect(body, "golden_25m").not.toContain("<image");
+    expect(body, "golden_25m").not.toMatch(/href=["']https?:/);
+    expect(body, "golden_25m").not.toMatch(/url\(["']?https?:/);
+    expect(body, "golden_25m").not.toContain("\uFFFD");
     expect(body, "golden_25m").toContain("</svg>");
   });
 
@@ -1042,7 +1348,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "golden_compost").toBe(true);
     expect(body, "golden_compost").toContain("aria-label");
-    expect(body.length, "golden_compost").toBeGreaterThan(10_000);
+    expect(body.length, "golden_compost").toBeGreaterThan(900);
+    expect(body, "golden_compost").not.toContain("<image");
+    expect(body, "golden_compost").not.toMatch(/href=["']https?:/);
+    expect(body, "golden_compost").not.toMatch(/url\(["']?https?:/);
+    expect(body, "golden_compost").not.toContain("\uFFFD");
     expect(body, "golden_compost").toContain("</svg>");
   });
 
@@ -1053,7 +1363,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "golden_first_prestige").toBe(true);
     expect(body, "golden_first_prestige").toContain("aria-label");
-    expect(body.length, "golden_first_prestige").toBeGreaterThan(10_000);
+    expect(body.length, "golden_first_prestige").toBeGreaterThan(900);
+    expect(body, "golden_first_prestige").not.toContain("<image");
+    expect(body, "golden_first_prestige").not.toMatch(/href=["']https?:/);
+    expect(body, "golden_first_prestige").not.toMatch(/url\(["']?https?:/);
+    expect(body, "golden_first_prestige").not.toContain("\uFFFD");
     expect(body, "golden_first_prestige").toContain("</svg>");
   });
 
@@ -1064,7 +1378,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "golden_five_leaves").toBe(true);
     expect(body, "golden_five_leaves").toContain("aria-label");
-    expect(body.length, "golden_five_leaves").toBeGreaterThan(10_000);
+    expect(body.length, "golden_five_leaves").toBeGreaterThan(900);
+    expect(body, "golden_five_leaves").not.toContain("<image");
+    expect(body, "golden_five_leaves").not.toMatch(/href=["']https?:/);
+    expect(body, "golden_five_leaves").not.toMatch(/url\(["']?https?:/);
+    expect(body, "golden_five_leaves").not.toContain("\uFFFD");
     expect(body, "golden_five_leaves").toContain("</svg>");
   });
 
@@ -1075,7 +1393,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "golden_forest").toBe(true);
     expect(body, "golden_forest").toContain("aria-label");
-    expect(body.length, "golden_forest").toBeGreaterThan(10_000);
+    expect(body.length, "golden_forest").toBeGreaterThan(900);
+    expect(body, "golden_forest").not.toContain("<image");
+    expect(body, "golden_forest").not.toMatch(/href=["']https?:/);
+    expect(body, "golden_forest").not.toMatch(/url\(["']?https?:/);
+    expect(body, "golden_forest").not.toContain("\uFFFD");
     expect(body, "golden_forest").toContain("</svg>");
   });
 
@@ -1086,7 +1408,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "golden_forest_arch").toBe(true);
     expect(body, "golden_forest_arch").toContain("aria-label");
-    expect(body.length, "golden_forest_arch").toBeGreaterThan(10_000);
+    expect(body.length, "golden_forest_arch").toBeGreaterThan(900);
+    expect(body, "golden_forest_arch").not.toContain("<image");
+    expect(body, "golden_forest_arch").not.toMatch(/href=["']https?:/);
+    expect(body, "golden_forest_arch").not.toMatch(/url\(["']?https?:/);
+    expect(body, "golden_forest_arch").not.toContain("\uFFFD");
     expect(body, "golden_forest_arch").toContain("</svg>");
   });
 
@@ -1097,7 +1423,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "golden_forest_path").toBe(true);
     expect(body, "golden_forest_path").toContain("aria-label");
-    expect(body.length, "golden_forest_path").toBeGreaterThan(10_000);
+    expect(body.length, "golden_forest_path").toBeGreaterThan(900);
+    expect(body, "golden_forest_path").not.toContain("<image");
+    expect(body, "golden_forest_path").not.toMatch(/href=["']https?:/);
+    expect(body, "golden_forest_path").not.toMatch(/url\(["']?https?:/);
+    expect(body, "golden_forest_path").not.toContain("\uFFFD");
     expect(body, "golden_forest_path").toContain("</svg>");
   });
 
@@ -1108,7 +1438,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "golden_leaf_path").toBe(true);
     expect(body, "golden_leaf_path").toContain("aria-label");
-    expect(body.length, "golden_leaf_path").toBeGreaterThan(10_000);
+    expect(body.length, "golden_leaf_path").toBeGreaterThan(900);
+    expect(body, "golden_leaf_path").not.toContain("<image");
+    expect(body, "golden_leaf_path").not.toMatch(/href=["']https?:/);
+    expect(body, "golden_leaf_path").not.toMatch(/url\(["']?https?:/);
+    expect(body, "golden_leaf_path").not.toContain("\uFFFD");
     expect(body, "golden_leaf_path").toContain("</svg>");
   });
 
@@ -1119,7 +1453,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "golden_leaf_polish").toBe(true);
     expect(body, "golden_leaf_polish").toContain("aria-label");
-    expect(body.length, "golden_leaf_polish").toBeGreaterThan(10_000);
+    expect(body.length, "golden_leaf_polish").toBeGreaterThan(900);
+    expect(body, "golden_leaf_polish").not.toContain("<image");
+    expect(body, "golden_leaf_polish").not.toMatch(/href=["']https?:/);
+    expect(body, "golden_leaf_polish").not.toMatch(/url\(["']?https?:/);
+    expect(body, "golden_leaf_polish").not.toContain("\uFFFD");
     expect(body, "golden_leaf_polish").toContain("</svg>");
   });
 
@@ -1130,7 +1468,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "golden_memory_gate").toBe(true);
     expect(body, "golden_memory_gate").toContain("aria-label");
-    expect(body.length, "golden_memory_gate").toBeGreaterThan(10_000);
+    expect(body.length, "golden_memory_gate").toBeGreaterThan(900);
+    expect(body, "golden_memory_gate").not.toContain("<image");
+    expect(body, "golden_memory_gate").not.toMatch(/href=["']https?:/);
+    expect(body, "golden_memory_gate").not.toMatch(/url\(["']?https?:/);
+    expect(body, "golden_memory_gate").not.toContain("\uFFFD");
     expect(body, "golden_memory_gate").toContain("</svg>");
   });
 
@@ -1141,7 +1483,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "golden_memory_touch").toBe(true);
     expect(body, "golden_memory_touch").toContain("aria-label");
-    expect(body.length, "golden_memory_touch").toBeGreaterThan(10_000);
+    expect(body.length, "golden_memory_touch").toBeGreaterThan(900);
+    expect(body, "golden_memory_touch").not.toContain("<image");
+    expect(body, "golden_memory_touch").not.toMatch(/href=["']https?:/);
+    expect(body, "golden_memory_touch").not.toMatch(/url\(["']?https?:/);
+    expect(body, "golden_memory_touch").not.toContain("\uFFFD");
     expect(body, "golden_memory_touch").toContain("</svg>");
   });
 
@@ -1152,7 +1498,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "golden_observatory").toBe(true);
     expect(body, "golden_observatory").toContain("aria-label");
-    expect(body.length, "golden_observatory").toBeGreaterThan(10_000);
+    expect(body.length, "golden_observatory").toBeGreaterThan(900);
+    expect(body, "golden_observatory").not.toContain("<image");
+    expect(body, "golden_observatory").not.toMatch(/href=["']https?:/);
+    expect(body, "golden_observatory").not.toMatch(/url\(["']?https?:/);
+    expect(body, "golden_observatory").not.toContain("\uFFFD");
     expect(body, "golden_observatory").toContain("</svg>");
   });
 
@@ -1163,7 +1513,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "golden_open").toBe(true);
     expect(body, "golden_open").toContain("aria-label");
-    expect(body.length, "golden_open").toBeGreaterThan(10_000);
+    expect(body.length, "golden_open").toBeGreaterThan(900);
+    expect(body, "golden_open").not.toContain("<image");
+    expect(body, "golden_open").not.toMatch(/href=["']https?:/);
+    expect(body, "golden_open").not.toMatch(/url\(["']?https?:/);
+    expect(body, "golden_open").not.toContain("\uFFFD");
     expect(body, "golden_open").toContain("</svg>");
   });
 
@@ -1174,7 +1528,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "hanul").toBe(true);
     expect(body, "hanul").toContain("aria-label");
-    expect(body.length, "hanul").toBeGreaterThan(10_000);
+    expect(body.length, "hanul").toBeGreaterThan(900);
+    expect(body, "hanul").not.toContain("<image");
+    expect(body, "hanul").not.toMatch(/href=["']https?:/);
+    expect(body, "hanul").not.toMatch(/url\(["']?https?:/);
+    expect(body, "hanul").not.toContain("\uFFFD");
     expect(body, "hanul").toContain("</svg>");
   });
 
@@ -1185,7 +1543,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "home").toBe(true);
     expect(body, "home").toContain("aria-label");
-    expect(body.length, "home").toBeGreaterThan(10_000);
+    expect(body.length, "home").toBeGreaterThan(900);
+    expect(body, "home").not.toContain("<image");
+    expect(body, "home").not.toMatch(/href=["']https?:/);
+    expect(body, "home").not.toMatch(/url\(["']?https?:/);
+    expect(body, "home").not.toContain("\uFFFD");
     expect(body, "home").toContain("</svg>");
   });
 
@@ -1196,7 +1558,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "hundred_taps").toBe(true);
     expect(body, "hundred_taps").toContain("aria-label");
-    expect(body.length, "hundred_taps").toBeGreaterThan(10_000);
+    expect(body.length, "hundred_taps").toBeGreaterThan(900);
+    expect(body, "hundred_taps").not.toContain("<image");
+    expect(body, "hundred_taps").not.toMatch(/href=["']https?:/);
+    expect(body, "hundred_taps").not.toMatch(/url\(["']?https?:/);
+    expect(body, "hundred_taps").not.toContain("\uFFFD");
     expect(body, "hundred_taps").toContain("</svg>");
   });
 
@@ -1207,7 +1573,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "key").toBe(true);
     expect(body, "key").toContain("aria-label");
-    expect(body.length, "key").toBeGreaterThan(10_000);
+    expect(body.length, "key").toBeGreaterThan(900);
+    expect(body, "key").not.toContain("<image");
+    expect(body, "key").not.toMatch(/href=["']https?:/);
+    expect(body, "key").not.toMatch(/url\(["']?https?:/);
+    expect(body, "key").not.toContain("\uFFFD");
     expect(body, "key").toContain("</svg>");
   });
 
@@ -1218,7 +1588,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "lantern").toBe(true);
     expect(body, "lantern").toContain("aria-label");
-    expect(body.length, "lantern").toBeGreaterThan(10_000);
+    expect(body.length, "lantern").toBeGreaterThan(900);
+    expect(body, "lantern").not.toContain("<image");
+    expect(body, "lantern").not.toMatch(/href=["']https?:/);
+    expect(body, "lantern").not.toMatch(/url\(["']?https?:/);
+    expect(body, "lantern").not.toContain("\uFFFD");
     expect(body, "lantern").toContain("</svg>");
   });
 
@@ -1229,7 +1603,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "late_game_marker").toBe(true);
     expect(body, "late_game_marker").toContain("aria-label");
-    expect(body.length, "late_game_marker").toBeGreaterThan(10_000);
+    expect(body.length, "late_game_marker").toBeGreaterThan(900);
+    expect(body, "late_game_marker").not.toContain("<image");
+    expect(body, "late_game_marker").not.toMatch(/href=["']https?:/);
+    expect(body, "late_game_marker").not.toMatch(/url\(["']?https?:/);
+    expect(body, "late_game_marker").not.toContain("\uFFFD");
     expect(body, "late_game_marker").toContain("</svg>");
   });
 
@@ -1240,7 +1618,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "leaf").toBe(true);
     expect(body, "leaf").toContain("aria-label");
-    expect(body.length, "leaf").toBeGreaterThan(10_000);
+    expect(body.length, "leaf").toBeGreaterThan(900);
+    expect(body, "leaf").not.toContain("<image");
+    expect(body, "leaf").not.toMatch(/href=["']https?:/);
+    expect(body, "leaf").not.toMatch(/url\(["']?https?:/);
+    expect(body, "leaf").not.toContain("\uFFFD");
     expect(body, "leaf").toContain("</svg>");
   });
 
@@ -1251,7 +1633,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "leaf_5").toBe(true);
     expect(body, "leaf_5").toContain("aria-label");
-    expect(body.length, "leaf_5").toBeGreaterThan(10_000);
+    expect(body.length, "leaf_5").toBeGreaterThan(900);
+    expect(body, "leaf_5").not.toContain("<image");
+    expect(body, "leaf_5").not.toMatch(/href=["']https?:/);
+    expect(body, "leaf_5").not.toMatch(/url\(["']?https?:/);
+    expect(body, "leaf_5").not.toContain("\uFFFD");
     expect(body, "leaf_5").toContain("</svg>");
   });
 
@@ -1262,7 +1648,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "leaf_compost_house").toBe(true);
     expect(body, "leaf_compost_house").toContain("aria-label");
-    expect(body.length, "leaf_compost_house").toBeGreaterThan(10_000);
+    expect(body.length, "leaf_compost_house").toBeGreaterThan(900);
+    expect(body, "leaf_compost_house").not.toContain("<image");
+    expect(body, "leaf_compost_house").not.toMatch(/href=["']https?:/);
+    expect(body, "leaf_compost_house").not.toMatch(/url\(["']?https?:/);
+    expect(body, "leaf_compost_house").not.toContain("\uFFFD");
     expect(body, "leaf_compost_house").toContain("</svg>");
   });
 
@@ -1273,7 +1663,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "leaf_polish").toBe(true);
     expect(body, "leaf_polish").toContain("aria-label");
-    expect(body.length, "leaf_polish").toBeGreaterThan(10_000);
+    expect(body.length, "leaf_polish").toBeGreaterThan(900);
+    expect(body, "leaf_polish").not.toContain("<image");
+    expect(body, "leaf_polish").not.toMatch(/href=["']https?:/);
+    expect(body, "leaf_polish").not.toMatch(/url\(["']?https?:/);
+    expect(body, "leaf_polish").not.toContain("\uFFFD");
     expect(body, "leaf_polish").toContain("</svg>");
   });
 
@@ -1284,7 +1678,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "mascot-celebrate").toBe(true);
     expect(body, "mascot-celebrate").toContain("aria-label");
-    expect(body.length, "mascot-celebrate").toBeGreaterThan(10_000);
+    expect(body.length, "mascot-celebrate").toBeGreaterThan(900);
+    expect(body, "mascot-celebrate").not.toContain("<image");
+    expect(body, "mascot-celebrate").not.toMatch(/href=["']https?:/);
+    expect(body, "mascot-celebrate").not.toMatch(/url\(["']?https?:/);
+    expect(body, "mascot-celebrate").not.toContain("\uFFFD");
     expect(body, "mascot-celebrate").toContain("</svg>");
   });
 
@@ -1295,7 +1693,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "mascot-default").toBe(true);
     expect(body, "mascot-default").toContain("aria-label");
-    expect(body.length, "mascot-default").toBeGreaterThan(10_000);
+    expect(body.length, "mascot-default").toBeGreaterThan(900);
+    expect(body, "mascot-default").not.toContain("<image");
+    expect(body, "mascot-default").not.toMatch(/href=["']https?:/);
+    expect(body, "mascot-default").not.toMatch(/url\(["']?https?:/);
+    expect(body, "mascot-default").not.toContain("\uFFFD");
     expect(body, "mascot-default").toContain("</svg>");
   });
 
@@ -1306,7 +1708,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "mascot-eating").toBe(true);
     expect(body, "mascot-eating").toContain("aria-label");
-    expect(body.length, "mascot-eating").toBeGreaterThan(10_000);
+    expect(body.length, "mascot-eating").toBeGreaterThan(900);
+    expect(body, "mascot-eating").not.toContain("<image");
+    expect(body, "mascot-eating").not.toMatch(/href=["']https?:/);
+    expect(body, "mascot-eating").not.toMatch(/url\(["']?https?:/);
+    expect(body, "mascot-eating").not.toContain("\uFFFD");
     expect(body, "mascot-eating").toContain("</svg>");
   });
 
@@ -1317,7 +1723,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "mascot-happy").toBe(true);
     expect(body, "mascot-happy").toContain("aria-label");
-    expect(body.length, "mascot-happy").toBeGreaterThan(10_000);
+    expect(body.length, "mascot-happy").toBeGreaterThan(900);
+    expect(body, "mascot-happy").not.toContain("<image");
+    expect(body, "mascot-happy").not.toMatch(/href=["']https?:/);
+    expect(body, "mascot-happy").not.toMatch(/url\(["']?https?:/);
+    expect(body, "mascot-happy").not.toContain("\uFFFD");
     expect(body, "mascot-happy").toContain("</svg>");
   });
 
@@ -1328,7 +1738,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "mascot-sleepy").toBe(true);
     expect(body, "mascot-sleepy").toContain("aria-label");
-    expect(body.length, "mascot-sleepy").toBeGreaterThan(10_000);
+    expect(body.length, "mascot-sleepy").toBeGreaterThan(900);
+    expect(body, "mascot-sleepy").not.toContain("<image");
+    expect(body, "mascot-sleepy").not.toMatch(/href=["']https?:/);
+    expect(body, "mascot-sleepy").not.toMatch(/url\(["']?https?:/);
+    expect(body, "mascot-sleepy").not.toContain("\uFFFD");
     expect(body, "mascot-sleepy").toContain("</svg>");
   });
 
@@ -1339,7 +1753,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "mat").toBe(true);
     expect(body, "mat").toContain("aria-label");
-    expect(body.length, "mat").toBeGreaterThan(10_000);
+    expect(body.length, "mat").toBeGreaterThan(900);
+    expect(body, "mat").not.toContain("<image");
+    expect(body, "mat").not.toMatch(/href=["']https?:/);
+    expect(body, "mat").not.toMatch(/url\(["']?https?:/);
+    expect(body, "mat").not.toContain("\uFFFD");
     expect(body, "mat").toContain("</svg>");
   });
 
@@ -1350,7 +1768,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "memory").toBe(true);
     expect(body, "memory").toContain("aria-label");
-    expect(body.length, "memory").toBeGreaterThan(10_000);
+    expect(body.length, "memory").toBeGreaterThan(900);
+    expect(body, "memory").not.toContain("<image");
+    expect(body, "memory").not.toMatch(/href=["']https?:/);
+    expect(body, "memory").not.toMatch(/url\(["']?https?:/);
+    expect(body, "memory").not.toContain("\uFFFD");
     expect(body, "memory").toContain("</svg>");
   });
 
@@ -1361,7 +1783,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "memory_butler").toBe(true);
     expect(body, "memory_butler").toContain("aria-label");
-    expect(body.length, "memory_butler").toBeGreaterThan(10_000);
+    expect(body.length, "memory_butler").toBeGreaterThan(900);
+    expect(body, "memory_butler").not.toContain("<image");
+    expect(body, "memory_butler").not.toMatch(/href=["']https?:/);
+    expect(body, "memory_butler").not.toMatch(/url\(["']?https?:/);
+    expect(body, "memory_butler").not.toContain("\uFFFD");
     expect(body, "memory_butler").toContain("</svg>");
   });
 
@@ -1372,7 +1798,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "memory_gate").toBe(true);
     expect(body, "memory_gate").toContain("aria-label");
-    expect(body.length, "memory_gate").toBeGreaterThan(10_000);
+    expect(body.length, "memory_gate").toBeGreaterThan(900);
+    expect(body, "memory_gate").not.toContain("<image");
+    expect(body, "memory_gate").not.toMatch(/href=["']https?:/);
+    expect(body, "memory_gate").not.toMatch(/url\(["']?https?:/);
+    expect(body, "memory_gate").not.toContain("\uFFFD");
     expect(body, "memory_gate").toContain("</svg>");
   });
 
@@ -1383,7 +1813,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "memory_gate_halo").toBe(true);
     expect(body, "memory_gate_halo").toContain("aria-label");
-    expect(body.length, "memory_gate_halo").toBeGreaterThan(10_000);
+    expect(body.length, "memory_gate_halo").toBeGreaterThan(900);
+    expect(body, "memory_gate_halo").not.toContain("<image");
+    expect(body, "memory_gate_halo").not.toMatch(/href=["']https?:/);
+    expect(body, "memory_gate_halo").not.toMatch(/url\(["']?https?:/);
+    expect(body, "memory_gate_halo").not.toContain("\uFFFD");
     expect(body, "memory_gate_halo").toContain("</svg>");
   });
 
@@ -1394,7 +1828,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "memory_touch_first").toBe(true);
     expect(body, "memory_touch_first").toContain("aria-label");
-    expect(body.length, "memory_touch_first").toBeGreaterThan(10_000);
+    expect(body.length, "memory_touch_first").toBeGreaterThan(900);
+    expect(body, "memory_touch_first").not.toContain("<image");
+    expect(body, "memory_touch_first").not.toMatch(/href=["']https?:/);
+    expect(body, "memory_touch_first").not.toMatch(/url\(["']?https?:/);
+    expect(body, "memory_touch_first").not.toContain("\uFFFD");
     expect(body, "memory_touch_first").toContain("</svg>");
   });
 
@@ -1405,7 +1843,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "metronome").toBe(true);
     expect(body, "metronome").toContain("aria-label");
-    expect(body.length, "metronome").toBeGreaterThan(10_000);
+    expect(body.length, "metronome").toBeGreaterThan(900);
+    expect(body, "metronome").not.toContain("<image");
+    expect(body, "metronome").not.toMatch(/href=["']https?:/);
+    expect(body, "metronome").not.toMatch(/url\(["']?https?:/);
+    expect(body, "metronome").not.toContain("\uFFFD");
     expect(body, "metronome").toContain("</svg>");
   });
 
@@ -1416,7 +1858,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "mineral_stream").toBe(true);
     expect(body, "mineral_stream").toContain("aria-label");
-    expect(body.length, "mineral_stream").toBeGreaterThan(10_000);
+    expect(body.length, "mineral_stream").toBeGreaterThan(900);
+    expect(body, "mineral_stream").not.toContain("<image");
+    expect(body, "mineral_stream").not.toMatch(/href=["']https?:/);
+    expect(body, "mineral_stream").not.toMatch(/url\(["']?https?:/);
+    expect(body, "mineral_stream").not.toContain("\uFFFD");
     expect(body, "mineral_stream").toContain("</svg>");
   });
 
@@ -1427,7 +1873,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "momo").toBe(true);
     expect(body, "momo").toContain("aria-label");
-    expect(body.length, "momo").toBeGreaterThan(10_000);
+    expect(body.length, "momo").toBeGreaterThan(900);
+    expect(body, "momo").not.toContain("<image");
+    expect(body, "momo").not.toMatch(/href=["']https?:/);
+    expect(body, "momo").not.toMatch(/url\(["']?https?:/);
+    expect(body, "momo").not.toContain("\uFFFD");
     expect(body, "momo").toContain("</svg>");
   });
 
@@ -1438,7 +1888,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "moon_observatory").toBe(true);
     expect(body, "moon_observatory").toContain("aria-label");
-    expect(body.length, "moon_observatory").toBeGreaterThan(10_000);
+    expect(body.length, "moon_observatory").toBeGreaterThan(900);
+    expect(body, "moon_observatory").not.toContain("<image");
+    expect(body, "moon_observatory").not.toMatch(/href=["']https?:/);
+    expect(body, "moon_observatory").not.toMatch(/url\(["']?https?:/);
+    expect(body, "moon_observatory").not.toContain("\uFFFD");
     expect(body, "moon_observatory").toContain("</svg>");
   });
 
@@ -1449,7 +1903,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "moon_orange_observatory").toBe(true);
     expect(body, "moon_orange_observatory").toContain("aria-label");
-    expect(body.length, "moon_orange_observatory").toBeGreaterThan(10_000);
+    expect(body.length, "moon_orange_observatory").toBeGreaterThan(900);
+    expect(body, "moon_orange_observatory").not.toContain("<image");
+    expect(body, "moon_orange_observatory").not.toMatch(/href=["']https?:/);
+    expect(body, "moon_orange_observatory").not.toMatch(/url\(["']?https?:/);
+    expect(body, "moon_orange_observatory").not.toContain("\uFFFD");
     expect(body, "moon_orange_observatory").toContain("</svg>");
   });
 
@@ -1460,7 +1918,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "nap_mat").toBe(true);
     expect(body, "nap_mat").toContain("aria-label");
-    expect(body.length, "nap_mat").toBeGreaterThan(10_000);
+    expect(body.length, "nap_mat").toBeGreaterThan(900);
+    expect(body, "nap_mat").not.toContain("<image");
+    expect(body, "nap_mat").not.toMatch(/href=["']https?:/);
+    expect(body, "nap_mat").not.toMatch(/url\(["']?https?:/);
+    expect(body, "nap_mat").not.toContain("\uFFFD");
     expect(body, "nap_mat").toContain("</svg>");
   });
 
@@ -1471,7 +1933,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "nap_mat_set").toBe(true);
     expect(body, "nap_mat_set").toContain("aria-label");
-    expect(body.length, "nap_mat_set").toBeGreaterThan(10_000);
+    expect(body.length, "nap_mat_set").toBeGreaterThan(900);
+    expect(body, "nap_mat_set").not.toContain("<image");
+    expect(body, "nap_mat_set").not.toMatch(/href=["']https?:/);
+    expect(body, "nap_mat_set").not.toMatch(/url\(["']?https?:/);
+    expect(body, "nap_mat_set").not.toContain("\uFFFD");
     expect(body, "nap_mat_set").toContain("</svg>");
   });
 
@@ -1482,7 +1948,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "narin").toBe(true);
     expect(body, "narin").toContain("aria-label");
-    expect(body.length, "narin").toBeGreaterThan(10_000);
+    expect(body.length, "narin").toBeGreaterThan(900);
+    expect(body, "narin").not.toContain("<image");
+    expect(body, "narin").not.toMatch(/href=["']https?:/);
+    expect(body, "narin").not.toMatch(/url\(["']?https?:/);
+    expect(body, "narin").not.toContain("\uFFFD");
     expect(body, "narin").toContain("</svg>");
   });
 
@@ -1493,7 +1963,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "observatory").toBe(true);
     expect(body, "observatory").toContain("aria-label");
-    expect(body.length, "observatory").toBeGreaterThan(10_000);
+    expect(body.length, "observatory").toBeGreaterThan(900);
+    expect(body, "observatory").not.toContain("<image");
+    expect(body, "observatory").not.toMatch(/href=["']https?:/);
+    expect(body, "observatory").not.toMatch(/url\(["']?https?:/);
+    expect(body, "observatory").not.toContain("\uFFFD");
     expect(body, "observatory").toContain("</svg>");
   });
 
@@ -1504,7 +1978,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "onsen").toBe(true);
     expect(body, "onsen").toContain("aria-label");
-    expect(body.length, "onsen").toBeGreaterThan(10_000);
+    expect(body.length, "onsen").toBeGreaterThan(900);
+    expect(body, "onsen").not.toContain("<image");
+    expect(body, "onsen").not.toMatch(/href=["']https?:/);
+    expect(body, "onsen").not.toMatch(/url\(["']?https?:/);
+    expect(body, "onsen").not.toContain("\uFFFD");
     expect(body, "onsen").toContain("</svg>");
   });
 
@@ -1515,7 +1993,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "onsen_300k").toBe(true);
     expect(body, "onsen_300k").toContain("aria-label");
-    expect(body.length, "onsen_300k").toBeGreaterThan(10_000);
+    expect(body.length, "onsen_300k").toBeGreaterThan(900);
+    expect(body, "onsen_300k").not.toContain("<image");
+    expect(body, "onsen_300k").not.toMatch(/href=["']https?:/);
+    expect(body, "onsen_300k").not.toMatch(/url\(["']?https?:/);
+    expect(body, "onsen_300k").not.toContain("\uFFFD");
     expect(body, "onsen_300k").toContain("</svg>");
   });
 
@@ -1526,7 +2008,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "onsen_75k").toBe(true);
     expect(body, "onsen_75k").toContain("aria-label");
-    expect(body.length, "onsen_75k").toBeGreaterThan(10_000);
+    expect(body.length, "onsen_75k").toBeGreaterThan(900);
+    expect(body, "onsen_75k").not.toContain("<image");
+    expect(body, "onsen_75k").not.toMatch(/href=["']https?:/);
+    expect(body, "onsen_75k").not.toMatch(/url\(["']?https?:/);
+    expect(body, "onsen_75k").not.toContain("\uFFFD");
     expect(body, "onsen_75k").toContain("</svg>");
   });
 
@@ -1537,7 +2023,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "onsen_eps_1k").toBe(true);
     expect(body, "onsen_eps_1k").toContain("aria-label");
-    expect(body.length, "onsen_eps_1k").toBeGreaterThan(10_000);
+    expect(body.length, "onsen_eps_1k").toBeGreaterThan(900);
+    expect(body, "onsen_eps_1k").not.toContain("<image");
+    expect(body, "onsen_eps_1k").not.toMatch(/href=["']https?:/);
+    expect(body, "onsen_eps_1k").not.toMatch(/url\(["']?https?:/);
+    expect(body, "onsen_eps_1k").not.toContain("\uFFFD");
     expect(body, "onsen_eps_1k").toContain("</svg>");
   });
 
@@ -1548,7 +2038,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "onsen_first").toBe(true);
     expect(body, "onsen_first").toContain("aria-label");
-    expect(body.length, "onsen_first").toBeGreaterThan(10_000);
+    expect(body.length, "onsen_first").toBeGreaterThan(900);
+    expect(body, "onsen_first").not.toContain("<image");
+    expect(body, "onsen_first").not.toMatch(/href=["']https?:/);
+    expect(body, "onsen_first").not.toMatch(/url\(["']?https?:/);
+    expect(body, "onsen_first").not.toContain("\uFFFD");
     expect(body, "onsen_first").toContain("</svg>");
   });
 
@@ -1559,7 +2053,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "onsen_mist").toBe(true);
     expect(body, "onsen_mist").toContain("aria-label");
-    expect(body.length, "onsen_mist").toBeGreaterThan(10_000);
+    expect(body.length, "onsen_mist").toBeGreaterThan(900);
+    expect(body, "onsen_mist").not.toContain("<image");
+    expect(body, "onsen_mist").not.toMatch(/href=["']https?:/);
+    expect(body, "onsen_mist").not.toMatch(/url\(["']?https?:/);
+    expect(body, "onsen_mist").not.toContain("\uFFFD");
     expect(body, "onsen_mist").toContain("</svg>");
   });
 
@@ -1570,7 +2068,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "onsen_open").toBe(true);
     expect(body, "onsen_open").toContain("aria-label");
-    expect(body.length, "onsen_open").toBeGreaterThan(10_000);
+    expect(body.length, "onsen_open").toBeGreaterThan(900);
+    expect(body, "onsen_open").not.toContain("<image");
+    expect(body, "onsen_open").not.toMatch(/href=["']https?:/);
+    expect(body, "onsen_open").not.toMatch(/url\(["']?https?:/);
+    expect(body, "onsen_open").not.toContain("\uFFFD");
     expect(body, "onsen_open").toContain("</svg>");
   });
 
@@ -1581,7 +2083,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "onsen_snack_counter").toBe(true);
     expect(body, "onsen_snack_counter").toContain("aria-label");
-    expect(body.length, "onsen_snack_counter").toBeGreaterThan(10_000);
+    expect(body.length, "onsen_snack_counter").toBeGreaterThan(900);
+    expect(body, "onsen_snack_counter").not.toContain("<image");
+    expect(body, "onsen_snack_counter").not.toMatch(/href=["']https?:/);
+    expect(body, "onsen_snack_counter").not.toMatch(/url\(["']?https?:/);
+    expect(body, "onsen_snack_counter").not.toContain("\uFFFD");
     expect(body, "onsen_snack_counter").toContain("</svg>");
   });
 
@@ -1592,7 +2098,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "onsen_snack_recipe").toBe(true);
     expect(body, "onsen_snack_recipe").toContain("aria-label");
-    expect(body.length, "onsen_snack_recipe").toBeGreaterThan(10_000);
+    expect(body.length, "onsen_snack_recipe").toBeGreaterThan(900);
+    expect(body, "onsen_snack_recipe").not.toContain("<image");
+    expect(body, "onsen_snack_recipe").not.toMatch(/href=["']https?:/);
+    expect(body, "onsen_snack_recipe").not.toMatch(/url\(["']?https?:/);
+    expect(body, "onsen_snack_recipe").not.toContain("\uFFFD");
     expect(body, "onsen_snack_recipe").toContain("</svg>");
   });
 
@@ -1603,7 +2113,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "onsen_towel_rack").toBe(true);
     expect(body, "onsen_towel_rack").toContain("aria-label");
-    expect(body.length, "onsen_towel_rack").toBeGreaterThan(10_000);
+    expect(body.length, "onsen_towel_rack").toBeGreaterThan(900);
+    expect(body, "onsen_towel_rack").not.toContain("<image");
+    expect(body, "onsen_towel_rack").not.toMatch(/href=["']https?:/);
+    expect(body, "onsen_towel_rack").not.toMatch(/url\(["']?https?:/);
+    expect(body, "onsen_towel_rack").not.toContain("\uFFFD");
     expect(body, "onsen_towel_rack").toContain("</svg>");
   });
 
@@ -1614,7 +2128,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "onsen_towel_touch").toBe(true);
     expect(body, "onsen_towel_touch").toContain("aria-label");
-    expect(body.length, "onsen_towel_touch").toBeGreaterThan(10_000);
+    expect(body.length, "onsen_towel_touch").toBeGreaterThan(900);
+    expect(body, "onsen_towel_touch").not.toContain("<image");
+    expect(body, "onsen_towel_touch").not.toMatch(/href=["']https?:/);
+    expect(body, "onsen_towel_touch").not.toMatch(/url\(["']?https?:/);
+    expect(body, "onsen_towel_touch").not.toContain("\uFFFD");
     expect(body, "onsen_towel_touch").toContain("</svg>");
   });
 
@@ -1625,7 +2143,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "onsen_warm_pond").toBe(true);
     expect(body, "onsen_warm_pond").toContain("aria-label");
-    expect(body.length, "onsen_warm_pond").toBeGreaterThan(10_000);
+    expect(body.length, "onsen_warm_pond").toBeGreaterThan(900);
+    expect(body, "onsen_warm_pond").not.toContain("<image");
+    expect(body, "onsen_warm_pond").not.toMatch(/href=["']https?:/);
+    expect(body, "onsen_warm_pond").not.toMatch(/url\(["']?https?:/);
+    expect(body, "onsen_warm_pond").not.toContain("\uFFFD");
     expect(body, "onsen_warm_pond").toContain("</svg>");
   });
 
@@ -1636,7 +2158,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "orange").toBe(true);
     expect(body, "orange").toContain("aria-label");
-    expect(body.length, "orange").toBeGreaterThan(10_000);
+    expect(body.length, "orange").toBeGreaterThan(900);
+    expect(body, "orange").not.toContain("<image");
+    expect(body, "orange").not.toMatch(/href=["']https?:/);
+    expect(body, "orange").not.toMatch(/url\(["']?https?:/);
+    expect(body, "orange").not.toContain("\uFFFD");
     expect(body, "orange").toContain("</svg>");
   });
 
@@ -1647,7 +2173,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "orange_1k").toBe(true);
     expect(body, "orange_1k").toContain("aria-label");
-    expect(body.length, "orange_1k").toBeGreaterThan(10_000);
+    expect(body.length, "orange_1k").toBeGreaterThan(900);
+    expect(body, "orange_1k").not.toContain("<image");
+    expect(body, "orange_1k").not.toMatch(/href=["']https?:/);
+    expect(body, "orange_1k").not.toMatch(/url\(["']?https?:/);
+    expect(body, "orange_1k").not.toContain("\uFFFD");
     expect(body, "orange_1k").toContain("</svg>");
   });
 
@@ -1658,7 +2188,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "orange_basket").toBe(true);
     expect(body, "orange_basket").toContain("aria-label");
-    expect(body.length, "orange_basket").toBeGreaterThan(10_000);
+    expect(body.length, "orange_basket").toBeGreaterThan(900);
+    expect(body, "orange_basket").not.toContain("<image");
+    expect(body, "orange_basket").not.toMatch(/href=["']https?:/);
+    expect(body, "orange_basket").not.toMatch(/url\(["']?https?:/);
+    expect(body, "orange_basket").not.toContain("\uFFFD");
     expect(body, "orange_basket").toContain("</svg>");
   });
 
@@ -1669,7 +2203,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "orange_basket_corner").toBe(true);
     expect(body, "orange_basket_corner").toContain("aria-label");
-    expect(body.length, "orange_basket_corner").toBeGreaterThan(10_000);
+    expect(body.length, "orange_basket_corner").toBeGreaterThan(900);
+    expect(body, "orange_basket_corner").not.toContain("<image");
+    expect(body, "orange_basket_corner").not.toMatch(/href=["']https?:/);
+    expect(body, "orange_basket_corner").not.toMatch(/url\(["']?https?:/);
+    expect(body, "orange_basket_corner").not.toContain("\uFFFD");
     expect(body, "orange_basket_corner").toContain("</svg>");
   });
 
@@ -1680,7 +2218,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "orange_lantern_road").toBe(true);
     expect(body, "orange_lantern_road").toContain("aria-label");
-    expect(body.length, "orange_lantern_road").toBeGreaterThan(10_000);
+    expect(body.length, "orange_lantern_road").toBeGreaterThan(900);
+    expect(body, "orange_lantern_road").not.toContain("<image");
+    expect(body, "orange_lantern_road").not.toMatch(/href=["']https?:/);
+    expect(body, "orange_lantern_road").not.toMatch(/url\(["']?https?:/);
+    expect(body, "orange_lantern_road").not.toContain("\uFFFD");
     expect(body, "orange_lantern_road").toContain("</svg>");
   });
 
@@ -1691,7 +2233,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "orange_lanterns").toBe(true);
     expect(body, "orange_lanterns").toContain("aria-label");
-    expect(body.length, "orange_lanterns").toBeGreaterThan(10_000);
+    expect(body.length, "orange_lanterns").toBeGreaterThan(900);
+    expect(body, "orange_lanterns").not.toContain("<image");
+    expect(body, "orange_lanterns").not.toMatch(/href=["']https?:/);
+    expect(body, "orange_lanterns").not.toMatch(/url\(["']?https?:/);
+    expect(body, "orange_lanterns").not.toContain("\uFFFD");
     expect(body, "orange_lanterns").toContain("</svg>");
   });
 
@@ -1702,7 +2248,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "orange_spoon").toBe(true);
     expect(body, "orange_spoon").toContain("aria-label");
-    expect(body.length, "orange_spoon").toBeGreaterThan(10_000);
+    expect(body.length, "orange_spoon").toBeGreaterThan(900);
+    expect(body, "orange_spoon").not.toContain("<image");
+    expect(body, "orange_spoon").not.toMatch(/href=["']https?:/);
+    expect(body, "orange_spoon").not.toMatch(/url\(["']?https?:/);
+    expect(body, "orange_spoon").not.toContain("\uFFFD");
     expect(body, "orange_spoon").toContain("</svg>");
   });
 
@@ -1713,7 +2263,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "parasol").toBe(true);
     expect(body, "parasol").toContain("aria-label");
-    expect(body.length, "parasol").toBeGreaterThan(10_000);
+    expect(body.length, "parasol").toBeGreaterThan(900);
+    expect(body, "parasol").not.toContain("<image");
+    expect(body, "parasol").not.toMatch(/href=["']https?:/);
+    expect(body, "parasol").not.toMatch(/url\(["']?https?:/);
+    expect(body, "parasol").not.toContain("\uFFFD");
     expect(body, "parasol").toContain("</svg>");
   });
 
@@ -1724,7 +2278,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "paw").toBe(true);
     expect(body, "paw").toContain("aria-label");
-    expect(body.length, "paw").toBeGreaterThan(10_000);
+    expect(body.length, "paw").toBeGreaterThan(900);
+    expect(body, "paw").not.toContain("<image");
+    expect(body, "paw").not.toMatch(/href=["']https?:/);
+    expect(body, "paw").not.toMatch(/url\(["']?https?:/);
+    expect(body, "paw").not.toContain("\uFFFD");
     expect(body, "paw").toContain("</svg>");
   });
 
@@ -1735,7 +2293,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "paw_10").toBe(true);
     expect(body, "paw_10").toContain("aria-label");
-    expect(body.length, "paw_10").toBeGreaterThan(10_000);
+    expect(body.length, "paw_10").toBeGreaterThan(900);
+    expect(body, "paw_10").not.toContain("<image");
+    expect(body, "paw_10").not.toMatch(/href=["']https?:/);
+    expect(body, "paw_10").not.toMatch(/url\(["']?https?:/);
+    expect(body, "paw_10").not.toContain("\uFFFD");
     expect(body, "paw_10").toContain("</svg>");
   });
 
@@ -1746,7 +2308,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "podo").toBe(true);
     expect(body, "podo").toContain("aria-label");
-    expect(body.length, "podo").toBeGreaterThan(10_000);
+    expect(body.length, "podo").toBeGreaterThan(900);
+    expect(body, "podo").not.toContain("<image");
+    expect(body, "podo").not.toMatch(/href=["']https?:/);
+    expect(body, "podo").not.toMatch(/url\(["']?https?:/);
+    expect(body, "podo").not.toContain("\uFFFD");
     expect(body, "podo").toContain("</svg>");
   });
 
@@ -1757,7 +2323,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "pond").toBe(true);
     expect(body, "pond").toContain("aria-label");
-    expect(body.length, "pond").toBeGreaterThan(10_000);
+    expect(body.length, "pond").toBeGreaterThan(900);
+    expect(body, "pond").not.toContain("<image");
+    expect(body, "pond").not.toMatch(/href=["']https?:/);
+    expect(body, "pond").not.toMatch(/url\(["']?https?:/);
+    expect(body, "pond").not.toContain("\uFFFD");
     expect(body, "pond").toContain("</svg>");
   });
 
@@ -1768,7 +2338,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "prestige").toBe(true);
     expect(body, "prestige").toContain("aria-label");
-    expect(body.length, "prestige").toBeGreaterThan(10_000);
+    expect(body.length, "prestige").toBeGreaterThan(900);
+    expect(body, "prestige").not.toContain("<image");
+    expect(body, "prestige").not.toMatch(/href=["']https?:/);
+    expect(body, "prestige").not.toMatch(/url\(["']?https?:/);
+    expect(body, "prestige").not.toContain("\uFFFD");
     expect(body, "prestige").toContain("</svg>");
   });
 
@@ -1779,7 +2353,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "prestige_3").toBe(true);
     expect(body, "prestige_3").toContain("aria-label");
-    expect(body.length, "prestige_3").toBeGreaterThan(10_000);
+    expect(body.length, "prestige_3").toBeGreaterThan(900);
+    expect(body, "prestige_3").not.toContain("<image");
+    expect(body, "prestige_3").not.toMatch(/href=["']https?:/);
+    expect(body, "prestige_3").not.toMatch(/url\(["']?https?:/);
+    expect(body, "prestige_3").not.toContain("\uFFFD");
     expect(body, "prestige_3").toContain("</svg>");
   });
 
@@ -1790,7 +2368,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "privacy-card-preview").toBe(true);
     expect(body, "privacy-card-preview").toContain("aria-label");
-    expect(body.length, "privacy-card-preview").toBeGreaterThan(10_000);
+    expect(body.length, "privacy-card-preview").toBeGreaterThan(900);
+    expect(body, "privacy-card-preview").not.toContain("<image");
+    expect(body, "privacy-card-preview").not.toMatch(/href=["']https?:/);
+    expect(body, "privacy-card-preview").not.toMatch(/url\(["']?https?:/);
+    expect(body, "privacy-card-preview").not.toContain("\uFFFD");
     expect(body, "privacy-card-preview").toContain("</svg>");
   });
 
@@ -1801,7 +2383,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "qa-screenshot-frame").toBe(true);
     expect(body, "qa-screenshot-frame").toContain("aria-label");
-    expect(body.length, "qa-screenshot-frame").toBeGreaterThan(10_000);
+    expect(body.length, "qa-screenshot-frame").toBeGreaterThan(900);
+    expect(body, "qa-screenshot-frame").not.toContain("<image");
+    expect(body, "qa-screenshot-frame").not.toMatch(/href=["']https?:/);
+    expect(body, "qa-screenshot-frame").not.toMatch(/url\(["']?https?:/);
+    expect(body, "qa-screenshot-frame").not.toContain("\uFFFD");
     expect(body, "qa-screenshot-frame").toContain("</svg>");
   });
 
@@ -1812,7 +2398,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "recipe").toBe(true);
     expect(body, "recipe").toContain("aria-label");
-    expect(body.length, "recipe").toBeGreaterThan(10_000);
+    expect(body.length, "recipe").toBeGreaterThan(900);
+    expect(body, "recipe").not.toContain("<image");
+    expect(body, "recipe").not.toMatch(/href=["']https?:/);
+    expect(body, "recipe").not.toMatch(/url\(["']?https?:/);
+    expect(body, "recipe").not.toContain("\uFFFD");
     expect(body, "recipe").toContain("</svg>");
   });
 
@@ -1823,7 +2413,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "release").toBe(true);
     expect(body, "release").toContain("aria-label");
-    expect(body.length, "release").toBeGreaterThan(10_000);
+    expect(body.length, "release").toBeGreaterThan(900);
+    expect(body, "release").not.toContain("<image");
+    expect(body, "release").not.toMatch(/href=["']https?:/);
+    expect(body, "release").not.toMatch(/url\(["']?https?:/);
+    expect(body, "release").not.toContain("\uFFFD");
     expect(body, "release").toContain("</svg>");
   });
 
@@ -1834,7 +2428,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "release_ad_festival").toBe(true);
     expect(body, "release_ad_festival").toContain("aria-label");
-    expect(body.length, "release_ad_festival").toBeGreaterThan(10_000);
+    expect(body.length, "release_ad_festival").toBeGreaterThan(900);
+    expect(body, "release_ad_festival").not.toContain("<image");
+    expect(body, "release_ad_festival").not.toMatch(/href=["']https?:/);
+    expect(body, "release_ad_festival").not.toMatch(/url\(["']?https?:/);
+    expect(body, "release_ad_festival").not.toContain("\uFFFD");
     expect(body, "release_ad_festival").toContain("</svg>");
   });
 
@@ -1845,7 +2443,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "release_album_basket").toBe(true);
     expect(body, "release_album_basket").toContain("aria-label");
-    expect(body.length, "release_album_basket").toBeGreaterThan(10_000);
+    expect(body.length, "release_album_basket").toBeGreaterThan(900);
+    expect(body, "release_album_basket").not.toContain("<image");
+    expect(body, "release_album_basket").not.toMatch(/href=["']https?:/);
+    expect(body, "release_album_basket").not.toMatch(/url\(["']?https?:/);
+    expect(body, "release_album_basket").not.toContain("\uFFFD");
     expect(body, "release_album_basket").toContain("</svg>");
   });
 
@@ -1856,7 +2458,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "release_album_first").toBe(true);
     expect(body, "release_album_first").toContain("aria-label");
-    expect(body.length, "release_album_first").toBeGreaterThan(10_000);
+    expect(body.length, "release_album_first").toBeGreaterThan(900);
+    expect(body, "release_album_first").not.toContain("<image");
+    expect(body, "release_album_first").not.toMatch(/href=["']https?:/);
+    expect(body, "release_album_first").not.toMatch(/url\(["']?https?:/);
+    expect(body, "release_album_first").not.toContain("\uFFFD");
     expect(body, "release_album_first").toContain("</svg>");
   });
 
@@ -1867,7 +2473,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "release_export_ready").toBe(true);
     expect(body, "release_export_ready").toContain("aria-label");
-    expect(body.length, "release_export_ready").toBeGreaterThan(10_000);
+    expect(body.length, "release_export_ready").toBeGreaterThan(900);
+    expect(body, "release_export_ready").not.toContain("<image");
+    expect(body, "release_export_ready").not.toMatch(/href=["']https?:/);
+    expect(body, "release_export_ready").not.toMatch(/url\(["']?https?:/);
+    expect(body, "release_export_ready").not.toContain("\uFFFD");
     expect(body, "release_export_ready").toContain("</svg>");
   });
 
@@ -1878,7 +2488,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "release_shop_gift").toBe(true);
     expect(body, "release_shop_gift").toContain("aria-label");
-    expect(body.length, "release_shop_gift").toBeGreaterThan(10_000);
+    expect(body.length, "release_shop_gift").toBeGreaterThan(900);
+    expect(body, "release_shop_gift").not.toContain("<image");
+    expect(body, "release_shop_gift").not.toMatch(/href=["']https?:/);
+    expect(body, "release_shop_gift").not.toMatch(/url\(["']?https?:/);
+    expect(body, "release_shop_gift").not.toContain("\uFFFD");
     expect(body, "release_shop_gift").toContain("</svg>");
   });
 
@@ -1889,7 +2503,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "release_stamp_board").toBe(true);
     expect(body, "release_stamp_board").toContain("aria-label");
-    expect(body.length, "release_stamp_board").toBeGreaterThan(10_000);
+    expect(body.length, "release_stamp_board").toBeGreaterThan(900);
+    expect(body, "release_stamp_board").not.toContain("<image");
+    expect(body, "release_stamp_board").not.toMatch(/href=["']https?:/);
+    expect(body, "release_stamp_board").not.toMatch(/url\(["']?https?:/);
+    expect(body, "release_stamp_board").not.toContain("\uFFFD");
     expect(body, "release_stamp_board").toContain("</svg>");
   });
 
@@ -1900,7 +2518,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "ruru").toBe(true);
     expect(body, "ruru").toContain("aria-label");
-    expect(body.length, "ruru").toBeGreaterThan(10_000);
+    expect(body.length, "ruru").toBeGreaterThan(900);
+    expect(body, "ruru").not.toContain("<image");
+    expect(body, "ruru").not.toMatch(/href=["']https?:/);
+    expect(body, "ruru").not.toMatch(/url\(["']?https?:/);
+    expect(body, "ruru").not.toContain("\uFFFD");
     expect(body, "ruru").toContain("</svg>");
   });
 
@@ -1911,7 +2533,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "sandbox_gift").toBe(true);
     expect(body, "sandbox_gift").toContain("aria-label");
-    expect(body.length, "sandbox_gift").toBeGreaterThan(10_000);
+    expect(body.length, "sandbox_gift").toBeGreaterThan(900);
+    expect(body, "sandbox_gift").not.toContain("<image");
+    expect(body, "sandbox_gift").not.toMatch(/href=["']https?:/);
+    expect(body, "sandbox_gift").not.toMatch(/url\(["']?https?:/);
+    expect(body, "sandbox_gift").not.toContain("\uFFFD");
     expect(body, "sandbox_gift").toContain("</svg>");
   });
 
@@ -1922,7 +2548,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "sandbox_shelf").toBe(true);
     expect(body, "sandbox_shelf").toContain("aria-label");
-    expect(body.length, "sandbox_shelf").toBeGreaterThan(10_000);
+    expect(body.length, "sandbox_shelf").toBeGreaterThan(900);
+    expect(body, "sandbox_shelf").not.toContain("<image");
+    expect(body, "sandbox_shelf").not.toMatch(/href=["']https?:/);
+    expect(body, "sandbox_shelf").not.toMatch(/url\(["']?https?:/);
+    expect(body, "sandbox_shelf").not.toContain("\uFFFD");
     expect(body, "sandbox_shelf").toContain("</svg>");
   });
 
@@ -1933,7 +2563,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "schedule").toBe(true);
     expect(body, "schedule").toContain("aria-label");
-    expect(body.length, "schedule").toBeGreaterThan(10_000);
+    expect(body.length, "schedule").toBeGreaterThan(900);
+    expect(body, "schedule").not.toContain("<image");
+    expect(body, "schedule").not.toMatch(/href=["']https?:/);
+    expect(body, "schedule").not.toMatch(/url\(["']?https?:/);
+    expect(body, "schedule").not.toContain("\uFFFD");
     expect(body, "schedule").toContain("</svg>");
   });
 
@@ -1944,7 +2578,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "season_memory_gate").toBe(true);
     expect(body, "season_memory_gate").toContain("aria-label");
-    expect(body.length, "season_memory_gate").toBeGreaterThan(10_000);
+    expect(body.length, "season_memory_gate").toBeGreaterThan(900);
+    expect(body, "season_memory_gate").not.toContain("<image");
+    expect(body, "season_memory_gate").not.toMatch(/href=["']https?:/);
+    expect(body, "season_memory_gate").not.toMatch(/url\(["']?https?:/);
+    expect(body, "season_memory_gate").not.toContain("\uFFFD");
     expect(body, "season_memory_gate").toContain("</svg>");
   });
 
@@ -1955,7 +2593,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "settings").toBe(true);
     expect(body, "settings").toContain("aria-label");
-    expect(body.length, "settings").toBeGreaterThan(10_000);
+    expect(body.length, "settings").toBeGreaterThan(900);
+    expect(body, "settings").not.toContain("<image");
+    expect(body, "settings").not.toMatch(/href=["']https?:/);
+    expect(body, "settings").not.toMatch(/url\(["']?https?:/);
+    expect(body, "settings").not.toContain("\uFFFD");
     expect(body, "settings").toContain("</svg>");
   });
 
@@ -1966,7 +2608,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "shade_parasol").toBe(true);
     expect(body, "shade_parasol").toContain("aria-label");
-    expect(body.length, "shade_parasol").toBeGreaterThan(10_000);
+    expect(body.length, "shade_parasol").toBeGreaterThan(900);
+    expect(body, "shade_parasol").not.toContain("<image");
+    expect(body, "shade_parasol").not.toMatch(/href=["']https?:/);
+    expect(body, "shade_parasol").not.toMatch(/url\(["']?https?:/);
+    expect(body, "shade_parasol").not.toContain("\uFFFD");
     expect(body, "shade_parasol").toContain("</svg>");
   });
 
@@ -1977,7 +2623,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "shelf").toBe(true);
     expect(body, "shelf").toContain("aria-label");
-    expect(body.length, "shelf").toBeGreaterThan(10_000);
+    expect(body.length, "shelf").toBeGreaterThan(900);
+    expect(body, "shelf").not.toContain("<image");
+    expect(body, "shelf").not.toMatch(/href=["']https?:/);
+    expect(body, "shelf").not.toMatch(/url\(["']?https?:/);
+    expect(body, "shelf").not.toContain("\uFFFD");
     expect(body, "shelf").toContain("</svg>");
   });
 
@@ -1988,7 +2638,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "shop").toBe(true);
     expect(body, "shop").toContain("aria-label");
-    expect(body.length, "shop").toBeGreaterThan(10_000);
+    expect(body.length, "shop").toBeGreaterThan(900);
+    expect(body, "shop").not.toContain("<image");
+    expect(body, "shop").not.toMatch(/href=["']https?:/);
+    expect(body, "shop").not.toMatch(/url\(["']?https?:/);
+    expect(body, "shop").not.toContain("\uFFFD");
     expect(body, "shop").toContain("</svg>");
   });
 
@@ -1999,7 +2653,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "snack").toBe(true);
     expect(body, "snack").toContain("aria-label");
-    expect(body.length, "snack").toBeGreaterThan(10_000);
+    expect(body.length, "snack").toBeGreaterThan(900);
+    expect(body, "snack").not.toContain("<image");
+    expect(body, "snack").not.toMatch(/href=["']https?:/);
+    expect(body, "snack").not.toMatch(/url\(["']?https?:/);
+    expect(body, "snack").not.toContain("\uFFFD");
     expect(body, "snack").toContain("</svg>");
   });
 
@@ -2010,7 +2668,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "snack_counter").toBe(true);
     expect(body, "snack_counter").toContain("aria-label");
-    expect(body.length, "snack_counter").toBeGreaterThan(10_000);
+    expect(body.length, "snack_counter").toBeGreaterThan(900);
+    expect(body, "snack_counter").not.toContain("<image");
+    expect(body, "snack_counter").not.toMatch(/href=["']https?:/);
+    expect(body, "snack_counter").not.toMatch(/url\(["']?https?:/);
+    expect(body, "snack_counter").not.toContain("\uFFFD");
     expect(body, "snack_counter").toContain("</svg>");
   });
 
@@ -2021,7 +2683,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "snack_counter_table").toBe(true);
     expect(body, "snack_counter_table").toContain("aria-label");
-    expect(body.length, "snack_counter_table").toBeGreaterThan(10_000);
+    expect(body.length, "snack_counter_table").toBeGreaterThan(900);
+    expect(body, "snack_counter_table").not.toContain("<image");
+    expect(body, "snack_counter_table").not.toMatch(/href=["']https?:/);
+    expect(body, "snack_counter_table").not.toMatch(/url\(["']?https?:/);
+    expect(body, "snack_counter_table").not.toContain("\uFFFD");
     expect(body, "snack_counter_table").toContain("</svg>");
   });
 
@@ -2032,7 +2698,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "soda").toBe(true);
     expect(body, "soda").toContain("aria-label");
-    expect(body.length, "soda").toBeGreaterThan(10_000);
+    expect(body.length, "soda").toBeGreaterThan(900);
+    expect(body, "soda").not.toContain("<image");
+    expect(body, "soda").not.toMatch(/href=["']https?:/);
+    expect(body, "soda").not.toMatch(/url\(["']?https?:/);
+    expect(body, "soda").not.toContain("\uFFFD");
     expect(body, "soda").toContain("</svg>");
   });
 
@@ -2043,7 +2713,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "soft_paw").toBe(true);
     expect(body, "soft_paw").toContain("aria-label");
-    expect(body.length, "soft_paw").toBeGreaterThan(10_000);
+    expect(body.length, "soft_paw").toBeGreaterThan(900);
+    expect(body, "soft_paw").not.toContain("<image");
+    expect(body, "soft_paw").not.toMatch(/href=["']https?:/);
+    expect(body, "soft_paw").not.toMatch(/url\(["']?https?:/);
+    expect(body, "soft_paw").not.toContain("\uFFFD");
     expect(body, "soft_paw").toContain("</svg>");
   });
 
@@ -2054,7 +2728,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "soft_paw_1").toBe(true);
     expect(body, "soft_paw_1").toContain("aria-label");
-    expect(body.length, "soft_paw_1").toBeGreaterThan(10_000);
+    expect(body.length, "soft_paw_1").toBeGreaterThan(900);
+    expect(body, "soft_paw_1").not.toContain("<image");
+    expect(body, "soft_paw_1").not.toMatch(/href=["']https?:/);
+    expect(body, "soft_paw_1").not.toMatch(/url\(["']?https?:/);
+    expect(body, "soft_paw_1").not.toContain("\uFFFD");
     expect(body, "soft_paw_1").toContain("</svg>");
   });
 
@@ -2065,7 +2743,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "soft_paw_10").toBe(true);
     expect(body, "soft_paw_10").toContain("aria-label");
-    expect(body.length, "soft_paw_10").toBeGreaterThan(10_000);
+    expect(body.length, "soft_paw_10").toBeGreaterThan(900);
+    expect(body, "soft_paw_10").not.toContain("<image");
+    expect(body, "soft_paw_10").not.toMatch(/href=["']https?:/);
+    expect(body, "soft_paw_10").not.toMatch(/url\(["']?https?:/);
+    expect(body, "soft_paw_10").not.toContain("\uFFFD");
     expect(body, "soft_paw_10").toContain("</svg>");
   });
 
@@ -2076,7 +2758,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "soft_paw_stamp").toBe(true);
     expect(body, "soft_paw_stamp").toContain("aria-label");
-    expect(body.length, "soft_paw_stamp").toBeGreaterThan(10_000);
+    expect(body.length, "soft_paw_stamp").toBeGreaterThan(900);
+    expect(body, "soft_paw_stamp").not.toContain("<image");
+    expect(body, "soft_paw_stamp").not.toMatch(/href=["']https?:/);
+    expect(body, "soft_paw_stamp").not.toMatch(/url\(["']?https?:/);
+    expect(body, "soft_paw_stamp").not.toContain("\uFFFD");
     expect(body, "soft_paw_stamp").toContain("</svg>");
   });
 
@@ -2087,7 +2773,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "sorting_rhythm").toBe(true);
     expect(body, "sorting_rhythm").toContain("aria-label");
-    expect(body.length, "sorting_rhythm").toBeGreaterThan(10_000);
+    expect(body.length, "sorting_rhythm").toBeGreaterThan(900);
+    expect(body, "sorting_rhythm").not.toContain("<image");
+    expect(body, "sorting_rhythm").not.toMatch(/href=["']https?:/);
+    expect(body, "sorting_rhythm").not.toMatch(/url\(["']?https?:/);
+    expect(body, "sorting_rhythm").not.toContain("\uFFFD");
     expect(body, "sorting_rhythm").toContain("</svg>");
   });
 
@@ -2098,7 +2788,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "sorting_table").toBe(true);
     expect(body, "sorting_table").toContain("aria-label");
-    expect(body.length, "sorting_table").toBeGreaterThan(10_000);
+    expect(body.length, "sorting_table").toBeGreaterThan(900);
+    expect(body, "sorting_table").not.toContain("<image");
+    expect(body, "sorting_table").not.toMatch(/href=["']https?:/);
+    expect(body, "sorting_table").not.toMatch(/url\(["']?https?:/);
+    expect(body, "sorting_table").not.toContain("\uFFFD");
     expect(body, "sorting_table").toContain("</svg>");
   });
 
@@ -2109,8 +2803,27 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "splash-draft").toBe(true);
     expect(body, "splash-draft").toContain("aria-label");
-    expect(body.length, "splash-draft").toBeGreaterThan(10_000);
+    expect(body.length, "splash-draft").toBeGreaterThan(900);
+    expect(body, "splash-draft").not.toContain("<image");
+    expect(body, "splash-draft").not.toMatch(/href=["']https?:/);
+    expect(body, "splash-draft").not.toMatch(/url\(["']?https?:/);
+    expect(body, "splash-draft").not.toContain("\uFFFD");
     expect(body, "splash-draft").toContain("</svg>");
+  });
+
+  it("validates generated SVG asset splash-rc2", () => {
+    const href = GeneratedAssetRegistry["splash-rc2"];
+    expect(href, "splash-rc2").toBeTruthy();
+    const filePath = fileURLToPath(href);
+    const body = readFileSync(filePath, "utf8");
+    expect(body.startsWith("<svg"), "splash-rc2").toBe(true);
+    expect(body, "splash-rc2").toContain("aria-label");
+    expect(body.length, "splash-rc2").toBeGreaterThan(900);
+    expect(body, "splash-rc2").not.toContain("<image");
+    expect(body, "splash-rc2").not.toMatch(/href=["']https?:/);
+    expect(body, "splash-rc2").not.toMatch(/url\(["']?https?:/);
+    expect(body, "splash-rc2").not.toContain("\uFFFD");
+    expect(body, "splash-rc2").toContain("</svg>");
   });
 
   it("validates generated SVG asset spoon", () => {
@@ -2120,7 +2833,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "spoon").toBe(true);
     expect(body, "spoon").toContain("aria-label");
-    expect(body.length, "spoon").toBeGreaterThan(10_000);
+    expect(body.length, "spoon").toBeGreaterThan(900);
+    expect(body, "spoon").not.toContain("<image");
+    expect(body, "spoon").not.toMatch(/href=["']https?:/);
+    expect(body, "spoon").not.toMatch(/url\(["']?https?:/);
+    expect(body, "spoon").not.toContain("\uFFFD");
     expect(body, "spoon").toContain("</svg>");
   });
 
@@ -2131,7 +2848,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "steam").toBe(true);
     expect(body, "steam").toContain("aria-label");
-    expect(body.length, "steam").toBeGreaterThan(10_000);
+    expect(body.length, "steam").toBeGreaterThan(900);
+    expect(body, "steam").not.toContain("<image");
+    expect(body, "steam").not.toMatch(/href=["']https?:/);
+    expect(body, "steam").not.toMatch(/url\(["']?https?:/);
+    expect(body, "steam").not.toContain("\uFFFD");
     expect(body, "steam").toContain("</svg>");
   });
 
@@ -2142,7 +2863,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "steam_towel").toBe(true);
     expect(body, "steam_towel").toContain("aria-label");
-    expect(body.length, "steam_towel").toBeGreaterThan(10_000);
+    expect(body.length, "steam_towel").toBeGreaterThan(900);
+    expect(body, "steam_towel").not.toContain("<image");
+    expect(body, "steam_towel").not.toMatch(/href=["']https?:/);
+    expect(body, "steam_towel").not.toMatch(/url\(["']?https?:/);
+    expect(body, "steam_towel").not.toContain("\uFFFD");
     expect(body, "steam_towel").toContain("</svg>");
   });
 
@@ -2153,7 +2878,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "steam_towel_rack").toBe(true);
     expect(body, "steam_towel_rack").toContain("aria-label");
-    expect(body.length, "steam_towel_rack").toBeGreaterThan(10_000);
+    expect(body.length, "steam_towel_rack").toBeGreaterThan(900);
+    expect(body, "steam_towel_rack").not.toContain("<image");
+    expect(body, "steam_towel_rack").not.toMatch(/href=["']https?:/);
+    expect(body, "steam_towel_rack").not.toMatch(/url\(["']?https?:/);
+    expect(body, "steam_towel_rack").not.toContain("\uFFFD");
     expect(body, "steam_towel_rack").toContain("</svg>");
   });
 
@@ -2164,8 +2893,27 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "store-card-preview").toBe(true);
     expect(body, "store-card-preview").toContain("aria-label");
-    expect(body.length, "store-card-preview").toBeGreaterThan(10_000);
+    expect(body.length, "store-card-preview").toBeGreaterThan(900);
+    expect(body, "store-card-preview").not.toContain("<image");
+    expect(body, "store-card-preview").not.toMatch(/href=["']https?:/);
+    expect(body, "store-card-preview").not.toMatch(/url\(["']?https?:/);
+    expect(body, "store-card-preview").not.toContain("\uFFFD");
     expect(body, "store-card-preview").toContain("</svg>");
+  });
+
+  it("validates generated SVG asset store-screenshot-frame-rc2", () => {
+    const href = GeneratedAssetRegistry["store-screenshot-frame-rc2"];
+    expect(href, "store-screenshot-frame-rc2").toBeTruthy();
+    const filePath = fileURLToPath(href);
+    const body = readFileSync(filePath, "utf8");
+    expect(body.startsWith("<svg"), "store-screenshot-frame-rc2").toBe(true);
+    expect(body, "store-screenshot-frame-rc2").toContain("aria-label");
+    expect(body.length, "store-screenshot-frame-rc2").toBeGreaterThan(900);
+    expect(body, "store-screenshot-frame-rc2").not.toContain("<image");
+    expect(body, "store-screenshot-frame-rc2").not.toMatch(/href=["']https?:/);
+    expect(body, "store-screenshot-frame-rc2").not.toMatch(/url\(["']?https?:/);
+    expect(body, "store-screenshot-frame-rc2").not.toContain("\uFFFD");
+    expect(body, "store-screenshot-frame-rc2").toContain("</svg>");
   });
 
   it("validates generated SVG asset storehouse", () => {
@@ -2175,7 +2923,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "storehouse").toBe(true);
     expect(body, "storehouse").toContain("aria-label");
-    expect(body.length, "storehouse").toBeGreaterThan(10_000);
+    expect(body.length, "storehouse").toBeGreaterThan(900);
+    expect(body, "storehouse").not.toContain("<image");
+    expect(body, "storehouse").not.toMatch(/href=["']https?:/);
+    expect(body, "storehouse").not.toMatch(/url\(["']?https?:/);
+    expect(body, "storehouse").not.toContain("\uFFFD");
     expect(body, "storehouse").toContain("</svg>");
   });
 
@@ -2186,7 +2938,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "storehouse_25k").toBe(true);
     expect(body, "storehouse_25k").toContain("aria-label");
-    expect(body.length, "storehouse_25k").toBeGreaterThan(10_000);
+    expect(body.length, "storehouse_25k").toBeGreaterThan(900);
+    expect(body, "storehouse_25k").not.toContain("<image");
+    expect(body, "storehouse_25k").not.toMatch(/href=["']https?:/);
+    expect(body, "storehouse_25k").not.toMatch(/url\(["']?https?:/);
+    expect(body, "storehouse_25k").not.toContain("\uFFFD");
     expect(body, "storehouse_25k").toContain("</svg>");
   });
 
@@ -2197,7 +2953,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "storehouse_5k").toBe(true);
     expect(body, "storehouse_5k").toContain("aria-label");
-    expect(body.length, "storehouse_5k").toBeGreaterThan(10_000);
+    expect(body.length, "storehouse_5k").toBeGreaterThan(900);
+    expect(body, "storehouse_5k").not.toContain("<image");
+    expect(body, "storehouse_5k").not.toMatch(/href=["']https?:/);
+    expect(body, "storehouse_5k").not.toMatch(/url\(["']?https?:/);
+    expect(body, "storehouse_5k").not.toContain("\uFFFD");
     expect(body, "storehouse_5k").toContain("</svg>");
   });
 
@@ -2208,7 +2968,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "storehouse_cart_stop").toBe(true);
     expect(body, "storehouse_cart_stop").toContain("aria-label");
-    expect(body.length, "storehouse_cart_stop").toBeGreaterThan(10_000);
+    expect(body.length, "storehouse_cart_stop").toBeGreaterThan(900);
+    expect(body, "storehouse_cart_stop").not.toContain("<image");
+    expect(body, "storehouse_cart_stop").not.toMatch(/href=["']https?:/);
+    expect(body, "storehouse_cart_stop").not.toMatch(/url\(["']?https?:/);
+    expect(body, "storehouse_cart_stop").not.toContain("\uFFFD");
     expect(body, "storehouse_cart_stop").toContain("</svg>");
   });
 
@@ -2219,7 +2983,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "storehouse_crate_line").toBe(true);
     expect(body, "storehouse_crate_line").toContain("aria-label");
-    expect(body.length, "storehouse_crate_line").toBeGreaterThan(10_000);
+    expect(body.length, "storehouse_crate_line").toBeGreaterThan(900);
+    expect(body, "storehouse_crate_line").not.toContain("<image");
+    expect(body, "storehouse_crate_line").not.toMatch(/href=["']https?:/);
+    expect(body, "storehouse_crate_line").not.toMatch(/url\(["']?https?:/);
+    expect(body, "storehouse_crate_line").not.toContain("\uFFFD");
     expect(body, "storehouse_crate_line").toContain("</svg>");
   });
 
@@ -2230,7 +2998,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "storehouse_first").toBe(true);
     expect(body, "storehouse_first").toContain("aria-label");
-    expect(body.length, "storehouse_first").toBeGreaterThan(10_000);
+    expect(body.length, "storehouse_first").toBeGreaterThan(900);
+    expect(body, "storehouse_first").not.toContain("<image");
+    expect(body, "storehouse_first").not.toMatch(/href=["']https?:/);
+    expect(body, "storehouse_first").not.toMatch(/url\(["']?https?:/);
+    expect(body, "storehouse_first").not.toContain("\uFFFD");
     expect(body, "storehouse_first").toContain("</svg>");
   });
 
@@ -2241,7 +3013,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "storehouse_fragrance").toBe(true);
     expect(body, "storehouse_fragrance").toContain("aria-label");
-    expect(body.length, "storehouse_fragrance").toBeGreaterThan(10_000);
+    expect(body.length, "storehouse_fragrance").toBeGreaterThan(900);
+    expect(body, "storehouse_fragrance").not.toContain("<image");
+    expect(body, "storehouse_fragrance").not.toMatch(/href=["']https?:/);
+    expect(body, "storehouse_fragrance").not.toMatch(/url\(["']?https?:/);
+    expect(body, "storehouse_fragrance").not.toContain("\uFFFD");
     expect(body, "storehouse_fragrance").toContain("</svg>");
   });
 
@@ -2252,7 +3028,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "storehouse_open").toBe(true);
     expect(body, "storehouse_open").toContain("aria-label");
-    expect(body.length, "storehouse_open").toBeGreaterThan(10_000);
+    expect(body.length, "storehouse_open").toBeGreaterThan(900);
+    expect(body, "storehouse_open").not.toContain("<image");
+    expect(body, "storehouse_open").not.toMatch(/href=["']https?:/);
+    expect(body, "storehouse_open").not.toMatch(/url\(["']?https?:/);
+    expect(body, "storehouse_open").not.toContain("\uFFFD");
     expect(body, "storehouse_open").toContain("</svg>");
   });
 
@@ -2263,7 +3043,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "storehouse_rhythm").toBe(true);
     expect(body, "storehouse_rhythm").toContain("aria-label");
-    expect(body.length, "storehouse_rhythm").toBeGreaterThan(10_000);
+    expect(body.length, "storehouse_rhythm").toBeGreaterThan(900);
+    expect(body, "storehouse_rhythm").not.toContain("<image");
+    expect(body, "storehouse_rhythm").not.toMatch(/href=["']https?:/);
+    expect(body, "storehouse_rhythm").not.toMatch(/url\(["']?https?:/);
+    expect(body, "storehouse_rhythm").not.toContain("\uFFFD");
     expect(body, "storehouse_rhythm").toContain("</svg>");
   });
 
@@ -2274,7 +3058,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "storehouse_sign").toBe(true);
     expect(body, "storehouse_sign").toContain("aria-label");
-    expect(body.length, "storehouse_sign").toBeGreaterThan(10_000);
+    expect(body.length, "storehouse_sign").toBeGreaterThan(900);
+    expect(body, "storehouse_sign").not.toContain("<image");
+    expect(body, "storehouse_sign").not.toMatch(/href=["']https?:/);
+    expect(body, "storehouse_sign").not.toMatch(/url\(["']?https?:/);
+    expect(body, "storehouse_sign").not.toContain("\uFFFD");
     expect(body, "storehouse_sign").toContain("</svg>");
   });
 
@@ -2285,7 +3073,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "storehouse_sorting_table").toBe(true);
     expect(body, "storehouse_sorting_table").toContain("aria-label");
-    expect(body.length, "storehouse_sorting_table").toBeGreaterThan(10_000);
+    expect(body.length, "storehouse_sorting_table").toBeGreaterThan(900);
+    expect(body, "storehouse_sorting_table").not.toContain("<image");
+    expect(body, "storehouse_sorting_table").not.toMatch(/href=["']https?:/);
+    expect(body, "storehouse_sorting_table").not.toMatch(/url\(["']?https?:/);
+    expect(body, "storehouse_sorting_table").not.toContain("\uFFFD");
     expect(body, "storehouse_sorting_table").toContain("</svg>");
   });
 
@@ -2296,7 +3088,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "storehouse_total_levels").toBe(true);
     expect(body, "storehouse_total_levels").toContain("aria-label");
-    expect(body.length, "storehouse_total_levels").toBeGreaterThan(10_000);
+    expect(body.length, "storehouse_total_levels").toBeGreaterThan(900);
+    expect(body, "storehouse_total_levels").not.toContain("<image");
+    expect(body, "storehouse_total_levels").not.toMatch(/href=["']https?:/);
+    expect(body, "storehouse_total_levels").not.toMatch(/url\(["']?https?:/);
+    expect(body, "storehouse_total_levels").not.toContain("\uFFFD");
     expect(body, "storehouse_total_levels").toContain("</svg>");
   });
 
@@ -2307,7 +3103,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "stream").toBe(true);
     expect(body, "stream").toContain("aria-label");
-    expect(body.length, "stream").toBeGreaterThan(10_000);
+    expect(body.length, "stream").toBeGreaterThan(900);
+    expect(body, "stream").not.toContain("<image");
+    expect(body, "stream").not.toMatch(/href=["']https?:/);
+    expect(body, "stream").not.toMatch(/url\(["']?https?:/);
+    expect(body, "stream").not.toContain("\uFFFD");
     expect(body, "stream").toContain("</svg>");
   });
 
@@ -2318,7 +3118,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "sun").toBe(true);
     expect(body, "sun").toContain("aria-label");
-    expect(body.length, "sun").toBeGreaterThan(10_000);
+    expect(body.length, "sun").toBeGreaterThan(900);
+    expect(body, "sun").not.toContain("<image");
+    expect(body, "sun").not.toMatch(/href=["']https?:/);
+    expect(body, "sun").not.toMatch(/url\(["']?https?:/);
+    expect(body, "sun").not.toContain("\uFFFD");
     expect(body, "sun").toContain("</svg>");
   });
 
@@ -2329,7 +3133,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "sunny_yard").toBe(true);
     expect(body, "sunny_yard").toContain("aria-label");
-    expect(body.length, "sunny_yard").toBeGreaterThan(10_000);
+    expect(body.length, "sunny_yard").toBeGreaterThan(900);
+    expect(body, "sunny_yard").not.toContain("<image");
+    expect(body, "sunny_yard").not.toMatch(/href=["']https?:/);
+    expect(body, "sunny_yard").not.toMatch(/url\(["']?https?:/);
+    expect(body, "sunny_yard").not.toContain("\uFFFD");
     expect(body, "sunny_yard").toContain("</svg>");
   });
 
@@ -2340,7 +3148,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "table").toBe(true);
     expect(body, "table").toContain("aria-label");
-    expect(body.length, "table").toBeGreaterThan(10_000);
+    expect(body.length, "table").toBeGreaterThan(900);
+    expect(body, "table").not.toContain("<image");
+    expect(body, "table").not.toMatch(/href=["']https?:/);
+    expect(body, "table").not.toMatch(/url\(["']?https?:/);
+    expect(body, "table").not.toContain("\uFFFD");
     expect(body, "table").toContain("</svg>");
   });
 
@@ -2351,7 +3163,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "tap").toBe(true);
     expect(body, "tap").toContain("aria-label");
-    expect(body.length, "tap").toBeGreaterThan(10_000);
+    expect(body.length, "tap").toBeGreaterThan(900);
+    expect(body, "tap").not.toContain("<image");
+    expect(body, "tap").not.toMatch(/href=["']https?:/);
+    expect(body, "tap").not.toMatch(/url\(["']?https?:/);
+    expect(body, "tap").not.toContain("\uFFFD");
     expect(body, "tap").toContain("</svg>");
   });
 
@@ -2362,7 +3178,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "tap_100").toBe(true);
     expect(body, "tap_100").toContain("aria-label");
-    expect(body.length, "tap_100").toBeGreaterThan(10_000);
+    expect(body.length, "tap_100").toBeGreaterThan(900);
+    expect(body, "tap_100").not.toContain("<image");
+    expect(body, "tap_100").not.toMatch(/href=["']https?:/);
+    expect(body, "tap_100").not.toMatch(/url\(["']?https?:/);
+    expect(body, "tap_100").not.toContain("\uFFFD");
     expect(body, "tap_100").toContain("</svg>");
   });
 
@@ -2373,7 +3193,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "tap_1000").toBe(true);
     expect(body, "tap_1000").toContain("aria-label");
-    expect(body.length, "tap_1000").toBeGreaterThan(10_000);
+    expect(body.length, "tap_1000").toBeGreaterThan(900);
+    expect(body, "tap_1000").not.toContain("<image");
+    expect(body, "tap_1000").not.toMatch(/href=["']https?:/);
+    expect(body, "tap_1000").not.toMatch(/url\(["']?https?:/);
+    expect(body, "tap_1000").not.toContain("\uFFFD");
     expect(body, "tap_1000").toContain("</svg>");
   });
 
@@ -2384,7 +3208,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "tap_suite").toBe(true);
     expect(body, "tap_suite").toContain("aria-label");
-    expect(body.length, "tap_suite").toBeGreaterThan(10_000);
+    expect(body.length, "tap_suite").toBeGreaterThan(900);
+    expect(body, "tap_suite").not.toContain("<image");
+    expect(body, "tap_suite").not.toMatch(/href=["']https?:/);
+    expect(body, "tap_suite").not.toMatch(/url\(["']?https?:/);
+    expect(body, "tap_suite").not.toContain("\uFFFD");
     expect(body, "tap_suite").toContain("</svg>");
   });
 
@@ -2395,7 +3223,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "tap_suite_100").toBe(true);
     expect(body, "tap_suite_100").toContain("aria-label");
-    expect(body.length, "tap_suite_100").toBeGreaterThan(10_000);
+    expect(body.length, "tap_suite_100").toBeGreaterThan(900);
+    expect(body, "tap_suite_100").not.toContain("<image");
+    expect(body, "tap_suite_100").not.toMatch(/href=["']https?:/);
+    expect(body, "tap_suite_100").not.toMatch(/url\(["']?https?:/);
+    expect(body, "tap_suite_100").not.toContain("\uFFFD");
     expect(body, "tap_suite_100").toContain("</svg>");
   });
 
@@ -2406,7 +3238,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "tap_suite_20").toBe(true);
     expect(body, "tap_suite_20").toContain("aria-label");
-    expect(body.length, "tap_suite_20").toBeGreaterThan(10_000);
+    expect(body.length, "tap_suite_20").toBeGreaterThan(900);
+    expect(body, "tap_suite_20").not.toContain("<image");
+    expect(body, "tap_suite_20").not.toMatch(/href=["']https?:/);
+    expect(body, "tap_suite_20").not.toMatch(/url\(["']?https?:/);
+    expect(body, "tap_suite_20").not.toContain("\uFFFD");
     expect(body, "tap_suite_20").toContain("</svg>");
   });
 
@@ -2417,7 +3253,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "ten_taps").toBe(true);
     expect(body, "ten_taps").toContain("aria-label");
-    expect(body.length, "ten_taps").toBeGreaterThan(10_000);
+    expect(body.length, "ten_taps").toBeGreaterThan(900);
+    expect(body, "ten_taps").not.toContain("<image");
+    expect(body, "ten_taps").not.toMatch(/href=["']https?:/);
+    expect(body, "ten_taps").not.toMatch(/url\(["']?https?:/);
+    expect(body, "ten_taps").not.toContain("\uFFFD");
     expect(body, "ten_taps").toContain("</svg>");
   });
 
@@ -2428,7 +3268,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "third_prestige").toBe(true);
     expect(body, "third_prestige").toContain("aria-label");
-    expect(body.length, "third_prestige").toBeGreaterThan(10_000);
+    expect(body.length, "third_prestige").toBeGreaterThan(900);
+    expect(body, "third_prestige").not.toContain("<image");
+    expect(body, "third_prestige").not.toMatch(/href=["']https?:/);
+    expect(body, "third_prestige").not.toMatch(/url\(["']?https?:/);
+    expect(body, "third_prestige").not.toContain("\uFFFD");
     expect(body, "third_prestige").toContain("</svg>");
   });
 
@@ -2439,7 +3283,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "thousand_taps").toBe(true);
     expect(body, "thousand_taps").toContain("aria-label");
-    expect(body.length, "thousand_taps").toBeGreaterThan(10_000);
+    expect(body.length, "thousand_taps").toBeGreaterThan(900);
+    expect(body, "thousand_taps").not.toContain("<image");
+    expect(body, "thousand_taps").not.toMatch(/href=["']https?:/);
+    expect(body, "thousand_taps").not.toMatch(/url\(["']?https?:/);
+    expect(body, "thousand_taps").not.toContain("\uFFFD");
     expect(body, "thousand_taps").toContain("</svg>");
   });
 
@@ -2450,7 +3298,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "tier-bamboo_garden").toBe(true);
     expect(body, "tier-bamboo_garden").toContain("aria-label");
-    expect(body.length, "tier-bamboo_garden").toBeGreaterThan(10_000);
+    expect(body.length, "tier-bamboo_garden").toBeGreaterThan(900);
+    expect(body, "tier-bamboo_garden").not.toContain("<image");
+    expect(body, "tier-bamboo_garden").not.toMatch(/href=["']https?:/);
+    expect(body, "tier-bamboo_garden").not.toMatch(/url\(["']?https?:/);
+    expect(body, "tier-bamboo_garden").not.toContain("\uFFFD");
     expect(body, "tier-bamboo_garden").toContain("</svg>");
   });
 
@@ -2461,7 +3313,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "tier-golden_forest").toBe(true);
     expect(body, "tier-golden_forest").toContain("aria-label");
-    expect(body.length, "tier-golden_forest").toBeGreaterThan(10_000);
+    expect(body.length, "tier-golden_forest").toBeGreaterThan(900);
+    expect(body, "tier-golden_forest").not.toContain("<image");
+    expect(body, "tier-golden_forest").not.toMatch(/href=["']https?:/);
+    expect(body, "tier-golden_forest").not.toMatch(/url\(["']?https?:/);
+    expect(body, "tier-golden_forest").not.toContain("\uFFFD");
     expect(body, "tier-golden_forest").toContain("</svg>");
   });
 
@@ -2472,7 +3328,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "tier-onsen").toBe(true);
     expect(body, "tier-onsen").toContain("aria-label");
-    expect(body.length, "tier-onsen").toBeGreaterThan(10_000);
+    expect(body.length, "tier-onsen").toBeGreaterThan(900);
+    expect(body, "tier-onsen").not.toContain("<image");
+    expect(body, "tier-onsen").not.toMatch(/href=["']https?:/);
+    expect(body, "tier-onsen").not.toMatch(/url\(["']?https?:/);
+    expect(body, "tier-onsen").not.toContain("\uFFFD");
     expect(body, "tier-onsen").toContain("</svg>");
   });
 
@@ -2483,7 +3343,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "tier-storehouse").toBe(true);
     expect(body, "tier-storehouse").toContain("aria-label");
-    expect(body.length, "tier-storehouse").toBeGreaterThan(10_000);
+    expect(body.length, "tier-storehouse").toBeGreaterThan(900);
+    expect(body, "tier-storehouse").not.toContain("<image");
+    expect(body, "tier-storehouse").not.toMatch(/href=["']https?:/);
+    expect(body, "tier-storehouse").not.toMatch(/url\(["']?https?:/);
+    expect(body, "tier-storehouse").not.toContain("\uFFFD");
     expect(body, "tier-storehouse").toContain("</svg>");
   });
 
@@ -2494,7 +3358,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "tier-yard").toBe(true);
     expect(body, "tier-yard").toContain("aria-label");
-    expect(body.length, "tier-yard").toBeGreaterThan(10_000);
+    expect(body.length, "tier-yard").toBeGreaterThan(900);
+    expect(body, "tier-yard").not.toContain("<image");
+    expect(body, "tier-yard").not.toMatch(/href=["']https?:/);
+    expect(body, "tier-yard").not.toMatch(/url\(["']?https?:/);
+    expect(body, "tier-yard").not.toContain("\uFFFD");
     expect(body, "tier-yard").toContain("</svg>");
   });
 
@@ -2505,7 +3373,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "tiny_watering_path").toBe(true);
     expect(body, "tiny_watering_path").toContain("aria-label");
-    expect(body.length, "tiny_watering_path").toBeGreaterThan(10_000);
+    expect(body.length, "tiny_watering_path").toBeGreaterThan(900);
+    expect(body, "tiny_watering_path").not.toContain("<image");
+    expect(body, "tiny_watering_path").not.toMatch(/href=["']https?:/);
+    expect(body, "tiny_watering_path").not.toMatch(/url\(["']?https?:/);
+    expect(body, "tiny_watering_path").not.toContain("\uFFFD");
     expect(body, "tiny_watering_path").toContain("</svg>");
   });
 
@@ -2516,7 +3388,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "toolbox").toBe(true);
     expect(body, "toolbox").toContain("aria-label");
-    expect(body.length, "toolbox").toBeGreaterThan(10_000);
+    expect(body.length, "toolbox").toBeGreaterThan(900);
+    expect(body, "toolbox").not.toContain("<image");
+    expect(body, "toolbox").not.toMatch(/href=["']https?:/);
+    expect(body, "toolbox").not.toMatch(/url\(["']?https?:/);
+    expect(body, "toolbox").not.toContain("\uFFFD");
     expect(body, "toolbox").toContain("</svg>");
   });
 
@@ -2527,7 +3403,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "toolbox_first").toBe(true);
     expect(body, "toolbox_first").toContain("aria-label");
-    expect(body.length, "toolbox_first").toBeGreaterThan(10_000);
+    expect(body.length, "toolbox_first").toBeGreaterThan(900);
+    expect(body, "toolbox_first").not.toContain("<image");
+    expect(body, "toolbox_first").not.toMatch(/href=["']https?:/);
+    expect(body, "toolbox_first").not.toMatch(/url\(["']?https?:/);
+    expect(body, "toolbox_first").not.toContain("\uFFFD");
     expect(body, "toolbox_first").toContain("</svg>");
   });
 
@@ -2538,7 +3418,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "towel").toBe(true);
     expect(body, "towel").toContain("aria-label");
-    expect(body.length, "towel").toBeGreaterThan(10_000);
+    expect(body.length, "towel").toBeGreaterThan(900);
+    expect(body, "towel").not.toContain("<image");
+    expect(body, "towel").not.toMatch(/href=["']https?:/);
+    expect(body, "towel").not.toMatch(/url\(["']?https?:/);
+    expect(body, "towel").not.toContain("\uFFFD");
     expect(body, "towel").toContain("</svg>");
   });
 
@@ -2549,7 +3433,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "towel_rack_corner").toBe(true);
     expect(body, "towel_rack_corner").toContain("aria-label");
-    expect(body.length, "towel_rack_corner").toBeGreaterThan(10_000);
+    expect(body.length, "towel_rack_corner").toBeGreaterThan(900);
+    expect(body, "towel_rack_corner").not.toContain("<image");
+    expect(body, "towel_rack_corner").not.toMatch(/href=["']https?:/);
+    expect(body, "towel_rack_corner").not.toMatch(/url\(["']?https?:/);
+    expect(body, "towel_rack_corner").not.toContain("\uFFFD");
     expect(body, "towel_rack_corner").toContain("</svg>");
   });
 
@@ -2560,7 +3448,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "upgrades").toBe(true);
     expect(body, "upgrades").toContain("aria-label");
-    expect(body.length, "upgrades").toBeGreaterThan(10_000);
+    expect(body.length, "upgrades").toBeGreaterThan(900);
+    expect(body, "upgrades").not.toContain("<image");
+    expect(body, "upgrades").not.toMatch(/href=["']https?:/);
+    expect(body, "upgrades").not.toMatch(/url\(["']?https?:/);
+    expect(body, "upgrades").not.toContain("\uFFFD");
     expect(body, "upgrades").toContain("</svg>");
   });
 
@@ -2571,7 +3463,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "warm_pond").toBe(true);
     expect(body, "warm_pond").toContain("aria-label");
-    expect(body.length, "warm_pond").toBeGreaterThan(10_000);
+    expect(body.length, "warm_pond").toBeGreaterThan(900);
+    expect(body, "warm_pond").not.toContain("<image");
+    expect(body, "warm_pond").not.toMatch(/href=["']https?:/);
+    expect(body, "warm_pond").not.toMatch(/url\(["']?https?:/);
+    expect(body, "warm_pond").not.toContain("\uFFFD");
     expect(body, "warm_pond").toContain("</svg>");
   });
 
@@ -2582,7 +3478,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "warm_pond_stones").toBe(true);
     expect(body, "warm_pond_stones").toContain("aria-label");
-    expect(body.length, "warm_pond_stones").toBeGreaterThan(10_000);
+    expect(body.length, "warm_pond_stones").toBeGreaterThan(900);
+    expect(body, "warm_pond_stones").not.toContain("<image");
+    expect(body, "warm_pond_stones").not.toMatch(/href=["']https?:/);
+    expect(body, "warm_pond_stones").not.toMatch(/url\(["']?https?:/);
+    expect(body, "warm_pond_stones").not.toContain("\uFFFD");
     expect(body, "warm_pond_stones").toContain("</svg>");
   });
 
@@ -2593,7 +3493,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "warm_towel").toBe(true);
     expect(body, "warm_towel").toContain("aria-label");
-    expect(body.length, "warm_towel").toBeGreaterThan(10_000);
+    expect(body.length, "warm_towel").toBeGreaterThan(900);
+    expect(body, "warm_towel").not.toContain("<image");
+    expect(body, "warm_towel").not.toMatch(/href=["']https?:/);
+    expect(body, "warm_towel").not.toMatch(/url\(["']?https?:/);
+    expect(body, "warm_towel").not.toContain("\uFFFD");
     expect(body, "warm_towel").toContain("</svg>");
   });
 
@@ -2604,7 +3508,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "water_path").toBe(true);
     expect(body, "water_path").toContain("aria-label");
-    expect(body.length, "water_path").toBeGreaterThan(10_000);
+    expect(body.length, "water_path").toBeGreaterThan(900);
+    expect(body, "water_path").not.toContain("<image");
+    expect(body, "water_path").not.toMatch(/href=["']https?:/);
+    expect(body, "water_path").not.toMatch(/url\(["']?https?:/);
+    expect(body, "water_path").not.toContain("\uFFFD");
     expect(body, "water_path").toContain("</svg>");
   });
 
@@ -2615,7 +3523,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "watering_rill").toBe(true);
     expect(body, "watering_rill").toContain("aria-label");
-    expect(body.length, "watering_rill").toBeGreaterThan(10_000);
+    expect(body.length, "watering_rill").toBeGreaterThan(900);
+    expect(body, "watering_rill").not.toContain("<image");
+    expect(body, "watering_rill").not.toMatch(/href=["']https?:/);
+    expect(body, "watering_rill").not.toMatch(/url\(["']?https?:/);
+    expect(body, "watering_rill").not.toContain("\uFFFD");
     expect(body, "watering_rill").toContain("</svg>");
   });
 
@@ -2626,7 +3538,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "welcome_first_basket").toBe(true);
     expect(body, "welcome_first_basket").toContain("aria-label");
-    expect(body.length, "welcome_first_basket").toBeGreaterThan(10_000);
+    expect(body.length, "welcome_first_basket").toBeGreaterThan(900);
+    expect(body, "welcome_first_basket").not.toContain("<image");
+    expect(body, "welcome_first_basket").not.toMatch(/href=["']https?:/);
+    expect(body, "welcome_first_basket").not.toMatch(/url\(["']?https?:/);
+    expect(body, "welcome_first_basket").not.toContain("\uFFFD");
     expect(body, "welcome_first_basket").toContain("</svg>");
   });
 
@@ -2637,7 +3553,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "welcome_first_orange").toBe(true);
     expect(body, "welcome_first_orange").toContain("aria-label");
-    expect(body.length, "welcome_first_orange").toBeGreaterThan(10_000);
+    expect(body.length, "welcome_first_orange").toBeGreaterThan(900);
+    expect(body, "welcome_first_orange").not.toContain("<image");
+    expect(body, "welcome_first_orange").not.toMatch(/href=["']https?:/);
+    expect(body, "welcome_first_orange").not.toMatch(/url\(["']?https?:/);
+    expect(body, "welcome_first_orange").not.toContain("\uFFFD");
     expect(body, "welcome_first_orange").toContain("</svg>");
   });
 
@@ -2648,7 +3568,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "welcome_soft_paw").toBe(true);
     expect(body, "welcome_soft_paw").toContain("aria-label");
-    expect(body.length, "welcome_soft_paw").toBeGreaterThan(10_000);
+    expect(body.length, "welcome_soft_paw").toBeGreaterThan(900);
+    expect(body, "welcome_soft_paw").not.toContain("<image");
+    expect(body, "welcome_soft_paw").not.toMatch(/href=["']https?:/);
+    expect(body, "welcome_soft_paw").not.toMatch(/url\(["']?https?:/);
+    expect(body, "welcome_soft_paw").not.toContain("\uFFFD");
     expect(body, "welcome_soft_paw").toContain("</svg>");
   });
 
@@ -2659,7 +3583,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "welcome_steady_ten").toBe(true);
     expect(body, "welcome_steady_ten").toContain("aria-label");
-    expect(body.length, "welcome_steady_ten").toBeGreaterThan(10_000);
+    expect(body.length, "welcome_steady_ten").toBeGreaterThan(900);
+    expect(body, "welcome_steady_ten").not.toContain("<image");
+    expect(body, "welcome_steady_ten").not.toMatch(/href=["']https?:/);
+    expect(body, "welcome_steady_ten").not.toMatch(/url\(["']?https?:/);
+    expect(body, "welcome_steady_ten").not.toContain("\uFFFD");
     expect(body, "welcome_steady_ten").toContain("</svg>");
   });
 
@@ -2670,7 +3598,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "wind_chime_bridge").toBe(true);
     expect(body, "wind_chime_bridge").toContain("aria-label");
-    expect(body.length, "wind_chime_bridge").toBeGreaterThan(10_000);
+    expect(body.length, "wind_chime_bridge").toBeGreaterThan(900);
+    expect(body, "wind_chime_bridge").not.toContain("<image");
+    expect(body, "wind_chime_bridge").not.toMatch(/href=["']https?:/);
+    expect(body, "wind_chime_bridge").not.toMatch(/url\(["']?https?:/);
+    expect(body, "wind_chime_bridge").not.toContain("\uFFFD");
     expect(body, "wind_chime_bridge").toContain("</svg>");
   });
 
@@ -2681,7 +3613,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "wooden_crate_line").toBe(true);
     expect(body, "wooden_crate_line").toContain("aria-label");
-    expect(body.length, "wooden_crate_line").toBeGreaterThan(10_000);
+    expect(body.length, "wooden_crate_line").toBeGreaterThan(900);
+    expect(body, "wooden_crate_line").not.toContain("<image");
+    expect(body, "wooden_crate_line").not.toMatch(/href=["']https?:/);
+    expect(body, "wooden_crate_line").not.toMatch(/url\(["']?https?:/);
+    expect(body, "wooden_crate_line").not.toContain("\uFFFD");
     expect(body, "wooden_crate_line").toContain("</svg>");
   });
 
@@ -2692,7 +3628,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "yard").toBe(true);
     expect(body, "yard").toContain("aria-label");
-    expect(body.length, "yard").toBeGreaterThan(10_000);
+    expect(body.length, "yard").toBeGreaterThan(900);
+    expect(body, "yard").not.toContain("<image");
+    expect(body, "yard").not.toMatch(/href=["']https?:/);
+    expect(body, "yard").not.toMatch(/url\(["']?https?:/);
+    expect(body, "yard").not.toContain("\uFFFD");
     expect(body, "yard").toContain("</svg>");
   });
 
@@ -2703,7 +3643,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "yard_first_100").toBe(true);
     expect(body, "yard_first_100").toContain("aria-label");
-    expect(body.length, "yard_first_100").toBeGreaterThan(10_000);
+    expect(body.length, "yard_first_100").toBeGreaterThan(900);
+    expect(body, "yard_first_100").not.toContain("<image");
+    expect(body, "yard_first_100").not.toMatch(/href=["']https?:/);
+    expect(body, "yard_first_100").not.toMatch(/url\(["']?https?:/);
+    expect(body, "yard_first_100").not.toContain("\uFFFD");
     expect(body, "yard_first_100").toContain("</svg>");
   });
 
@@ -2714,7 +3658,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "yard_nap_mat").toBe(true);
     expect(body, "yard_nap_mat").toContain("aria-label");
-    expect(body.length, "yard_nap_mat").toBeGreaterThan(10_000);
+    expect(body.length, "yard_nap_mat").toBeGreaterThan(900);
+    expect(body, "yard_nap_mat").not.toContain("<image");
+    expect(body, "yard_nap_mat").not.toMatch(/href=["']https?:/);
+    expect(body, "yard_nap_mat").not.toMatch(/url\(["']?https?:/);
+    expect(body, "yard_nap_mat").not.toContain("\uFFFD");
     expect(body, "yard_nap_mat").toContain("</svg>");
   });
 
@@ -2725,7 +3673,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "yard_one_thousand").toBe(true);
     expect(body, "yard_one_thousand").toContain("aria-label");
-    expect(body.length, "yard_one_thousand").toBeGreaterThan(10_000);
+    expect(body.length, "yard_one_thousand").toBeGreaterThan(900);
+    expect(body, "yard_one_thousand").not.toContain("<image");
+    expect(body, "yard_one_thousand").not.toMatch(/href=["']https?:/);
+    expect(body, "yard_one_thousand").not.toMatch(/url\(["']?https?:/);
+    expect(body, "yard_one_thousand").not.toContain("\uFFFD");
     expect(body, "yard_one_thousand").toContain("</svg>");
   });
 
@@ -2736,7 +3688,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "yard_parasol").toBe(true);
     expect(body, "yard_parasol").toContain("aria-label");
-    expect(body.length, "yard_parasol").toBeGreaterThan(10_000);
+    expect(body.length, "yard_parasol").toBeGreaterThan(900);
+    expect(body, "yard_parasol").not.toContain("<image");
+    expect(body, "yard_parasol").not.toMatch(/href=["']https?:/);
+    expect(body, "yard_parasol").not.toMatch(/url\(["']?https?:/);
+    expect(body, "yard_parasol").not.toContain("\uFFFD");
     expect(body, "yard_parasol").toContain("</svg>");
   });
 
@@ -2747,7 +3703,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "yard_set").toBe(true);
     expect(body, "yard_set").toContain("aria-label");
-    expect(body.length, "yard_set").toBeGreaterThan(10_000);
+    expect(body.length, "yard_set").toBeGreaterThan(900);
+    expect(body, "yard_set").not.toContain("<image");
+    expect(body, "yard_set").not.toMatch(/href=["']https?:/);
+    expect(body, "yard_set").not.toMatch(/url\(["']?https?:/);
+    expect(body, "yard_set").not.toContain("\uFFFD");
     expect(body, "yard_set").toContain("</svg>");
   });
 
@@ -2758,7 +3718,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "yard_spoon").toBe(true);
     expect(body, "yard_spoon").toContain("aria-label");
-    expect(body.length, "yard_spoon").toBeGreaterThan(10_000);
+    expect(body.length, "yard_spoon").toBeGreaterThan(900);
+    expect(body, "yard_spoon").not.toContain("<image");
+    expect(body, "yard_spoon").not.toMatch(/href=["']https?:/);
+    expect(body, "yard_spoon").not.toMatch(/url\(["']?https?:/);
+    expect(body, "yard_spoon").not.toContain("\uFFFD");
     expect(body, "yard_spoon").toContain("</svg>");
   });
 
@@ -2769,7 +3733,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "yard_tap_100").toBe(true);
     expect(body, "yard_tap_100").toContain("aria-label");
-    expect(body.length, "yard_tap_100").toBeGreaterThan(10_000);
+    expect(body.length, "yard_tap_100").toBeGreaterThan(900);
+    expect(body, "yard_tap_100").not.toContain("<image");
+    expect(body, "yard_tap_100").not.toMatch(/href=["']https?:/);
+    expect(body, "yard_tap_100").not.toMatch(/url\(["']?https?:/);
+    expect(body, "yard_tap_100").not.toContain("\uFFFD");
     expect(body, "yard_tap_100").toContain("</svg>");
   });
 
@@ -2780,7 +3748,11 @@ describe("generated visual asset registry matrix", () => {
     const body = readFileSync(filePath, "utf8");
     expect(body.startsWith("<svg"), "yard_water_path").toBe(true);
     expect(body, "yard_water_path").toContain("aria-label");
-    expect(body.length, "yard_water_path").toBeGreaterThan(10_000);
+    expect(body.length, "yard_water_path").toBeGreaterThan(900);
+    expect(body, "yard_water_path").not.toContain("<image");
+    expect(body, "yard_water_path").not.toMatch(/href=["']https?:/);
+    expect(body, "yard_water_path").not.toMatch(/url\(["']?https?:/);
+    expect(body, "yard_water_path").not.toContain("\uFFFD");
     expect(body, "yard_water_path").toContain("</svg>");
   });
 

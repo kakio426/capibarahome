@@ -5,7 +5,7 @@
 ```txt
 src/
   app/          AppShell, routes
-  assets/       AssetManager, generated SVG registry, placeholder fallback
+  assets/       AssetManager, generated SVG registry, builtin CSS fallback
   config/       모든 밸런스, 저장, 튜토리얼, 수익화, 오디오 설정
   core/         BigNumberLite, 수식, formatter, time helper
   game/         GameLoop, GameEngine, selectors, actions, types
@@ -80,8 +80,9 @@ Debug panel은 개발 모드에서도 기본 노출하지 않습니다. `/?debug
 
 ## Visual Asset Pipeline
 
-- `scripts/generateVisualAssets.mjs`는 config의 id/icon/tier/capybara key를 읽어 `src/assets/generated` 아래 SVG assets와 `GeneratedAssetRegistry.ts`를 생성합니다.
-- UI에서는 `VisualAssetIcon.tsx`를 사용합니다. asset key가 없으면 기존 CSS icon fallback으로 안전하게 렌더링합니다.
+- `scripts/generateVisualAssets.mjs`는 config의 id/icon/tier/capybara key를 읽어 `src/assets/generated` 아래 직접 제작 SVG assets와 `GeneratedAssetRegistry.ts`를 생성합니다.
+- UI에서는 `VisualAssetIcon.tsx`를 사용합니다. asset key가 없으면 `builtinAssets.ts`의 CSS fallback key로 안전하게 렌더링합니다.
+- asset 무결성은 `src/tests/visualAssetIntegrity.test.ts`와 generated matrix test가 함께 검증합니다.
 - final art를 받으면 같은 registry key를 유지한 채 SVG/bitmap 파일만 교체하면 UI와 테스트 연결을 유지할 수 있습니다.
 - RC-2 release draft assets는 `src/assets/generated/release/app-icon-rc2.svg`, `splash-rc2.svg`, `store-screenshot-frame-rc2.svg`에 있습니다.
 
@@ -96,7 +97,7 @@ Debug panel은 개발 모드에서도 기본 노출하지 않습니다. `/?debug
 
 `e2e/store-screenshot-pack.spec.ts`는 QA screenshot과 별도로 `store-screenshots/`에 iPhone/Android 후보 PNG를 생성합니다. 일반 유저 플로우와 동일하게 debug shortcut을 사용하지 않고, deterministic save fixture만 사용합니다.
 
-RC-3에서는 album scroll target, prestige multiplier formatting, save screenshot copy를 보정했다. store 후보 10장은 `VISUAL_QA.md`와 `STORE_SCREENSHOT_PLAN.md`에 기록한다.
+현재 store 후보 10장은 직접 제작 SVG/CSS art pass 이후 다시 생성했으며 `VISUAL_QA.md`와 `STORE_SCREENSHOT_PLAN.md`에 기록한다.
 
 ## Balance Playtest Pipeline
 

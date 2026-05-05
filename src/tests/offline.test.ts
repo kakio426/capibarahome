@@ -16,16 +16,24 @@ describe("offline reward", () => {
   });
 
   it("creates and claims offline reward once", () => {
+    const state = makeState(70_000);
+    state.epsAtLastSave = state.epsAtLastSave.add(2);
+    state.lastSavedAt = 0;
+    const pending = createOfflineReward(state, 70_000);
+    expect(pending?.seconds).toBe(70);
+    const withPending = { ...state, offlineReward: pending };
+    const claimed = claimOfflineReward(withPending, 80_000);
+    expect(claimed.offlineReward).toBeNull();
+    expect(claimed.currencies.orange.toNumberSafe()).toBe(105);
+    const second = claimOfflineReward(claimed, 81_000);
+    expect(second.currencies.orange.toNumberSafe()).toBe(105);
+  });
+
+  it("does not create a blocking modal for trivial reload gaps", () => {
     const state = makeState(10_000);
     state.epsAtLastSave = state.epsAtLastSave.add(2);
     state.lastSavedAt = 0;
-    const pending = createOfflineReward(state, 10_000);
-    expect(pending?.seconds).toBe(10);
-    const withPending = { ...state, offlineReward: pending };
-    const claimed = claimOfflineReward(withPending, 20_000);
-    expect(claimed.offlineReward).toBeNull();
-    expect(claimed.currencies.orange.toNumberSafe()).toBe(15);
-    const second = claimOfflineReward(claimed, 21_000);
-    expect(second.currencies.orange.toNumberSafe()).toBe(15);
+
+    expect(createOfflineReward(state, 10_000)).toBeNull();
   });
 });

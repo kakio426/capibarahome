@@ -6,7 +6,7 @@
 
 `src/config/AudioConfig.ts`가 사운드 슬롯, 파일 경로, fallback tone, 라이선스 상태를 중앙 관리한다. `SoundManager`는 `fileSrc`가 있으면 실제 오디오 파일을 재생하고, 없으면 WebAudio tone으로 fallback한다.
 
-현재 실제 음원 파일은 포함하지 않았다. 모든 store-critical 슬롯은 `placeholder_tone` 상태이며, 최종 제출 전 라이선스가 명확한 짧은 효과음으로 교체해야 한다.
+현재 실제 음원 파일은 포함하지 않았다. 모든 store-critical 슬롯은 자체 WebAudio `synthetic_tone` 상태이며, 최종 제출 전 라이선스가 명확한 짧은 효과음으로 교체해야 한다.
 
 ## 필수 사운드 슬롯
 

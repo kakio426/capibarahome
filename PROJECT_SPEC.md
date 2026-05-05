@@ -103,6 +103,8 @@
 - `SPEC_COVERAGE.md`
 - `COMPETITOR_BENCHMARK.md`
 - `PRODUCTION_GAP_BACKLOG.md`
+- `ART_DIRECTION.md`
+- `ASSET_PRODUCTION_BRIEF.md`
 - `VISUAL_QA.md`
 - `PERFORMANCE_QA.md`
 - `RELEASE_CHECKLIST.md`
@@ -274,7 +276,8 @@ DebugManager:
 - `layout.css`
 - Button, Panel, Modal, Toggle, CurrencyDisplay, ProgressBar
 - `AssetManager.ts`
-- `placeholderAssets.ts`
+- `builtinAssets.ts`
+- hand-authored generated SVG registry
 - 카피바라/귤 visual
 - floating text
 - particle cap

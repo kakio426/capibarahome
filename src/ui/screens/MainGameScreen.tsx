@@ -84,17 +84,7 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
           </span>
           <span className="sun-glow" />
           <span className="capybara-illustration" aria-hidden="true">
-            <span className="capybara-ear capybara-ear-left" />
-            <span className="capybara-ear capybara-ear-right" />
-            <span className="capybara-face">
-              <span className="capybara-eye capybara-eye-left" />
-              <span className="capybara-eye capybara-eye-right" />
-              <span className="capybara-nose" />
-              <span className="capybara-mouth" />
-              <span className="capybara-orange-bite" />
-            </span>
-            <span className="capybara-spark capybara-spark-left" />
-            <span className="capybara-spark capybara-spark-right" />
+            <VisualAssetIcon assetKey={`mascot-${mascotMood}`} className="hero-mascot-asset" />
           </span>
           <span className="tap-copy">귤 주기</span>
         </button>

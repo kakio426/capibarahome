@@ -7,7 +7,7 @@
 ## Assumptions
 
 - 실제 Apple/Google 개발자 계정, 인증서, 프로비저닝, privacy policy URL, 실제 광고/IAP SDK가 없으므로 네이티브 제출 완료가 아니라 제출 준비 산출물까지만 완료로 본다.
-- final store art와 사운드 파일은 아직 제공되지 않았으므로 generated SVG/CSS RC visual assets, WebAudio 효과음, 교체 가능한 manager/component 구조를 완료 근거로 본다.
+- final store art와 사운드 파일은 아직 제공되지 않았으므로 프로젝트 내부 수제 SVG/CSS RC visual assets, WebAudio 효과음, 교체 가능한 manager/component 구조를 완료 근거로 본다.
 - 긴 진행 시간이 필요한 오프라인/환생 E2E는 checksum save fixture로 시작하지만, 실제 유저 플로우에서는 debug shortcut을 사용하지 않는다.
 - Base64 export/import는 이동 가능한 저장 코드 형식이며 암호화로 설명하지 않는다.
 
@@ -56,7 +56,8 @@
 | RC-1 achievement reward 강화 | 완료 | `AchievementRewardConfig.ts`, `AchievementManager.ts`, album claim UI, unit/E2E |
 | RC-1 long-term meta 강화 | 완료 | `ProgressionRewardManager.ts`, `ProgressionConfig.ts`, `MainGameScreen.tsx`, balance simulation |
 | RC-1 sound feedback | 완료 | WebAudio `SoundManager.ts`, settings mute state, unit/E2E |
-| RC-2 final visual asset pass | 완료 | generated portrait accessories, `app-icon-rc2.svg`, `splash-rc2.svg`, `store-screenshot-frame-rc2.svg`, emoji UI 제거 |
+| Direct handmade SVG/CSS art pass | 완료 | 245 SVG files, `builtinAssets.ts`, integrated `layout.css`, `visualAssetIntegrity.test.ts`, `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md` |
+| RC-2 final visual asset pass | 완료 | portrait accessories, `app-icon-rc2.svg`, `splash-rc2.svg`, `store-screenshot-frame-rc2.svg`, runtime visual fallback 정리 |
 | RC-2 store screenshot pack | 완료 | `e2e/store-screenshot-pack.spec.ts`, `store-screenshots/` 10 PNG 후보, `STORE_SCREENSHOT_PLAN.md` |
 | RC-2 audio readiness | 완료 | `AudioConfig.ts`, file-ready `SoundManager.ts`, `audio.test.ts`, `AUDIO_ASSET_PLAN.md` |
 | RC-2 native/store compliance docs | 완료 | `NATIVE_BUILD_GUIDE.md`, `DEVICE_QA_CHECKLIST.md`, `ASSET_CREDITS.md`, `PRIVACY_NOTES.md`, `STORE_LISTING_DRAFT.md` |

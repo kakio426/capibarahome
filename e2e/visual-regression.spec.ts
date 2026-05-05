@@ -59,6 +59,7 @@ for (const viewport of viewports) {
       state.achievements.unlockedIds = ["first_orange", "soft_paw_1", "basket_1", "storehouse_5k"];
       state.achievements.claimedRewardIds = ["first_orange", "soft_paw_1"];
     });
+    await page.waitForTimeout(2500);
     await page.getByRole("button", { name: "앨범" }).click();
     await page.locator(".companion-board").scrollIntoViewIfNeeded();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-collection-abilities.png`, fullPage: true });
@@ -69,6 +70,7 @@ for (const viewport of viewports) {
       state.generators.orange_basket = 5;
       state.epsAtLastSave = BigNumberLite.from("1");
     });
+    await page.waitForTimeout(2500);
     await page.getByRole("button", { name: "환생" }).click();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-prestige.png`, fullPage: true });
     await expectNoHorizontalOverflow(page);
