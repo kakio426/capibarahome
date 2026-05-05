@@ -35,10 +35,10 @@
 | 실제 사운드 피드백 없음 | tap/purchase/reward가 조용해 게임 반응감이 약함 | WebAudio lightweight 효과음과 mute 연결 | 해결 |
 | 카피바라 능력치 부재 | 8마리 캐릭터가 기능적으로 구분되지 않음 | 각 캐릭터별 passive ability와 앨범 표시, 수식 반영 | 해결 |
 | 이모지/placeholder UI 잔존 | 스토어 후보에서 개발 중 화면처럼 보일 수 있음 | currency/product/offline 표시를 직접 제작 asset 기반으로 교체, visible emoji 제거 | 해결 |
-| 어설픈 CSS override 누적 위험 | 화면이 부분별로 덧칠된 대학생 PPT/양산형 앱처럼 보일 수 있음 | `layout.css` 전면 통합 정리, runtime visual banned-pattern audit, 253개 수제 SVG pack 연결 | 해결 |
-| asset pack이 파일 수만 많고 실제 게임용인지 불명확 | 학생/교사가 보는 첫 화면에서 캐릭터성, 보상감, 구간 진행감이 약할 수 있음 | `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`, `visualAssetIntegrity.test.ts`, visual/store screenshots로 검증 | 해결 |
-| 화면 단위 final key visual 부족 | 홈/환생/상점/오프라인 보상이 기능 패널처럼 보여 앱스토어 제출 후보 인상이 약함 | `main-hero-final`, `prestige-ritual-final`, `shop-reward-banner-final`, `offline-return-final` 직접 제작/연결, 52 QA screenshots 재생성 | 해결 |
-| store screenshot final art 결합 부족 | 홍보 이미지가 단순 앱 캡처처럼 보여 설치 유도력이 약함 | `store-key-visual-final`을 Playwright store composition에 연결하고 iPhone/Android 후보 10장 재생성 | 해결 |
+| 어설픈 CSS override 누적 위험 | 화면이 부분별로 덧칠된 대학생 PPT/양산형 앱처럼 보일 수 있음 | `layout.css` 전면 통합 정리, runtime visual banned-pattern audit, 253개 SVG auxiliary pack과 18개 raster core art pack 연결 | 해결 |
+| asset pack이 파일 수만 많고 실제 게임용인지 불명확 | 학생/교사가 보는 첫 화면에서 캐릭터성, 보상감, 구간 진행감이 약할 수 있음 | `ART_FAILURE_REVIEW.md`, `ASSET_PRODUCTION_BRIEF.md`, `visualAssetIntegrity.test.ts`, `rasterAssetIntegrity.test.ts`, visual/store screenshots로 검증 | 해결 |
+| 화면 단위 final key visual 부족 | 홈/환생/상점/오프라인 보상이 기능 패널처럼 보여 앱스토어 제출 후보 인상이 약함 | `main-hero-background.png`, `main-capybara-character.png`, `prestige-ritual.png`, `shop-reward-banner.png`, `offline-reward.png` 직접 제작/연결, 52 QA screenshots 재생성 | 해결 |
+| store screenshot final art 결합 부족 | 홍보 이미지가 단순 앱 캡처처럼 보여 설치 유도력이 약함 | raster `store-key-visual.png`를 Playwright store composition에 연결하고 iPhone/Android 후보 10장 재생성 | 해결 |
 | 8마리 portrait 구분력 부족 | 앨범에서 색만 다른 카드처럼 보일 수 있음 | portrait generator에 캐릭터별 소품 추가 | 해결 |
 | 스토어 screenshot 부재 | QA screenshot만으로는 제출 후보 presentation을 판단하기 어려움 | iPhone/Android store screenshot pack 10장 생성 | 해결 |
 | audio 파일 교체 경로 부재 | WebAudio tone에서 실제 음원으로 넘어갈 연결 지점이 없음 | `AudioConfig.ts` 슬롯과 `fileSrc` pipeline 추가 | 해결 |
@@ -50,7 +50,7 @@
 
 | Gap | 남은 이유 | 제출 전 필요 작업 |
 | --- | --- | --- |
-| Cats & Soup 수준의 visual warmth | 현재는 직접 제작 SVG/CSS final 후보 asset과 store 후보 pack이며 bespoke hand-drawn animation은 아님 | commissioned character bitmap, richer idle animation, physical device store screenshot art direction |
+| Cats & Soup 수준의 visual warmth | 현재는 generated raster core art와 직접 제작 SVG auxiliary pack이며 bespoke hand-drawn animation은 아님 | commissioned/final art ownership and legal approval, richer idle animation, physical device store screenshot art direction |
 | Collection motivation의 깊이 | RC-1에서 능력/보상은 생겼지만 방 꾸미기 자유도와 staged reveal은 제한적 | album reward chest, room layout expansion, set collection animation |
 | Reward feel의 연출 깊이 | claim 보상은 실제 지급되지만 chest/opening animation은 없음 | milestone chest, staged reveal, stronger haptics/audio mix |
 | Long-term goal depth | 첫 환생 전후 목표는 보이지만 시즌/도감 완성/시설 배치 메타는 없음 | season collection, decoration set bonus, late-game narrative milestones |
@@ -68,4 +68,4 @@
 
 ## Current Gate
 
-재감사, reward hardening, playtest/balance/bug bash, direct art/CSS pass 중 발견한 내부 P1은 코드/CSS/테스트/E2E로 수정했다. 남은 항목은 final commissioned art, 실제 SDK, 물리 기기 QA, 더 깊은 수집 연출처럼 외부 준비나 추가 제품 확장에 가까운 P2/P3이다. 현재 감사 기준에서 P0/P1 release blocker는 없다.
+재감사, reward hardening, playtest/balance/bug bash, direct art/CSS pass, raster final-style art pass 중 발견한 내부 P1은 코드/CSS/테스트/E2E로 수정했다. 남은 항목은 commissioned/final art ownership, 실제 SDK, 물리 기기 QA, 더 깊은 수집 연출처럼 외부 준비나 추가 제품 확장에 가깝다. 현재 감사 기준에서 내부 P0/P1 release blocker는 없다.

@@ -4,7 +4,9 @@
 
 ## 제작 방식
 
-현재 RC asset pack은 외부 CDN, 상용 아이콘팩, 경쟁작 이미지, 스톡 이미지를 쓰지 않는다. `scripts/generateVisualAssets.mjs`가 게임 config와 직접 작성한 SVG drawing helper를 기반으로 `src/assets/generated/` 아래 asset을 생성한다. UI는 `GeneratedAssetRegistry`와 `VisualAssetIcon`으로 key 기반 연결을 유지하므로, 추후 final SVG/bitmap으로 교체할 때 같은 key를 유지하면 된다.
+현재 RC asset pack은 외부 CDN, 상용 아이콘팩, 경쟁작 이미지, 스톡 이미지를 쓰지 않는다. 보조 아이콘/아이템은 `scripts/generateVisualAssets.mjs`가 게임 config와 직접 작성한 SVG drawing helper를 기반으로 생성한다. 핵심 감정/캐릭터/스토어 이미지는 built-in image generation으로 만든 PNG를 후처리해 `src/assets/raster/`에 두고, `RasterAssetRegistry`와 `RasterAssetImage`로 실제 UI에 연결한다.
+
+이전 SVG 중심 final art pass는 실패로 재분류했다. SVG는 currency, tab, upgrade, badge, decoration 같은 보조 visual 역할로 낮추고, 홈/앨범/환생/상점/오프라인/스토어의 주인공 이미지는 raster 후보를 쓴다.
 
 ## 총량
 
@@ -17,12 +19,14 @@
 | Release/final candidates | 16 | `src/assets/generated/release/*.svg` |
 | Tier backgrounds | 5 | `src/assets/generated/tiers/*.svg` |
 | Total SVG files | 253 | `src/assets/generated/` |
+| Raster source/working PNG | 18 | `src/assets/raster/**/*.png` |
 
 ## 필수 Asset Mapping
 
 | 요구 asset | 현재 산출물 | 크기/용도 |
 | --- | --- | --- |
-| 메인 카피바라 hero | `release/main-hero-final.svg`, `mascots/mascot-default.svg` 외 상태별 mascot | 홈 수확 key visual + 상태 mascot |
+| 메인 hero background | `src/assets/raster/home/main-hero-background.png` | 홈 수확 scene |
+| 메인 카피바라 character | `src/assets/raster/home/main-capybara-character.png` | 홈 tap target character |
 | mascot 기본 | `mascots/mascot-default.svg` | 평상시 홈 |
 | mascot 기쁨 | `mascots/mascot-happy.svg` | 구매/보상 반응 |
 | mascot 졸림 | `mascots/mascot-sleepy.svg` | idle 상태 |
@@ -30,31 +34,33 @@
 | mascot 환생 축하 | `mascots/mascot-celebrate.svg` | 환생/큰 보상 |
 | 귤 currency icon | `icons/orange.svg` | HUD, 보상, cost |
 | 황금 나뭇잎 currency icon | `icons/leaf.svg` | 환생, 영구 재화 |
-| 카피바라 portrait 8종 | `portraits/capybara-{id}.svg` | 앨범/동료 카드 |
+| 카피바라 portrait 8종 | `src/assets/raster/companions/capybara-{id}.png` | 앨범 sticker/동료 카드 |
 | 성장 구간 배경 5종 | `tiers/tier-yard.svg`, `tier-storehouse.svg`, `tier-onsen.svg`, `tier-bamboo_garden.svg`, `tier-golden_forest.svg` | 홈/진행 구간 visual |
 | 업그레이드/시설 30종 | `items/{upgradeId}.svg`, `icons/{iconKey}.svg` | 성장 탭, 구매 카드 |
 | 퀘스트/업적 badge set | `items/{questId}.svg`, `items/{achievementId}.svg`, 관련 `icons/*.svg` | 앨범, 보상 수령 |
 | 장식 25종 | `items/{decorationId}.svg`, 관련 `icons/*.svg` | 앨범, 홈 장식 |
-| 환생 ritual visual | `release/prestige-ritual-final.svg` | 환생 화면 key visual |
-| 상점 reward banner | `release/shop-reward-banner-final.svg` | 상점 상단 festival banner |
-| 오프라인 복귀 visual | `release/offline-return-final.svg` | 오프라인 보상 modal |
-| Store key visual | `release/store-key-visual-final.svg` | store screenshot hero overlay |
-| 앱 아이콘 | `release/app-icon-final.svg`, `release/app-icon-rc2.svg`, `release/app-icon-draft.svg` | 제출 전 PNG/adaptive icon export 필요 |
+| 환생 ritual visual | `src/assets/raster/release/prestige-ritual.png` | 환생 화면 key visual |
+| 상점 reward banner | `src/assets/raster/release/shop-reward-banner.png` | 상점 상단 festival banner |
+| 오프라인 복귀 visual | `src/assets/raster/release/offline-reward.png` | 오프라인 보상 modal |
+| Store key visual | `src/assets/raster/release/store-key-visual.png` | store screenshot hero background |
+| 앱 아이콘 | `src/assets/raster/release/app-icon-candidate.png`, 보조 SVG draft files | 제출 전 PNG/adaptive icon export 필요 |
 | Splash | `release/splash-final.svg`, `release/splash-rc2.svg`, `release/splash-draft.svg` | 제출 전 플랫폼별 export 필요 |
 | Store frame | `release/store-screenshot-frame-final.svg`, `release/store-screenshot-frame-rc2.svg`, `release/qa-screenshot-frame.svg` | store 후보/QA 보조 frame |
 
 ## Registry/Test Contract
 
 - `GeneratedAssetRegistry.ts`는 242 registry key를 제공한다. 파일 수 253과 key 수가 다른 이유는 일부 item/icon이 같은 semantic key를 공유하고, UI registry는 게임 content key 우선으로 연결하기 때문이다.
+- `RasterAssetRegistry.ts`는 핵심 raster keys를 제공한다. Home, collection, prestige, shop, offline modal, store screenshot flow는 이 registry를 통해 PNG를 직접 참조한다.
 - `src/tests/generated/assetRegistryMatrix.test.ts`는 registry key, SVG root, `aria-label`, 외부 image/href/url 부재, 깨진 문자 부재를 검증한다.
 - `src/tests/visualAssetIntegrity.test.ts`는 253개 파일 수와 balance/story/quest/achievement/decoration/tier/release coverage를 별도로 검증한다.
+- `src/tests/rasterAssetIntegrity.test.ts`는 required raster keys, PNG magic bytes, file existence, 최소 file size를 검증한다.
 
 ## 교체 원칙
 
-- Final art를 넣을 때 같은 key와 대략적인 viewBox 비율을 유지한다.
-- Bitmap으로 교체할 경우 registry 또는 `AssetManager`에서 key contract를 유지하고 lazy loading/저작권 기록을 갱신한다.
+- Final art를 교체할 때 같은 key와 대략적인 aspect ratio를 유지한다.
+- Bitmap으로 교체할 경우 `RasterAssetRegistry` key contract를 유지하고 lazy loading/저작권 기록을 갱신한다.
 - 외부 파일을 추가하면 `ASSET_CREDITS.md`, `PRIVACY_NOTES.md`, `NATIVE_BUILD_GUIDE.md`, `STORE_SCREENSHOT_PLAN.md`를 같이 업데이트한다.
 
 ## 남은 Art Risk
 
-현재 pack은 RC 제출 후보 검증용 수제 SVG다. 실제 스토어 출시 전에는 final app icon PNG/adaptive icon, final splash, 더 풍부한 idle animation, 스토어 홍보용 bespoke bitmap art를 별도 제작하는 것이 P2로 남아 있다.
+현재 pack은 RC 제출 후보 검증용 직접 제작 SVG auxiliary pack + generated raster core art pack이다. 실제 스토어 출시 전에는 commissioned/final art 소유권과 법무 검토, platform app icon/adaptive icon/splash export, 물리 기기 store screenshot 재촬영이 P1 external readiness로 남아 있다.

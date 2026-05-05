@@ -13,7 +13,7 @@
 | V-003 | P1 | Toast | toast가 자동으로 사라지지 않고 상점 카드 위를 넓게 덮어 상품 설명과 버튼을 가렸다. | 2.4초 자동 dismiss, compact ellipsis toast로 축소 | 해결 |
 | V-004 | P1 | Decoration feedback | 장식 25개 중 11개는 장착해도 홈 hero 장면에 전용 visual class 효과가 없어 collection content inflation처럼 보였다. | 누락된 11개 decoration class에 hero visual CSS 추가 | 해결 |
 | V-005 | P2 | Album density | 360x740 앨범 화면은 퀘스트, 친구, 장식, 업적을 한 화면에 담아 정보 밀도가 높다. 텍스트 잘림은 없지만 Cats & Soup 수준의 따뜻한 수집 동기는 아직 약하다. | 이번 범위에서는 유지, 향후 collection reward/chest/room layout로 개선 | 남음 |
-| V-006 | P2 | Placeholder feel | generated SVG와 CSS capybara는 RC placeholder로는 동작하지만, 상용 출시용 bespoke art/animation 수준은 아니다. | final bitmap/icon/splash asset 교체 필요 | 남음 |
+| V-006 | P1 external | Final art ownership | generated raster core art와 SVG auxiliary pack은 RC 후보로 동작하지만, 실제 스토어 제출 전 commissioned/final art 소유권과 법무 검토가 필요하다. | app icon/adaptive icon/splash export와 final art approval 필요 | 외부 readiness |
 | V-007 | P2 | Reward feel | 업적은 자동 unlock + toast + 배지 중심이라 퀘스트 보상보다 손맛이 약하다. | 업적 claim reward 또는 album reward chest 후보로 backlog 반영 | 남음 |
 
 ## 36 Screenshot Review
@@ -27,4 +27,4 @@
 
 ## Competitive Visual Judgment
 
-첫 화면은 큰 capybara tap target, currency tiles, today quest, next goal, collection shelf로 단순 MVP보다 낫다. 다만 Cats & Soup처럼 손으로 그린 캐릭터 애니메이션, 깊은 공간감, 장식 배치 보상감은 아직 없다. 이 항목은 내부 RC blocker가 아니라 final store art/reward expansion 전 P2 리스크로 둔다.
+첫 화면은 큰 raster capybara tap target, orchard background, currency HUD, today quest, next goal, collection shelf로 단순 MVP보다 낫다. 다만 Cats & Soup처럼 손으로 그린 캐릭터 애니메이션, 깊은 공간감, 장식 배치 보상감은 아직 제한적이다. 이 항목은 내부 RC blocker가 아니라 final store art ownership/animation/reward expansion 전 리스크로 둔다.

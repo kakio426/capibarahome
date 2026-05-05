@@ -81,10 +81,11 @@ Debug panel은 개발 모드에서도 기본 노출하지 않습니다. `/?debug
 ## Visual Asset Pipeline
 
 - `scripts/generateVisualAssets.mjs`는 config의 id/icon/tier/capybara key를 읽어 `src/assets/generated` 아래 직접 제작 SVG assets와 `GeneratedAssetRegistry.ts`를 생성합니다.
-- UI에서는 `VisualAssetIcon.tsx`를 사용합니다. asset key가 없으면 `builtinAssets.ts`의 CSS fallback key로 안전하게 렌더링합니다.
-- asset 무결성은 `src/tests/visualAssetIntegrity.test.ts`와 generated matrix test가 함께 검증합니다.
-- final art를 받으면 같은 registry key를 유지한 채 SVG/bitmap 파일만 교체하면 UI와 테스트 연결을 유지할 수 있습니다.
-- Final/release candidate assets는 `src/assets/generated/release/app-icon-final.svg`, `splash-final.svg`, `store-screenshot-frame-final.svg`, `main-hero-final.svg`, `prestige-ritual-final.svg`, `shop-reward-banner-final.svg`, `offline-return-final.svg`, `store-key-visual-final.svg`에 있습니다. RC-2 draft files도 비교/교체용으로 유지합니다.
+- UI 보조 아이콘/카드는 `VisualAssetIcon.tsx`를 사용합니다. asset key가 없으면 `builtinAssets.ts`의 CSS fallback key로 안전하게 렌더링합니다.
+- 핵심 감정/캐릭터/스토어 이미지는 `src/assets/raster/RasterAssetRegistry.ts`와 `RasterAssetImage.tsx`를 사용합니다.
+- asset 무결성은 `src/tests/visualAssetIntegrity.test.ts`, `src/tests/rasterAssetIntegrity.test.ts`, generated matrix test가 함께 검증합니다.
+- final art를 받으면 같은 registry key와 aspect ratio를 유지한 채 SVG/PNG 파일만 교체하면 UI와 테스트 연결을 유지할 수 있습니다.
+- Raster release candidate assets는 `src/assets/raster/home/main-hero-background.png`, `main-capybara-character.png`, `src/assets/raster/companions/capybara-*.png`, `src/assets/raster/release/prestige-ritual.png`, `shop-reward-banner.png`, `offline-reward.png`, `store-key-visual.png`, `app-icon-candidate.png`에 있습니다. SVG release draft files도 보조/비교용으로 유지합니다.
 
 ## Audio Pipeline
 
@@ -97,7 +98,7 @@ Debug panel은 개발 모드에서도 기본 노출하지 않습니다. `/?debug
 
 `e2e/store-screenshot-pack.spec.ts`는 QA screenshot과 별도로 `store-screenshots/`에 iPhone/Android 후보 PNG를 생성합니다. 일반 유저 플로우와 동일하게 debug shortcut을 사용하지 않고, deterministic save fixture만 사용합니다.
 
-현재 store 후보 10장은 final key visual과 직접 제작 SVG/CSS art pass 이후 다시 생성했으며 `VISUAL_QA.md`, `FINAL_ART_AUDIT.md`, `STORE_SCREENSHOT_PLAN.md`에 기록한다.
+현재 store 후보 10장은 raster store key visual + gameplay composition pass 이후 다시 생성했으며 `VISUAL_QA.md`, `FINAL_ART_AUDIT.md`, `STORE_SCREENSHOT_PLAN.md`에 기록한다.
 
 ## Balance Playtest Pipeline
 

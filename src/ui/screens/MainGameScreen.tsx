@@ -7,7 +7,8 @@ import { GameState } from "../../game/GameTypes";
 import { useGameStore } from "../../state/useGameStore";
 import { CurrencyDisplay } from "../components/CurrencyDisplay";
 import { ProgressBar } from "../components/ProgressBar";
-import { VisualAssetIcon, getVisualAssetUrl } from "../components/VisualAssetIcon";
+import { RasterAssetImage } from "../components/RasterAssetImage";
+import { VisualAssetIcon } from "../components/VisualAssetIcon";
 
 type MainGameScreenProps = {
   onTap: (event: PointerEvent<HTMLButtonElement>) => void;
@@ -51,8 +52,6 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
   const mascotMood = getMascotMood(state);
   const equippedDecorationClasses = collection.equippedDecorations.map((decoration) => decoration.visualClass).join(" ");
   const highlightedQuest = questBoard.ready[0] ?? questBoard.next;
-  const tierArt = getVisualAssetUrl(`tier-${currentTier.id}`);
-  const heroFinalArt = getVisualAssetUrl("main-hero-final");
   const longTermTitle = state.lifetime.totalPrestiges > 0
     ? "환생 이후 정원 재건"
     : prestigeGain.gte(1)
@@ -67,26 +66,18 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
   return (
     <main className="screen home-screen">
       <div className={`hero-card ${currentTier.backgroundClass} ${equippedDecorationClasses}`}>
-        {tierArt ? <img className="tier-art" src={tierArt} alt="" aria-hidden="true" /> : null}
         <div className="currency-grid">
           <CurrencyDisplay label={GameConfig.currency.orange.name} value={state.currencies.orange} assetKey="orange" format={format} />
           <CurrencyDisplay label={GameConfig.currency.goldenLeaf.name} value={state.currencies.goldenLeaf} assetKey="leaf" format={format} />
         </div>
 
         <button className={`capybara-touch mood-${mascotMood}`} type="button" onPointerDown={onTap} data-tutorial-target="capybara">
-          {heroFinalArt ? <img className="hero-final-art" src={heroFinalArt} alt="" aria-hidden="true" /> : null}
-          <span className="scene-backdrop" aria-hidden="true">
-            <span className="scene-tree scene-tree-left" />
-            <span className="scene-tree scene-tree-right" />
-            <span className="scene-facility" />
-            <span className="scene-pond" />
-            <span className="scene-orange scene-orange-one" />
-            <span className="scene-orange scene-orange-two" />
-            <span className="scene-orange scene-orange-three" />
+          <RasterAssetImage assetKey="main-hero-background" className="hero-raster-background" />
+          <span className="hero-character-wrap" aria-hidden="true">
+            <RasterAssetImage assetKey="main-capybara-character" className="hero-raster-character" />
           </span>
-          <span className="sun-glow" />
-          <span className="capybara-illustration" aria-hidden="true">
-            <VisualAssetIcon assetKey={`mascot-${mascotMood}`} className="hero-mascot-asset" />
+          <span className={highlightedQuest?.readyToClaim ? "scene-reward-badge is-ready" : "scene-reward-badge"}>
+            {highlightedQuest?.readyToClaim ? "보상 수령 가능" : currentTier.name}
           </span>
           <span className="tap-copy">귤 주기</span>
         </button>

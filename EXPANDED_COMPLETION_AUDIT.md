@@ -26,8 +26,8 @@
 | achievement/collection 화면 | 완료 | `CollectionScreen.tsx`, quest board, companions, abilities, decorations, reward claim badge board |
 | 성장 구간별 background visual | 완료 | tier CSS variables/classes in `layout.css` |
 | mascot visual 5상태 | 완료 | `mascot-default/happy/sleepy/eating/celebrate`, `VisualAssetIcon` |
-| 귤/황금 나뭇잎/시설 icon set | 완료 | 직접 제작 SVG 245개, `scripts/generateVisualAssets.mjs`, `src/assets/generated`, `VisualAssetIcon.tsx` |
-| app icon/splash 초안 | 완료 | `app-icon-rc2.svg`, `splash-rc2.svg`, `store-screenshot-frame-rc2.svg` |
+| 귤/황금 나뭇잎/시설 icon set | 완료 | 직접 제작 SVG auxiliary 253개, `scripts/generateVisualAssets.mjs`, `src/assets/generated`, `VisualAssetIcon.tsx` |
+| app icon/splash 초안 | 완료 | raster `app-icon-candidate.png`, SVG splash/frame candidates |
 | 터치 feedback/숫자/구매/환생/offline/unlock/achievement effects | 완료 | touch transform, floating text, particles, toast, WebAudio, quest/achievement/decoration feedback |
 | effect cap와 설정 반영 | 완료 | `AppShell.tsx`, `ParticleLayer`, settings |
 | `BALANCE_SIMULATION.md` | 완료 | `BALANCE_SIMULATION.md` |
@@ -43,20 +43,20 @@
 | debug 기반 장기 성장 QA E2E | 완료 | `debug-cheat-flow.spec.ts` |
 | 모바일 screenshot QA | 완료 | `visual-regression.spec.ts`, `qa-screenshots/`, `store-screenshot-pack.spec.ts`, `store-screenshots/` |
 | `SOURCE_BUDGET_REPORT.md` | 완료 | generated/config/docs 제외 기준으로 재감사 |
-| handwritten runtime 구현 규모 | 완료 | 6,374 LOC |
-| handwritten tests/E2E 규모 | 완료 | 2,186 LOC |
-| generated/config LOC 분리 | 완료 | generated SVG/registry 11,076 LOC, generated tests 5,718 LOC, config 2,529 LOC |
+| handwritten runtime 구현 규모 | 완료 | 6,538 LOC |
+| handwritten tests/E2E 규모 | 완료 | 2,285 LOC |
+| generated/config LOC 분리 | 완료 | generated SVG/registry 11,533 LOC, generated tests 5,846 LOC, raster PNG 18 files / 23M, config 2,529 LOC |
 | 스토리/콘텐츠가 실제 UI와 연결 | 완료 | 홈, 튜토리얼, offline modal, achievement collection/toast, upgrade unlock copy |
 
 ## Command Evidence
 
 ```txt
 npm run build: passed
-npm test: 20 files / 469 tests passed
+npm test: 21 files / 479 tests passed
 npm run test:e2e: 21 passed
 npm run cap:sync: passed
 ```
 
 ## Final Audit Decision
 
-내부 production release candidate 목표는 완료로 판단한다. P0/P1 미완료, 검증 불가, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue는 남아 있지 않다. 실제 App Store / Google Play 제출 완료는 아니며, 개발자 계정, signing, 실제 SDK, final art, 물리 기기 QA는 사용자 제공 후 별도 진행해야 한다.
+내부 production release candidate 목표는 완료로 판단한다. P0/P1 미완료, 검증 불가, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue는 남아 있지 않다. 실제 App Store / Google Play 제출 완료는 아니며, 개발자 계정, signing, 실제 SDK, commissioned/final art ownership, 물리 기기 QA는 사용자 제공 후 별도 진행해야 한다.

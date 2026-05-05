@@ -7,7 +7,7 @@
 | 항목 | 상태 | 근거 |
 | --- | --- | --- |
 | TypeScript/build 실패 | 없음 | `npm run build` 통과 |
-| unit/simulation test 실패 | 없음 | `npm test` 20 files / 477 tests passed |
+| unit/simulation test 실패 | 없음 | `npm test` 21 files / 479 tests passed |
 | E2E 실패 | 없음 | `npm run test:e2e` 21 passed |
 | 실제 유저 플로우 debug 의존 | 없음 | debug는 `e2e/debug-cheat-flow.spec.ts`에 격리 |
 | 모바일 overflow/주요 화면 깨짐 | 없음 | `visual-regression.spec.ts` screenshot/overflow 검증 통과 |
@@ -16,7 +16,7 @@
 | content inflation P1 | 없음 | `CONTENT_INTEGRATION_AUDIT.md`, 누락 decoration hero visual 11개 수정 |
 | visual defect P1 | 없음 | `VISUAL_DEFECTS.md`, save modal/tab/toast 수정 |
 | RC-1 reward feel P1 | 없음 | companion passive, achievement claim reward, long-term goal, WebAudio mute, RC-1 tests/E2E 추가 |
-| direct art/CSS readiness P1 | 없음 | `layout.css` 통합 정리, 253 hand-authored SVG files, final key visuals, `visualAssetIntegrity.test.ts`, art direction docs |
+| direct art/CSS readiness P1 | 없음 | `layout.css` 통합 정리, 253 SVG auxiliary files, 18 raster PNG core art assets, `visualAssetIntegrity.test.ts`, `rasterAssetIntegrity.test.ts`, art direction docs |
 | RC-3 playtest/balance/bug bash P1 | 없음 | 첫 환생 33분, 실제 5분권 E2E, migration/corrupt import/rapid tap/reward duplicate tests, store screenshot 재감사 |
 
 ## Source Budget Audit Gate
@@ -36,7 +36,8 @@
 - Bundle ID / package name 최종 확정
 - iOS signing certificate / provisioning profile
 - Android signing key
-- platform-exported app icon / splash / final store screenshot selection. 현재 수제 SVG final 후보와 store 후보 pack은 있음
+- commissioned/final art ownership and legal approval
+- platform-exported app icon / splash / final store screenshot selection. 현재 raster app icon candidate, raster store key visual, store 후보 pack은 있음
 - privacy policy URL
 - support URL
 - age rating answers
@@ -47,4 +48,4 @@
 
 ## Decision
 
-현재 감사 기준에서 내부 P0/P1 release blocker는 없다. 실제 스토어 제출 완료로 주장하지 않으며, final art/real audio files/SDK/signing/물리 기기 QA는 외부 blocker로 남긴다.
+현재 감사 기준에서 내부 P0/P1 release blocker는 없다. 실제 스토어 제출 완료로 주장하지 않으며, commissioned/final art ownership, real audio files, SDK, signing, 물리 기기 QA는 P1 external readiness blocker로 남긴다.

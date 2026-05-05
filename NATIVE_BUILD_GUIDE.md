@@ -37,10 +37,10 @@ npm run cap:open:android
 
 현재 초안 소스:
 
-- App icon candidate: `src/assets/generated/release/app-icon-final.svg`
+- App icon candidate: `src/assets/raster/release/app-icon-candidate.png`
 - Splash candidate: `src/assets/generated/release/splash-final.svg`
 - Store screenshot frame candidate: `src/assets/generated/release/store-screenshot-frame-final.svg`
-- Store key visual candidate: `src/assets/generated/release/store-key-visual-final.svg`
+- Store key visual candidate: `src/assets/raster/release/store-key-visual.png`
 
 제출 전 해야 할 일:
 

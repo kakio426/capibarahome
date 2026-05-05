@@ -18,12 +18,12 @@
 - [x] Content integration audit completed in `CONTENT_INTEGRATION_AUDIT.md`
 - [x] Visual defects audit completed in `VISUAL_DEFECTS.md`
 - [x] RC-1 product-feel hardening completed: companion passive, achievement claim rewards, long-term goal, WebAudio feedback
-- [x] Direct art direction pass completed: integrated `layout.css`, 253 hand-authored SVG files, mascot/portrait/tier/item/release/final asset pack
-- [x] Final art replacement pass completed: home hero, prestige ritual, shop banner, offline reward, store key visual, app icon/splash/frame candidates
-- [x] Visual asset integrity test added for SVG count, coverage, external-reference bans, runtime visual styling audit
+- [x] Direct art direction pass completed: integrated `layout.css`, 253 hand-authored SVG auxiliary files, mascot/tier/item/release support pack
+- [x] Raster final-style art pass completed: home hero background, main capybara character, 8 companion portraits, prestige ritual, shop banner, offline reward, store key visual, app icon candidate
+- [x] Visual asset integrity tests added for SVG count, raster PNG integrity, coverage, external-reference bans, runtime visual styling audit
 - [x] Art production docs added: `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`
 - [x] RC-2 audio readiness completed: file-ready audio slots and synthetic WebAudio fallback
-- [x] RC-2/Final store screenshot pack generated: 10 candidates in `store-screenshots/`
+- [x] RC-2/Final store screenshot pack generated: 10 raster key art + gameplay composition candidates in `store-screenshots/`
 - [x] Native/store compliance docs added: asset credits, audio plan, native guide, device QA checklist
 - [x] RC-3 playtest/balance pass completed: first prestige 33m target, 1/5/15/30/120 minute checkpoint report
 - [x] RC-3 bug bash completed: save migration, corrupt import, rapid tap, duplicate rewards, prestige save/load, mute persistence
@@ -55,6 +55,7 @@ Native folders are intentionally not generated here because Apple/Google develop
 - App icon final assets
 - Splash screen final assets
 - Store screenshots selected from real device/simulator frames, using `store-screenshots/` as current candidates
+- Commissioned/final art ownership and legal approval for production store submission
 - Privacy policy URL
 - Support URL
 - Age rating answers

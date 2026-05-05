@@ -45,7 +45,7 @@ const shots = [
   },
 ];
 
-const storeKeyVisualDataUrl = `data:image/svg+xml;base64,${readFileSync(join(process.cwd(), "src/assets/generated/release/store-key-visual-final.svg")).toString("base64")}`;
+const storeKeyVisualDataUrl = `data:image/png;base64,${readFileSync(join(process.cwd(), "src/assets/raster/release/store-key-visual.png")).toString("base64")}`;
 
 test.beforeAll(() => {
   mkdirSync("store-screenshots", { recursive: true });
@@ -134,32 +134,41 @@ async function applyStoreComposition(
       body {
         margin: 0;
         overflow: hidden;
+        background: #172b21;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
         background:
-          radial-gradient(circle at 82% 10%, rgba(255, 209, 102, 0.66), transparent 18%),
-          radial-gradient(circle at 18% 84%, rgba(60, 143, 114, 0.22), transparent 25%),
-          linear-gradient(180deg, #fffaf0 0%, #d9efe6 54%, #ffe0a6 100%);
+          linear-gradient(180deg, rgba(12, 25, 19, 0.24), rgba(12, 25, 19, 0.1) 34%, rgba(255, 214, 129, 0.16) 100%),
+          radial-gradient(circle at 18% 20%, rgba(255, 245, 199, 0.8), transparent 24%),
+          linear-gradient(90deg, rgba(255, 253, 242, 0.9), rgba(255, 253, 242, 0.12) 44%, rgba(255, 253, 242, 0));
       }
       .store-shot-copy {
         position: fixed;
         top: ${device.name === "iphone" ? 92 : 56}px;
         left: ${device.name === "iphone" ? 96 : 58}px;
         right: ${device.name === "iphone" ? 96 : 58}px;
-        z-index: 999;
+        z-index: 4;
         display: grid;
         gap: ${device.name === "iphone" ? 26 : 16}px;
         color: #28322d;
         text-align: left;
         letter-spacing: 0;
+        text-shadow: 0 3px 18px rgba(255, 253, 242, 0.82);
       }
       .store-key-visual {
         position: fixed;
-        right: ${device.name === "iphone" ? 80 : 48}px;
-        top: ${device.name === "iphone" ? 464 : 258}px;
-        width: ${device.name === "iphone" ? 398 : 276}px;
-        height: ${device.name === "iphone" ? 398 : 276}px;
-        z-index: 1;
-        opacity: 0.96;
-        filter: drop-shadow(0 34px 48px rgba(40, 50, 45, 0.2));
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        object-fit: cover;
+        object-position: ${device.name === "iphone" ? "center 40%" : "center 44%"};
+        opacity: 1;
       }
       .store-shot-copy strong {
         max-width: ${device.name === "iphone" ? 930 : 760}px;
@@ -176,20 +185,20 @@ async function applyStoreComposition(
       }
       .app-frame {
         min-height: 100vh !important;
-        padding: ${device.top + (device.name === "iphone" ? 126 : 64)}px 0 0 !important;
+        padding: ${device.top + (device.name === "iphone" ? 360 : 180)}px 0 0 !important;
         align-items: start !important;
         justify-items: center !important;
         background: transparent !important;
       }
       .game-shell {
         position: relative !important;
-        z-index: 2 !important;
+        z-index: 3 !important;
         width: 430px !important;
         height: ${device.shellHeight}px !important;
         min-height: ${device.shellHeight}px !important;
         max-height: ${device.shellHeight}px !important;
         border-radius: 38px !important;
-        transform: scale(${device.scale});
+        transform: scale(${device.scale * (device.name === "iphone" ? 0.86 : 0.9)});
         transform-origin: top center;
         box-shadow: 0 46px 112px rgba(40, 50, 45, 0.32), 0 0 0 1px rgba(40, 50, 45, 0.08);
       }

@@ -78,4 +78,4 @@
 | CSS override 누적 위험 제거 | 통과 | `layout.css` 전면 정리, runtime visual banned-pattern audit |
 | 모바일 360/390/430/desktop 스크린샷 | 통과 | `qa-screenshots/` 48 PNG |
 | store screenshot 후보 | 통과 | `store-screenshots/` 10 PNG |
-| final bespoke animation | P2 | 실제 제출 전 commissioned art/animation으로 교체 가능 |
+| final bespoke animation / art ownership | P1 external | 실제 제출 전 commissioned/final art 소유권, 법무 검토, animation polish 확정 필요 |

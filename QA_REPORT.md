@@ -12,8 +12,8 @@ built successfully
 
 ```txt
 npm test
-Test Files  20 passed (20)
-Tests       477 passed (477)
+Test Files  21 passed (21)
+Tests       479 passed (479)
 ```
 
 ```txt
@@ -44,25 +44,29 @@ Fix:
 - `offline.test.ts`, `rc1Rewards.test.ts`, 관련 Playwright flow를 업데이트.
 
 검증:
-- `npm test` 전체 477 tests 통과.
+- `npm test` 전체 479 tests 통과.
 - `npm run test:e2e` 전체 21 tests 통과.
 
-## Direct Art/CSS Production Pass
+## Raster Art/CSS Production Pass
 
-- `scripts/generateVisualAssets.mjs`를 직접 작성 SVG generator로 재작업했다.
-- 총 253개 SVG를 생성했다: icons 61, items 158, mascots 5, portraits 8, release/final candidates 16, tiers 5.
+- 이전 SVG 중심 final art 선언은 실패로 재분류했고, 근거를 `ART_FAILURE_REVIEW.md`에 남겼다.
+- `scripts/generateVisualAssets.mjs`의 253개 SVG pack은 currency, tab, upgrade, badge 같은 보조 visual로 유지한다.
+- built-in image generation과 후처리 workflow로 18개 PNG raster file을 추가했다. 핵심 UI에서 직접 쓰는 후보는 home hero background, main capybara character, 8 companion portraits, prestige ritual, shop reward banner, offline reward, store key visual, app icon candidate다.
+- `RasterAssetRegistry.ts`와 `RasterAssetImage.tsx`를 추가해 핵심 raster asset을 key 기반으로 연결했다.
 - legacy visual fallback을 제거하고 `src/assets/builtinAssets.ts` fallback map으로 교체했다.
 - `layout.css`를 누적 override가 아니라 통합 게임 UI stylesheet로 전면 정리했다.
-- 홈 hero는 `main-hero-final` key visual과 `VisualAssetIcon assetKey={mascot-*}` 상태 mascot를 같이 사용한다.
-- 환생 `prestige-ritual-final`, 상점 `shop-reward-banner-final`, 오프라인 보상 `offline-return-final`, store screenshot `store-key-visual-final`을 실제 화면/스크린샷 흐름에 연결했다.
-- `visualAssetIntegrity.test.ts`를 추가해 253개 파일, 게임 config coverage, 외부 image/href/url 부재, runtime visual styling banned pattern을 검증한다.
+- 홈 hero는 `main-hero-background.png`와 `main-capybara-character.png`가 주인공인 game scene으로 재구성했다.
+- 앨범은 raster companion portrait를 sticker/companion card에 연결했다.
+- 환생 `prestige-ritual.png`, 상점 `shop-reward-banner.png`, 오프라인 보상 `offline-reward.png`, store screenshot `store-key-visual.png`을 실제 화면/스크린샷 흐름에 연결했다.
+- `visualAssetIntegrity.test.ts`는 253개 SVG 보조 asset, 게임 config coverage, 외부 image/href/url 부재, runtime visual styling banned pattern을 검증한다.
+- `rasterAssetIntegrity.test.ts`를 추가해 required raster key, PNG magic bytes, file existence, 최소 파일 크기를 검증한다.
 - `assetRegistryMatrix.test.ts`는 비대한 파일 크기 기준 대신 SVG 구조와 무결성 기준으로 변경했다.
 
 ## Art/Visual Documentation
 
 - `ART_DIRECTION.md`: 감정 키워드, 금지 키워드, 팔레트, 형태 언어, 캐릭터/시설/UI 원칙, QA gate.
-- `ASSET_PRODUCTION_BRIEF.md`: 253개 SVG breakdown, 필수 asset mapping, registry/test contract, 교체 원칙.
-- `FINAL_ASSET_BRIEF.md`, `FINAL_ART_AUDIT.md`: final key visual 제작/연결 범위와 before/after QA evidence.
+- `ASSET_PRODUCTION_BRIEF.md`: SVG 보조 pack과 raster core art pack을 분리한 asset mapping, registry/test contract, 교체 원칙.
+- `FINAL_ASSET_BRIEF.md`, `FINAL_ART_AUDIT.md`: raster key visual 제작/연결 범위와 before/after QA evidence.
 - `VISUAL_QA.md`: 화면별 첫인상, 캐릭터성, 보상감, placeholder 냄새, 양산형 앱 UI 냄새, 모바일 가독성, 텍스트 잘림, 버튼 터치성, 화면 밀도, 경쟁작 대비 부족한 점을 표로 기록.
 
 ## 자동 테스트 커버리지
@@ -71,7 +75,7 @@ Fix:
 - 콘텐츠 config: 30개 업그레이드/시설, 50개 quest, 40개 achievement, 25개 decoration, 5개 tier, 8개 character.
 - 퀘스트/컬렉션: 동료 친밀도, 장식 배치, 보상 수령 중복 방지.
 - Release matrix: 242 registry asset key와 158 content record 연결성.
-- Visual asset integrity: 253 SVG files, 외부 참조 없음, runtime visual styling audit.
+- Visual asset integrity: 253 SVG auxiliary files, 18 raster PNG files, 외부 참조 없음, runtime visual styling audit.
 - 저장/불러오기: 동일 상태 복구, 손상 Base64, checksum 불일치, v1/v2/v3 migration.
 - 오프라인 보상, 환생, 튜토리얼, 설정, 광고/IAP mock.
 - RC reward loops: companion passive, achievement claim reward, permanent multiplier, progression unlock, sound mute.
@@ -102,23 +106,25 @@ Fix:
 - Playwright screenshot 52개를 `qa-screenshots/`에 갱신했다.
 - Store 후보 10개를 `store-screenshots/`에 갱신했다.
 - 360x740, 390x844, 430x932, desktop 1280x900 중앙 패널에서 overflow assertion 통과.
-- 홈 final key visual, 환생 ritual visual, 상점 reward banner, 오프라인 보상 visual, save modal 긴 code scroll을 재확인했다.
+- 홈 raster orchard scene/main capybara, 앨범 raster sticker portraits, 환생 ritual raster, 상점 reward banner raster, 오프라인 보상 raster, save modal 긴 code scroll을 재확인했다.
+- Store 후보 10개는 raster store key visual을 full-screen background로 두고 gameplay panel/copy를 얹는 구성으로 재생성했다.
 - CSS audit: runtime visual files에서 temporary override marker, generic UI marker, external asset fallback marker를 제거했다.
 
 ## Source Budget Gate
 
-- handwritten runtime implementation: 6,366 LOC.
-- handwritten tests/E2E: 2,225 LOC.
-- pure handwritten gameplay/UI/system/test total: 8,591 LOC.
+- handwritten runtime implementation: 6,538 LOC.
+- handwritten tests/E2E: 2,285 LOC.
+- pure handwritten gameplay/UI/system/test total: 8,823 LOC.
 - excluded config: 2,529 LOC.
 - excluded generated SVG/registry: 11,533 LOC.
 - excluded generated matrix tests: 5,846 LOC.
 - generated SVG files: 253.
 - registry asset keys: 242.
+- raster PNG files: 18, 23M total.
 
 ## 남은 리스크
 
 - 실제 물리 디바이스 60fps/thermal profiling은 수행하지 않았다.
-- 실제 final 이미지/라이선스 확정 사운드/광고 SDK/IAP SDK는 연결하지 않았다.
+- 실제 commissioned/final art ownership, 라이선스 확정 사운드, 광고 SDK/IAP SDK는 연결하지 않았다.
 - 실제 Apple/Google 개발자 계정, 인증서, 프로비저닝, 스토어 업로드는 수행하지 않았다.
-- final bespoke hand-drawn animation, final app icon/adaptive icon/splash, 실제 store marketing bitmap art는 제출 전 P2로 남는다.
+- commissioned art 소유권/법무 확정, platform icon/adaptive icon/splash export, 실제 device store screenshot 재촬영은 제출 전 P1 external art readiness로 남는다.

@@ -14,7 +14,7 @@
 | gap backlog와 P0/P1 해결 | 완료 | `PRODUCTION_GAP_BACKLOG.md` |
 | release blocker 분리 | 완료 | `RELEASE_BLOCKERS.md` |
 | `npm run build` | 완료 | `tsc -b && vite build`, success |
-| `npm test` | 완료 | Vitest 20 files, 477 tests passed |
+| `npm test` | 완료 | Vitest 21 files, 479 tests passed |
 | `npm run test:e2e` | 완료 | Playwright 21 tests passed |
 | Capacitor packaging prep | 완료 | `capacitor.config.ts`, scripts, `npm run cap:sync` success |
 | 실제 스토어 업로드 미수행 | 완료 | 계정/인증서/프로비저닝 미제공. `RELEASE_CHECKLIST.md`와 `RELEASE_BLOCKERS.md`에 사용자 작업으로 분리 |
@@ -38,7 +38,7 @@
 | 광고/IAP mock provider | 완료 | `AdsManager.ts`, `IAPManager.ts`, `MonetizationEventManager.ts` | `monetization.test.ts`, `monetization-mock.spec.ts` |
 | 디버그 도구 | 완료 | `DebugManager.ts`, `?debug=1` gated panel | `debug-cheat-flow.spec.ts` |
 | analytics mock | 완료 | `AnalyticsManager.ts` | unit/E2E action flows |
-| 에셋 파이프라인 | 완료 | `AssetManager.ts`, `builtinAssets.ts`, `scripts/generateVisualAssets.mjs`, 253 hand-authored SVG files, generated SVG registry, `VisualAssetIcon.tsx` | `assetRegistryMatrix.test.ts`, `visualAssetIntegrity.test.ts`, screenshots |
+| 에셋 파이프라인 | 완료 | `AssetManager.ts`, `builtinAssets.ts`, `scripts/generateVisualAssets.mjs`, 253 hand-authored SVG auxiliary files, `RasterAssetRegistry.ts`, `RasterAssetImage.tsx`, 18 raster PNG files | `assetRegistryMatrix.test.ts`, `visualAssetIntegrity.test.ts`, `rasterAssetIntegrity.test.ts`, screenshots |
 | release QA | 완료 | `QA_REPORT.md`, `VISUAL_QA.md`, `PERFORMANCE_QA.md`, `RELEASE_BLOCKERS.md` | final command outputs |
 
 ## Expanded Content Scope
@@ -55,7 +55,7 @@
 | story bible | 완료 | `STORY_BIBLE.md`, `StoryConfig.ts` |
 | 카피바라 8마리 | 완료 | `StoryConfig.ts`, `STORY_BIBLE.md`, 8 unique passive abilities |
 | mascot visual 5상태 | 완료 | `MainGameScreen.tsx`, `layout.css`, `AssetConfig.ts`, `src/assets/generated/mascots/` |
-| app icon/splash/store art 후보 | 완료 | `src/assets/generated/release/app-icon-final.svg`, `splash-final.svg`, `store-screenshot-frame-final.svg`, `store-key-visual-final.svg`와 RC-2 drafts |
+| app icon/splash/store art 후보 | 완료 | `src/assets/raster/release/app-icon-candidate.png`, `store-key-visual.png`; splash/frame SVG 후보는 `src/assets/generated/release/`에 보조 후보로 유지 |
 | balance simulation | 완료 | `BalanceSimulator.ts`, `balanceSimulation.test.ts`, `BALANCE_SIMULATION.md` |
 | source budget report | 완료 | `SOURCE_BUDGET_REPORT.md` |
 | source budget 재검증 | 완료 | handwritten runtime 6,366 LOC, handwritten tests/E2E 2,225 LOC, generated/config/docs 제외 기준 `SOURCE_BUDGET_REPORT.md` |
@@ -64,11 +64,11 @@
 
 | 요구사항 | 상태 | 근거 |
 | --- | --- | --- |
-| 첫 화면부터 실제 게임처럼 보임 | 완료 | CSS capybara scene, next goal, 장기 목표, prestige mini progress, collection shelf, screenshots |
+| 첫 화면부터 실제 게임처럼 보임 | 완료 | raster orchard scene, main capybara character, scene reward badge, next goal, 장기 목표, prestige mini progress, collection shelf, screenshots |
 | 임시 개발자 UI 숨김 | 완료 | Debug panel hidden by default, only `?debug=1` in dev |
 | 360x740 / 390x844 / 430x932 / desktop 중앙 패널 | 완료 | `visual-regression.spec.ts`, 52 screenshots |
 | 버튼/탭/모달/카드/상점/설정/튜토리얼 polish | 완료 | `layout.css`, screenshots, visual QA |
-| 직접 제작 visual asset | 완료 | 253 generated SVG icon/quest/badge/decor/companion/tier/mascot/release/final assets, CSS game scene, `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`, `FINAL_ASSET_BRIEF.md` |
+| 직접 제작 visual asset | 완료 | 253 generated SVG auxiliary icon/quest/badge/decor/tier assets, 18 raster PNG core art assets, CSS game scene, `ART_FAILURE_REVIEW.md`, `ASSET_PRODUCTION_BRIEF.md`, `FINAL_ASSET_BRIEF.md` |
 | Playwright screenshots | 완료 | `qa-screenshots/` 52 current PNG files, `store-screenshots/` 10 store 후보 PNG files, `qa-screenshots/rc1-before/` archive |
 | Visual QA document | 완료 | `VISUAL_QA.md` |
 
@@ -102,9 +102,9 @@
 | `PRIVACY_NOTES.md` | 완료 | localStorage/mock analytics/privacy notes |
 | `ASSET_CREDITS.md` | 완료 | generated/CSS/SVG asset 출처와 라이선스 상태 |
 | `ART_DIRECTION.md` | 완료 | 감정 키워드, 금지 키워드, 팔레트, 형태 언어, UI 원칙, QA gate |
-| `ASSET_PRODUCTION_BRIEF.md` | 완료 | 253개 SVG breakdown, registry/test contract, 교체 원칙 |
-| `FINAL_ASSET_BRIEF.md` | 완료 | final key visual 제작 범위와 연결 gate |
-| `FINAL_ART_AUDIT.md` | 완료 | screen-by-screen before/after visual QA evidence |
+| `ASSET_PRODUCTION_BRIEF.md` | 완료 | SVG auxiliary pack과 raster core art pack breakdown, registry/test contract, 교체 원칙 |
+| `FINAL_ASSET_BRIEF.md` | 완료 | raster final-style key visual 제작 범위와 연결 gate |
+| `FINAL_ART_AUDIT.md` | 완료 | SVG pass 실패 판단, raster before/after visual QA evidence |
 | `AUDIO_ASSET_PLAN.md` | 완료 | audio slot/file replacement plan |
 | `STORE_SCREENSHOT_PLAN.md` | 완료 | iPhone/Android store screenshot 후보 목록 |
 | `NATIVE_BUILD_GUIDE.md` | 완료 | Capacitor readiness, icon/splash 경로, signing gap |
@@ -115,4 +115,4 @@
 
 ## P0/P1 Blockers
 
-기존 RC 및 확장 목표 기준의 P0/P1 `미완료`, `검증 불가`, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue 없음. 실제 스토어 제출 완료를 막는 외부 계정/서명/platform icon export/실기기 QA 항목은 `RELEASE_BLOCKERS.md`에 별도로 남겼다.
+기존 RC 및 확장 목표 기준의 내부 P0/P1 `미완료`, `검증 불가`, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue 없음. 실제 스토어 제출 완료를 막는 외부 계정/서명/commissioned art 소유권/platform icon export/실기기 QA 항목은 `RELEASE_BLOCKERS.md`에 P1 external readiness로 별도 분리했다.

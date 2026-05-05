@@ -5,6 +5,7 @@ import { selectEps } from "../../game/GameSelectors";
 import { useGameStore } from "../../state/useGameStore";
 import { Button } from "../components/Button";
 import { Panel } from "../components/Panel";
+import { RasterAssetImage } from "../components/RasterAssetImage";
 import { VisualAssetIcon } from "../components/VisualAssetIcon";
 
 function formatBoostLeft(adBoostUntil: number | null) {
@@ -50,7 +51,7 @@ export function MonetizationPanel() {
 
       <Panel className="shop-feature-card">
         <div className="shop-banner-visual" aria-hidden="true">
-          <VisualAssetIcon assetKey="shop-reward-banner-final" className="shop-banner-asset" />
+          <RasterAssetImage assetKey="shop-reward-banner-raster" className="shop-banner-asset" />
         </div>
         <div className="shop-feature-top">
           <div>

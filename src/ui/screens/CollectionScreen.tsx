@@ -5,6 +5,7 @@ import { useGameStore } from "../../state/useGameStore";
 import { Button } from "../components/Button";
 import { Panel } from "../components/Panel";
 import { ProgressBar } from "../components/ProgressBar";
+import { RasterAssetImage } from "../components/RasterAssetImage";
 import { VisualAssetIcon } from "../components/VisualAssetIcon";
 
 function questChapterLabel(chapter: string) {
@@ -47,6 +48,14 @@ export function CollectionScreen() {
           <span className="app-kicker">오늘 할 일</span>
           <h3>{highlightedQuest?.title ?? "모든 퀘스트 완료"}</h3>
           <p>{highlightedQuest?.helperLine ?? "정원이 안정적으로 운영되고 있습니다."}</p>
+        </div>
+        <div className="album-room-scene" aria-hidden="true">
+          <RasterAssetImage assetKey="main-hero-background" className="album-room-bg" />
+          <div className="album-sticker-strip">
+            {collection.companions.slice(0, 4).map((capybara) => (
+              <RasterAssetImage key={capybara.id} assetKey={`companion-${capybara.id}`} className="album-sticker" />
+            ))}
+          </div>
         </div>
         <div className="album-score-grid">
           <div>
@@ -114,7 +123,7 @@ export function CollectionScreen() {
           {collection.companions.map((capybara) => (
             <article key={capybara.id} className={`companion-card mood-${capybara.mood} ${capybara.unlocked ? "is-unlocked" : ""}`}>
               <div className="companion-portrait" aria-hidden="true">
-                <VisualAssetIcon assetKey={`capybara-${capybara.id}`} className="companion-asset" />
+                <RasterAssetImage assetKey={`companion-${capybara.id}`} className="companion-asset" />
               </div>
               <div className="companion-copy">
                 <span className="upgrade-type">{capybara.role}</span>

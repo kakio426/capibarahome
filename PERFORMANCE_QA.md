@@ -9,7 +9,7 @@
 - Floating text capped to 18 visible items
 - Particle list capped to 36 visible items
 - Audio layer uses file-ready slots with short WebAudio fallback envelopes and skips playback when sound mute is enabled
-- Generated SVG visual assets use normal image loading and are lazy-loaded in reusable icon components
+- Generated SVG auxiliary assets use normal image loading and raster core art is routed through `RasterAssetImage`
 - Game calculations run outside React render loops
 - Store uses `useSyncExternalStore`
 - Event listeners are cleaned up on `AppShell` unmount
@@ -31,7 +31,7 @@
 
 ```txt
 npm test
-20 files passed, 469 tests passed
+21 files passed, 479 tests passed
 ```
 
 ```txt
