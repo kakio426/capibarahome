@@ -145,9 +145,16 @@ describe("RC-3 bug bash regressions", () => {
     const firstQuest = claimQuestReward(questState, "welcome_first_orange", 2_000);
     expect(firstQuest.ok).toBe(true);
     if (firstQuest.ok) {
+      const orangeAfterFirst = firstQuest.state.currencies.orange.toString();
+      const friendshipAfterFirst = firstQuest.state.companions.friendshipById.momo;
       const secondQuest = claimQuestReward(firstQuest.state, "welcome_first_orange", 2_001);
       expect(secondQuest.ok).toBe(false);
-      if (!secondQuest.ok) expect(secondQuest.reason).toBe("already_claimed");
+      if (!secondQuest.ok) {
+        expect(secondQuest.reason).toBe("already_claimed");
+        expect(secondQuest.state.currencies.orange.toString()).toBe(orangeAfterFirst);
+        expect(secondQuest.state.companions.friendshipById.momo).toBe(friendshipAfterFirst);
+        expect(secondQuest.state.quests.claimedIds.filter((id) => id === "welcome_first_orange")).toHaveLength(1);
+      }
     }
 
     const achievementState = makeState();
@@ -155,9 +162,16 @@ describe("RC-3 bug bash regressions", () => {
     const firstAchievement = claimAchievementReward(achievementState, "first_orange", 2_000);
     expect(firstAchievement.ok).toBe(true);
     if (firstAchievement.ok) {
+      const orangeAfterFirst = firstAchievement.state.currencies.orange.toString();
+      const friendshipAfterFirst = firstAchievement.state.companions.friendshipById.momo;
       const secondAchievement = claimAchievementReward(firstAchievement.state, "first_orange", 2_001);
       expect(secondAchievement.ok).toBe(false);
-      if (!secondAchievement.ok) expect(secondAchievement.reason).toBe("already_claimed");
+      if (!secondAchievement.ok) {
+        expect(secondAchievement.reason).toBe("already_claimed");
+        expect(secondAchievement.state.currencies.orange.toString()).toBe(orangeAfterFirst);
+        expect(secondAchievement.state.companions.friendshipById.momo).toBe(friendshipAfterFirst);
+        expect(secondAchievement.state.achievements.claimedRewardIds.filter((id) => id === "first_orange")).toHaveLength(1);
+      }
     }
   });
 

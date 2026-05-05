@@ -17,7 +17,7 @@ describe("balance simulation", () => {
     expect(result.offlineEightHourReward.length).toBeGreaterThan(0);
     expect(result.firstPrestigeLabel.length).toBeGreaterThan(0);
     expect(result.firstPrestigeSeconds).toBeGreaterThanOrEqual(30 * 60);
-    expect(result.firstPrestigeSeconds).toBeLessThanOrEqual(90 * 60);
+    expect(result.firstPrestigeSeconds).toBeLessThanOrEqual(60 * 60);
   }, 20_000);
 
   it("keeps first-session rewards and goals visible without debug shortcuts", () => {
@@ -28,10 +28,9 @@ describe("balance simulation", () => {
 
     expect(oneMinute?.claimedQuestCount).toBeGreaterThanOrEqual(1);
     expect(oneMinute?.systemsSeen).toContain("quest");
-    expect(fiveMinute?.systemsSeen).toEqual(expect.arrayContaining(["upgrade", "quest"]));
-    expect(
-      fiveMinute?.systemsSeen.some((system) => system === "album" || system === "decoration"),
-    ).toBe(true);
+    expect(fiveMinute?.systemsSeen).toEqual(
+      expect.arrayContaining(["upgrade", "quest", "album", "companion", "decoration"]),
+    );
     expect(thirtyMinute?.nextGoal.length).toBeGreaterThan(8);
     expect(thirtyMinute?.nextQuest.length).toBeGreaterThan(2);
   }, 10_000);
@@ -40,7 +39,7 @@ describe("balance simulation", () => {
     const normal = runBalanceSimulation({ durationSeconds: 7200, tickSeconds: 15, tapsPerSecond: 1.2 });
     const boosted = runBalanceSimulation({ durationSeconds: 7200, tickSeconds: 15, tapsPerSecond: 1.2, adBoostActive: true });
 
-    expect(boosted.finalState.lifetime.totalOrangesEarned.gte(normal.finalState.lifetime.totalOrangesEarned)).toBe(true);
+    expect(boosted.finalState.lifetime.totalOrangesEarned.compare(normal.finalState.lifetime.totalOrangesEarned)).toBeGreaterThan(0);
     expect(boosted.finalState.lifetime.totalTaps).toBe(normal.finalState.lifetime.totalTaps);
   }, 40_000);
 
@@ -48,7 +47,7 @@ describe("balance simulation", () => {
     const fresh = runBalanceSimulation({ durationSeconds: 1800, tickSeconds: 15, tapsPerSecond: 1.2 });
     const afterPrestige = runBalanceSimulation({ durationSeconds: 1800, tickSeconds: 15, tapsPerSecond: 1.2, startingGoldenLeaf: "5" });
 
-    expect(afterPrestige.finalState.lifetime.totalOrangesEarned.gte(fresh.finalState.lifetime.totalOrangesEarned)).toBe(true);
+    expect(afterPrestige.finalState.lifetime.totalOrangesEarned.compare(fresh.finalState.lifetime.totalOrangesEarned)).toBeGreaterThan(0);
   }, 10_000);
 
   it("records first prestige and post-prestige 30 minute checkpoints when reached", () => {
