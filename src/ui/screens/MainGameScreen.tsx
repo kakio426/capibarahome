@@ -52,6 +52,7 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
   const equippedDecorationClasses = collection.equippedDecorations.map((decoration) => decoration.visualClass).join(" ");
   const highlightedQuest = questBoard.ready[0] ?? questBoard.next;
   const tierArt = getVisualAssetUrl(`tier-${currentTier.id}`);
+  const heroFinalArt = getVisualAssetUrl("main-hero-final");
   const longTermTitle = state.lifetime.totalPrestiges > 0
     ? "환생 이후 정원 재건"
     : prestigeGain.gte(1)
@@ -73,6 +74,7 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
         </div>
 
         <button className={`capybara-touch mood-${mascotMood}`} type="button" onPointerDown={onTap} data-tutorial-target="capybara">
+          {heroFinalArt ? <img className="hero-final-art" src={heroFinalArt} alt="" aria-hidden="true" /> : null}
           <span className="scene-backdrop" aria-hidden="true">
             <span className="scene-tree scene-tree-left" />
             <span className="scene-tree scene-tree-right" />

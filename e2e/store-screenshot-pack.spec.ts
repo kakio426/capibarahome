@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
-import { mkdirSync } from "node:fs";
+import { mkdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { BigNumberLite } from "../src/core/BigNumberLite";
 import { expectNoHorizontalOverflow, seedSave, setOrange } from "./helpers";
 
@@ -43,6 +44,8 @@ const shots = [
     modal: "save",
   },
 ];
+
+const storeKeyVisualDataUrl = `data:image/svg+xml;base64,${readFileSync(join(process.cwd(), "src/assets/generated/release/store-key-visual-final.svg")).toString("base64")}`;
 
 test.beforeAll(() => {
   mkdirSync("store-screenshots", { recursive: true });
@@ -106,8 +109,9 @@ async function applyStoreComposition(
   subtitle: string,
 ) {
   await page.evaluate(
-    ({ shotTitle, shotSubtitle }) => {
+    ({ shotTitle, shotSubtitle, keyVisualSrc }) => {
       document.querySelector(".store-shot-copy")?.remove();
+      document.querySelector(".store-key-visual")?.remove();
       const copy = document.createElement("div");
       copy.className = "store-shot-copy";
       const heading = document.createElement("strong");
@@ -115,9 +119,14 @@ async function applyStoreComposition(
       const sub = document.createElement("span");
       sub.textContent = shotSubtitle;
       copy.append(heading, sub);
+      const keyVisual = document.createElement("img");
+      keyVisual.className = "store-key-visual";
+      keyVisual.alt = "";
+      keyVisual.src = keyVisualSrc;
       document.body.prepend(copy);
+      document.body.prepend(keyVisual);
     },
-    { shotTitle: title, shotSubtitle: subtitle },
+    { shotTitle: title, shotSubtitle: subtitle, keyVisualSrc: storeKeyVisualDataUrl },
   );
   await page.addStyleTag({
     content: `
@@ -142,14 +151,24 @@ async function applyStoreComposition(
         text-align: left;
         letter-spacing: 0;
       }
+      .store-key-visual {
+        position: fixed;
+        right: ${device.name === "iphone" ? 80 : 48}px;
+        top: ${device.name === "iphone" ? 464 : 258}px;
+        width: ${device.name === "iphone" ? 398 : 276}px;
+        height: ${device.name === "iphone" ? 398 : 276}px;
+        z-index: 1;
+        opacity: 0.96;
+        filter: drop-shadow(0 34px 48px rgba(40, 50, 45, 0.2));
+      }
       .store-shot-copy strong {
-        max-width: ${device.name === "iphone" ? 1080 : 900}px;
+        max-width: ${device.name === "iphone" ? 930 : 760}px;
         font-size: ${device.name === "iphone" ? 72 : 54}px;
         line-height: 1.06;
         font-weight: 950;
       }
       .store-shot-copy span {
-        max-width: 880px;
+        max-width: ${device.name === "iphone" ? 780 : 620}px;
         color: #6b4a30;
         font-size: ${device.name === "iphone" ? 38 : 27}px;
         line-height: 1.34;
@@ -157,12 +176,14 @@ async function applyStoreComposition(
       }
       .app-frame {
         min-height: 100vh !important;
-        padding: ${device.top}px 0 0 !important;
+        padding: ${device.top + (device.name === "iphone" ? 126 : 64)}px 0 0 !important;
         align-items: start !important;
         justify-items: center !important;
         background: transparent !important;
       }
       .game-shell {
+        position: relative !important;
+        z-index: 2 !important;
         width: 430px !important;
         height: ${device.shellHeight}px !important;
         min-height: ${device.shellHeight}px !important;

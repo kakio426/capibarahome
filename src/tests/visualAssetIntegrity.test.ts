@@ -27,7 +27,7 @@ describe("handmade visual asset integrity", () => {
   it("generates a complete in-repo SVG asset pack", () => {
     const svgFiles = walkFiles(generatedRoot).filter((file) => file.endsWith(".svg"));
 
-    expect(svgFiles.length).toBe(245);
+    expect(svgFiles.length).toBe(253);
     for (const file of svgFiles) {
       const source = readFileSync(file, "utf8");
       const name = relative(generatedRoot, file);
@@ -52,6 +52,14 @@ describe("handmade visual asset integrity", () => {
     expectGeneratedAsset("mascots/mascot-sleepy.svg");
     expectGeneratedAsset("mascots/mascot-eating.svg");
     expectGeneratedAsset("mascots/mascot-celebrate.svg");
+    expectGeneratedAsset("release/main-hero-final.svg");
+    expectGeneratedAsset("release/prestige-ritual-final.svg");
+    expectGeneratedAsset("release/shop-reward-banner-final.svg");
+    expectGeneratedAsset("release/offline-return-final.svg");
+    expectGeneratedAsset("release/store-key-visual-final.svg");
+    expectGeneratedAsset("release/app-icon-final.svg");
+    expectGeneratedAsset("release/splash-final.svg");
+    expectGeneratedAsset("release/store-screenshot-frame-final.svg");
 
     for (const capybara of StoryConfig.capybaras) {
       expectGeneratedAsset(`portraits/capybara-${capybara.id}.svg`);

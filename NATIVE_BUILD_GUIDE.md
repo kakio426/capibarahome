@@ -12,7 +12,7 @@ Capacitor 설정과 npm scripts는 준비되어 있다.
 - Bundle/package id placeholder: `com.capybarabutler.game`
 - Sync command: `npm run cap:sync`
 
-현재 iOS/Android native platform folders는 생성하지 않았다. 실제 signing/provisioning, bundle id 확정, Xcode/Android Studio 제출 설정 없이 native folders를 커밋하면 이후 수정 비용이 커질 수 있어 RC-2에서는 readiness 문서화와 `cap sync` 검증까지만 수행한다.
+현재 iOS/Android native platform folders는 생성하지 않았다. 실제 signing/provisioning, bundle id 확정, Xcode/Android Studio 제출 설정 없이 native folders를 커밋하면 이후 수정 비용이 커질 수 있어 현재 RC에서는 readiness 문서화와 `cap sync` 검증까지만 수행한다.
 
 ## Native 프로젝트 생성 절차
 
@@ -37,9 +37,10 @@ npm run cap:open:android
 
 현재 초안 소스:
 
-- App icon draft: `src/assets/generated/release/app-icon-rc2.svg`
-- Splash draft: `src/assets/generated/release/splash-rc2.svg`
-- Store screenshot frame draft: `src/assets/generated/release/store-screenshot-frame-rc2.svg`
+- App icon candidate: `src/assets/generated/release/app-icon-final.svg`
+- Splash candidate: `src/assets/generated/release/splash-final.svg`
+- Store screenshot frame candidate: `src/assets/generated/release/store-screenshot-frame-final.svg`
+- Store key visual candidate: `src/assets/generated/release/store-key-visual-final.svg`
 
 제출 전 해야 할 일:
 

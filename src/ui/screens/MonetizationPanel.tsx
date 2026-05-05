@@ -49,6 +49,9 @@ export function MonetizationPanel() {
       </header>
 
       <Panel className="shop-feature-card">
+        <div className="shop-banner-visual" aria-hidden="true">
+          <VisualAssetIcon assetKey="shop-reward-banner-final" className="shop-banner-asset" />
+        </div>
         <div className="shop-feature-top">
           <div>
             <span className="shop-kicker">귤 수확 축제</span>

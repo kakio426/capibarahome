@@ -4,13 +4,14 @@
 
 ## Summary
 
-Playwright visual flow captured 48 QA screenshots for 360x740, 390x844, 430x932, and desktop 1280x900 central panel. Store screenshot flow generated 10 promotional candidates under `store-screenshots/`. 이번 pass는 단순 기능 존재가 아니라 교사/학생이 첫 화면과 모달, 상점, 환생, 앨범을 봤을 때 실제 모바일 게임 서비스처럼 느끼는지를 기준으로 확인했다.
+Playwright visual flow captured 52 QA screenshots for 360x740, 390x844, 430x932, and desktop 1280x900 central panel. Store screenshot flow generated 10 promotional candidates under `store-screenshots/`. 이번 pass는 단순 기능 존재가 아니라 교사/학생이 첫 화면과 모달, 상점, 환생, 앨범, 오프라인 보상을 봤을 때 실제 모바일 게임 서비스처럼 느끼는지를 기준으로 확인했다.
 
 Commands:
 
 ```txt
 npx playwright test e2e/visual-regression.spec.ts --reporter=line
 npx playwright test e2e/store-screenshot-pack.spec.ts --reporter=line
+npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
 ```
 
 Latest standalone result:
@@ -18,6 +19,7 @@ Latest standalone result:
 ```txt
 visual-regression: 4 passed
 store-screenshot-pack: 2 passed
+combined final-art visual/store check: 6 passed
 ```
 
 ## Art/UI Fixes From Final Audit
@@ -25,26 +27,28 @@ store-screenshot-pack: 2 passed
 | Issue | Status | Evidence |
 | --- | --- | --- |
 | CSS가 누적 override처럼 보일 위험 | 해결 | `layout.css` 전면 재정리, runtime visual banned-pattern audit |
-| 외부/임시 visual fallback 의존 | 해결 | `builtinAssets.ts`, `scripts/generateVisualAssets.mjs`, 245 SVG files |
-| 홈 카피바라 얼굴이 CTA에 가려지는 문제 | 해결 | `.capybara-illustration`, `.hero-mascot-asset`, refreshed `qa-screenshots/360x740-home.png` |
+| 외부/임시 visual fallback 의존 | 해결 | `builtinAssets.ts`, `scripts/generateVisualAssets.mjs`, 253 SVG files |
+| 홈 key visual 부족 | 해결 | `release/main-hero-final.svg`, `qa-screenshots/390x844-home.png` |
+| 환생/상점/오프라인 보상이 util 화면처럼 보일 위험 | 해결 | `prestige-ritual-final`, `shop-reward-banner-final`, `offline-return-final`, refreshed screenshots |
+| 홈 카피바라 얼굴이 CTA에 가려지는 문제 | 해결 | `.capybara-illustration`, `.hero-final-art`, `.hero-mascot-asset`, refreshed `qa-screenshots/360x740-home.png` |
 | reload 직후 오프라인 모달/toast가 탭 클릭을 가로막음 | 해결 | offline min 60s, reward < 1 차단, toast pointer-events none, reload E2E assertion |
 | 상점/환생 screenshot에 toast 잔상이 남음 | 해결 | seeded visual flow에서 안정화 대기 후 capture |
 | 환생 progress label 대비 부족 | 해결 | `.prestige-card .progress-label` contrast 보강 |
 | generated matrix가 비대한 파일 크기를 품질로 오판 | 해결 | SVG 구조/외부 참조/깨진 문자 무결성 기준으로 변경 |
-| store 후보가 단순 앱 캡처처럼 보일 위험 | 해결 | iPhone/Android 후보 10장, store frame/copy/게임 화면 구성 |
+| store 후보가 단순 앱 캡처처럼 보일 위험 | 해결 | iPhone/Android 후보 10장, final key visual/frame/copy/게임 화면 구성 |
 
 ## Screen-by-Screen Review
 
 | Screen | 첫인상 | 캐릭터성 | 보상감 | placeholder 냄새 | 양산형 앱 UI 냄새 | 모바일 가독성 | 텍스트 잘림 | 버튼 터치성 | 화면 밀도 | 경쟁작 대비 부족한 점 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 홈 | 카피바라/귤/다음 목표가 즉시 보임 | mascot SVG와 정원 scene이 중심 | 터치 CTA, floating text, 목표/컬렉션 shelf | 낮음 | 낮음 | 360/390/430 통과 | 없음 | CTA 44px 이상 | 적정 | final idle animation은 아직 P2 |
+| 홈 | 카피바라/귤/다음 목표가 즉시 보임 | final hero SVG와 mascot 상태가 중심 | 터치 CTA, floating text, 목표/컬렉션 shelf | 낮음 | 낮음 | 360/390/430 통과 | 없음 | CTA 44px 이상 | 적정 | final idle animation은 아직 P2 |
 | 성장 | 구매 가능/비용/효과가 게임 상점처럼 보임 | 아이템 SVG가 시설 차이를 만듦 | 구매 가능 상태와 효과 meta 확인 | 낮음 | 중간 이하 | 통과 | 없음 | 카드 버튼 안정 | 다소 높지만 스캔 가능 | 장기적으로 quick-buy polish 가능 |
 | 앨범 | 캐릭터/장식/업적 분리 | 8 portrait 소품으로 구분 | 보상 claim/친밀도/능력 표시 | 낮음 | 낮음 | 1열 companion card로 통과 | 없음 | claim 버튼 안정 | 풍부함 | 방 꾸미기 자유도는 P2 |
-| 환생 | 황금잎 보상 축제 톤 | golden tree/path visual | 예상 잎/배율/progress가 명확 | 낮음 | 낮음 | 통과 | 없음 | 확인 버튼 안정 | 적정 | 환생 연출 animation은 P2 |
-| 상점 | mock임을 유지하면서 게임 상점처럼 구성 | gift/festival SVG 사용 | 광고 버프/샌드박스 보상 상태 표시 | 낮음 | 낮음 | 통과 | 없음 | 상품 버튼 안정 | 적정 | 실제 SDK 연결 전까지 sandbox |
+| 환생 | 황금잎 보상 축제 톤 | ritual key visual | 예상 잎/배율/progress가 명확 | 낮음 | 낮음 | 통과 | 없음 | 확인 버튼 안정 | 적정 | 환생 연출 animation은 P2 |
+| 상점 | mock임을 유지하면서 게임 상점처럼 구성 | reward banner/festival SVG 사용 | 광고 버프/샌드박스 보상 상태 표시 | 낮음 | 낮음 | 통과 | 없음 | 상품 버튼 안정 | 적정 | 실제 SDK 연결 전까지 sandbox |
 | 설정/세이브 | 기능적이지만 게임 톤 유지 | 작은 visual asset과 warm panel | export/import/reset 흐름 명확 | 낮음 | 중간 이하 | modal scroll 통과 | 없음 | 위험 행동 확인 | 적정 | native 저장 QA는 실기기 필요 |
 | 튜토리얼 | 첫 사용자가 막히지 않음 | highlighted target과 mascot tone | 다음 행동을 짧게 안내 | 낮음 | 낮음 | 360px 통과 | 없음 | 이전/다음/건너뛰기 안정 | 낮음 | 단계별 animation은 P2 |
-| 오프라인 보상 | 복귀 보상이 즉시 이해됨 | 수확/귤 visual 사용 | claim modal로 보상감 있음 | 낮음 | 낮음 | 통과 | 없음 | 수령 버튼 안정 | 적정 | 장시간 복귀 chest 연출은 P2 |
+| 오프라인 보상 | 복귀 보상이 즉시 이해됨 | 수확/귤/휴식 final visual 사용 | claim modal로 보상감 있음 | 낮음 | 낮음 | 통과 | 없음 | 수령 버튼 안정 | 적정 | 장시간 복귀 chest animation은 P2 |
 
 ## Viewports
 
@@ -68,6 +72,7 @@ store-screenshot-pack: 2 passed
 | Album achievement rewards | `qa-screenshots/390x844-collection-rewards.png` |
 | Prestige | `qa-screenshots/390x844-prestige.png` |
 | Shop | `qa-screenshots/390x844-shop.png`, `qa-screenshots/360x740-shop.png` |
+| Offline reward modal | `qa-screenshots/390x844-offline-reward.png`, `qa-screenshots/360x740-offline-reward.png` |
 | Settings | `qa-screenshots/390x844-settings.png` |
 | Save import/export modal | `qa-screenshots/390x844-save-modal.png`, `qa-screenshots/360x740-save-modal.png` |
 
@@ -88,4 +93,4 @@ store-screenshot-pack: 2 passed
 
 ## Remaining Visual Risk
 
-현재 화면은 내부 수제 SVG 245개, 통합 CSS, QA/store screenshot 후보를 갖춘 release candidate 수준이다. 다만 Cats & Soup 수준의 final bespoke hand-drawn animation, 최종 앱 아이콘 PNG/adaptive icon, 실제 스토어 홍보 bitmap art는 제출 전 P2로 남긴다.
+현재 화면은 내부 수제 SVG 253개, 통합 CSS, 화면 단위 final key visual, QA/store screenshot 후보를 갖춘 release candidate 수준이다. 다만 Cats & Soup 수준의 final bespoke hand-drawn animation, 최종 앱 아이콘 PNG/adaptive icon export, 실제 스토어 홍보 bitmap art는 제출 전 P2로 남긴다.

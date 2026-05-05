@@ -604,8 +604,174 @@ function tierSvg(key, label) {
 `;
 }
 
+function mainHeroFinalSvg(key, label) {
+  const p = palettes.yard;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="720" viewBox="0 0 1024 720" role="img" aria-label="${escapeXml(label)}">
+  <defs>
+    <linearGradient id="hero-final-sky" x1="0" y1="0" x2="1024" y2="720" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff6c9"/>
+      <stop offset="0.48" stop-color="#dff3e9"/>
+      <stop offset="1" stop-color="#94d2a3"/>
+    </linearGradient>
+    <linearGradient id="hero-final-ground" x1="0" y1="390" x2="1024" y2="720" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8fcf92"/>
+      <stop offset="1" stop-color="#3f8f61"/>
+    </linearGradient>
+    <filter id="hero-final-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="16" flood-color="#1f2c24" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect width="1024" height="720" rx="52" fill="url(#hero-final-sky)"/>
+  <circle cx="738" cy="112" r="118" fill="#ffd568" opacity="0.58"/>
+  <path d="M0 455 C 142 360, 260 506, 404 406 C 548 306, 676 446, 828 350 C 930 286, 986 304, 1024 272 L1024 720 L0 720 Z" fill="url(#hero-final-ground)" opacity="0.68"/>
+  <path d="M0 598 C 170 520, 300 642, 482 540 C 646 448, 776 600, 1024 470 L1024 720 L0 720 Z" fill="#1f2c24" opacity="0.08"/>
+  <g opacity="0.88" filter="url(#hero-final-shadow)">
+    ${home(p).replace('<g transform="translate(160 164)">', '<g transform="translate(176 472) scale(1.05)">')}
+    ${basket(p).replace('<g transform="translate(160 168)">', '<g transform="translate(292 538) scale(0.88)">')}
+    ${waterPath(p).replace('<g transform="translate(160 160)">', '<g transform="translate(778 520) scale(0.88)">')}
+  </g>
+  <g filter="url(#hero-final-shadow)">
+    <ellipse cx="518" cy="604" rx="210" ry="42" fill="#1f2c24" opacity="0.12"/>
+    <ellipse cx="518" cy="430" rx="188" ry="134" fill="#a5754e"/>
+    <ellipse cx="386" cy="428" rx="62" ry="76" fill="#8d5d39"/>
+    <ellipse cx="650" cy="428" rx="62" ry="76" fill="#8d5d39"/>
+    <ellipse cx="518" cy="458" rx="136" ry="88" fill="#c2956a"/>
+    <circle cx="462" cy="416" r="16" fill="#1f2c24"/>
+    <circle cx="576" cy="416" r="16" fill="#1f2c24"/>
+    <ellipse cx="520" cy="466" rx="42" ry="30" fill="#1f2c24"/>
+    <path d="M464 506 C 492 538, 548 540, 582 506" fill="none" stroke="#1f2c24" stroke-width="14" stroke-linecap="round"/>
+    <path d="M374 520 C 452 580, 604 582, 672 520" fill="#8d5d39" opacity="0.38"/>
+    ${goldenLeaf(p, 388, 316, 0.42)}
+    ${orangeCluster(p, 704, 476, 0.6)}
+  </g>
+  <g opacity="0.72">
+    <circle cx="186" cy="202" r="18" fill="#ff982a"/>
+    <circle cx="834" cy="246" r="22" fill="#ffb64b"/>
+    <circle cx="856" cy="286" r="16" fill="#d95618"/>
+    <path d="M804 228 C 840 206, 876 214, 898 244" fill="none" stroke="#278866" stroke-width="10" stroke-linecap="round"/>
+  </g>
+</svg>
+`;
+}
+
+function prestigeRitualFinalSvg(key, label) {
+  const p = palettes.golden;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="760" height="460" viewBox="0 0 760 460" role="img" aria-label="${escapeXml(label)}">
+  <defs>
+    <radialGradient id="ritual-glow" cx="50%" cy="32%" r="70%">
+      <stop offset="0" stop-color="#fff7dc"/>
+      <stop offset="0.46" stop-color="#ffd568"/>
+      <stop offset="1" stop-color="#245f49"/>
+    </radialGradient>
+    <filter id="ritual-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="12" flood-color="#1f2c24" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="760" height="460" rx="42" fill="url(#ritual-glow)"/>
+  <path d="M0 340 C 110 292, 206 370, 330 314 C 452 258, 552 358, 760 276 L760 460 L0 460 Z" fill="#1f2c24" opacity="0.16"/>
+  <g filter="url(#ritual-shadow)">
+    ${memoryGate(p).replace('<g transform="translate(160 166)">', '<g transform="translate(380 238) scale(1.24)">')}
+    ${goldenLeaf(p, 382, 106, 0.72)}
+    ${capybaraHead(p, 184, 292, 0.5, "celebrate")}
+    ${capybaraHead(p, 582, 292, 0.5, "happy")}
+  </g>
+  <path d="M178 366 C 278 404, 486 404, 588 366" fill="none" stroke="#fff7dc" stroke-width="16" stroke-linecap="round" opacity="0.72"/>
+  <circle cx="380" cy="238" r="132" fill="none" stroke="#fff7dc" stroke-width="10" opacity="0.42"/>
+  <circle cx="380" cy="238" r="90" fill="none" stroke="#ffd568" stroke-width="8" opacity="0.72"/>
+</svg>
+`;
+}
+
+function shopRewardBannerFinalSvg(key, label) {
+  const p = palettes.bamboo;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360" role="img" aria-label="${escapeXml(label)}">
+  <defs>
+    <linearGradient id="shop-final-bg" x1="0" y1="0" x2="760" y2="360" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#245f49"/>
+      <stop offset="0.56" stop-color="#3f8f61"/>
+      <stop offset="1" stop-color="#ffb64b"/>
+    </linearGradient>
+    <filter id="shop-final-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="10" flood-color="#1f2c24" flood-opacity="0.24"/>
+    </filter>
+  </defs>
+  <rect width="760" height="360" rx="40" fill="url(#shop-final-bg)"/>
+  <circle cx="628" cy="88" r="92" fill="#ffd568" opacity="0.5"/>
+  <path d="M0 260 C 120 198, 218 294, 344 232 C 492 160, 590 250, 760 190 L760 360 L0 360 Z" fill="#fff7dc" opacity="0.18"/>
+  <g filter="url(#shop-final-shadow)">
+    ${basket(p).replace('<g transform="translate(160 168)">', '<g transform="translate(174 226) scale(0.86)">')}
+    ${releaseBoard(p).replace('<g transform="translate(160 160)">', '<g transform="translate(394 198) scale(1.08)">')}
+    ${orangeCluster(p, 564, 218, 0.72)}
+    ${capybaraHead(p, 616, 236, 0.42, "happy")}
+  </g>
+  <path d="M94 86 H486" stroke="#fffdf2" stroke-width="18" stroke-linecap="round" opacity="0.66"/>
+  <path d="M94 128 H384" stroke="#fffdf2" stroke-width="12" stroke-linecap="round" opacity="0.42"/>
+</svg>
+`;
+}
+
+function offlineReturnFinalSvg(key, label) {
+  const p = palettes.onsen;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420" viewBox="0 0 720 420" role="img" aria-label="${escapeXml(label)}">
+  <defs>
+    <linearGradient id="offline-final-bg" x1="0" y1="0" x2="720" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d8f7f2"/>
+      <stop offset="0.52" stop-color="#fff7dc"/>
+      <stop offset="1" stop-color="#ffd568"/>
+    </linearGradient>
+    <filter id="offline-final-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="11" flood-color="#1f2c24" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect width="720" height="420" rx="42" fill="url(#offline-final-bg)"/>
+  <path d="M0 304 C 110 250, 212 338, 336 282 C 470 222, 558 304, 720 238 L720 420 L0 420 Z" fill="#75b8a4" opacity="0.42"/>
+  <g filter="url(#offline-final-shadow)">
+    ${onsen(p).replace('<g transform="translate(160 166)">', '<g transform="translate(184 254) scale(0.72)">')}
+    ${basket(p).replace('<g transform="translate(160 168)">', '<g transform="translate(372 258) scale(0.94)">')}
+    ${orangeCluster(p, 492, 220, 0.68)}
+    ${capybaraHead(p, 584, 252, 0.48, "sleepy")}
+  </g>
+  <path d="M106 108 C 166 72, 230 72, 288 108" fill="none" stroke="#fffdf2" stroke-width="12" stroke-linecap="round" opacity="0.72"/>
+  <path d="M94 142 C 152 110, 214 112, 270 144" fill="none" stroke="#fffdf2" stroke-width="8" stroke-linecap="round" opacity="0.52"/>
+</svg>
+`;
+}
+
+function storeKeyVisualFinalSvg(key, label) {
+  const p = palettes.yard;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="920" height="920" viewBox="0 0 920 920" role="img" aria-label="${escapeXml(label)}">
+  <defs>
+    <radialGradient id="store-key-glow" cx="50%" cy="44%" r="62%">
+      <stop offset="0" stop-color="#fffdf2"/>
+      <stop offset="0.58" stop-color="#ffd568"/>
+      <stop offset="1" stop-color="#3f8f61"/>
+    </radialGradient>
+    <filter id="store-key-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="26" stdDeviation="18" flood-color="#1f2c24" flood-opacity="0.24"/>
+    </filter>
+  </defs>
+  <circle cx="460" cy="460" r="430" fill="url(#store-key-glow)" opacity="0.92"/>
+  <path d="M90 660 C 226 586, 346 728, 496 626 C 634 532, 746 646, 850 580 L850 840 L90 840 Z" fill="#278866" opacity="0.22"/>
+  <g filter="url(#store-key-shadow)">
+    ${capybaraHead(p, 456, 500, 1.42, "happy")}
+    ${orangeCluster(p, 684, 552, 1.06)}
+    ${goldenLeaf(p, 292, 322, 0.76)}
+    ${basket(p).replace('<g transform="translate(160 168)">', '<g transform="translate(246 658) scale(0.86)">')}
+  </g>
+  <circle cx="194" cy="238" r="34" fill="#ff982a" opacity="0.76"/>
+  <circle cx="744" cy="274" r="42" fill="#ffb64b" opacity="0.78"/>
+  <circle cx="768" cy="348" r="26" fill="#d95618" opacity="0.68"/>
+</svg>
+`;
+}
+
 function releaseSvg(key, label) {
   const p = palettes.yard;
+  if (key === "main-hero-final") return mainHeroFinalSvg(key, label);
+  if (key === "prestige-ritual-final") return prestigeRitualFinalSvg(key, label);
+  if (key === "shop-reward-banner-final") return shopRewardBannerFinalSvg(key, label);
+  if (key === "offline-return-final") return offlineReturnFinalSvg(key, label);
+  if (key === "store-key-visual-final") return storeKeyVisualFinalSvg(key, label);
   if (key.includes("app-icon")) {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-label="${escapeXml(label)}">
   <defs>
@@ -697,6 +863,14 @@ const releaseAssets = [
   "app-icon-rc2",
   "splash-rc2",
   "store-screenshot-frame-rc2",
+  "main-hero-final",
+  "prestige-ritual-final",
+  "shop-reward-banner-final",
+  "offline-return-final",
+  "store-key-visual-final",
+  "app-icon-final",
+  "splash-final",
+  "store-screenshot-frame-final",
 ];
 
 const rawAssetInputs = [

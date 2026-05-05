@@ -422,6 +422,18 @@
   filter: saturate(1.08);
 }
 
+.hero-final-art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  opacity: 0.88;
+  filter: saturate(1.08) contrast(1.02);
+}
+
 .tier-yard {
   --tier-a: rgba(255, 152, 42, 0.18);
   --tier-b: rgba(39, 136, 102, 0.14);
@@ -528,11 +540,13 @@
 .capybara-illustration,
 .tap-copy {
   position: absolute;
+  z-index: 1;
 }
 
 .scene-backdrop {
   inset: 0;
   pointer-events: none;
+  opacity: 0.32;
   background:
     radial-gradient(circle at 22% 18%, rgba(255, 213, 104, 0.52), transparent 62px),
     linear-gradient(180deg, transparent 46%, rgba(47, 134, 93, 0.16) 47%, rgba(47, 134, 93, 0.24) 100%);
@@ -957,15 +971,34 @@
 .upgrade-card,
 .quest-card,
 .product-card {
+  position: relative;
+  overflow: hidden;
   display: grid;
   gap: 11px;
+}
+
+.upgrade-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 8px;
+  background: linear-gradient(180deg, #ff982a, #ffd568, #278866);
+  opacity: 0.42;
+}
+
+.upgrade-card > *,
+.quest-card > *,
+.product-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .upgrade-card.is-buyable,
 .quest-card.is-ready {
   border-color: rgba(255, 152, 42, 0.44);
   background:
-    radial-gradient(circle at 100% 0, rgba(255, 213, 104, 0.4), transparent 110px),
+    radial-gradient(circle at 92% 8%, rgba(255, 213, 104, 0.52), transparent 118px),
+    radial-gradient(circle at 12% 14%, rgba(255, 152, 42, 0.24), transparent 96px),
     linear-gradient(180deg, #fffdf2, #fff0c6);
 }
 
@@ -1009,6 +1042,14 @@
   grid-row: span 2;
   border-radius: 16px;
   filter: drop-shadow(0 5px 0 rgba(123, 79, 47, 0.12));
+}
+
+.upgrade-icon {
+  padding: 5px;
+  background:
+    radial-gradient(circle at 50% 32%, rgba(255, 213, 104, 0.28), transparent 34px),
+    linear-gradient(180deg, rgba(255, 253, 242, 0.8), rgba(223, 243, 233, 0.72));
+  box-shadow: inset 0 0 0 2px rgba(255, 253, 242, 0.8), 0 6px 0 rgba(123, 79, 47, 0.1);
 }
 
 .product-icon {
@@ -1199,7 +1240,7 @@
 
 .prestige-visual {
   position: relative;
-  min-height: 174px;
+  min-height: 206px;
   overflow: hidden;
   border-radius: 20px;
   background:
@@ -1207,68 +1248,17 @@
     linear-gradient(180deg, rgba(255, 253, 242, 0.1), rgba(31, 44, 36, 0.18));
 }
 
-.prestige-tree {
-  position: absolute;
-  left: 50%;
-  bottom: 26px;
-  width: 70px;
-  height: 106px;
-  transform: translateX(-50%);
-  border-radius: 32px 32px 14px 14px;
-  background: linear-gradient(180deg, #ffd568, #9a7d2d);
-  box-shadow: 0 14px 0 rgba(31, 44, 36, 0.22);
+.prestige-key-asset,
+.prestige-key-asset .visual-asset,
+.prestige-key-asset .visual-icon {
+  width: 100%;
+  height: 100%;
 }
 
-.prestige-tree::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: -50px;
-  width: 150px;
-  height: 100px;
-  transform: translateX(-50%);
-  border-radius: 48% 52% 45% 55%;
-  background:
-    radial-gradient(circle at 36% 38%, #fff7dc 0 9px, transparent 10px),
-    radial-gradient(circle at 62% 54%, #ffd568 0 10px, transparent 11px),
-    #c2942d;
-}
-
-.prestige-leaf {
-  position: absolute;
-  width: 48px;
-  height: 34px;
-  border-radius: 70% 0 70% 0;
-  background: #ffd568;
-  box-shadow: inset -6px -6px 0 rgba(154, 125, 45, 0.24);
-}
-
-.prestige-leaf-one {
-  left: 52px;
-  top: 42px;
-  transform: rotate(-22deg);
-}
-
-.prestige-leaf-two {
-  right: 48px;
-  top: 54px;
-  transform: rotate(26deg);
-}
-
-.prestige-leaf-three {
-  left: 150px;
-  bottom: 34px;
-  transform: rotate(14deg);
-}
-
-.prestige-path {
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 15px;
-  height: 24px;
-  border-radius: 50%;
-  background: rgba(255, 213, 104, 0.2);
+.prestige-key-asset {
+  display: block;
+  min-height: 206px;
+  filter: drop-shadow(0 16px 24px rgba(31, 44, 36, 0.22));
 }
 
 .prestige-grid > div {
@@ -1317,6 +1307,26 @@
   background:
     radial-gradient(circle at 95% 2%, rgba(255, 213, 104, 0.48), transparent 114px),
     linear-gradient(145deg, #245f49, #1f4c3a 54%, #7b4f2f);
+}
+
+.shop-banner-visual {
+  min-height: 154px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: rgba(255, 253, 242, 0.12);
+  box-shadow: inset 0 0 0 2px rgba(255, 253, 242, 0.14);
+}
+
+.shop-banner-asset,
+.shop-banner-asset .visual-asset,
+.shop-banner-asset .visual-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.shop-banner-asset {
+  display: block;
+  min-height: 154px;
 }
 
 .shop-feature-card p,
@@ -1486,7 +1496,7 @@
 
 .offline-visual {
   position: relative;
-  min-height: 126px;
+  min-height: 148px;
   overflow: hidden;
   display: grid;
   place-items: center;
@@ -1496,34 +1506,17 @@
     linear-gradient(180deg, rgba(223, 243, 233, 0.74), rgba(255, 245, 199, 0.82));
 }
 
-.offline-visual .visual-asset,
-.offline-visual .visual-icon {
-  width: 98px;
-  height: 98px;
+.offline-key-asset,
+.offline-key-asset .visual-asset,
+.offline-key-asset .visual-icon {
+  width: 100%;
+  height: 100%;
 }
 
-.offline-visual span:not(:first-child) {
-  position: absolute;
-  bottom: 20px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #ff982a;
-  box-shadow: inset -4px -4px 0 rgba(217, 86, 24, 0.24);
-}
-
-.offline-visual span:nth-child(2) {
-  left: 52px;
-}
-
-.offline-visual span:nth-child(3) {
-  right: 66px;
-  bottom: 36px;
-}
-
-.offline-visual span:nth-child(4) {
-  left: 118px;
-  bottom: 62px;
+.offline-key-asset {
+  display: block;
+  min-height: 148px;
+  filter: drop-shadow(0 10px 18px rgba(31, 44, 36, 0.16));
 }
 
 .offline-reward {

@@ -14,15 +14,16 @@
 - [x] Story bible added and connected to UI/config
 - [x] Balance simulation added and tested
 - [x] Source budget re-audited without generated/config/docs/screenshots/build output
-- [x] Handwritten implementation scale recorded (`runtime 6,374 LOC`, `handwritten tests/E2E 2,186 LOC`)
+- [x] Handwritten implementation scale recorded (`runtime 6,366 LOC`, `handwritten tests/E2E 2,225 LOC`)
 - [x] Content integration audit completed in `CONTENT_INTEGRATION_AUDIT.md`
 - [x] Visual defects audit completed in `VISUAL_DEFECTS.md`
 - [x] RC-1 product-feel hardening completed: companion passive, achievement claim rewards, long-term goal, WebAudio feedback
-- [x] Direct art direction pass completed: integrated `layout.css`, 245 hand-authored SVG files, mascot/portrait/tier/item/release asset pack
+- [x] Direct art direction pass completed: integrated `layout.css`, 253 hand-authored SVG files, mascot/portrait/tier/item/release/final asset pack
+- [x] Final art replacement pass completed: home hero, prestige ritual, shop banner, offline reward, store key visual, app icon/splash/frame candidates
 - [x] Visual asset integrity test added for SVG count, coverage, external-reference bans, runtime visual styling audit
 - [x] Art production docs added: `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`
 - [x] RC-2 audio readiness completed: file-ready audio slots and synthetic WebAudio fallback
-- [x] RC-2 store screenshot pack generated: 10 candidates in `store-screenshots/`
+- [x] RC-2/Final store screenshot pack generated: 10 candidates in `store-screenshots/`
 - [x] Native/store compliance docs added: asset credits, audio plan, native guide, device QA checklist
 - [x] RC-3 playtest/balance pass completed: first prestige 33m target, 1/5/15/30/120 minute checkpoint report
 - [x] RC-3 bug bash completed: save migration, corrupt import, rapid tap, duplicate rewards, prestige save/load, mute persistence

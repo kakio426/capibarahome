@@ -9,6 +9,7 @@ const expectedAssetKeys = [
   "album",
   "all_yard_core",
   "app-icon-draft",
+  "app-icon-final",
   "app-icon-rc2",
   "bamboo",
   "bamboo_1m",
@@ -99,6 +100,7 @@ const expectedAssetKeys = [
   "leaf_5",
   "leaf_compost_house",
   "leaf_polish",
+  "main-hero-final",
   "mascot-celebrate",
   "mascot-default",
   "mascot-eating",
@@ -119,6 +121,7 @@ const expectedAssetKeys = [
   "nap_mat_set",
   "narin",
   "observatory",
+  "offline-return-final",
   "onsen",
   "onsen_300k",
   "onsen_75k",
@@ -145,6 +148,7 @@ const expectedAssetKeys = [
   "pond",
   "prestige",
   "prestige_3",
+  "prestige-ritual-final",
   "privacy-card-preview",
   "qa-screenshot-frame",
   "recipe",
@@ -164,6 +168,7 @@ const expectedAssetKeys = [
   "shade_parasol",
   "shelf",
   "shop",
+  "shop-reward-banner-final",
   "snack",
   "snack_counter",
   "snack_counter_table",
@@ -175,12 +180,15 @@ const expectedAssetKeys = [
   "sorting_rhythm",
   "sorting_table",
   "splash-draft",
+  "splash-final",
   "splash-rc2",
   "spoon",
   "steam",
   "steam_towel",
   "steam_towel_rack",
   "store-card-preview",
+  "store-key-visual-final",
+  "store-screenshot-frame-final",
   "store-screenshot-frame-rc2",
   "storehouse",
   "storehouse_25k",
@@ -319,6 +327,21 @@ describe("generated visual asset registry matrix", () => {
     expect(body, "app-icon-draft").not.toMatch(/url\(["']?https?:/);
     expect(body, "app-icon-draft").not.toContain("\uFFFD");
     expect(body, "app-icon-draft").toContain("</svg>");
+  });
+
+  it("validates generated SVG asset app-icon-final", () => {
+    const href = GeneratedAssetRegistry["app-icon-final"];
+    expect(href, "app-icon-final").toBeTruthy();
+    const filePath = fileURLToPath(href);
+    const body = readFileSync(filePath, "utf8");
+    expect(body.startsWith("<svg"), "app-icon-final").toBe(true);
+    expect(body, "app-icon-final").toContain("aria-label");
+    expect(body.length, "app-icon-final").toBeGreaterThan(900);
+    expect(body, "app-icon-final").not.toContain("<image");
+    expect(body, "app-icon-final").not.toMatch(/href=["']https?:/);
+    expect(body, "app-icon-final").not.toMatch(/url\(["']?https?:/);
+    expect(body, "app-icon-final").not.toContain("\uFFFD");
+    expect(body, "app-icon-final").toContain("</svg>");
   });
 
   it("validates generated SVG asset app-icon-rc2", () => {
@@ -1671,6 +1694,21 @@ describe("generated visual asset registry matrix", () => {
     expect(body, "leaf_polish").toContain("</svg>");
   });
 
+  it("validates generated SVG asset main-hero-final", () => {
+    const href = GeneratedAssetRegistry["main-hero-final"];
+    expect(href, "main-hero-final").toBeTruthy();
+    const filePath = fileURLToPath(href);
+    const body = readFileSync(filePath, "utf8");
+    expect(body.startsWith("<svg"), "main-hero-final").toBe(true);
+    expect(body, "main-hero-final").toContain("aria-label");
+    expect(body.length, "main-hero-final").toBeGreaterThan(900);
+    expect(body, "main-hero-final").not.toContain("<image");
+    expect(body, "main-hero-final").not.toMatch(/href=["']https?:/);
+    expect(body, "main-hero-final").not.toMatch(/url\(["']?https?:/);
+    expect(body, "main-hero-final").not.toContain("\uFFFD");
+    expect(body, "main-hero-final").toContain("</svg>");
+  });
+
   it("validates generated SVG asset mascot-celebrate", () => {
     const href = GeneratedAssetRegistry["mascot-celebrate"];
     expect(href, "mascot-celebrate").toBeTruthy();
@@ -1969,6 +2007,21 @@ describe("generated visual asset registry matrix", () => {
     expect(body, "observatory").not.toMatch(/url\(["']?https?:/);
     expect(body, "observatory").not.toContain("\uFFFD");
     expect(body, "observatory").toContain("</svg>");
+  });
+
+  it("validates generated SVG asset offline-return-final", () => {
+    const href = GeneratedAssetRegistry["offline-return-final"];
+    expect(href, "offline-return-final").toBeTruthy();
+    const filePath = fileURLToPath(href);
+    const body = readFileSync(filePath, "utf8");
+    expect(body.startsWith("<svg"), "offline-return-final").toBe(true);
+    expect(body, "offline-return-final").toContain("aria-label");
+    expect(body.length, "offline-return-final").toBeGreaterThan(900);
+    expect(body, "offline-return-final").not.toContain("<image");
+    expect(body, "offline-return-final").not.toMatch(/href=["']https?:/);
+    expect(body, "offline-return-final").not.toMatch(/url\(["']?https?:/);
+    expect(body, "offline-return-final").not.toContain("\uFFFD");
+    expect(body, "offline-return-final").toContain("</svg>");
   });
 
   it("validates generated SVG asset onsen", () => {
@@ -2361,6 +2414,21 @@ describe("generated visual asset registry matrix", () => {
     expect(body, "prestige_3").toContain("</svg>");
   });
 
+  it("validates generated SVG asset prestige-ritual-final", () => {
+    const href = GeneratedAssetRegistry["prestige-ritual-final"];
+    expect(href, "prestige-ritual-final").toBeTruthy();
+    const filePath = fileURLToPath(href);
+    const body = readFileSync(filePath, "utf8");
+    expect(body.startsWith("<svg"), "prestige-ritual-final").toBe(true);
+    expect(body, "prestige-ritual-final").toContain("aria-label");
+    expect(body.length, "prestige-ritual-final").toBeGreaterThan(900);
+    expect(body, "prestige-ritual-final").not.toContain("<image");
+    expect(body, "prestige-ritual-final").not.toMatch(/href=["']https?:/);
+    expect(body, "prestige-ritual-final").not.toMatch(/url\(["']?https?:/);
+    expect(body, "prestige-ritual-final").not.toContain("\uFFFD");
+    expect(body, "prestige-ritual-final").toContain("</svg>");
+  });
+
   it("validates generated SVG asset privacy-card-preview", () => {
     const href = GeneratedAssetRegistry["privacy-card-preview"];
     expect(href, "privacy-card-preview").toBeTruthy();
@@ -2646,6 +2714,21 @@ describe("generated visual asset registry matrix", () => {
     expect(body, "shop").toContain("</svg>");
   });
 
+  it("validates generated SVG asset shop-reward-banner-final", () => {
+    const href = GeneratedAssetRegistry["shop-reward-banner-final"];
+    expect(href, "shop-reward-banner-final").toBeTruthy();
+    const filePath = fileURLToPath(href);
+    const body = readFileSync(filePath, "utf8");
+    expect(body.startsWith("<svg"), "shop-reward-banner-final").toBe(true);
+    expect(body, "shop-reward-banner-final").toContain("aria-label");
+    expect(body.length, "shop-reward-banner-final").toBeGreaterThan(900);
+    expect(body, "shop-reward-banner-final").not.toContain("<image");
+    expect(body, "shop-reward-banner-final").not.toMatch(/href=["']https?:/);
+    expect(body, "shop-reward-banner-final").not.toMatch(/url\(["']?https?:/);
+    expect(body, "shop-reward-banner-final").not.toContain("\uFFFD");
+    expect(body, "shop-reward-banner-final").toContain("</svg>");
+  });
+
   it("validates generated SVG asset snack", () => {
     const href = GeneratedAssetRegistry["snack"];
     expect(href, "snack").toBeTruthy();
@@ -2811,6 +2894,21 @@ describe("generated visual asset registry matrix", () => {
     expect(body, "splash-draft").toContain("</svg>");
   });
 
+  it("validates generated SVG asset splash-final", () => {
+    const href = GeneratedAssetRegistry["splash-final"];
+    expect(href, "splash-final").toBeTruthy();
+    const filePath = fileURLToPath(href);
+    const body = readFileSync(filePath, "utf8");
+    expect(body.startsWith("<svg"), "splash-final").toBe(true);
+    expect(body, "splash-final").toContain("aria-label");
+    expect(body.length, "splash-final").toBeGreaterThan(900);
+    expect(body, "splash-final").not.toContain("<image");
+    expect(body, "splash-final").not.toMatch(/href=["']https?:/);
+    expect(body, "splash-final").not.toMatch(/url\(["']?https?:/);
+    expect(body, "splash-final").not.toContain("\uFFFD");
+    expect(body, "splash-final").toContain("</svg>");
+  });
+
   it("validates generated SVG asset splash-rc2", () => {
     const href = GeneratedAssetRegistry["splash-rc2"];
     expect(href, "splash-rc2").toBeTruthy();
@@ -2899,6 +2997,36 @@ describe("generated visual asset registry matrix", () => {
     expect(body, "store-card-preview").not.toMatch(/url\(["']?https?:/);
     expect(body, "store-card-preview").not.toContain("\uFFFD");
     expect(body, "store-card-preview").toContain("</svg>");
+  });
+
+  it("validates generated SVG asset store-key-visual-final", () => {
+    const href = GeneratedAssetRegistry["store-key-visual-final"];
+    expect(href, "store-key-visual-final").toBeTruthy();
+    const filePath = fileURLToPath(href);
+    const body = readFileSync(filePath, "utf8");
+    expect(body.startsWith("<svg"), "store-key-visual-final").toBe(true);
+    expect(body, "store-key-visual-final").toContain("aria-label");
+    expect(body.length, "store-key-visual-final").toBeGreaterThan(900);
+    expect(body, "store-key-visual-final").not.toContain("<image");
+    expect(body, "store-key-visual-final").not.toMatch(/href=["']https?:/);
+    expect(body, "store-key-visual-final").not.toMatch(/url\(["']?https?:/);
+    expect(body, "store-key-visual-final").not.toContain("\uFFFD");
+    expect(body, "store-key-visual-final").toContain("</svg>");
+  });
+
+  it("validates generated SVG asset store-screenshot-frame-final", () => {
+    const href = GeneratedAssetRegistry["store-screenshot-frame-final"];
+    expect(href, "store-screenshot-frame-final").toBeTruthy();
+    const filePath = fileURLToPath(href);
+    const body = readFileSync(filePath, "utf8");
+    expect(body.startsWith("<svg"), "store-screenshot-frame-final").toBe(true);
+    expect(body, "store-screenshot-frame-final").toContain("aria-label");
+    expect(body.length, "store-screenshot-frame-final").toBeGreaterThan(900);
+    expect(body, "store-screenshot-frame-final").not.toContain("<image");
+    expect(body, "store-screenshot-frame-final").not.toMatch(/href=["']https?:/);
+    expect(body, "store-screenshot-frame-final").not.toMatch(/url\(["']?https?:/);
+    expect(body, "store-screenshot-frame-final").not.toContain("\uFFFD");
+    expect(body, "store-screenshot-frame-final").toContain("</svg>");
   });
 
   it("validates generated SVG asset store-screenshot-frame-rc2", () => {

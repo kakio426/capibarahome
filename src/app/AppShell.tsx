@@ -258,10 +258,7 @@ export function AppShell() {
           <p>{offlineReturnLine(state.offlineReward?.seconds ?? 0)}</p>
           <p>{formatDuration(state.offlineReward?.seconds ?? 0)} 동안 카피바라가 귤을 모았습니다.</p>
           <div className="offline-visual" aria-hidden="true">
-            <VisualAssetIcon assetKey="orange_basket" />
-            <span />
-            <span />
-            <span />
+            <VisualAssetIcon assetKey="offline-return-final" className="offline-key-asset" />
           </div>
           <strong className="offline-reward">+{state.offlineReward?.oranges.format(state.settings.numberFormat)} 귤</strong>
         </Modal>

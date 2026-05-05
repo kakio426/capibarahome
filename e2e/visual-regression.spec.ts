@@ -79,6 +79,16 @@ for (const viewport of viewports) {
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-shop.png`, fullPage: true });
     await expectNoHorizontalOverflow(page);
 
+    await seedSave(page, (state, nowMs) => {
+      state.generators.orange_basket = 10;
+      state.epsAtLastSave = BigNumberLite.from("2");
+      state.lastSavedAt = nowMs - 2 * 60 * 60 * 1000;
+    });
+    await expect(page.getByRole("dialog", { name: "오프라인 보상" })).toBeVisible();
+    await page.screenshot({ path: `qa-screenshots/${viewport.name}-offline-reward.png`, fullPage: true });
+    await expectNoHorizontalOverflow(page);
+    await page.getByRole("button", { name: "보상 받기" }).click();
+
     await page.getByRole("button", { name: "설정" }).click();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-settings.png`, fullPage: true });
     await expectNoHorizontalOverflow(page);

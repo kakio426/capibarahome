@@ -14,15 +14,15 @@
 | Items | 158 | `src/assets/generated/items/*.svg` |
 | Mascots | 5 | `src/assets/generated/mascots/*.svg` |
 | Portraits | 8 | `src/assets/generated/portraits/*.svg` |
-| Release drafts | 8 | `src/assets/generated/release/*.svg` |
+| Release/final candidates | 16 | `src/assets/generated/release/*.svg` |
 | Tier backgrounds | 5 | `src/assets/generated/tiers/*.svg` |
-| Total SVG files | 245 | `src/assets/generated/` |
+| Total SVG files | 253 | `src/assets/generated/` |
 
 ## 필수 Asset Mapping
 
 | 요구 asset | 현재 산출물 | 크기/용도 |
 | --- | --- | --- |
-| 메인 카피바라 hero | `mascots/mascot-default.svg` 외 상태별 mascot | 320x320, 홈 수확 영역 |
+| 메인 카피바라 hero | `release/main-hero-final.svg`, `mascots/mascot-default.svg` 외 상태별 mascot | 홈 수확 key visual + 상태 mascot |
 | mascot 기본 | `mascots/mascot-default.svg` | 평상시 홈 |
 | mascot 기쁨 | `mascots/mascot-happy.svg` | 구매/보상 반응 |
 | mascot 졸림 | `mascots/mascot-sleepy.svg` | idle 상태 |
@@ -35,15 +35,19 @@
 | 업그레이드/시설 30종 | `items/{upgradeId}.svg`, `icons/{iconKey}.svg` | 성장 탭, 구매 카드 |
 | 퀘스트/업적 badge set | `items/{questId}.svg`, `items/{achievementId}.svg`, 관련 `icons/*.svg` | 앨범, 보상 수령 |
 | 장식 25종 | `items/{decorationId}.svg`, 관련 `icons/*.svg` | 앨범, 홈 장식 |
-| 앱 아이콘 | `release/app-icon-rc2.svg`, `release/app-icon-draft.svg` | 제출 전 PNG/adaptive icon export 필요 |
-| Splash | `release/splash-rc2.svg`, `release/splash-draft.svg` | 제출 전 플랫폼별 export 필요 |
-| Store frame | `release/store-screenshot-frame-rc2.svg`, `release/qa-screenshot-frame.svg` | store 후보/QA 보조 frame |
+| 환생 ritual visual | `release/prestige-ritual-final.svg` | 환생 화면 key visual |
+| 상점 reward banner | `release/shop-reward-banner-final.svg` | 상점 상단 festival banner |
+| 오프라인 복귀 visual | `release/offline-return-final.svg` | 오프라인 보상 modal |
+| Store key visual | `release/store-key-visual-final.svg` | store screenshot hero overlay |
+| 앱 아이콘 | `release/app-icon-final.svg`, `release/app-icon-rc2.svg`, `release/app-icon-draft.svg` | 제출 전 PNG/adaptive icon export 필요 |
+| Splash | `release/splash-final.svg`, `release/splash-rc2.svg`, `release/splash-draft.svg` | 제출 전 플랫폼별 export 필요 |
+| Store frame | `release/store-screenshot-frame-final.svg`, `release/store-screenshot-frame-rc2.svg`, `release/qa-screenshot-frame.svg` | store 후보/QA 보조 frame |
 
 ## Registry/Test Contract
 
-- `GeneratedAssetRegistry.ts`는 234 registry key를 제공한다. 파일 수 245와 key 수가 다른 이유는 일부 item/icon이 같은 semantic key를 공유하고, UI registry는 게임 content key 우선으로 연결하기 때문이다.
+- `GeneratedAssetRegistry.ts`는 242 registry key를 제공한다. 파일 수 253과 key 수가 다른 이유는 일부 item/icon이 같은 semantic key를 공유하고, UI registry는 게임 content key 우선으로 연결하기 때문이다.
 - `src/tests/generated/assetRegistryMatrix.test.ts`는 registry key, SVG root, `aria-label`, 외부 image/href/url 부재, 깨진 문자 부재를 검증한다.
-- `src/tests/visualAssetIntegrity.test.ts`는 245개 파일 수와 balance/story/quest/achievement/decoration/tier coverage를 별도로 검증한다.
+- `src/tests/visualAssetIntegrity.test.ts`는 253개 파일 수와 balance/story/quest/achievement/decoration/tier/release coverage를 별도로 검증한다.
 
 ## 교체 원칙
 

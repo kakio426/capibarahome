@@ -8,6 +8,7 @@ import { Button } from "../components/Button";
 import { Modal } from "../components/Modal";
 import { Panel } from "../components/Panel";
 import { ProgressBar } from "../components/ProgressBar";
+import { VisualAssetIcon } from "../components/VisualAssetIcon";
 
 function formatMultiplier(value: BigNumberLite) {
   const safe = value.toNumberSafe();
@@ -38,11 +39,7 @@ export function PrestigePanel() {
       <Panel className={`prestige-card ${status.canPrestige ? "is-ready" : ""}`}>
         <span className="prestige-badge">{status.canPrestige ? "환생 가능" : "성장 중"}</span>
         <div className="prestige-visual" aria-hidden="true">
-          <span className="prestige-tree" />
-          <span className="prestige-leaf prestige-leaf-one" />
-          <span className="prestige-leaf prestige-leaf-two" />
-          <span className="prestige-leaf prestige-leaf-three" />
-          <span className="prestige-path" />
+          <VisualAssetIcon assetKey="prestige-ritual-final" className="prestige-key-asset" />
         </div>
         <h3>{GameConfig.currency.goldenLeaf.name} 예상 보상 {status.gain.format(format)}개</h3>
         <ProgressBar value={status.progress} label={`환생 진행률 ${Math.round(status.progress * 100)}%`} />
