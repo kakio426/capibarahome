@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 2560" role="img" aria-label="카피바라 집사기 스플래시 초안">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset="0.55" stop-color="#ffe8ba"/>
+      <stop offset="1" stop-color="#bfe5d9"/>
+    </linearGradient>
+    <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a77b53"/>
+      <stop offset="1" stop-color="#765238"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="2560" fill="url(#sky)"/>
+  <circle cx="1110" cy="420" r="150" fill="#ffd166"/>
+  <g transform="translate(0 160)">
+    <ellipse cx="720" cy="1180" rx="390" ry="280" fill="url(#fur)"/>
+    <circle cx="510" cy="910" r="92" fill="#8b6241"/>
+    <circle cx="930" cy="910" r="92" fill="#8b6241"/>
+    <rect x="455" y="1060" width="530" height="270" rx="136" fill="#bd936b"/>
+    <circle cx="615" cy="1180" r="28" fill="#2d2119"/>
+    <circle cx="825" cy="1180" r="28" fill="#2d2119"/>
+    <rect x="666" y="1250" width="108" height="70" rx="35" fill="#2d2119"/>
+  </g>
+  <circle cx="370" cy="1620" r="106" fill="#ff8a2a"/>
+  <path d="M350 1510c48-72 130-88 194-42-76-4-132 34-166 92z" fill="#3c8f72"/>
+  <text x="720" y="1840" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="96" font-weight="900" fill="#28322d">카피바라 집사기</text>
+  <text x="720" y="1955" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="42" font-weight="800" fill="#6e786f">귤 정원을 천천히 돌보는 시간</text>
+</svg>

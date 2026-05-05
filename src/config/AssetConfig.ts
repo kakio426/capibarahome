@@ -1,0 +1,16 @@
+export const AssetConfig = {
+  "capybara.main": "🦫",
+  "capybara.happy": "css:mascot-happy",
+  "capybara.sleepy": "css:mascot-sleepy",
+  "capybara.eating": "css:mascot-eating",
+  "capybara.celebrate": "css:mascot-celebrate",
+  "currency.orange": "🍊",
+  "currency.goldenLeaf": "🍂",
+  "facility.basket": "css:icon-basket",
+  "facility.onsen": "css:icon-pond",
+  "facility.bamboo": "css:icon-bamboo",
+  "facility.goldenForest": "css:icon-gold_path",
+  "app.iconDraft": "/src/assets/app-icon-draft.svg",
+  "app.splashDraft": "/src/assets/splash-draft.svg",
+  "effect.sparkle": "✨",
+} as const;
