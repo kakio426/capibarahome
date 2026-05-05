@@ -32,11 +32,11 @@ export function UpgradePanel() {
         </div>
         <div>
           <span className="metric-label">터치 성장</span>
-          <strong>{tapGain.format(format)} 🍊</strong>
+          <strong>{tapGain.format(format)} 귤</strong>
         </div>
         <div>
           <span className="metric-label">자동 생산</span>
-          <strong>{eps.format(format)} 🍊/초</strong>
+          <strong>{eps.format(format)} 귤/초</strong>
         </div>
       </section>
       <section className="upgrade-list" data-tutorial-target="upgrade">
@@ -64,7 +64,7 @@ export function UpgradePanel() {
               disabled={!item.canBuy}
               onClick={() => GameActions.buyUpgrade(item.id)}
             >
-              {!item.unlocked ? `잠김 ${item.unlockLabel}` : item.canBuy ? `${item.cost.format(format)} 🍊` : `귤 부족 ${item.cost.format(format)}`}
+              {!item.unlocked ? `잠김 ${item.unlockLabel}` : item.canBuy ? `${item.cost.format(format)} 귤` : `귤 부족 ${item.cost.format(format)}`}
             </Button>
           </Panel>
         ))}

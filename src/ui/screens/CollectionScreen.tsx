@@ -96,7 +96,7 @@ export function CollectionScreen() {
                 disabled={!quest.readyToClaim}
                 onClick={() => GameActions.claimQuest(quest.id)}
               >
-                {quest.claimed ? "완료" : quest.readyToClaim ? `보상 +${quest.reward.oranges} 🍊` : "진행 중"}
+                {quest.claimed ? "완료" : quest.readyToClaim ? `보상 +${quest.reward.oranges} 귤` : "진행 중"}
               </Button>
             </Panel>
           ))}

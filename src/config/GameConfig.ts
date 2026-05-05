@@ -1,7 +1,7 @@
 export const GameConfig = {
   currency: {
-    orange: { id: "orange", name: "귤", emoji: "🍊" },
-    goldenLeaf: { id: "goldenLeaf", name: "황금 나뭇잎", emoji: "🍂" },
+    orange: { id: "orange", name: "귤", assetKey: "orange" },
+    goldenLeaf: { id: "goldenLeaf", name: "황금 나뭇잎", assetKey: "leaf" },
   },
   tap: {
     baseGain: "1",

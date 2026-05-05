@@ -14,8 +14,8 @@
 | gap backlog와 P0/P1 해결 | 완료 | `PRODUCTION_GAP_BACKLOG.md` |
 | release blocker 분리 | 완료 | `RELEASE_BLOCKERS.md` |
 | `npm run build` | 완료 | `tsc -b && vite build`, success |
-| `npm test` | 완료 | Vitest 17 files, 452 tests passed |
-| `npm run test:e2e` | 완료 | Playwright 17 tests passed |
+| `npm test` | 완료 | Vitest 18 files, 454 tests passed |
+| `npm run test:e2e` | 완료 | Playwright 19 tests passed |
 | Capacitor packaging prep | 완료 | `capacitor.config.ts`, scripts, `npm run cap:sync` success |
 | 실제 스토어 업로드 미수행 | 완료 | 계정/인증서/프로비저닝 미제공. `RELEASE_CHECKLIST.md`와 `RELEASE_BLOCKERS.md`에 사용자 작업으로 분리 |
 
@@ -55,10 +55,10 @@
 | story bible | 완료 | `STORY_BIBLE.md`, `StoryConfig.ts` |
 | 카피바라 8마리 | 완료 | `StoryConfig.ts`, `STORY_BIBLE.md`, 8 unique passive abilities |
 | mascot visual 5상태 | 완료 | `MainGameScreen.tsx`, `layout.css`, `AssetConfig.ts` |
-| app icon/splash 초안 | 완료 | `src/assets/app-icon-draft.svg`, `src/assets/splash-draft.svg` |
+| app icon/splash 초안 | 완료 | `src/assets/generated/release/app-icon-rc2.svg`, `src/assets/generated/release/splash-rc2.svg`, `src/assets/generated/release/store-screenshot-frame-rc2.svg` |
 | balance simulation | 완료 | `BalanceSimulator.ts`, `balanceSimulation.test.ts`, `BALANCE_SIMULATION.md` |
 | source budget report | 완료 | `SOURCE_BUDGET_REPORT.md` |
-| source budget 재검증 | 완료 | handwritten runtime 6,374 LOC, handwritten tests/E2E 1,418 LOC, generated/config/docs 제외 기준 `SOURCE_BUDGET_REPORT.md` |
+| source budget 재검증 | 완료 | handwritten runtime 6,467 LOC, handwritten tests/E2E 1,678 LOC, generated/config/docs 제외 기준 `SOURCE_BUDGET_REPORT.md` |
 
 ## Design Requirements
 
@@ -69,7 +69,7 @@
 | 360x740 / 390x844 / 430x932 / desktop 중앙 패널 | 완료 | `visual-regression.spec.ts`, 48 screenshots |
 | 버튼/탭/모달/카드/상점/설정/튜토리얼 polish | 완료 | `layout.css`, screenshots, visual QA |
 | placeholder visual asset | 완료 | generated SVG icon/quest/badge/decor/companion/tier assets, CSS capybara illustration |
-| Playwright screenshots | 완료 | `qa-screenshots/` 48 current PNG files plus `qa-screenshots/rc1-before/` archive |
+| Playwright screenshots | 완료 | `qa-screenshots/` 48 current PNG files, `store-screenshots/` 10 store 후보 PNG files, `qa-screenshots/rc1-before/` archive |
 | Visual QA document | 완료 | `VISUAL_QA.md` |
 
 ## E2E Split
@@ -86,6 +86,7 @@
 | 모바일 레이아웃 스크린샷 | 완료: `e2e/visual-regression.spec.ts` | 사용 안 함 |
 | debug/cheat QA | 완료: `e2e/debug-cheat-flow.spec.ts` | 별도 `?debug=1`에서만 사용 |
 | RC-1 제품 감각 플로우 | 완료: `e2e/rc1-product-feel.spec.ts` | 사용 안 함 |
+| RC-2 store screenshot pack | 완료: `e2e/store-screenshot-pack.spec.ts` | 사용 안 함, store용 seed save fixture 사용 |
 
 ## Store Submission Artifacts
 
@@ -98,6 +99,11 @@
 | `RELEASE_BLOCKERS.md` | 완료 | 내부 blocker와 외부 제출 blocker 분리 |
 | `STORE_LISTING_DRAFT.md` | 완료 | 앱명, 설명, 키워드, 스크린샷 안내 |
 | `PRIVACY_NOTES.md` | 완료 | localStorage/mock analytics/privacy notes |
+| `ASSET_CREDITS.md` | 완료 | generated/CSS/SVG asset 출처와 라이선스 상태 |
+| `AUDIO_ASSET_PLAN.md` | 완료 | audio slot/file replacement plan |
+| `STORE_SCREENSHOT_PLAN.md` | 완료 | iPhone/Android store screenshot 후보 목록 |
+| `NATIVE_BUILD_GUIDE.md` | 완료 | Capacitor readiness, icon/splash 경로, signing gap |
+| `DEVICE_QA_CHECKLIST.md` | 완료 | iPhone/Android physical QA 항목 |
 | `VISUAL_QA.md` | 완료 | screenshots and viewport audit |
 | `PERFORMANCE_QA.md` | 완료 | RAF/effects/storage/perf checks |
 | 기존 문서 최신화 | 완료 | README/DEVELOPER/BALANCE/SAVE/QA updated |

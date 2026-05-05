@@ -34,16 +34,20 @@
 | 업적 보상감 약함 | 업적이 단순 체크리스트처럼 보여 수령 손맛이 약함 | 40개 업적 claim reward, 보상 버튼, toast, 영구 multiplier/친밀도/장식 보상 추가 | 해결 |
 | 실제 사운드 피드백 없음 | tap/purchase/reward가 조용해 게임 반응감이 약함 | WebAudio lightweight 효과음과 mute 연결 | 해결 |
 | 카피바라 능력치 부재 | 8마리 캐릭터가 기능적으로 구분되지 않음 | 각 캐릭터별 passive ability와 앨범 표시, 수식 반영 | 해결 |
+| 이모지/placeholder UI 잔존 | 스토어 후보에서 개발 중 화면처럼 보일 수 있음 | currency/product/offline 표시를 generated asset 기반으로 교체, visible emoji 제거 | 해결 |
+| 8마리 portrait 구분력 부족 | 앨범에서 색만 다른 카드처럼 보일 수 있음 | portrait generator에 캐릭터별 소품 추가 | 해결 |
+| 스토어 screenshot 부재 | QA screenshot만으로는 제출 후보 presentation을 판단하기 어려움 | iPhone/Android store screenshot pack 10장 생성 | 해결 |
+| audio 파일 교체 경로 부재 | WebAudio tone에서 실제 음원으로 넘어갈 연결 지점이 없음 | `AudioConfig.ts` 슬롯과 `fileSrc` pipeline 추가 | 해결 |
 
 ## P2
 
 | Gap | 남은 이유 | 제출 전 필요 작업 |
 | --- | --- | --- |
-| Cats & Soup 수준의 visual warmth | 현재는 CSS/generated SVG RC asset이며 bespoke hand-drawn animation은 아님 | final character bitmap, richer idle animation, store screenshot art direction |
+| Cats & Soup 수준의 visual warmth | 현재는 CSS/generated SVG RC asset과 store 후보 pack이며 bespoke hand-drawn animation은 아님 | final character bitmap, richer idle animation, final store screenshot art direction |
 | Collection motivation의 깊이 | RC-1에서 능력/보상은 생겼지만 방 꾸미기 자유도와 staged reveal은 제한적 | album reward chest, room layout expansion, set collection animation |
 | Reward feel의 연출 깊이 | claim 보상은 실제 지급되지만 chest/opening animation은 없음 | milestone chest, staged reveal, stronger haptics/audio mix |
 | Long-term goal depth | 첫 환생 전후 목표는 보이지만 시즌/도감 완성/시설 배치 메타는 없음 | season collection, decoration set bonus, late-game narrative milestones |
-| 실제 파일 기반 사운드/BGM | WebAudio 효과음은 있으나 라이선스 확정 음원이 없음 | 효과음/BGM 파일과 라이선스 기록 |
+| 실제 파일 기반 사운드/BGM | 파일 교체 pipeline은 있으나 라이선스 확정 음원이 없음 | 효과음/BGM 파일과 라이선스 기록 |
 | 실제 광고/IAP SDK | provider와 계정/상품 ID 미제공 | AdMob/AppLovin 등 광고 SDK, App Store/Play Billing 상품 연결 |
 | 실제 기기 성능 QA | 물리 기기 접근/제출 계정 없음 | iPhone/Android physical QA, thermal/background/offline 확인 |
 

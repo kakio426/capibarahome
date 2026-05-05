@@ -165,7 +165,7 @@ export function AppShell() {
     const y = event.clientY;
     const nextFloating: FloatingText = {
       id: `${idBase}-text`,
-      text: `+${formatTapBurst(gain, state.settings.numberFormat)} 🍊`,
+      text: `+${formatTapBurst(gain, state.settings.numberFormat)} 귤`,
       x,
       y,
     };
@@ -218,7 +218,10 @@ export function AppShell() {
               type="button"
               aria-label={route.ariaLabel ?? route.label}
               className={activeTab === route.id ? "is-active" : ""}
-              onClick={() => setActiveTab(route.id)}
+              onClick={() => {
+                if (activeTab !== route.id) SoundManager.play("navigation");
+                setActiveTab(route.id);
+              }}
             >
               <VisualAssetIcon assetKey={route.icon} className="tab-icon" />
               <strong>{route.label}</strong>
@@ -254,7 +257,13 @@ export function AppShell() {
         >
           <p>{offlineReturnLine(state.offlineReward?.seconds ?? 0)}</p>
           <p>{formatDuration(state.offlineReward?.seconds ?? 0)} 동안 카피바라가 귤을 모았습니다.</p>
-          <strong className="offline-reward">+{state.offlineReward?.oranges.format(state.settings.numberFormat)} 🍊</strong>
+          <div className="offline-visual" aria-hidden="true">
+            <VisualAssetIcon assetKey="orange_basket" />
+            <span />
+            <span />
+            <span />
+          </div>
+          <strong className="offline-reward">+{state.offlineReward?.oranges.format(state.settings.numberFormat)} 귤</strong>
         </Modal>
       </div>
     </div>

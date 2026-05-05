@@ -8,7 +8,7 @@
 - `document.visibilityState` handling to avoid background production ticks
 - Floating text capped to 18 visible items
 - Particle list capped to 36 visible items
-- WebAudio effects are short oscillator envelopes and skip playback when sound mute is enabled
+- Audio layer uses file-ready slots with short WebAudio fallback envelopes and skips playback when sound mute is enabled
 - Generated SVG visual assets use normal image loading and are lazy-loaded in reusable icon components
 - Game calculations run outside React render loops
 - Store uses `useSyncExternalStore`
@@ -23,17 +23,23 @@
 | delta clamp | 완료 | `src/tests/gameLoop.test.ts` |
 | no horizontal overflow on target viewports | 완료 | `e2e/visual-regression.spec.ts` |
 | heavy visual screens render in mobile profile | 완료 | `npm run test:e2e` |
+| store screenshot pack renders high-resolution compositions | 완료 | `e2e/store-screenshot-pack.spec.ts`, 10 PNG outputs |
 
 ## Command Results
 
 ```txt
 npm test
-17 files passed, 452 tests passed
+18 files passed, 454 tests passed
 ```
 
 ```txt
 npm run test:e2e
-17 passed
+19 passed
+```
+
+```txt
+npm run cap:sync
+build passed, Capacitor sync finished
 ```
 
 ## Manual/Physical Device Gap

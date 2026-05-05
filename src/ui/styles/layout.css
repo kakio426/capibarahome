@@ -170,14 +170,22 @@
   line-height: 1.1;
 }
 
-.currency-emoji {
+.currency-icon {
   width: 36px;
   height: 36px;
   display: grid;
   place-items: center;
   border-radius: 999px;
-  background: rgba(255, 138, 42, 0.14);
-  font-size: 1.4rem;
+  background:
+    radial-gradient(circle at 36% 30%, rgba(255, 255, 255, 0.84), transparent 34%),
+    linear-gradient(145deg, rgba(255, 138, 42, 0.18), rgba(60, 143, 114, 0.12));
+  box-shadow: inset 0 0 0 1px rgba(255, 138, 42, 0.16);
+  overflow: hidden;
+}
+
+.currency-icon .visual-asset {
+  width: 30px;
+  height: 30px;
 }
 
 .capybara-touch {
@@ -1161,8 +1169,16 @@
   place-items: center;
   flex: 0 0 auto;
   border-radius: 14px;
-  background: rgba(255, 138, 42, 0.12);
-  font-size: 1.25rem;
+  background:
+    radial-gradient(circle at 34% 22%, rgba(255, 255, 255, 0.82), transparent 36%),
+    linear-gradient(145deg, rgba(255, 138, 42, 0.16), rgba(60, 143, 114, 0.12));
+  border: 1px solid rgba(255, 138, 42, 0.14);
+  overflow: hidden;
+}
+
+.product-icon .visual-asset {
+  width: 31px;
+  height: 31px;
 }
 
 .owned-chip {
@@ -1305,6 +1321,53 @@
   display: block;
   color: var(--orange-strong);
   font-size: 1.6rem;
+}
+
+.offline-visual {
+  position: relative;
+  width: min(210px, 72vw);
+  height: 88px;
+  margin: 12px auto 8px;
+  display: grid;
+  place-items: center;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 50% 24%, rgba(255, 255, 255, 0.8), transparent 32%),
+    linear-gradient(145deg, rgba(255, 226, 170, 0.78), rgba(191, 229, 217, 0.72));
+  box-shadow: inset 0 -10px 22px rgba(60, 143, 114, 0.12);
+  overflow: hidden;
+}
+
+.offline-visual .visual-asset {
+  width: 78px;
+  height: 78px;
+  filter: drop-shadow(0 12px 14px rgba(40, 50, 45, 0.16));
+}
+
+.offline-visual span {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #ff8a2a;
+  box-shadow: inset -3px -4px 0 rgba(125, 88, 59, 0.16);
+}
+
+.offline-visual span:nth-of-type(1) {
+  left: 34px;
+  top: 30px;
+}
+
+.offline-visual span:nth-of-type(2) {
+  right: 42px;
+  top: 22px;
+  transform: scale(0.82);
+}
+
+.offline-visual span:nth-of-type(3) {
+  right: 58px;
+  bottom: 18px;
+  transform: scale(0.62);
 }
 
 .tutorial-overlay {

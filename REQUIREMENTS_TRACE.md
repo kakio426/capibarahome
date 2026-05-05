@@ -56,6 +56,10 @@
 | RC-1 achievement reward 강화 | 완료 | `AchievementRewardConfig.ts`, `AchievementManager.ts`, album claim UI, unit/E2E |
 | RC-1 long-term meta 강화 | 완료 | `ProgressionRewardManager.ts`, `ProgressionConfig.ts`, `MainGameScreen.tsx`, balance simulation |
 | RC-1 sound feedback | 완료 | WebAudio `SoundManager.ts`, settings mute state, unit/E2E |
+| RC-2 final visual asset pass | 완료 | generated portrait accessories, `app-icon-rc2.svg`, `splash-rc2.svg`, `store-screenshot-frame-rc2.svg`, emoji UI 제거 |
+| RC-2 store screenshot pack | 완료 | `e2e/store-screenshot-pack.spec.ts`, `store-screenshots/` 10 PNG 후보, `STORE_SCREENSHOT_PLAN.md` |
+| RC-2 audio readiness | 완료 | `AudioConfig.ts`, file-ready `SoundManager.ts`, `audio.test.ts`, `AUDIO_ASSET_PLAN.md` |
+| RC-2 native/store compliance docs | 완료 | `NATIVE_BUILD_GUIDE.md`, `DEVICE_QA_CHECKLIST.md`, `ASSET_CREDITS.md`, `PRIVACY_NOTES.md`, `STORE_LISTING_DRAFT.md` |
 
 ## Trace Gate
 

@@ -1,0 +1,35 @@
+# Device QA Checklist
+
+기준일: 2026-05-05
+
+실제 물리 기기 또는 시뮬레이터에서 제출 전 확인해야 할 항목이다. 현재 환경에서는 Playwright 브라우저와 Capacitor sync까지만 자동 검증했다.
+
+## iPhone Safari / iOS WebView
+
+- [ ] 360-430px급 폭에서 홈/성장/앨범/환생/상점/설정이 잘리지 않음
+- [ ] notch/safe-area에서 헤더와 하단 탭이 가려지지 않음
+- [ ] 터치 연타 시 floating text/particle이 과도하게 누적되지 않음
+- [ ] background 후 foreground 복귀 시 오프라인 보상 모달 표시
+- [ ] 앱 강제 종료 후 WebView storage 저장 유지
+- [ ] 효과음 mute, 배경음 mute가 즉시 반영
+- [ ] 세로 고정 또는 회전 정책 확정
+
+## Android Chrome / Android WebView
+
+- [ ] 360x740 저해상도에서 텍스트 clipping 없음
+- [ ] 저사양 Android에서 터치 spam 후 UI 응답성 유지
+- [ ] background/foreground 후 EPS와 오프라인 보상 중복 지급 없음
+- [ ] localStorage/WebView storage가 앱 재시작 후 유지
+- [ ] back button 정책 확인: 앱 종료, 모달 닫기, 탭 이동 중 택일
+- [ ] Android safe-area/gesture navigation bar와 하단 탭 충돌 없음
+- [ ] 효과음 mute, 배경음 mute가 WebView에서도 동작
+
+## 공통 제출 전 체크
+
+- [ ] release build에서 `?debug=1` 없이는 debug panel이 보이지 않음
+- [ ] 실제 광고 SDK 추가 시 네트워크/권한/ATT disclosure 재확인
+- [ ] 실제 IAP 추가 시 sandbox purchase와 restore purchase QA
+- [ ] privacy policy URL과 support URL이 유효
+- [ ] store screenshot이 현재 UI와 일치
+- [ ] 앱 아이콘과 splash가 플랫폼 규격에서 흐릿하지 않음
+- [ ] 10분 idle 상태에서 메모리 증가/발열 문제가 없음

@@ -27,16 +27,18 @@ npm run cap:sync
 - 40개 업적 보상 claim UX: 귤, 황금 나뭇잎, 장식 해금, 친밀도, 영구 multiplier
 - 5개 성장 구간별 unlock toast, 보상 설명, 홈 장기 목표
 - generated SVG visual asset registry와 UI 연결
+- RC-2 app icon/splash/store screenshot frame 초안과 store screenshot 후보 10장
 - `STORY_BIBLE.md`와 연결된 8마리 카피바라 캐릭터/짧은 인게임 대사
 - 환생과 황금 나뭇잎 영구 배율
 - localStorage 저장/로드, checksum, Base64 export/import, migration
 - 오프라인 보상 모달
-- 설정, 튜토리얼 3단계, 이펙트 on/off, WebAudio lightweight 효과음 mute 연결
+- 설정, 튜토리얼 3단계, 이펙트 on/off, file-ready audio slot과 WebAudio fallback/mute 연결
 - 광고 보상 mock, IAP mock provider 인터페이스
 - `?debug=1`에서만 열리는 개발 모드 전용 디버그 패널
 - Vitest 기반 시뮬레이션 테스트
 - Playwright 기반 모바일 브라우저 플로우 테스트
 - Capacitor iOS/Android 패키징 준비 config
+- `NATIVE_BUILD_GUIDE.md`, `DEVICE_QA_CHECKLIST.md`, `ASSET_CREDITS.md`, `AUDIO_ASSET_PLAN.md`
 - balance simulation과 source budget report
 - expanded completion audit
 
@@ -44,7 +46,8 @@ npm run cap:sync
 
 - IAP 샌드박스 보상은 개발 모드에서만 UI 버튼으로 실행합니다.
 - 경쟁작 벤치마크는 공식 스토어/공식 사이트의 공개 정보를 구조적 품질 기준으로만 참고했고, 에셋/문구/UI는 복제하지 않았습니다.
-- 현재 visual은 generated SVG + CSS scene RC asset이며, final store art로 교체할 수 있도록 registry/component 구조를 둡니다.
+- 현재 visual은 generated SVG + CSS scene RC asset이며, final store art로 교체할 수 있도록 registry/component 구조를 둡니다. 스토어 후보 이미지는 `store-screenshots/`에 있습니다.
+- 현재 효과음은 file-ready slot을 갖춘 WebAudio fallback입니다. 최종 음원 파일과 라이선스는 사용자가 제출 전 확정해야 합니다.
 - E2E는 Playwright로 실행하며, 실제 유저 플로우와 debug/cheat 플로우를 분리했습니다.
 - Base64는 저장 코드 전달 형식일 뿐 보안 암호화로 설명하지 않습니다.
 - 실제 Apple/Google 계정, 인증서, 프로비저닝, 스토어 업로드는 수행하지 않았습니다.

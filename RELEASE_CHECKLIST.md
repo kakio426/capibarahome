@@ -14,10 +14,14 @@
 - [x] Story bible added and connected to UI/config
 - [x] Balance simulation added and tested
 - [x] Source budget re-audited without generated/config/docs/screenshots/build output
-- [x] Handwritten implementation scale recorded (`runtime 6,374 LOC`, `handwritten tests/E2E 1,418 LOC`)
+- [x] Handwritten implementation scale recorded (`runtime 6,467 LOC`, `handwritten tests/E2E 1,678 LOC`)
 - [x] Content integration audit completed in `CONTENT_INTEGRATION_AUDIT.md`
 - [x] Visual defects audit completed in `VISUAL_DEFECTS.md`
 - [x] RC-1 product-feel hardening completed: companion passive, achievement claim rewards, long-term goal, WebAudio feedback
+- [x] RC-2 visual asset pass completed: emoji UI reduction, 8 portrait accessory pass, app icon/splash/frame drafts
+- [x] RC-2 audio readiness completed: file-ready audio slots and placeholder tone fallback
+- [x] RC-2 store screenshot pack generated: 10 candidates in `store-screenshots/`
+- [x] Native/store compliance docs added: asset credits, audio plan, native guide, device QA checklist
 - [x] Save/import failure paths do not crash the app
 - [x] Offline reward, prestige, save/load, export/import flows tested
 - [x] Visual screenshots captured for 360x740, 390x844, 430x932, desktop
@@ -29,6 +33,7 @@
 - [x] Scripts added: `cap:sync`, `cap:open:ios`, `cap:open:android`
 - [x] Capacitor CLI available: `npx cap --version`
 - [x] `npm run cap:sync` completes for web assets
+- [x] `NATIVE_BUILD_GUIDE.md` documents app id/package placeholder and icon/splash paths
 - [ ] Native platform folders generated with `npx cap add ios` and `npx cap add android`
 - [ ] iOS project opened and signed in Xcode
 - [ ] Android project opened and signed in Android Studio
@@ -42,7 +47,7 @@ Native folders are intentionally not generated here because Apple/Google develop
 - Bundle ID/package name confirmation
 - App icon final assets
 - Splash screen final assets
-- Store screenshots selected from real device/simulator frames
+- Store screenshots selected from real device/simulator frames, using `store-screenshots/` as current candidates
 - Privacy policy URL
 - Support URL
 - Age rating answers

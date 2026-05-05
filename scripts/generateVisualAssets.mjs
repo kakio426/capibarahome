@@ -78,6 +78,136 @@ function motif(key, size, index) {
   return [...rings, ...lines].join("\n  ");
 }
 
+function portraitAccessory(key, a, b, c, d, e) {
+  const id = key.replace("capybara-", "");
+  const common = `filter="drop-shadow(0 4px 4px rgba(40,50,45,0.16))"`;
+  const accessories = {
+    momo: `<g ${common}>
+    <path d="M98 116 C 128 84, 190 84, 222 116" fill="none" stroke="${a}" stroke-width="13" stroke-linecap="round"/>
+    <circle cx="112" cy="110" r="10" fill="${d}"/>
+    <circle cx="208" cy="110" r="10" fill="${d}"/>
+  </g>`,
+    ruru: `<g ${common}>
+    <rect x="119" y="144" width="82" height="20" rx="10" fill="${d}" opacity="0.88"/>
+    <circle cx="137" cy="152" r="8" fill="${e}"/>
+    <circle cx="184" cy="152" r="8" fill="${e}"/>
+    <path d="M150 151 L170 151" stroke="${e}" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+  </g>`,
+    soda: `<g ${common}>
+    <path d="M112 208 C 132 229, 189 230, 210 208 L212 230 C 184 252, 136 252, 108 230 Z" fill="${b}" opacity="0.9"/>
+    <path d="M118 219 C 145 236, 177 236, 204 219" fill="none" stroke="${d}" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+  </g>`,
+    dami: `<g ${common}>
+    <path d="M98 124 C 116 78, 206 78, 224 124 L212 116 C 182 98, 138 98, 108 116 Z" fill="${c}" opacity="0.92"/>
+    <path d="M118 104 L202 104" stroke="${d}" stroke-width="7" stroke-linecap="round" opacity="0.74"/>
+  </g>`,
+    biro: `<g ${common}>
+    <path d="M104 202 L102 234 C 124 251, 196 251, 218 234 L216 202" fill="none" stroke="${a}" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="108" cy="202" r="9" fill="${d}"/>
+    <circle cx="212" cy="202" r="9" fill="${d}"/>
+  </g>`,
+    hanul: `<g ${common}>
+    <path d="M112 111 C 132 72, 188 72, 208 111" fill="none" stroke="${d}" stroke-width="16" stroke-linecap="round"/>
+    <path d="M148 82 L160 58 L172 82" fill="${a}"/>
+    <circle cx="160" cy="58" r="8" fill="${c}"/>
+  </g>`,
+    narin: `<g ${common}>
+    <path d="M205 112 C 232 103, 244 121, 226 142 C 217 132, 205 128, 193 131 Z" fill="${a}"/>
+    <path d="M195 113 C 168 101, 145 105, 126 120" fill="none" stroke="${a}" stroke-width="7" stroke-linecap="round"/>
+  </g>`,
+    podo: `<g ${common}>
+    <path d="M108 94 C 139 73, 184 72, 216 94 L202 106 C 175 92, 145 92, 118 106 Z" fill="${e}" opacity="0.9"/>
+    <circle cx="136" cy="91" r="7" fill="${b}"/>
+    <circle cx="160" cy="84" r="7" fill="${b}"/>
+    <circle cx="184" cy="91" r="7" fill="${b}"/>
+  </g>`,
+  };
+  return accessories[id] ?? "";
+}
+
+function releaseSvg(key, label, index) {
+  const [a, b, c, d, e] = paletteFor(key, index);
+  if (key === "app-icon-rc2") {
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-label="${label}">
+  <defs>
+    <linearGradient id="icon-bg" x1="106" y1="80" x2="918" y2="944" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff3dc"/>
+      <stop offset="0.48" stop-color="#bfe5d9"/>
+      <stop offset="1" stop-color="#ff8a2a"/>
+    </linearGradient>
+    <filter id="icon-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="30" stdDeviation="26" flood-color="#28322d" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect width="1024" height="1024" rx="224" fill="url(#icon-bg)"/>
+  <circle cx="784" cy="190" r="118" fill="#ffd166" opacity="0.82"/>
+  <path d="M0 704 C 136 620, 250 720, 378 634 C 516 542, 626 650, 758 566 C 866 498, 944 526, 1024 456 L1024 1024 L0 1024 Z" fill="#3c8f72" opacity="0.26"/>
+  <g transform="translate(175 190)" filter="url(#icon-shadow)">
+    <ellipse cx="336" cy="430" rx="260" ry="178" fill="#7d583b" opacity="0.24"/>
+    <ellipse cx="336" cy="346" rx="244" ry="188" fill="#8f6747"/>
+    <circle cx="218" cy="232" r="74" fill="#735037"/>
+    <circle cx="454" cy="232" r="74" fill="#735037"/>
+    <ellipse cx="336" cy="376" rx="142" ry="94" fill="#fff3dc" opacity="0.44"/>
+    <circle cx="264" cy="334" r="24" fill="#28322d"/>
+    <circle cx="410" cy="334" r="24" fill="#28322d"/>
+    <ellipse cx="338" cy="400" rx="38" ry="26" fill="#28322d"/>
+    <path d="M292 448 C 322 478, 352 478, 384 448" fill="none" stroke="#28322d" stroke-width="20" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(666 626)" filter="url(#icon-shadow)">
+    <circle cx="0" cy="0" r="132" fill="#ff8a2a"/>
+    <path d="M-40 -96 C 2 -170, 91 -152, 92 -74 C 48 -84, 4 -54, -40 -96 Z" fill="#3c8f72"/>
+    <circle cx="-34" cy="-22" r="18" fill="#fffaf0" opacity="0.72"/>
+  </g>
+</svg>
+`;
+  }
+  if (key === "splash-rc2") {
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="2732" height="2732" viewBox="0 0 2732 2732" role="img" aria-label="${label}">
+  <rect width="2732" height="2732" fill="#fffaf0"/>
+  <circle cx="2060" cy="612" r="260" fill="#ffd166" opacity="0.66"/>
+  <path d="M0 1910 C 390 1690, 602 1910, 930 1730 C 1328 1514, 1668 1768, 1998 1566 C 2306 1378, 2510 1440, 2732 1296 L2732 2732 L0 2732 Z" fill="#bfe5d9"/>
+  <path d="M0 2126 C 464 1902, 734 2186, 1110 1980 C 1500 1766, 1814 2054, 2180 1850 C 2400 1728, 2578 1742, 2732 1650 L2732 2732 L0 2732 Z" fill="#3c8f72" opacity="0.34"/>
+  <g transform="translate(774 752)">
+    <rect x="0" y="0" width="1184" height="1184" rx="296" fill="#ffe8ba"/>
+    <ellipse cx="592" cy="702" rx="360" ry="230" fill="#7d583b" opacity="0.2"/>
+    <ellipse cx="592" cy="560" rx="326" ry="240" fill="#8f6747"/>
+    <circle cx="430" cy="408" r="94" fill="#735037"/>
+    <circle cx="754" cy="408" r="94" fill="#735037"/>
+    <ellipse cx="592" cy="596" rx="178" ry="112" fill="#fff3dc" opacity="0.44"/>
+    <circle cx="496" cy="536" r="28" fill="#28322d"/>
+    <circle cx="688" cy="536" r="28" fill="#28322d"/>
+    <ellipse cx="592" cy="620" rx="44" ry="30" fill="#28322d"/>
+    <circle cx="846" cy="744" r="150" fill="#ff8a2a"/>
+    <path d="M798 636 C 850 540, 966 568, 962 668 C 910 652, 852 686, 798 636 Z" fill="#3c8f72"/>
+  </g>
+  <text x="1366" y="2078" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="144" font-weight="900" fill="#28322d">카피바라 집사기</text>
+  <text x="1366" y="2226" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="66" font-weight="800" fill="#7d583b">귤 정원을 돌보는 방치형 클리커</text>
+</svg>
+`;
+  }
+  if (key === "store-screenshot-frame-rc2") {
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="1290" height="2796" viewBox="0 0 1290 2796" role="img" aria-label="${label}">
+  <defs>
+    <linearGradient id="store-bg" x1="0" y1="0" x2="1290" y2="2796" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset="0.52" stop-color="#bfe5d9"/>
+      <stop offset="1" stop-color="#ffdf9a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1290" height="2796" fill="url(#store-bg)"/>
+  <circle cx="1048" cy="318" r="164" fill="#ffd166" opacity="0.72"/>
+  <text x="120" y="244" font-family="Inter, Arial, sans-serif" font-size="88" font-weight="900" fill="#28322d">카피바라 집사기</text>
+  <text x="120" y="346" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#7d583b">터치와 방치 수익으로 귤 정원을 키우세요</text>
+  <rect x="194" y="560" width="902" height="1840" rx="112" fill="#28322d" opacity="0.18"/>
+  <rect x="224" y="526" width="842" height="1840" rx="104" fill="#fffaf0" stroke="#28322d" stroke-opacity="0.18" stroke-width="10"/>
+  <rect x="284" y="604" width="722" height="1684" rx="42" fill="#ffffff" opacity="0.7"/>
+  <path d="M0 2440 C 254 2320, 480 2504, 746 2342 C 962 2210, 1120 2264, 1290 2174 L1290 2796 L0 2796 Z" fill="#3c8f72" opacity="0.28"/>
+</svg>
+`;
+  }
+  return stickerSvg(key, label, "release", index);
+}
+
 function stickerSvg(key, label, kind, index) {
   const [a, b, c, d, e] = paletteFor(key, index);
   const short = label.slice(0, 10);
@@ -118,7 +248,7 @@ function stickerSvg(key, label, kind, index) {
     <ellipse cx="160" cy="174" rx="12" ry="8" fill="#28322d"/>
     <path d="M146 188 C 154 196, 166 196, 174 188" fill="none" stroke="#28322d" stroke-width="5" stroke-linecap="round"/>
   </g>
-  <g transform="translate(214 200)">
+  ${kind === "portraits" ? `${portraitAccessory(key, a, b, c, d, e)}\n  ` : ""}<g transform="translate(214 200)">
     <circle cx="0" cy="0" r="34" fill="${a}"/>
     <path d="M-10 -25 C 0 -42, 22 -38, 22 -19 C 9 -22, -2 -15, -10 -25 Z" fill="${c}"/>
     <circle cx="-8" cy="-6" r="4" fill="#fffaf0" opacity="0.72"/>
@@ -186,7 +316,7 @@ function writeAsset(kind, key, label, index) {
   const folder = join(outDir, kind);
   mkdirSync(folder, { recursive: true });
   const filename = `${safeName(key)}.svg`;
-  const svg = kind === "tiers" ? tierSvg(key, label, index) : stickerSvg(key, label, kind, index);
+  const svg = kind === "tiers" ? tierSvg(key, label, index) : kind === "release" ? releaseSvg(key, label, index) : stickerSvg(key, label, kind, index);
   writeFileSync(join(folder, filename), svg, "utf8");
   return { key, kind, filename };
 }
@@ -197,7 +327,16 @@ const icons = captureAll(/\bicon:\s*"([^"]+)"/g, combinedSource);
 const tierIds = captureAll(/\bid:\s*"(yard|storehouse|onsen|bamboo_garden|golden_forest)"/g, readSource("config/ProgressionConfig.ts"));
 const capybaraIds = captureAll(/\bid:\s*"([^"]+)"/g, readSource("config/StoryConfig.ts"));
 const mascotStates = ["mascot-default", "mascot-happy", "mascot-sleepy", "mascot-eating", "mascot-celebrate"];
-const releaseAssets = ["app-icon-draft", "splash-draft", "store-card-preview", "privacy-card-preview", "qa-screenshot-frame"];
+const releaseAssets = [
+  "app-icon-draft",
+  "splash-draft",
+  "store-card-preview",
+  "privacy-card-preview",
+  "qa-screenshot-frame",
+  "app-icon-rc2",
+  "splash-rc2",
+  "store-screenshot-frame-rc2",
+];
 
 const rawAssetInputs = [
   ...unique(ids).map((key) => ({ key, label: key.replace(/_/g, " "), kind: "items" })),

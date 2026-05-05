@@ -33,6 +33,11 @@
     <ellipse cx="160" cy="174" rx="12" ry="8" fill="#28322d"/>
     <path d="M146 188 C 154 196, 166 196, 174 188" fill="none" stroke="#28322d" stroke-width="5" stroke-linecap="round"/>
   </g>
+  <g filter="drop-shadow(0 4px 4px rgba(40,50,45,0.16))">
+    <path d="M98 116 C 128 84, 190 84, 222 116" fill="none" stroke="#4b8aa8" stroke-width="13" stroke-linecap="round"/>
+    <circle cx="112" cy="110" r="10" fill="#fffaf0"/>
+    <circle cx="208" cy="110" r="10" fill="#fffaf0"/>
+  </g>
   <g transform="translate(214 200)">
     <circle cx="0" cy="0" r="34" fill="#4b8aa8"/>
     <path d="M-10 -25 C 0 -42, 22 -38, 22 -19 C 9 -22, -2 -15, -10 -25 Z" fill="#ffb23f"/>

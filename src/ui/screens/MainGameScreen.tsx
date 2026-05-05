@@ -68,8 +68,8 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
       <div className={`hero-card ${currentTier.backgroundClass} ${equippedDecorationClasses}`}>
         {tierArt ? <img className="tier-art" src={tierArt} alt="" aria-hidden="true" /> : null}
         <div className="currency-grid">
-          <CurrencyDisplay label={GameConfig.currency.orange.name} value={state.currencies.orange} emoji={GameConfig.currency.orange.emoji} format={format} />
-          <CurrencyDisplay label={GameConfig.currency.goldenLeaf.name} value={state.currencies.goldenLeaf} emoji={GameConfig.currency.goldenLeaf.emoji} format={format} />
+          <CurrencyDisplay label={GameConfig.currency.orange.name} value={state.currencies.orange} assetKey="orange" format={format} />
+          <CurrencyDisplay label={GameConfig.currency.goldenLeaf.name} value={state.currencies.goldenLeaf} assetKey="leaf" format={format} />
         </div>
 
         <button className={`capybara-touch mood-${mascotMood}`} type="button" onPointerDown={onTap} data-tutorial-target="capybara">
@@ -102,11 +102,11 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
         <div className="income-grid">
           <div className="metric-tile">
             <span className="metric-label">터치당</span>
-            <strong>{formatIncomeValue(tapGain, format)} 🍊</strong>
+            <strong>{formatIncomeValue(tapGain, format)} 귤</strong>
           </div>
           <div className="metric-tile">
             <span className="metric-label">초당</span>
-            <strong>{formatIncomeValue(eps, format)} 🍊</strong>
+            <strong>{formatIncomeValue(eps, format)} 귤/초</strong>
           </div>
         </div>
       </div>
@@ -198,7 +198,7 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
             <span className="metric-label">환생 준비</span>
             <strong>{Math.round(prestigeProgress * 100)}%</strong>
           </div>
-          <ProgressBar value={prestigeProgress} label={`예상 황금 나뭇잎 +${prestigeGain.format(format)} 🍂`} />
+          <ProgressBar value={prestigeProgress} label={`예상 황금 나뭇잎 +${prestigeGain.format(format)}개`} />
         </div>
       </section>
 

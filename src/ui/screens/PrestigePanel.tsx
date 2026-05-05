@@ -35,7 +35,7 @@ export function PrestigePanel() {
           <span className="prestige-leaf prestige-leaf-three" />
           <span className="prestige-path" />
         </div>
-        <h3>{GameConfig.currency.goldenLeaf.emoji} 예상 보상 {status.gain.format(format)}개</h3>
+        <h3>{GameConfig.currency.goldenLeaf.name} 예상 보상 {status.gain.format(format)}개</h3>
         <ProgressBar value={status.progress} label={`환생 진행률 ${Math.round(status.progress * 100)}%`} />
         <div className="prestige-grid">
           <div>

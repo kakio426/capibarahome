@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2732" height="2732" viewBox="0 0 2732 2732" role="img" aria-label="splash rc2">
+  <rect width="2732" height="2732" fill="#fffaf0"/>
+  <circle cx="2060" cy="612" r="260" fill="#ffd166" opacity="0.66"/>
+  <path d="M0 1910 C 390 1690, 602 1910, 930 1730 C 1328 1514, 1668 1768, 1998 1566 C 2306 1378, 2510 1440, 2732 1296 L2732 2732 L0 2732 Z" fill="#bfe5d9"/>
+  <path d="M0 2126 C 464 1902, 734 2186, 1110 1980 C 1500 1766, 1814 2054, 2180 1850 C 2400 1728, 2578 1742, 2732 1650 L2732 2732 L0 2732 Z" fill="#3c8f72" opacity="0.34"/>
+  <g transform="translate(774 752)">
+    <rect x="0" y="0" width="1184" height="1184" rx="296" fill="#ffe8ba"/>
+    <ellipse cx="592" cy="702" rx="360" ry="230" fill="#7d583b" opacity="0.2"/>
+    <ellipse cx="592" cy="560" rx="326" ry="240" fill="#8f6747"/>
+    <circle cx="430" cy="408" r="94" fill="#735037"/>
+    <circle cx="754" cy="408" r="94" fill="#735037"/>
+    <ellipse cx="592" cy="596" rx="178" ry="112" fill="#fff3dc" opacity="0.44"/>
+    <circle cx="496" cy="536" r="28" fill="#28322d"/>
+    <circle cx="688" cy="536" r="28" fill="#28322d"/>
+    <ellipse cx="592" cy="620" rx="44" ry="30" fill="#28322d"/>
+    <circle cx="846" cy="744" r="150" fill="#ff8a2a"/>
+    <path d="M798 636 C 850 540, 966 568, 962 668 C 910 652, 852 686, 798 636 Z" fill="#3c8f72"/>
+  </g>
+  <text x="1366" y="2078" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="144" font-weight="900" fill="#28322d">카피바라 집사기</text>
+  <text x="1366" y="2226" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="66" font-weight="800" fill="#7d583b">귤 정원을 돌보는 방치형 클리커</text>
+</svg>

@@ -6,7 +6,7 @@
 src/
   app/          AppShell, routes
   assets/       AssetManager, generated SVG registry, placeholder fallback
-  config/       모든 밸런스, 저장, 튜토리얼, 수익화 설정
+  config/       모든 밸런스, 저장, 튜토리얼, 수익화, 오디오 설정
   core/         BigNumberLite, 수식, formatter, time helper
   game/         GameLoop, GameEngine, selectors, actions, types
   state/        lightweight store, initial state, migrations
@@ -50,6 +50,7 @@ src/
 - `CompanionBonusManager`: 8마리 카피바라 친밀도 레벨을 tap/EPS/offline/quest/achievement/decoration/prestige 보너스로 집계
 - `ProgressionRewardManager`: 5개 성장 구간 unlock 기록, unlock toast, 장기 목표 상태 관리
 - `AnalyticsManager`: in-memory/console mock 이벤트 기록
+- `SoundManager`: `AudioConfig`의 file-ready slot을 재생하고 파일이 없으면 WebAudio fallback tone 사용
 - `DebugManager`: 개발 모드 전용 상태 조작
 
 Debug panel은 개발 모드에서도 기본 노출하지 않습니다. `/?debug=1`로 접근해야 표시됩니다. 실제 유저 E2E는 debug panel을 사용하지 않고, `debug-cheat-flow.spec.ts`만 이 경로를 사용합니다.
@@ -82,6 +83,18 @@ Debug panel은 개발 모드에서도 기본 노출하지 않습니다. `/?debug
 - `scripts/generateVisualAssets.mjs`는 config의 id/icon/tier/capybara key를 읽어 `src/assets/generated` 아래 SVG assets와 `GeneratedAssetRegistry.ts`를 생성합니다.
 - UI에서는 `VisualAssetIcon.tsx`를 사용합니다. asset key가 없으면 기존 CSS icon fallback으로 안전하게 렌더링합니다.
 - final art를 받으면 같은 registry key를 유지한 채 SVG/bitmap 파일만 교체하면 UI와 테스트 연결을 유지할 수 있습니다.
+- RC-2 release draft assets는 `src/assets/generated/release/app-icon-rc2.svg`, `splash-rc2.svg`, `store-screenshot-frame-rc2.svg`에 있습니다.
+
+## Audio Pipeline
+
+- `src/config/AudioConfig.ts`는 tap/purchase/achievement/quest/offlineReward/prestige/error/navigation/ad 슬롯을 정의합니다.
+- `SoundManager.play(slot)`은 `fileSrc`가 있으면 실제 파일을 재생하고, 없으면 WebAudio tone을 사용합니다.
+- 최종 효과음 파일을 추가할 때는 `fileSrc`와 라이선스 상태를 갱신하고 `AUDIO_ASSET_PLAN.md`, `ASSET_CREDITS.md`를 같이 수정합니다.
+- `audio.test.ts`가 필수 슬롯과 mute/music mute 상태 연결을 검증합니다.
+
+## Store Screenshot Pipeline
+
+`e2e/store-screenshot-pack.spec.ts`는 QA screenshot과 별도로 `store-screenshots/`에 iPhone/Android 후보 PNG를 생성합니다. 일반 유저 플로우와 동일하게 debug shortcut을 사용하지 않고, deterministic save fixture만 사용합니다.
 
 ## 재화 추가
 

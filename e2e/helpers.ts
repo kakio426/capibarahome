@@ -33,8 +33,10 @@ export async function seedSave(page: Page, setup: (state: GameState, nowMs: numb
   const state = createInitialState(nowMs);
   state.tutorial.completed = true;
   state.tutorial.visible = false;
+  const defaultLastSavedAt = state.lastSavedAt;
   setup(state, nowMs);
-  const code = SaveManager.exportState(state, state.lastSavedAt);
+  const exportTime = state.lastSavedAt === defaultLastSavedAt ? nowMs + 60_000 : state.lastSavedAt;
+  const code = SaveManager.exportState(state, exportTime);
   await page.goto("/seed.html");
   await page.evaluate(
     ([key, value]) => {

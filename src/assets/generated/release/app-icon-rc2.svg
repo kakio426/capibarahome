@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-label="app icon rc2">
+  <defs>
+    <linearGradient id="icon-bg" x1="106" y1="80" x2="918" y2="944" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff3dc"/>
+      <stop offset="0.48" stop-color="#bfe5d9"/>
+      <stop offset="1" stop-color="#ff8a2a"/>
+    </linearGradient>
+    <filter id="icon-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="30" stdDeviation="26" flood-color="#28322d" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect width="1024" height="1024" rx="224" fill="url(#icon-bg)"/>
+  <circle cx="784" cy="190" r="118" fill="#ffd166" opacity="0.82"/>
+  <path d="M0 704 C 136 620, 250 720, 378 634 C 516 542, 626 650, 758 566 C 866 498, 944 526, 1024 456 L1024 1024 L0 1024 Z" fill="#3c8f72" opacity="0.26"/>
+  <g transform="translate(175 190)" filter="url(#icon-shadow)">
+    <ellipse cx="336" cy="430" rx="260" ry="178" fill="#7d583b" opacity="0.24"/>
+    <ellipse cx="336" cy="346" rx="244" ry="188" fill="#8f6747"/>
+    <circle cx="218" cy="232" r="74" fill="#735037"/>
+    <circle cx="454" cy="232" r="74" fill="#735037"/>
+    <ellipse cx="336" cy="376" rx="142" ry="94" fill="#fff3dc" opacity="0.44"/>
+    <circle cx="264" cy="334" r="24" fill="#28322d"/>
+    <circle cx="410" cy="334" r="24" fill="#28322d"/>
+    <ellipse cx="338" cy="400" rx="38" ry="26" fill="#28322d"/>
+    <path d="M292 448 C 322 478, 352 478, 384 448" fill="none" stroke="#28322d" stroke-width="20" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(666 626)" filter="url(#icon-shadow)">
+    <circle cx="0" cy="0" r="132" fill="#ff8a2a"/>
+    <path d="M-40 -96 C 2 -170, 91 -152, 92 -74 C 48 -84, 4 -54, -40 -96 Z" fill="#3c8f72"/>
+    <circle cx="-34" cy="-22" r="18" fill="#fffaf0" opacity="0.72"/>
+  </g>
+</svg>

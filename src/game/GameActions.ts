@@ -88,7 +88,7 @@ export const GameActions = {
     setGameState(next);
     SaveManager.saveToStorage(next, globalThis.localStorage, nowMs);
     AnalyticsManager.track("offline_reward_claimed", { reward: next.lastAction?.message }, nowMs);
-    SoundManager.play("offline");
+    SoundManager.play("offlineReward");
   },
 
   save(nowMs = Date.now(), options: { silent?: boolean } = {}) {
@@ -156,7 +156,7 @@ export const GameActions = {
     const nextState = applyUnlocks(result.state, nowMs);
     setGameState(nextState);
     AnalyticsManager.track("quest_claimed", { id: questId }, nowMs);
-    SoundManager.play("purchase");
+    SoundManager.play("quest");
     return result;
   },
 

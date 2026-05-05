@@ -84,7 +84,7 @@ export function selectNextUpgradeGoal(state: GameState) {
       ? target.unlockLabel
       : target.canBuy
         ? "지금 구매 가능"
-        : `목표까지 ${remaining.format(state.settings.numberFormat)} 🍊`,
+        : `목표까지 ${remaining.format(state.settings.numberFormat)} 귤`,
   };
 }
 

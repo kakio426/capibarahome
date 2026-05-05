@@ -5,6 +5,7 @@ import { selectEps } from "../../game/GameSelectors";
 import { useGameStore } from "../../state/useGameStore";
 import { Button } from "../components/Button";
 import { Panel } from "../components/Panel";
+import { VisualAssetIcon } from "../components/VisualAssetIcon";
 
 function formatBoostLeft(adBoostUntil: number | null) {
   if (!adBoostUntil) return "비활성";
@@ -13,6 +14,12 @@ function formatBoostLeft(adBoostUntil: number | null) {
   const minutes = Math.floor(seconds / 60);
   const rest = seconds % 60;
   return `${minutes}분 ${rest}초`;
+}
+
+function productAssetKey(productId: string) {
+  if (productId === "golden_leaf_pack") return "leaf";
+  if (productId === "no_ads_pack") return "sun";
+  return "basket";
 }
 
 export function MonetizationPanel() {
@@ -52,7 +59,7 @@ export function MonetizationPanel() {
           </span>
         </div>
         <div className="reward-chip-row">
-          <span className="reward-chip">현재 {eps.format(state.settings.numberFormat)} 🍊/초</span>
+          <span className="reward-chip">현재 {eps.format(state.settings.numberFormat)} 귤/초</span>
           <span className="reward-chip">최대 2시간 연장</span>
           <span className="reward-chip">오프라인 보상에도 반영</span>
         </div>
@@ -67,13 +74,15 @@ export function MonetizationPanel() {
           <Panel key={product.id} className="product-card">
             <div className="product-copy">
               <div className="product-title-row">
-                <span className="product-icon" aria-hidden="true">{product.id === "golden_leaf_pack" ? "🍂" : product.id === "no_ads_pack" ? "🌤️" : "🧺"}</span>
+                <span className="product-icon" aria-hidden="true">
+                  <VisualAssetIcon assetKey={productAssetKey(product.id)} />
+                </span>
                 <h3>{product.name}</h3>
               </div>
               <p>{product.description}</p>
               <div className="reward-chip-row">
-                {"orangeReward" in product && product.orangeReward !== "0" ? <span className="reward-chip">+{product.orangeReward} 🍊</span> : null}
-                {"goldenLeafReward" in product ? <span className="reward-chip">+{product.goldenLeafReward} 🍂</span> : null}
+                {"orangeReward" in product && product.orangeReward !== "0" ? <span className="reward-chip">+{product.orangeReward} 귤</span> : null}
+                {"goldenLeafReward" in product ? <span className="reward-chip">+{product.goldenLeafReward} 황금 나뭇잎</span> : null}
                 {product.id === "no_ads_pack" ? <span className="reward-chip">광고 SDK 연결 예정</span> : null}
                 {state.monetization.purchasedProductIds.includes(product.id) ? <span className="owned-chip">수령 완료</span> : null}
               </div>

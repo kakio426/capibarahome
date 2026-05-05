@@ -4,12 +4,13 @@
 
 ## Summary
 
-Playwright visual flow captured 48 current screenshots for 360x740, 390x844, 430x932, and desktop 1280x900 central panel. RC-1 before screenshots are archived under `qa-screenshots/rc1-before/`. This pass manually reviewed the screenshots for text clipping, touch area, dense cards, developer UI feel, placeholder feel, reward visibility, and competitive weakness.
+Playwright visual flow captured 48 current QA screenshots for 360x740, 390x844, 430x932, and desktop 1280x900 central panel. RC-2 also generated 10 store screenshot candidates under `store-screenshots/`. RC-1 before screenshots are archived under `qa-screenshots/rc1-before/`. This pass manually reviewed screenshots for text clipping, touch area, dense cards, developer UI feel, placeholder feel, reward visibility, and store presentation quality.
 
 Command:
 
 ```txt
 npx playwright test e2e/visual-regression.spec.ts
+npx playwright test e2e/store-screenshot-pack.spec.ts
 ```
 
 Result:
@@ -17,6 +18,8 @@ Result:
 ```txt
 4 passed
 48 screenshots written to qa-screenshots/
+2 passed
+10 screenshots written to store-screenshots/
 ```
 
 ## Fixes From Visual Audit
@@ -31,6 +34,9 @@ Result:
 | Prestige panel looked too plain | 해결 | custom golden tree/path visual, refreshed `qa-screenshots/390x844-prestige.png` |
 | Album reward/ability information was not visible enough | 해결 | achievement claim rewards, companion ability cards, `collection-rewards` and `collection-abilities` screenshots |
 | Companion cards were too cramped in 2 columns | 해결 | mobile central panel companion grid changed to 1 column for readable ability text |
+| Currency/product/offline UI still used emoji placeholders | 해결 | `CurrencyDisplay`, `MonetizationPanel`, offline reward modal now use generated assets and text units |
+| 8 capybara portraits looked too similar | 해결 | generated portrait accessory pass in `scripts/generateVisualAssets.mjs` |
+| Store screenshot home title wrapped awkwardly and toast appeared | 해결 | store screenshot copy shortened, toast hidden in store composition, refreshed `iphone-01-home.png` |
 
 ## Viewports
 
@@ -57,6 +63,21 @@ Result:
 | Settings | 완료 | `390x844-settings.png` |
 | Save import/export modal | 완료 | `390x844-save-modal.png` |
 
+## Store Screenshot Candidates
+
+| Candidate | Status | Evidence |
+| --- | --- | --- |
+| iPhone home | 완료 | `store-screenshots/iphone-01-home.png` |
+| iPhone album | 완료 | `store-screenshots/iphone-02-album.png` |
+| iPhone prestige | 완료 | `store-screenshots/iphone-03-prestige.png` |
+| iPhone shop | 완료 | `store-screenshots/iphone-04-shop.png` |
+| iPhone save/settings | 완료 | `store-screenshots/iphone-05-save.png` |
+| Android home | 완료 | `store-screenshots/android-01-home.png` |
+| Android album | 완료 | `store-screenshots/android-02-album.png` |
+| Android prestige | 완료 | `store-screenshots/android-03-prestige.png` |
+| Android shop | 완료 | `store-screenshots/android-04-shop.png` |
+| Android save/settings | 완료 | `store-screenshots/android-05-save.png` |
+
 ## Remaining Visual Risk
 
-현재 화면은 RC-1 후보로 읽을 수 있는 보상/능력/장기 목표 구조를 갖췄지만, Cats & Soup 수준의 bespoke hand-drawn animation과 final store screenshot art는 아직 아니다. 물리 기기 screenshot QA와 final character/store art 교체는 실제 제출 전 필요하다.
+현재 화면은 RC-2 후보로 읽을 수 있는 보상/능력/장기 목표와 store screenshot pack을 갖췄지만, Cats & Soup 수준의 bespoke hand-drawn animation과 final commissioned store art는 아직 아니다. 물리 기기 screenshot QA와 final character/store art 교체는 실제 제출 전 필요하다.

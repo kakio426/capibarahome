@@ -1,28 +1,13 @@
-export type SoundName = "tap" | "purchase" | "prestige" | "error" | "ad" | "offline" | "achievement";
+import { AudioConfig, AudioSlotName } from "../config/AudioConfig";
+
+export type SoundName = AudioSlotName;
 
 let soundMuted = false;
 let musicMuted = false;
 let audioContext: AudioContext | null = null;
+const fileCache = new Map<SoundName, HTMLAudioElement>();
 let playCount = 0;
 let lastPlayed: SoundName | null = null;
-
-type ToneSpec = {
-  frequency: number;
-  secondFrequency?: number;
-  duration: number;
-  gain: number;
-  type: OscillatorType;
-};
-
-const toneSpecs: Record<SoundName, ToneSpec> = {
-  tap: { frequency: 520, secondFrequency: 690, duration: 0.055, gain: 0.035, type: "sine" },
-  purchase: { frequency: 420, secondFrequency: 760, duration: 0.11, gain: 0.045, type: "triangle" },
-  prestige: { frequency: 330, secondFrequency: 930, duration: 0.22, gain: 0.05, type: "sine" },
-  error: { frequency: 150, secondFrequency: 110, duration: 0.12, gain: 0.04, type: "sawtooth" },
-  ad: { frequency: 450, secondFrequency: 660, duration: 0.13, gain: 0.035, type: "triangle" },
-  offline: { frequency: 260, secondFrequency: 520, duration: 0.16, gain: 0.04, type: "sine" },
-  achievement: { frequency: 620, secondFrequency: 980, duration: 0.18, gain: 0.05, type: "triangle" },
-};
 
 function getAudioContext() {
   if (typeof window === "undefined") return null;
@@ -33,10 +18,25 @@ function getAudioContext() {
   return audioContext;
 }
 
+function playFile(name: SoundName) {
+  const slot = AudioConfig.slots[name];
+  if (!slot.fileSrc || typeof Audio === "undefined") return false;
+  let audio = fileCache.get(name);
+  if (!audio) {
+    audio = new Audio(slot.fileSrc);
+    audio.preload = "auto";
+    fileCache.set(name, audio);
+  }
+  audio.currentTime = 0;
+  audio.volume = Math.min(1, Math.max(0, slot.fallbackTone.gain * 9));
+  void audio.play();
+  return true;
+}
+
 function playTone(name: SoundName) {
   const context = getAudioContext();
   if (!context) return;
-  const spec = toneSpecs[name];
+  const spec = AudioConfig.slots[name].fallbackTone;
   const start = context.currentTime;
   const oscillator = context.createOscillator();
   const gain = context.createGain();
@@ -63,8 +63,10 @@ export const SoundManager = {
     playCount += 1;
     lastPlayed = name;
     try {
-      void getAudioContext()?.resume();
-      playTone(name);
+      if (!playFile(name)) {
+        void getAudioContext()?.resume();
+        playTone(name);
+      }
     } catch (error) {
       console.warn("[sound] playback skipped", error);
     }
@@ -79,6 +81,13 @@ export const SoundManager = {
   },
 
   getState() {
-    return { soundMuted, musicMuted, playCount, lastPlayed };
+    return {
+      soundMuted,
+      musicMuted,
+      playCount,
+      lastPlayed,
+      slots: Object.keys(AudioConfig.slots) as SoundName[],
+      fileReadySlots: Array.from(fileCache.keys()),
+    };
   },
 };
