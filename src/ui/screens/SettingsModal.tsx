@@ -27,8 +27,8 @@ export function SettingsModal() {
         <p>연출, 소리, 저장 데이터를 즉시 조정합니다.</p>
       </header>
 
-      <Panel className="settings-panel">
-        <div className="ledger-section-title">
+      <Panel className="settings-panel ui-panel--ledger">
+        <div className="ledger-section-title ui-ledger-heading">
           <span>집사 장부</span>
           <strong>연출 관리</strong>
         </div>
@@ -50,18 +50,18 @@ export function SettingsModal() {
           })}
         />
         <Toggle label="진동 켜기" checked={state.settings.vibrationEnabled} onChange={(value) => updateState((current) => updateSetting(current, "vibrationEnabled", value))} />
-        <div className="ledger-section-title is-small">
+        <div className="ledger-section-title ui-ledger-heading is-small">
           <span>숫자 표기</span>
           <strong>표시 방식</strong>
         </div>
-        <div className="segmented">
+        <div className="segmented ui-segmented">
           <button className={state.settings.numberFormat === "short" ? "is-active" : ""} type="button" onClick={() => updateState((current) => setNumberFormat(current, "short"))}>짧게</button>
           <button className={state.settings.numberFormat === "scientific" ? "is-active" : ""} type="button" onClick={() => updateState((current) => setNumberFormat(current, "scientific"))}>과학적</button>
         </div>
       </Panel>
 
-      <Panel className="settings-actions">
-        <div className="ledger-section-title">
+      <Panel className="settings-actions ui-panel--ledger">
+        <div className="ledger-section-title ui-ledger-heading">
           <span>정원 관리 서랍</span>
           <strong>보관 작업</strong>
         </div>
@@ -77,7 +77,7 @@ export function SettingsModal() {
       <Modal
         open={resetOpen}
         title="저장 초기화"
-        className="danger-confirm-modal"
+        className="danger-confirm-modal ui-modal--danger"
         onClose={() => setResetOpen(false)}
         actions={(
           <>

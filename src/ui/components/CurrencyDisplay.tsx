@@ -11,12 +11,12 @@ type CurrencyDisplayProps = {
 
 export function CurrencyDisplay({ label, value, assetKey, format }: CurrencyDisplayProps) {
   return (
-    <div className="currency-display">
-      <span className="currency-icon" aria-hidden="true">
+    <div className="currency-display ui-plaque ui-plaque--currency">
+      <span className="currency-icon ui-plaque__icon" aria-hidden="true">
         <VisualAssetIcon assetKey={assetKey} />
       </span>
       <div>
-        <span className="currency-label">{label}</span>
+        <span className="currency-label ui-plaque__label">{label}</span>
         <strong>{value.format(format)}</strong>
       </div>
     </div>

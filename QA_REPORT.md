@@ -18,7 +18,7 @@ Tests       479 passed (479)
 
 ```txt
 npm run test:e2e
-21 passed (1.0m)
+21 passed (1.5m)
 ```
 
 ```txt
@@ -59,7 +59,7 @@ Fix:
 - built-in image generation과 후처리 workflow로 v2 PNG raster file 15개를 유지한다. 핵심 UI에서 직접 쓰는 후보는 integrated home hero background, 8 companion portraits, prestige ritual, shop reward banner, offline reward, store key visual이며, app icon candidate와 main capybara crop은 release/fallback 후보로 registry에 남겼다.
 - `RasterAssetRegistry.ts`와 `RasterAssetImage.tsx`를 추가해 핵심 raster asset을 key 기반으로 연결했다.
 - legacy visual fallback을 제거하고 `src/assets/builtinAssets.ts` fallback map으로 교체했다.
-- `layout.css`를 누적 override가 아니라 wood/parchment/orange lacquer HUD 중심의 통합 게임 UI stylesheet로 전면 정리했다.
+- RC-4에서 `layout.css`를 wood/parchment/orange lacquer HUD 중심의 통합 게임 UI stylesheet로 정리했고, RC-5에서 이를 `shell.css`, `hud.css`, `screens.css`, `effects.css` 책임 구조로 분리했다.
 - 홈 hero는 `main-hero-background.png` 안의 통합 orchard/capybara scene이 주인공이 되도록 재구성했고, 별도 도형 overlay는 숨겼다.
 - 앨범은 raster companion portrait를 sticker/companion card에 연결했다.
 - 환생 `prestige-ritual.png`, 상점 `shop-reward-banner.png`, 오프라인 보상 `offline-reward.png`, store screenshot `store-key-visual.png`을 실제 화면/스크린샷 흐름에 연결했다.
@@ -88,6 +88,20 @@ Fix:
 - 컬렉션 summary metric과 progress는 sticker-book ledger stamp와 carved groove progress로 보강했다.
 - interaction polish: purchase pulse, error toast shake, prestige ready glow, active tab pop을 추가했고 `effectsEnabled=false` 및 reduced motion media query를 존중한다.
 - `visual-regression.spec.ts` 단독 4 viewport 통과 후 settings/save/upgrade/collection/offline screenshots를 수동 확인했다. `store-screenshot-pack.spec.ts`도 단독 통과 후 store save/home/album 후보를 확인했다.
+
+## RC-5 CSS Debt & Component System Pass
+
+- v2 raster art와 RC-4 wood/parchment/orange HUD 방향은 유지했다. 새 raster asset은 추가하지 않았다.
+- `src/ui/styles/layout.css`를 3,021줄 단일 stylesheet에서 4줄 import manifest로 축소했다.
+- runtime CSS를 `tokens.css`, `global.css`, `shell.css`, `hud.css`, `screens.css`, `effects.css` 책임으로 분리했다.
+- E2E 안정성을 위해 기존 `.btn`, `.panel`, `.modal`, `.upgrade-card`, `.bottom-tabs` selectors는 유지하고, `.ui-button`, `.ui-panel`, `.ui-modal`, `.ui-ledger-row`, `.ui-progress-groove`, `.ui-tab-dock`, `.ui-shelf-card`, `.ui-sticker-ledger`, `.ui-code-slot`을 병행 적용했다.
+- 성장 화면은 tool slot pedestal/icon centering, cost/buy plaque hierarchy, mobile inline buy row를 보강했다.
+- 설정 화면은 ledger/drawer 느낌을 유지하면서 토글 row와 segmented controls를 common HUD classes로 안정화했다.
+- 세이브 modal은 vault/code-slot classes, scroll-safe textareas, 복사 action을 유지했다.
+- 앨범 summary는 sticker-ledger/stamp cue와 groove progress를 강화했다.
+- CSS split 직후 screen header가 low-contrast parchment로 회귀한 문제를 screenshot에서 발견했고, `screens.css`에서 dark wood plaque를 재고정한 뒤 screenshots를 다시 생성했다.
+- `visualAssetIntegrity.test.ts` runtime visual styling audit에 새 CSS 파일들을 모두 포함했다.
+- `RC5_CSS_COMPONENT_AUDIT.md`에 baseline audit, selector/line metrics, screen 판정, 남은 P2/P3를 기록했다.
 
 ## 자동 테스트 커버리지
 
@@ -128,21 +142,22 @@ Fix:
 - 360x740, 390x844, 430x932, desktop 1280x900 중앙 패널에서 overflow assertion 통과.
 - 홈 v2 raster orchard/capybara integrated scene, 앨범 raster sticker portraits, 환생 ritual raster, 상점 reward banner raster, 오프라인 보상 raster, save modal 긴 code scroll을 재확인했다.
 - Store 후보 10개는 raster store key visual을 full-screen background로 두고 gameplay panel/copy를 얹는 구성으로 재생성했다.
-- CSS audit: runtime visual files에서 temporary override marker, generic UI marker, external asset fallback marker를 제거했다.
+- CSS audit: runtime visual files에서 temporary override marker, generic UI marker, external asset fallback marker를 제거했고, RC-5 이후 `shell/hud/screens/effects` 파일도 audit 대상에 포함했다.
 - RC-4 추가 수동 판정: `390x844-upgrades.png`는 더 이상 spreadsheet/list/card layout로 보지 않는다. `390x844-settings.png`는 browser form UI가 아니며, `390x844-save-modal.png`는 save vault/ledger UI로 보인다.
+- RC-5 추가 수동 판정: `390x844-upgrades.png`, `390x844-settings.png`, `390x844-save-modal.png`, `390x844-collection.png`, `desktop-1280x900-upgrades.png`, store save screenshot을 확인했다. 내부 P0/P1 visual regression은 없음.
 
 ## Source Budget Gate
 
-- handwritten runtime implementation: 7,574 LOC.
-- handwritten tests/E2E: 2,285 LOC.
-- pure handwritten gameplay/UI/system/test total: 9,859 LOC.
+- handwritten runtime implementation: 7,781 LOC.
+- handwritten tests/E2E: 2,289 LOC.
+- pure handwritten gameplay/UI/system/test total: 10,070 LOC.
 - excluded config: 2,529 LOC.
 - excluded generated SVG/registry: 11,533 LOC.
 - excluded generated matrix tests: 5,846 LOC.
 - generated SVG files: 253.
 - registry asset keys: 242.
 - raster PNG files: 15, 19M total.
-- handwritten runtime+test byte size: 339,271 bytes.
+- handwritten runtime+test byte size: 345,234 bytes.
 
 ## 남은 리스크
 

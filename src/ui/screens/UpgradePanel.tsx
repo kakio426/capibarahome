@@ -25,7 +25,7 @@ export function UpgradePanel() {
         <h2>업그레이드</h2>
         <p>귤 생산량을 키우는 시설과 집사 능력입니다.</p>
       </header>
-      <section className="upgrade-summary" aria-label="업그레이드 요약">
+      <section className="upgrade-summary ui-plaque-row" aria-label="업그레이드 요약">
         <div>
           <span className="metric-label">구매 가능</span>
           <strong>{buyableCount}개</strong>
@@ -50,8 +50,8 @@ export function UpgradePanel() {
               : `귤 부족 ${item.cost.format(format)}`;
 
           return (
-            <Panel key={item.id} className={`upgrade-card upgrade-shelf-card ${!item.unlocked ? "is-content-locked" : item.canBuy ? "is-buyable" : "is-locked"}`}>
-              <div className="upgrade-tool-slot">
+            <Panel key={item.id} className={`upgrade-card upgrade-shelf-card ui-shelf-card ${!item.unlocked ? "is-content-locked" : item.canBuy ? "is-buyable" : "is-locked"}`}>
+              <div className="upgrade-tool-slot ui-tool-slot">
                 <VisualAssetIcon assetKey={item.id} className="upgrade-icon" />
               </div>
               <div className="upgrade-copy">
@@ -70,8 +70,8 @@ export function UpgradePanel() {
                   <span>{familyLabel}</span>
                 </div>
               </div>
-              <div className="upgrade-buy-slot">
-                <span className="cost-plaque">{purchaseLabel}</span>
+              <div className="upgrade-buy-slot ui-shelf-card__buy">
+                <span className="cost-plaque ui-plaque ui-cost-plaque">{purchaseLabel}</span>
                 <Button
                   className="upgrade-buy-button"
                   variant={item.canBuy ? "primary" : "secondary"}

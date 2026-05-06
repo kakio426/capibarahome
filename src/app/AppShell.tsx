@@ -194,34 +194,34 @@ export function AppShell() {
   }
 
   return (
-    <div className="app-frame">
+    <div className="app-frame ui-game-frame">
       <div
-        className="game-shell"
+        className="game-shell ui-game-shell"
         data-tutorial-active-target={tutorialTarget}
         data-sound-muted={state.settings.soundMuted ? "true" : "false"}
         data-effects-enabled={state.settings.effectsEnabled ? "true" : "false"}
         data-last-action-kind={state.lastAction?.kind ?? "none"}
         data-toast-visible={state.lastToast ? "true" : "false"}
       >
-        <header className="top-bar">
+        <header className="top-bar ui-carved-header">
           <div>
             <span className="app-kicker">귤 정원 돌봄</span>
             <h1>카피바라 집사기</h1>
           </div>
-          <div className="save-dot" title="자동 저장 활성">저장</div>
+          <div className="save-dot ui-plaque ui-plaque--save" title="자동 저장 활성">저장</div>
         </header>
 
         <div className="content-shell">
           {renderTab(activeTab, handleTap)}
         </div>
 
-        <nav className="bottom-tabs" aria-label="주요 화면">
+        <nav className="bottom-tabs ui-tab-dock" aria-label="주요 화면">
           {routes.map((route) => (
             <button
               key={route.id}
               type="button"
               aria-label={route.ariaLabel ?? route.label}
-              className={activeTab === route.id ? "is-active" : ""}
+              className={`ui-tab-dock__item ${activeTab === route.id ? "is-active" : ""}`.trim()}
               onClick={() => {
                 if (activeTab !== route.id) SoundManager.play("navigation");
                 setActiveTab(route.id);
@@ -233,7 +233,7 @@ export function AppShell() {
           ))}
         </nav>
 
-        {state.lastToast ? <div className="toast" role="status">{state.lastToast}</div> : null}
+        {state.lastToast ? <div className="toast ui-toast-banner" role="status">{state.lastToast}</div> : null}
         <FloatingTextLayer items={visibleFloatingTexts} />
         <ParticleLayer items={visibleParticles} />
         <TutorialOverlay />
@@ -257,7 +257,7 @@ export function AppShell() {
         <Modal
           open={Boolean(state.offlineReward?.pending)}
           title="오프라인 보상"
-          className="reward-modal"
+          className="reward-modal ui-modal--reward"
           actions={<Button onClick={() => GameActions.claimOffline()}>보상 받기</Button>}
         >
           <p>{offlineReturnLine(state.offlineReward?.seconds ?? 0)}</p>

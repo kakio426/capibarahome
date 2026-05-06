@@ -14,7 +14,7 @@
 - [x] Story bible added and connected to UI/config
 - [x] Balance simulation added and tested
 - [x] Source budget re-audited without generated/config/docs/screenshots/build output
-- [x] Handwritten implementation scale recorded (`runtime 7,574 LOC`, `handwritten tests/E2E 2,285 LOC`)
+- [x] Handwritten implementation scale recorded (`runtime 7,781 LOC`, `handwritten tests/E2E 2,289 LOC`)
 - [x] Content integration audit completed in `CONTENT_INTEGRATION_AUDIT.md`
 - [x] Visual defects audit completed in `VISUAL_DEFECTS.md`
 - [x] RC-1 product-feel hardening completed: companion passive, achievement claim rewards, long-term goal, WebAudio feedback
@@ -22,6 +22,8 @@
 - [x] V2 raster/HUD art pass completed after rejecting the first raster pass: integrated home hero background, 8 companion portraits, prestige ritual, shop banner, offline reward, store key visual, app icon candidate, wood/parchment/orange game UI skin
 - [x] RC-4 Game UI Skin & Interaction Polish completed: upgrade workbench/shelf cards, settings ledger/drawer, save vault modal, custom settings switches, save export copy action, carved modal/toast/disabled control polish, refreshed visual/store screenshots
 - [x] RC-4 visual audit completed in `RC4_UI_SKIN_AUDIT.md`
+- [x] RC-5 CSS Debt & Component System Pass completed: `layout.css` import manifest, `shell/hud/screens/effects` split, `.ui-*` skin classes, upgrade/settings/save/album P2/P3 polish, refreshed visual/store screenshots
+- [x] RC-5 CSS/component audit completed in `RC5_CSS_COMPONENT_AUDIT.md`
 - [x] Visual asset integrity tests added for SVG count, raster PNG integrity, coverage, external-reference bans, runtime visual styling audit
 - [x] Art production docs added: `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`
 - [x] RC-2 audio readiness completed: file-ready audio slots and synthetic WebAudio fallback

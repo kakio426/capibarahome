@@ -31,19 +31,19 @@ export function SaveImportExportModal({ open, onClose }: SaveImportExportModalPr
   }
 
   return (
-    <Modal open={open} title="저장 내보내기/가져오기" onClose={onClose} className="save-vault-modal" bodyClassName="save-vault-body">
-      <div className="vault-seal-row" aria-hidden="true">
+    <Modal open={open} title="저장 내보내기/가져오기" onClose={onClose} className="save-vault-modal ui-modal--vault" bodyClassName="save-vault-body ui-vault-body">
+      <div className="vault-seal-row ui-vault-seal" aria-hidden="true">
         <span>보관함 봉인 코드</span>
         <strong>검증 도장</strong>
       </div>
-      <label className="field-stack vault-code-slot">
+      <label className="field-stack vault-code-slot ui-code-slot">
         <span className="field-heading">Export 코드</span>
         <textarea className="save-code-textarea" aria-label="Export 코드" readOnly value={exportCode} />
       </label>
       <div className="save-ledger-actions">
         <Button variant="secondary" onClick={copyExportCode} disabled={!exportCode}>Export 코드 복사</Button>
       </div>
-      <label className="field-stack vault-code-slot is-import">
+      <label className="field-stack vault-code-slot ui-code-slot is-import">
         <span className="field-heading">Import 코드</span>
         <textarea
           className="save-import-textarea"

@@ -57,7 +57,7 @@ export function CollectionScreen() {
             ))}
           </div>
         </div>
-        <div className="album-score-grid">
+        <div className="album-score-grid ui-sticker-ledger">
           <div>
             <span className="metric-label">퀘스트</span>
             <strong>{questBoard.claimed.length}/{questBoard.quests.length}</strong>

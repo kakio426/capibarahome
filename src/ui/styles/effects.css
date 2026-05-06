@@ -1,0 +1,236 @@
+.game-shell[data-tutorial-active-target="capybara"] [data-tutorial-target="capybara"],
+.game-shell[data-tutorial-active-target="upgrade"] [data-tutorial-target="upgrade"],
+.game-shell[data-tutorial-active-target="prestige"] [data-tutorial-target="prestige"] {
+  outline: 4px solid rgba(255, 213, 104, 0.9);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 10px rgba(255, 213, 104, 0.22), var(--hud-shadow);
+}
+
+.floating-layer,
+.particle-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floating-text {
+  position: fixed;
+  color: #d95618;
+  text-shadow: 0 2px 0 #fff7dc, 0 7px 16px rgba(79, 49, 31, 0.2);
+  font-weight: 950;
+  animation: floating-rise 0.82s ease-out forwards;
+}
+
+.particle {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff982a;
+  box-shadow: inset -2px -2px 0 rgba(217, 86, 24, 0.24);
+  animation: particle-pop 0.72s ease-out forwards;
+}
+
+.decor-sunny-yard {
+  --decor-accent: rgba(255, 213, 104, 0.28);
+  --decor-x: 28%;
+  --decor-y: 24%;
+}
+
+.decor-basket-corner,
+.decor-storehouse-sign,
+.decor-crate-lane,
+.decor-fragrance-shelf,
+.decor-cart-stop {
+  --decor-accent: rgba(255, 152, 42, 0.24);
+  --decor-x: 20%;
+  --decor-y: 76%;
+}
+
+.decor-paw-stamp,
+.decor-leaf-path,
+.decor-cart-track {
+  --decor-accent: rgba(255, 239, 177, 0.2);
+  --decor-x: 50%;
+  --decor-y: 86%;
+}
+
+.decor-nap-mat,
+.decor-towel-rack,
+.decor-snack-counter {
+  --decor-accent: rgba(255, 193, 91, 0.2);
+  --decor-x: 36%;
+  --decor-y: 80%;
+}
+
+.decor-watering-rill,
+.decor-pond-stones,
+.decor-onsen-mist {
+  --decor-accent: rgba(142, 224, 223, 0.22);
+  --decor-x: 74%;
+  --decor-y: 76%;
+}
+
+.decor-bamboo-gate,
+.decor-wind-chime,
+.decor-orange-lanterns,
+.decor-festival-ribbon,
+.decor-moon-observatory {
+  --decor-accent: rgba(255, 245, 199, 0.2);
+  --decor-x: 72%;
+  --decor-y: 26%;
+}
+
+.decor-golden-arch,
+.decor-leaf-plaque,
+.decor-compost-greenhouse,
+.decor-memory-gate,
+.decor-release-board {
+  --decor-accent: rgba(255, 213, 104, 0.28);
+  --decor-x: 50%;
+  --decor-y: 30%;
+}
+
+@keyframes mascot-bounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+
+@keyframes mascot-chew {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+
+  50% {
+    transform: translateX(-50%) scale(1.018);
+  }
+}
+
+@keyframes mascot-sway {
+  0%,
+  100% {
+    transform: translateX(-50%) rotate(-1deg);
+  }
+
+  50% {
+    transform: translateX(-50%) rotate(1deg);
+  }
+}
+
+@keyframes floating-rise {
+  0% {
+    transform: translate(-50%, -10px) scale(0.92);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -84px) scale(1.06);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-pop {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(var(--dx), var(--dy)) scale(0.2);
+    opacity: 0;
+  }
+}
+@keyframes shelf-purchase-pulse {
+  0% {
+    transform: translateY(0) scale(1);
+    filter: brightness(1);
+  }
+
+  45% {
+    transform: translateY(-2px) scale(1.012);
+    filter: brightness(1.08);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+    filter: brightness(1);
+  }
+}
+
+@keyframes toast-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  24% {
+    transform: translateX(-5px);
+  }
+
+  48% {
+    transform: translateX(5px);
+  }
+
+  72% {
+    transform: translateX(-3px);
+  }
+}
+
+@keyframes tab-active-pop {
+  0% {
+    transform: translateY(1px) scale(0.96);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes prestige-ready-glow {
+  0%,
+  100% {
+    box-shadow: 0 12px 0 rgba(47, 27, 18, 0.38), 0 28px 42px rgba(18, 35, 27, 0.26), inset 0 0 0 2px rgba(255, 213, 104, 0.26);
+  }
+
+  50% {
+    box-shadow: 0 12px 0 rgba(47, 27, 18, 0.38), 0 28px 46px rgba(255, 152, 42, 0.3), inset 0 0 0 4px rgba(255, 213, 104, 0.34);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .game-shell[data-effects-enabled="true"][data-last-action-kind="purchase"] .upgrade-shelf-card.is-buyable {
+    animation: shelf-purchase-pulse 420ms ease-out;
+  }
+
+  .game-shell[data-effects-enabled="true"][data-last-action-kind="error"] .toast {
+    animation: toast-shake 260ms ease-out;
+  }
+
+  .game-shell[data-effects-enabled="true"] .bottom-tabs button.is-active .tab-icon {
+    animation: tab-active-pop 180ms ease-out;
+  }
+
+  .game-shell[data-effects-enabled="true"] .prestige-card.is-ready {
+    animation: prestige-ready-glow 2.4s ease-in-out infinite;
+  }
+}
+
+.game-shell[data-effects-enabled="false"] .floating-text,
+.game-shell[data-effects-enabled="false"] .particle,
+.game-shell[data-effects-enabled="false"] .prestige-card.is-ready,
+.game-shell[data-effects-enabled="false"] .bottom-tabs button.is-active .tab-icon {
+  animation: none;
+}

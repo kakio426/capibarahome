@@ -8,9 +8,18 @@ type ButtonProps = PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement> & {
 }>;
 
 export function Button({ children, className = "", variant = "primary", fullWidth = false, ...props }: ButtonProps) {
+  const classes = [
+    "btn",
+    `btn-${variant}`,
+    "ui-button",
+    `ui-button--${variant}`,
+    fullWidth ? "btn-full ui-button--full" : "",
+    className,
+  ].filter(Boolean).join(" ");
+
   return (
     <button
-      className={`btn btn-${variant}${fullWidth ? " btn-full" : ""} ${className}`.trim()}
+      className={classes}
       {...props}
     >
       {children}

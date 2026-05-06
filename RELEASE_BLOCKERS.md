@@ -12,19 +12,20 @@
 | 실제 유저 플로우 debug 의존 | 없음 | debug는 `e2e/debug-cheat-flow.spec.ts`에 격리 |
 | 모바일 overflow/주요 화면 깨짐 | 없음 | `visual-regression.spec.ts` screenshot/overflow 검증 통과 |
 | 저장/환생/오프라인 보상 blocking issue | 없음 | unit + E2E coverage |
-| 문서 불일치 | 없음 | source budget 재감사와 RC-4 skin audit 기준으로 `SPEC_COVERAGE.md`, `QA_REPORT.md`, `VISUAL_QA.md`, `RELEASE_CHECKLIST.md`, `RC4_UI_SKIN_AUDIT.md` 갱신 |
+| 문서 불일치 | 없음 | source budget 재감사와 RC-5 CSS/component audit 기준으로 `SPEC_COVERAGE.md`, `QA_REPORT.md`, `VISUAL_QA.md`, `RELEASE_CHECKLIST.md`, `RC4_UI_SKIN_AUDIT.md`, `RC5_CSS_COMPONENT_AUDIT.md` 갱신 |
 | content inflation P1 | 없음 | `CONTENT_INTEGRATION_AUDIT.md`, 누락 decoration hero visual 11개 수정 |
 | visual defect P1 | 없음 | `VISUAL_DEFECTS.md`, save modal/tab/toast 수정 |
 | RC-1 reward feel P1 | 없음 | companion passive, achievement claim reward, long-term goal, WebAudio mute, RC-1 tests/E2E 추가 |
 | direct art/CSS readiness P1 | 없음 | 첫 raster pass 실패 기록 후 v2 HUD/raster pass 적용, `layout.css` 통합 정리, 253 SVG auxiliary files, 15 raster PNG core/release assets, `visualAssetIntegrity.test.ts`, `rasterAssetIntegrity.test.ts`, art direction docs |
 | RC-4 webapp control smell P1 | 없음 | upgrade workbench/shelf cards, settings ledger/drawer, save vault modal, custom settings switch, save export copy action, carved modal/toast/disabled controls, refreshed visual/store screenshots |
+| RC-5 CSS/component debt P1 | 없음 | `layout.css` import manifest, `shell/hud/screens/effects` split, `.ui-*` skin system, visualAssetIntegrity runtime CSS coverage, refreshed visual/store screenshots |
 | RC-3 playtest/balance/bug bash P1 | 없음 | 첫 환생 33분, 실제 5분권 E2E, migration/corrupt import/rapid tap/reward duplicate tests, store screenshot 재감사 |
 
 ## Source Budget Audit Gate
 
 | 항목 | 판정 | 근거 |
 | --- | --- | --- |
-| generated/config/docs 제외 구현량 | 기록 완료 | runtime 7,574 LOC, handwritten tests/E2E 2,285 LOC |
+| generated/config/docs 제외 구현량 | 기록 완료 | runtime 7,781 LOC, handwritten tests/E2E 2,289 LOC |
 | 이전 대형 `src` LOC 주장 | 완료 근거로 사용 금지 | generated SVG/registry 11,533 LOC와 generated tests 5,846 LOC는 별도 분리 |
 | 콘텐츠 실제 연결성 | 통과 | 30 upgrades/facilities, 50 quests, 40 achievements with claim rewards, 25 decorations, 8 capybaras with passive abilities, 5 tiers 항목별 감사 |
 
@@ -49,4 +50,4 @@
 
 ## Decision
 
-현재 감사 기준에서 내부 P0/P1 release blocker는 없다. 업그레이드 card-list P1, 설정 form smell, save util dialog smell은 RC-4 hardening pass에서 해결로 판정한다. 실제 스토어 제출 완료로 주장하지 않으며, commissioned/final art ownership, real audio files, SDK, signing, platform icon/splash export, 물리 기기 QA는 P1 external readiness blocker로 남긴다.
+현재 감사 기준에서 내부 P0/P1 release blocker는 없다. 업그레이드 card-list P1, 설정 form smell, save util dialog smell은 RC-4 hardening pass에서 해결됐고, RC-5 CSS/component debt는 내부 P0/P1 없이 정리된 것으로 판정한다. 실제 스토어 제출 완료로 주장하지 않으며, commissioned/final art ownership, real audio files, SDK, signing, platform icon/splash export, 물리 기기 QA는 P1 external readiness blocker로 남긴다.

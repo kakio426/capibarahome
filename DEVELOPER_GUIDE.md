@@ -15,6 +15,23 @@ src/
   tests/        Vitest 시뮬레이션 테스트
 ```
 
+## CSS / UI Skin 구조
+
+Runtime CSS는 `src/main.tsx`에서 `tokens.css`, `global.css`, `layout.css` 순서로 import합니다. `layout.css`는 직접 스타일을 담지 않고 아래 파일을 불러오는 manifest입니다.
+
+```txt
+src/ui/styles/
+  tokens.css   shared color/spacing/radius/motion tokens
+  global.css   reset/base/body/root typography
+  layout.css   shell/hud/screens/effects import manifest
+  shell.css    app frame, top header, content shell, bottom tab dock
+  hud.css      reusable button, panel, modal, toggle, progress, plaque, toast, vault/reward HUD skin
+  screens.css  home, upgrade, album, prestige, shop, settings, save, tutorial, debug screen layout
+  effects.css  floating text, particles, purchase pulse, tab pop, glow, reduced-motion handling
+```
+
+기존 E2E selector 안정성을 위해 `.btn`, `.panel`, `.modal`, `.upgrade-card`, `.bottom-tabs` 같은 legacy classes는 유지합니다. 새 skin system은 같은 요소에 `.ui-button`, `.ui-panel`, `.ui-modal`, `.ui-ledger-row`, `.ui-progress-groove`, `.ui-tab-dock`, `.ui-shelf-card`, `.ui-sticker-ledger`, `.ui-code-slot`을 병행 부여합니다. 새 화면을 추가할 때는 legacy selector를 복사하기보다 가능한 한 `.ui-*` class를 먼저 붙이고, 화면 고유 배치만 `screens.css`에 추가합니다.
+
 ## 게임 루프
 
 `GameLoop`는 `requestAnimationFrame` 기반입니다. `setInterval`로 핵심 생산 계산을 돌리지 않습니다.

@@ -35,7 +35,7 @@
 | 17. M9 분석/QA/성능 | analytics mock, QA 시나리오, 성능 기준 | 완료 | `AnalyticsManager.ts`, `QA_REPORT.md`, `PERFORMANCE_QA.md`, E2E |
 | 18. M10 문서화 | README, 개발, 밸런스, 세이브, QA 문서 | 완료 | 필수 문서와 release 문서 최신화 |
 | 19. UI 화면 구성 | 홈/업그레이드/환생/상점/설정 | 완료 | 홈/업그레이드/환생/앨범/상점/설정, `AppShell.tsx`, screenshots |
-| 20. UX 디테일 | 성공/실패 안내, 부드러운 수치/이펙트, 위험 확인, 44px 터치 | 완료 | `layout.css`, actions toast, modal confirmations, E2E |
+| 20. UX 디테일 | 성공/실패 안내, 부드러운 수치/이펙트, 위험 확인, 44px 터치 | 완료 | split CSS skin files, actions toast, modal confirmations, E2E |
 | 21. 에러 처리 | storage/save/import/mock/BigNumber 오류 안전 처리 | 완료 | `SaveManager.ts`, `GameActions.ts`, monetization tests |
 | 22. 테스트 명령어 | dev/build/test/watch scripts | 완료 | `package.json` |
 | 23. 금지 사항 | hardcode 수치, setInterval loop, number-only, versionless save 등 금지 | 완료 | config/math/save/RAF 구조와 tests |
@@ -56,7 +56,7 @@
 | RC-1 achievement reward 강화 | 완료 | `AchievementRewardConfig.ts`, `AchievementManager.ts`, album claim UI, unit/E2E |
 | RC-1 long-term meta 강화 | 완료 | `ProgressionRewardManager.ts`, `ProgressionConfig.ts`, `MainGameScreen.tsx`, balance simulation |
 | RC-1 sound feedback | 완료 | WebAudio `SoundManager.ts`, settings mute state, unit/E2E |
-| Direct handmade SVG/CSS art pass | 완료 | 253 SVG auxiliary files, `builtinAssets.ts`, integrated `layout.css`, `visualAssetIntegrity.test.ts`, `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md` |
+| Direct handmade SVG/CSS art pass | 완료 | 253 SVG auxiliary files, `builtinAssets.ts`, split CSS skin files, `visualAssetIntegrity.test.ts`, `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md` |
 | RC-2 final visual asset pass | 완료 | portrait accessories, `app-icon-rc2.svg`, `splash-rc2.svg`, `store-screenshot-frame-rc2.svg`, runtime visual fallback 정리 |
 | RC-2 store screenshot pack | 완료 | `e2e/store-screenshot-pack.spec.ts`, `store-screenshots/` 10 PNG 후보, `STORE_SCREENSHOT_PLAN.md` |
 | RC-2 audio readiness | 완료 | `AudioConfig.ts`, file-ready `SoundManager.ts`, `audio.test.ts`, `AUDIO_ASSET_PLAN.md` |
@@ -64,6 +64,7 @@
 | RC-3 playtest/balance bug bash | 완료 | `PLAYTEST_REPORT.md`, `BalanceSimulator.ts`, `balanceSimulation.test.ts`, `rc3BugBash.test.ts`, `first-five-minute-playtest.spec.ts` |
 | RC-3 store screenshot polish | 완료 | album crop, prestige multiplier formatting, save screenshot copy 수정, `store-screenshots/` 10장 재생성 |
 | RC-4 Game UI Skin & Interaction Polish | 완료 | `RC4_UI_SKIN_AUDIT.md`, upgrade workbench/shelf, settings ledger/drawer, save vault modal, custom settings switches, save export copy action, carved modal/toast/disabled controls, `visual-regression.spec.ts`, `store-screenshot-pack.spec.ts` |
+| RC-5 CSS Debt & Component System Pass | 완료 | `RC5_CSS_COMPONENT_AUDIT.md`, `layout.css` manifest, `shell/hud/screens/effects` split, reusable `.ui-*` skin classes, refreshed visual/store screenshots |
 
 ## Trace Gate
 

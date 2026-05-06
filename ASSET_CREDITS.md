@@ -1,6 +1,6 @@
 # Asset Credits
 
-기준일: 2026-05-05
+기준일: 2026-05-06
 
 ## 현재 사용 자산
 
@@ -13,7 +13,7 @@
 | Final splash 후보 | `src/assets/generated/release/splash-final.svg` | 프로젝트 내부 SVG 생성 | 제출 전 플랫폼별 크기 export 필요 |
 | Final key visual 후보 | `main-hero-background.png`, `main-capybara-character.png`, `prestige-ritual.png`, `shop-reward-banner.png`, `offline-reward.png`, `store-key-visual.png` | generated v2 raster candidate | Playwright QA/store screenshot pack에 연결됨. `main-capybara-character.png`는 registry fallback/app icon crop 후보 |
 | RC-2 release 초안 | `app-icon-rc2.svg`, `splash-rc2.svg`, `store-screenshot-frame-rc2.svg` | 프로젝트 내부 SVG 생성 | 비교/교체용 draft로 유지 |
-| CSS scene/particles/floating text | `src/ui/styles/layout.css` | 프로젝트 내부 CSS 도형/효과 | 외부 에셋 미사용 |
+| CSS scene/particles/floating text/UI skin | `src/ui/styles/layout.css`, `src/ui/styles/shell.css`, `src/ui/styles/hud.css`, `src/ui/styles/screens.css`, `src/ui/styles/effects.css` | 프로젝트 내부 CSS 도형/효과/게임 HUD skin | 외부 에셋 미사용 |
 
 ## 외부 리소스 사용 여부
 

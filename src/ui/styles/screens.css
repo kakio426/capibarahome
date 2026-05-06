@@ -1,0 +1,1411 @@
+.hero-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 456px;
+  border: 2px solid rgba(255, 253, 242, 0.42);
+  border-radius: 28px;
+  background: #183629;
+  box-shadow: 0 22px 44px rgba(31, 44, 36, 0.22), inset 0 0 0 1px rgba(255, 255, 255, 0.38);
+}
+
+.screen-header {
+  padding: 12px 14px;
+  color: #fff2c2;
+  border: 4px solid #2f1b12;
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 213, 104, 0.18), transparent),
+    repeating-linear-gradient(90deg, rgba(255, 236, 177, 0.08) 0 8px, transparent 8px 34px),
+    linear-gradient(135deg, #70411f, #3a2114);
+  box-shadow:
+    0 9px 0 rgba(47, 27, 18, 0.34),
+    0 18px 26px rgba(18, 35, 27, 0.18),
+    inset 0 2px 0 rgba(255, 246, 212, 0.2);
+}
+
+.screen-header h2 {
+  color: #fff4cc;
+  text-shadow: 0 3px 0 rgba(47, 27, 18, 0.52);
+}
+
+.screen-header p,
+.screen-header .app-kicker {
+  color: rgba(255, 242, 194, 0.86);
+}
+
+.screen-header::after {
+  width: 64px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(255, 198, 74, 0.16);
+  box-shadow: -26px 20px 0 rgba(255, 241, 191, 0.06);
+}
+
+.hero-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.tier-art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.2;
+  filter: saturate(1.08);
+}
+
+.tier-yard {
+  --tier-a: rgba(255, 152, 42, 0.18);
+  --tier-b: rgba(39, 136, 102, 0.14);
+}
+
+.tier-storehouse {
+  --tier-a: rgba(178, 122, 72, 0.22);
+  --tier-b: rgba(123, 79, 47, 0.16);
+}
+
+.tier-onsen {
+  --tier-a: rgba(75, 167, 185, 0.2);
+  --tier-b: rgba(255, 253, 242, 0.18);
+}
+
+.tier-bamboo {
+  --tier-a: rgba(105, 184, 115, 0.2);
+  --tier-b: rgba(245, 216, 95, 0.2);
+}
+
+.tier-golden {
+  --tier-a: rgba(255, 213, 104, 0.26);
+  --tier-b: rgba(139, 74, 170, 0.16);
+}
+
+.currency-grid {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.currency-display {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  min-height: 62px;
+  padding: 8px;
+  border: 2px solid rgba(255, 253, 242, 0.56);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 242, 0.9), rgba(255, 242, 201, 0.78));
+  box-shadow: 0 11px 24px rgba(31, 44, 36, 0.18);
+  backdrop-filter: blur(10px);
+}
+
+.currency-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: inset 0 0 0 2px rgba(255, 213, 104, 0.22);
+}
+
+.currency-label {
+  color: #6d735f;
+}
+
+.currency-display strong {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: #243f34;
+  font-size: clamp(1rem, 4.8vw, 1.32rem);
+  font-weight: 950;
+  line-height: 1.08;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.capybara-touch {
+  position: relative;
+  width: 100%;
+  min-height: 456px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 26px;
+  background: #184431;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 253, 242, 0.5),
+    inset 0 -28px 0 rgba(31, 76, 58, 0.2);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.capybara-touch:active {
+  transform: translateY(3px) scale(0.992);
+  box-shadow:
+    inset 0 0 0 3px rgba(255, 253, 242, 0.78),
+    inset 0 -18px 0 rgba(47, 134, 93, 0.14),
+    0 8px 0 rgba(123, 79, 47, 0.15),
+    0 14px 22px rgba(31, 44, 36, 0.13);
+}
+
+.hero-raster-background,
+.scene-reward-badge,
+.tap-copy {
+  position: absolute;
+  z-index: 1;
+}
+
+.hero-raster-background {
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 48%;
+  pointer-events: none;
+  filter: saturate(1.06) contrast(1.02);
+}
+
+.capybara-touch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(22, 45, 34, 0.1), rgba(22, 45, 34, 0.12) 52%, rgba(22, 45, 34, 0.38)),
+    radial-gradient(circle at 50% 58%, rgba(255, 245, 199, 0.26), transparent 34%);
+}
+
+.scene-reward-badge {
+  top: 86px;
+  left: 14px;
+  z-index: 3;
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid rgba(255, 253, 242, 0.52);
+  border-radius: 999px;
+  padding: 5px 12px;
+  color: #fffdf2;
+  background: rgba(31, 76, 58, 0.72);
+  box-shadow: 0 10px 20px rgba(31, 44, 36, 0.2);
+  font-size: 0.76rem;
+  font-weight: 950;
+  backdrop-filter: blur(8px);
+}
+
+.scene-reward-badge.is-ready {
+  color: #4f311f;
+  background: rgba(255, 213, 104, 0.9);
+}
+
+.tap-copy {
+  left: 50%;
+  bottom: 18px;
+  z-index: 5;
+  min-width: 118px;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  transform: translateX(-50%);
+  border: 2px solid rgba(123, 79, 47, 0.18);
+  border-radius: 999px;
+  padding: 0 18px;
+  color: #fffdf2;
+  background: linear-gradient(180deg, #ffb64b, #d95618);
+  box-shadow: 0 8px 0 rgba(123, 79, 47, 0.28);
+  font-size: 1.02rem;
+  font-weight: 950;
+}
+
+.upgrade-list,
+.quest-list,
+.product-list {
+  display: grid;
+  gap: 10px;
+}
+
+.upgrade-card,
+.quest-card,
+.product-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 11px;
+}
+
+.upgrade-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 8px;
+  background: linear-gradient(180deg, #ff982a, #ffd568, #278866);
+  opacity: 0.42;
+}
+
+.upgrade-card > *,
+.quest-card > *,
+.product-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.upgrade-card.is-buyable,
+.quest-card.is-ready {
+  border-color: rgba(255, 152, 42, 0.44);
+  background:
+    radial-gradient(circle at 92% 8%, rgba(255, 213, 104, 0.52), transparent 118px),
+    radial-gradient(circle at 12% 14%, rgba(255, 152, 42, 0.24), transparent 96px),
+    linear-gradient(180deg, #fffdf2, #fff0c6);
+}
+
+.upgrade-card.is-content-locked,
+.upgrade-card.is-locked,
+.quest-card.is-claimed {
+  filter: saturate(0.78);
+}
+
+.upgrade-copy,
+.quest-copy,
+.product-copy {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.upgrade-title-row,
+.quest-title-row,
+.product-title-row {
+  display: grid;
+  grid-template-columns: 54px minmax(0, auto) auto;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.upgrade-title-row h3,
+.quest-title-row h3,
+.product-title-row h3 {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.upgrade-icon,
+.product-icon,
+.quest-title-row .visual-asset,
+.quest-title-row .visual-icon {
+  width: 54px;
+  height: 54px;
+  grid-row: span 2;
+  border-radius: 16px;
+  filter: drop-shadow(0 5px 0 rgba(123, 79, 47, 0.12));
+}
+
+.upgrade-icon {
+  padding: 5px;
+  background:
+    radial-gradient(circle at 50% 32%, rgba(255, 213, 104, 0.28), transparent 34px),
+    linear-gradient(180deg, rgba(255, 253, 242, 0.8), rgba(223, 243, 233, 0.72));
+  box-shadow: inset 0 0 0 2px rgba(255, 253, 242, 0.8), 0 6px 0 rgba(123, 79, 47, 0.1);
+}
+
+.product-icon {
+  display: block;
+}
+
+.upgrade-type {
+  color: #6b7a6d;
+}
+
+.upgrade-tier-chip {
+  background: rgba(75, 167, 185, 0.14);
+  color: #226375;
+}
+
+.upgrade-ready-chip {
+  grid-column: 2 / -1;
+  justify-self: start;
+}
+
+.upgrade-ui-copy,
+.quest-helper,
+.product-copy p {
+  color: #56665c;
+  font-size: 0.84rem;
+  font-weight: 740;
+}
+
+.upgrade-meta,
+.companion-ability,
+.reward-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.upgrade-meta span,
+.companion-ability span {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: #365044;
+  background: rgba(255, 253, 242, 0.7);
+  font-size: 0.75rem;
+  font-weight: 850;
+}
+
+.album-hero {
+  display: grid;
+  gap: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 231, 0.96), rgba(235, 245, 226, 0.92)),
+    repeating-linear-gradient(90deg, rgba(123, 79, 47, 0.07) 0 2px, transparent 2px 34px);
+}
+
+.album-room-scene {
+  position: relative;
+  min-height: 184px;
+  overflow: hidden;
+  border: 2px solid rgba(123, 79, 47, 0.14);
+  border-radius: 18px;
+  background: #24473b;
+  box-shadow: inset 0 -24px 0 rgba(31, 76, 58, 0.16), 0 10px 0 rgba(123, 79, 47, 0.08);
+}
+
+.album-room-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 56%;
+  opacity: 0.8;
+  filter: saturate(0.96) contrast(0.98);
+}
+
+.album-room-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 253, 242, 0.12), rgba(255, 253, 242, 0.68));
+}
+
+.album-sticker-strip {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.album-sticker {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 3px solid rgba(255, 253, 242, 0.9);
+  border-radius: 18px;
+  box-shadow: 0 10px 18px rgba(31, 44, 36, 0.18);
+}
+
+.quest-card {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.quest-card .btn {
+  min-width: 90px;
+}
+
+.companion-grid,
+.decoration-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.companion-card,
+.decoration-card {
+  min-width: 0;
+  display: grid;
+  gap: 10px;
+  border: 2px solid rgba(123, 79, 47, 0.13);
+  border-radius: 14px;
+  padding: 10px;
+  background: rgba(255, 253, 242, 0.66);
+  box-shadow: 0 8px 0 rgba(123, 79, 47, 0.08);
+}
+
+.companion-card {
+  grid-template-columns: 108px minmax(0, 1fr);
+  align-items: center;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 242, 0.94), rgba(255, 242, 201, 0.72)),
+    repeating-linear-gradient(-8deg, rgba(255, 213, 104, 0.08) 0 6px, transparent 6px 18px);
+}
+
+.companion-card.is-unlocked {
+  background:
+    radial-gradient(circle at 0 0, rgba(255, 213, 104, 0.24), transparent 110px),
+    rgba(255, 253, 242, 0.76);
+}
+
+.companion-card.mood-cheerful {
+  border-color: rgba(255, 152, 42, 0.28);
+}
+
+.companion-card.mood-calm {
+  border-color: rgba(39, 136, 102, 0.22);
+}
+
+.companion-card.mood-dreamy {
+  border-color: rgba(139, 74, 170, 0.22);
+}
+
+.companion-portrait {
+  width: 108px;
+  height: 108px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 3px solid rgba(255, 253, 242, 0.9);
+  border-radius: 18px;
+  background: #fff7dc;
+  box-shadow: 0 10px 18px rgba(31, 44, 36, 0.16), inset 0 0 0 2px rgba(255, 253, 242, 0.8);
+}
+
+.companion-asset {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.companion-copy {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.companion-copy h3,
+.companion-copy p {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.decoration-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.decoration-card {
+  min-height: 170px;
+  align-content: start;
+}
+
+.decoration-card > .visual-asset,
+.decoration-card > .visual-icon {
+  width: 64px;
+  height: 64px;
+}
+
+.decoration-card.is-equipped {
+  border-color: rgba(255, 152, 42, 0.45);
+  background:
+    linear-gradient(180deg, rgba(255, 245, 199, 0.9), rgba(255, 253, 242, 0.7));
+}
+
+.decoration-card h3,
+.decoration-card p {
+  overflow-wrap: anywhere;
+}
+
+.prestige-card {
+  display: grid;
+  gap: 12px;
+  color: #fffdf2;
+  background:
+    radial-gradient(circle at 72% 22%, rgba(255, 213, 104, 0.54), transparent 122px),
+    linear-gradient(160deg, #4f311f, #245f49 54%, #8b4aaa);
+}
+
+.prestige-card p,
+.prestige-card .metric-label,
+.prestige-card .progress-label {
+  color: rgba(255, 253, 242, 0.82);
+}
+
+.prestige-card.is-ready {
+  box-shadow: 0 20px 44px rgba(139, 74, 170, 0.2), inset 0 0 0 2px rgba(255, 213, 104, 0.26);
+}
+
+.prestige-badge {
+  justify-self: start;
+  min-height: 32px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  padding: 5px 11px;
+  color: #4f311f;
+  background: #ffd568;
+}
+
+.prestige-visual {
+  position: relative;
+  min-height: 232px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 253, 242, 0.24);
+  border-radius: 18px;
+  background: #1c3528;
+}
+
+.prestige-key-asset {
+  width: 100%;
+  height: 100%;
+  min-height: 232px;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(1.04) contrast(1.02);
+}
+
+.prestige-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 54%, rgba(31, 44, 36, 0.32));
+}
+
+.prestige-grid > div {
+  background: rgba(255, 253, 242, 0.16);
+  border-color: rgba(255, 253, 242, 0.22);
+}
+
+.prestige-grid strong {
+  color: #fffdf2;
+}
+
+.shop-feature-card {
+  display: grid;
+  gap: 12px;
+  color: #fffdf2;
+  background:
+    linear-gradient(180deg, rgba(31, 76, 58, 0.96), rgba(101, 63, 37, 0.96)),
+    #245f49;
+}
+
+.shop-banner-visual {
+  min-height: 208px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 253, 242, 0.22);
+  border-radius: 18px;
+  background: rgba(255, 253, 242, 0.08);
+  box-shadow: inset 0 0 0 2px rgba(255, 253, 242, 0.14);
+}
+
+.shop-banner-asset {
+  width: 100%;
+  height: 100%;
+  min-height: 208px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.shop-feature-card p,
+.shop-feature-card .shop-kicker {
+  color: rgba(255, 253, 242, 0.82);
+}
+
+.reward-chip-row {
+  align-items: center;
+}
+
+.reward-chip {
+  color: #24473b;
+  background: rgba(255, 253, 242, 0.8);
+}
+
+.product-card {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.product-card .btn {
+  width: 100%;
+}
+
+.owned-chip {
+  background: rgba(39, 136, 102, 0.14);
+  color: #1f4c3a;
+}
+.offline-visual {
+  position: relative;
+  min-height: 196px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: #dff3e9;
+}
+
+.offline-key-asset {
+  width: 100%;
+  height: 100%;
+  min-height: 196px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.offline-reward {
+  display: block;
+  border-radius: 16px;
+  padding: 12px;
+  color: #d95618;
+  background: rgba(255, 213, 104, 0.2);
+  font-size: 1.22rem;
+  font-weight: 950;
+  text-align: center;
+}
+
+.tutorial-overlay {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: calc(92px + var(--safe-bottom));
+  z-index: 9;
+  display: grid;
+  gap: 9px;
+  border: 2px solid rgba(255, 253, 242, 0.68);
+  border-radius: 20px;
+  padding: 14px;
+  color: #fffdf2;
+  background: linear-gradient(145deg, rgba(31, 76, 58, 0.96), rgba(79, 49, 31, 0.96));
+  box-shadow: 0 24px 48px rgba(31, 44, 36, 0.32);
+}
+
+.tutorial-overlay p {
+  color: rgba(255, 253, 242, 0.84);
+  font-weight: 780;
+}
+
+.tutorial-step {
+  color: #ffd568;
+}
+
+.tutorial-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.tutorial-actions .btn {
+  min-width: 0;
+  padding-inline: 6px;
+  font-size: 0.78rem;
+}
+
+.debug-panel {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 104px;
+  z-index: 10;
+  border: 2px solid rgba(200, 61, 61, 0.26);
+  border-radius: 16px;
+  padding: 9px;
+  background: rgba(255, 253, 242, 0.96);
+  box-shadow: 0 16px 32px rgba(31, 44, 36, 0.2);
+}
+
+.debug-panel summary {
+  cursor: pointer;
+  color: #c83d3d;
+  font-weight: 950;
+}
+
+.debug-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.debug-grid .btn {
+  min-height: 38px;
+  font-size: 0.76rem;
+}
+.hero-card {
+  min-height: 532px;
+  border: 6px solid #2f1b12;
+  border-radius: 16px;
+  background: #12281f;
+  box-shadow:
+    0 12px 0 rgba(47, 27, 18, 0.42),
+    0 28px 42px rgba(18, 35, 27, 0.26),
+    inset 0 0 0 2px rgba(255, 225, 142, 0.24);
+}
+
+.capybara-touch {
+  min-height: 532px;
+  border-radius: 9px;
+  background: #11281f;
+  box-shadow: inset 0 -38px 0 rgba(18, 35, 27, 0.32);
+}
+
+.hero-raster-background {
+  object-position: 50% 48%;
+  filter: saturate(1.08) contrast(1.05);
+}
+
+.capybara-touch::after {
+  background:
+    linear-gradient(180deg, rgba(14, 31, 24, 0.04) 0%, rgba(14, 31, 24, 0.02) 48%, rgba(14, 31, 24, 0.44) 100%),
+    radial-gradient(circle at var(--decor-x, 78%) var(--decor-y, 30%), var(--decor-accent, rgba(255, 224, 132, 0.16)), transparent 24%),
+    radial-gradient(circle at 50% 48%, rgba(255, 224, 132, 0.22), transparent 30%);
+}
+
+.currency-grid {
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  gap: 8px;
+}
+
+.currency-display {
+  min-height: 58px;
+  grid-template-columns: 42px minmax(0, 1fr);
+  border: 3px solid rgba(47, 27, 18, 0.9);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(109, 64, 31, 0.92), rgba(52, 30, 18, 0.9));
+  box-shadow: 0 7px 0 rgba(30, 17, 10, 0.64), inset 0 2px 0 rgba(255, 224, 132, 0.18);
+  backdrop-filter: blur(4px);
+}
+
+.currency-icon {
+  border-radius: 10px;
+  background: linear-gradient(180deg, #ffe29c, #d99635);
+  box-shadow: inset 0 0 0 2px rgba(255, 248, 216, 0.4);
+}
+
+.currency-label {
+  color: rgba(255, 237, 184, 0.78);
+}
+
+.currency-display strong {
+  color: #fff7d8;
+  text-shadow: 0 2px 0 rgba(30, 17, 10, 0.5);
+}
+
+.scene-reward-badge {
+  top: 82px;
+  left: 11px;
+  border: 3px solid #3a2114;
+  border-radius: 10px;
+  color: #fff0c2;
+  background: linear-gradient(180deg, #426d39, #1d4937);
+  box-shadow: 0 6px 0 rgba(47, 27, 18, 0.44);
+}
+
+.hero-card .income-grid {
+  bottom: 74px;
+  gap: 8px;
+}
+
+.stats-panel,
+.today-quest-panel,
+.tier-story-panel,
+.long-term-panel,
+.goal-panel,
+.collection-panel,
+.album-hero,
+.quest-board,
+.companion-board,
+.decoration-board,
+.badge-board,
+.settings-panel,
+.settings-actions {
+  background:
+    linear-gradient(180deg, rgba(255, 238, 186, 0.94), rgba(222, 179, 102, 0.86)),
+    repeating-linear-gradient(90deg, rgba(95, 55, 27, 0.08) 0 8px, transparent 8px 28px);
+}
+
+.upgrade-card,
+.quest-card,
+.product-card,
+.companion-card,
+.decoration-card,
+.collection-badge {
+  border: 3px solid rgba(57, 33, 17, 0.66);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 238, 184, 0.92), rgba(203, 145, 72, 0.48)),
+    repeating-linear-gradient(90deg, rgba(98, 56, 28, 0.08) 0 6px, transparent 6px 24px);
+  box-shadow: 0 7px 0 rgba(55, 32, 17, 0.22), inset 0 2px 0 rgba(255, 250, 224, 0.45);
+}
+
+.upgrade-card.is-buyable,
+.quest-card.is-ready,
+.collection-badge.can-claim {
+  border-color: #9b4b18;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(255, 209, 86, 0.55), transparent 104px),
+    linear-gradient(180deg, #ffe8a6, #d58d3e);
+}
+
+.upgrade-card::before {
+  width: 12px;
+  background: linear-gradient(180deg, #ffd35f, #e8751d 56%, #5b341c);
+  opacity: 1;
+}
+
+.upgrade-icon {
+  border: 3px solid rgba(71, 41, 20, 0.42);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffe8a6, #c57b35);
+}
+
+.prestige-card,
+.shop-feature-card {
+  border-color: #2f1b12;
+  background:
+    radial-gradient(circle at 70% 20%, rgba(247, 201, 78, 0.32), transparent 136px),
+    linear-gradient(160deg, #1d4937 0%, #3d2a1b 55%, #5f321a 100%);
+}
+
+.prestige-card h3,
+.prestige-card strong,
+.shop-feature-card h3,
+.shop-feature-card strong {
+  color: #fff4cc;
+}
+
+/* Game UI skin consolidation for information-heavy screens. */
+.upgrade-summary {
+  position: relative;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 12px;
+  border-color: #2f1b12;
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(92, 55, 29, 0.88), rgba(48, 28, 16, 0.9)),
+    repeating-linear-gradient(90deg, rgba(255, 226, 150, 0.08) 0 8px, transparent 8px 28px);
+}
+
+.upgrade-summary::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: -6px;
+  height: 12px;
+  border: 3px solid #2f1b12;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #c77a35, #70411f);
+  box-shadow: inset 0 2px 0 rgba(255, 229, 158, 0.32);
+}
+
+.upgrade-summary > div {
+  min-height: 62px;
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  border: 3px solid rgba(47, 27, 18, 0.72);
+  border-radius: 10px;
+  padding: 8px;
+  color: #fff2c2;
+  background:
+    linear-gradient(180deg, rgba(255, 226, 145, 0.18), rgba(255, 226, 145, 0.04)),
+    linear-gradient(180deg, #2d5c45, #1a392c);
+  box-shadow: 0 5px 0 rgba(31, 18, 11, 0.35), inset 0 2px 0 rgba(255, 237, 183, 0.12);
+}
+
+.upgrade-summary .metric-label,
+.upgrade-summary strong {
+  color: #fff2c2;
+  overflow-wrap: anywhere;
+}
+
+.upgrade-list {
+  position: relative;
+  gap: 16px;
+  padding: 10px 0 14px;
+}
+
+.upgrade-list::before {
+  content: "";
+  position: absolute;
+  inset: 0 16px;
+  pointer-events: none;
+  border-left: 6px solid rgba(47, 27, 18, 0.34);
+  border-right: 6px solid rgba(47, 27, 18, 0.34);
+  border-radius: 14px;
+}
+
+.ui-shelf-card,
+.upgrade-shelf-card {
+  isolation: isolate;
+  overflow: visible;
+  grid-template-columns: 78px minmax(0, 1fr);
+  gap: 9px 11px;
+  align-items: stretch;
+  padding: 11px;
+  border-width: 4px;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(255, 217, 106, 0.42), transparent 76px),
+    linear-gradient(180deg, rgba(255, 231, 157, 0.96), rgba(190, 116, 54, 0.62)),
+    repeating-linear-gradient(90deg, rgba(76, 42, 20, 0.1) 0 7px, transparent 7px 28px);
+}
+
+.ui-shelf-card::before,
+.upgrade-shelf-card::before {
+  inset: auto 10px -10px;
+  z-index: 0;
+  width: auto;
+  height: 16px;
+  border: 3px solid #2f1b12;
+  border-radius: 0 0 10px 10px;
+  background: linear-gradient(180deg, #74431f, #2f1b12);
+  opacity: 1;
+  box-shadow: 0 6px 0 rgba(47, 27, 18, 0.18);
+}
+
+.ui-shelf-card::after,
+.upgrade-shelf-card::after {
+  content: "";
+  position: absolute;
+  left: 94px;
+  top: 12px;
+  bottom: 18px;
+  z-index: 0;
+  width: 4px;
+  border-radius: 99px;
+  background: linear-gradient(180deg, rgba(47, 27, 18, 0.45), rgba(255, 235, 170, 0.22));
+}
+
+.ui-tool-slot,
+.upgrade-tool-slot {
+  position: relative;
+  z-index: 1;
+  grid-row: 1 / span 2;
+  min-height: 112px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  padding: 10px 6px 18px;
+  border: 4px solid rgba(47, 27, 18, 0.72);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 50% 28%, rgba(255, 242, 194, 0.64), transparent 38px),
+    linear-gradient(180deg, #734421, #3a2114);
+  box-shadow: 0 6px 0 rgba(47, 27, 18, 0.26), inset 0 2px 0 rgba(255, 234, 165, 0.2);
+}
+
+.ui-tool-slot::before,
+.upgrade-tool-slot::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 21px;
+  height: 15px;
+  border: 3px solid rgba(47, 27, 18, 0.64);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(255, 210, 92, 0.92), rgba(164, 80, 28, 0.86));
+  box-shadow: inset 0 2px 0 rgba(255, 245, 208, 0.42), 0 4px 0 rgba(34, 20, 12, 0.22);
+}
+
+.ui-tool-slot::after,
+.upgrade-tool-slot::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 8px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(20, 14, 9, 0.28);
+  filter: blur(2px);
+}
+
+.ui-tool-slot .upgrade-icon,
+.upgrade-tool-slot .upgrade-icon {
+  position: relative;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  border-width: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: translateY(-7px);
+  filter: drop-shadow(0 7px 0 rgba(24, 14, 8, 0.22)) drop-shadow(0 9px 12px rgba(31, 20, 12, 0.22));
+}
+
+.upgrade-shelf-card .upgrade-copy {
+  z-index: 1;
+  gap: 6px;
+}
+
+.upgrade-shelf-card .upgrade-title-row {
+  grid-template-columns: auto auto minmax(0, 1fr);
+  gap: 6px;
+}
+
+.upgrade-shelf-card .upgrade-title-row h3 {
+  grid-column: 1 / -1;
+  color: #2f1d12;
+  font-size: 1rem;
+  text-shadow: 0 1px 0 rgba(255, 248, 216, 0.52);
+}
+
+.upgrade-description {
+  margin: 0;
+  color: #4b341f;
+  font-size: 0.8rem;
+  font-weight: 780;
+  line-height: 1.34;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.upgrade-shelf-card .upgrade-ui-copy {
+  margin: 0;
+  border: 2px solid rgba(65, 38, 20, 0.28);
+  border-radius: 9px;
+  padding: 7px 8px;
+  color: #243c30;
+  background: linear-gradient(180deg, rgba(242, 196, 93, 0.42), rgba(255, 240, 190, 0.68));
+  font-size: 0.77rem;
+  line-height: 1.3;
+}
+
+.upgrade-shelf-card .progress-block {
+  border: 2px solid rgba(65, 38, 20, 0.28);
+  border-radius: 9px;
+  padding: 7px;
+  background: rgba(65, 38, 20, 0.1);
+}
+
+.upgrade-meta {
+  gap: 6px;
+}
+
+.upgrade-shelf-card .upgrade-meta span {
+  min-height: 27px;
+  border-radius: 8px;
+  padding: 4px 7px;
+  background:
+    linear-gradient(180deg, #fff1bd, #d69e50);
+  font-size: 0.69rem;
+}
+
+.ui-shelf-card__buy,
+.upgrade-buy-slot {
+  position: relative;
+  z-index: 1;
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(74px, 86px);
+  gap: 8px;
+  align-items: center;
+}
+
+.upgrade-shelf-card.is-buyable {
+  border-color: #7f3514;
+  box-shadow:
+    0 9px 0 rgba(55, 32, 17, 0.28),
+    0 18px 30px rgba(159, 70, 19, 0.24),
+    inset 0 2px 0 rgba(255, 250, 224, 0.5);
+}
+
+.upgrade-shelf-card.is-locked .cost-plaque,
+.upgrade-shelf-card.is-content-locked .cost-plaque {
+  color: rgba(255, 242, 194, 0.72);
+  background: linear-gradient(180deg, #6d5b42, #403020);
+}
+
+.ui-panel--ledger,
+.settings-panel,
+.settings-actions {
+  gap: 11px;
+  padding: 14px;
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 238, 184, 0.94), rgba(199, 132, 58, 0.48)),
+    repeating-linear-gradient(0deg, rgba(87, 50, 25, 0.08) 0 2px, transparent 2px 20px);
+}
+
+.ledger-section-title {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 3px solid rgba(47, 27, 18, 0.68);
+  border-radius: 10px;
+  padding: 8px 10px;
+  color: #fff4cc;
+  background:
+    linear-gradient(180deg, rgba(255, 222, 120, 0.14), transparent),
+    linear-gradient(135deg, #244936, #5b341c);
+  box-shadow: 0 5px 0 rgba(47, 27, 18, 0.24), inset 0 2px 0 rgba(255, 230, 164, 0.18);
+}
+
+.settings-panel .ui-ledger-row,
+.settings-panel .toggle-row {
+  min-height: 62px;
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 244, 204, 0.92), rgba(221, 166, 83, 0.46)),
+    repeating-linear-gradient(90deg, rgba(83, 47, 23, 0.08) 0 5px, transparent 5px 20px);
+}
+
+.settings-action-grid {
+  display: grid;
+  gap: 9px;
+}
+
+.ledger-action-button {
+  position: relative;
+  justify-content: flex-start;
+  min-height: 52px;
+  padding-left: 46px;
+  text-align: left;
+}
+
+.ledger-action-button::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(47, 27, 18, 0.42);
+  border-radius: 7px;
+  background: linear-gradient(180deg, #fff1bf, #d7a55a);
+  box-shadow: inset 0 2px 0 rgba(255, 250, 224, 0.5);
+}
+
+.ledger-action-button.is-danger::before {
+  background: linear-gradient(180deg, #ffb0a5, #c83d3d);
+}
+
+.ui-sticker-ledger,
+.album-score-grid {
+  gap: 8px;
+  border: 3px solid rgba(47, 27, 18, 0.56);
+  border-radius: 12px;
+  padding: 8px;
+  background:
+    linear-gradient(180deg, rgba(92, 55, 29, 0.22), rgba(255, 240, 190, 0.5)),
+    repeating-linear-gradient(90deg, rgba(85, 49, 25, 0.08) 0 5px, transparent 5px 22px);
+  box-shadow: inset 0 2px 0 rgba(255, 250, 224, 0.36), 0 5px 0 rgba(47, 27, 18, 0.16);
+}
+
+.ui-sticker-ledger > div,
+.album-score-grid > div {
+  position: relative;
+  min-height: 58px;
+  overflow: hidden;
+  border: 2px solid rgba(71, 41, 21, 0.42);
+  border-radius: 9px;
+  padding-top: 13px;
+  color: #2f1d12;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(255, 216, 105, 0.38), transparent 44px),
+    linear-gradient(180deg, #fff0bd, #d59b4c);
+}
+
+.ui-sticker-ledger > div::before,
+.album-score-grid > div::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  top: 6px;
+  height: 5px;
+  border-radius: 999px;
+  background:
+    repeating-linear-gradient(90deg, rgba(80, 44, 22, 0.32) 0 4px, transparent 4px 8px),
+    rgba(255, 246, 207, 0.45);
+}
+
+.ui-sticker-ledger > div::after,
+.album-score-grid > div::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  bottom: 7px;
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(126, 57, 19, 0.5);
+  border-radius: 50%;
+  background: rgba(255, 235, 170, 0.24);
+}
+
+.album-hero .progress-block {
+  border: 3px solid rgba(47, 27, 18, 0.42);
+  border-radius: 10px;
+  padding: 8px;
+  background: rgba(70, 42, 23, 0.12);
+}
+
+@media (max-width: 420px) {
+  .app-frame {
+    padding: 0;
+  }
+
+  .game-shell {
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    border-radius: 0;
+  }
+
+  .top-bar {
+    height: 82px;
+    padding: 14px 14px 10px;
+  }
+
+  .top-bar h1 {
+    font-size: 1.28rem;
+  }
+
+  .content-shell {
+    height: calc(100% - 158px);
+    padding: 11px 11px 96px;
+  }
+
+  .bottom-tabs {
+    left: 8px;
+    right: 8px;
+    bottom: calc(8px + var(--safe-bottom));
+    gap: 4px;
+    padding: 6px;
+  }
+
+  .bottom-tabs button {
+    min-height: 54px;
+    font-size: 0.61rem;
+  }
+
+  .tab-icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .capybara-touch {
+    min-height: min(500px, calc(100vh - 246px));
+  }
+
+  .hero-card {
+    min-height: min(500px, calc(100vh - 246px));
+  }
+
+  .scene-reward-badge {
+    top: 78px;
+  }
+
+  .currency-display {
+    grid-template-columns: 38px minmax(0, 1fr);
+    min-height: 58px;
+    padding: 7px;
+  }
+
+  .currency-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .upgrade-summary {
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .upgrade-summary > div {
+    min-height: 58px;
+    padding: 7px 6px;
+  }
+
+  .upgrade-summary strong {
+    font-size: 0.88rem;
+  }
+
+  .upgrade-shelf-card {
+    grid-template-columns: 70px minmax(0, 1fr);
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .upgrade-shelf-card::after {
+    left: 84px;
+  }
+
+  .upgrade-tool-slot {
+    min-height: 106px;
+  }
+
+  .upgrade-buy-slot {
+    grid-template-columns: minmax(0, 1fr) minmax(68px, 78px);
+  }
+
+  .upgrade-buy-button {
+    width: auto;
+    min-width: 68px;
+  }
+
+  .album-score-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .album-sticker-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .companion-card {
+    grid-template-columns: 92px minmax(0, 1fr);
+  }
+
+  .companion-portrait {
+    width: 92px;
+    height: 92px;
+  }
+
+  .quest-card {
+    grid-template-columns: 1fr;
+  }
+
+  .quest-card .btn {
+    width: 100%;
+  }
+
+  .decoration-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tutorial-overlay {
+    left: 10px;
+    right: 10px;
+    bottom: calc(88px + var(--safe-bottom));
+  }
+
+  .modal-backdrop {
+    padding: 10px;
+  }
+}
