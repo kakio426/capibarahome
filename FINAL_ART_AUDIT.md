@@ -1,6 +1,6 @@
 # Final Art Audit
 
-기준일: 2026-05-05
+기준일: 2026-05-06
 
 ## Audit 기준
 
@@ -11,11 +11,11 @@
 | 화면 | 현재 시각 품질 | placeholder 냄새 | generic app UI 냄새 | 게임 화면으로 보이는지 | 경쟁작 대비 부족한 점 | 개선 항목 |
 | --- | --- | --- | --- | --- | --- | --- |
 | 홈 | 카피바라와 수확 CTA는 보이나 배경/시설이 아직 CSS scene 조각 중심 | 낮음-중간 | 중간 | HUD에 가까움 | 공간감, key visual, 수확 행위의 주인공성 부족 | P1: main hero final key visual을 홈 수확 영역에 연결 |
-| 성장/업그레이드 | 구매 정보는 좋지만 카드 목록 인상이 남음 | 낮음 | 중간 | 게임 상점 일부 | 구매 가능 항목의 축제감/티어감 부족 | P1: 구매 가능 카드, tier lane, icon plinth 강화 |
+| 성장/업그레이드 | 구매 정보는 좋지만 카드 목록 인상이 남음 | 낮음 | 중간 | 게임 상점 일부 | 구매 가능 항목의 축제감/티어감 부족 | P1: 구매 가능 카드, tier lane, icon plinth 강화. RC-4에서 해결 |
 | 앨범/컬렉션 | 8 portrait와 보상 claim은 있으나 섹션이 정보 패널처럼 이어짐 | 낮음 | 중간 | 게임 도감 일부 | 친구/장식/업적의 수집 경험 차이와 stage feel 부족 | P1: raster companion sticker room 연결 |
 | 환생 | 황금잎 의미는 보이나 CSS tree 중심 | 중간 | 낮음-중간 | 보상 계산 화면에 가까움 | 의식/축제 key visual과 리셋의 감정 부족 | P1: prestige ritual key visual 연결 |
 | 상점 | mock 문구는 안전하지만 banner visual이 부족함 | 낮음 | 중간 | 기능 상점에 가까움 | 광고 보상/패키지 보상의 설득력 있는 visual 부족 | P1: shop reward banner 연결 |
-| 설정/세이브 | 기능적으로 안정적 | 낮음 | 중간 | 게임 톤 유지 | export/import code가 여전히 util modal 중심 | P2: code box 가독성/게임 톤 polish |
+| 설정/세이브 | 기능적으로 안정적 | 낮음 | 중간 | 게임 톤 유지 | export/import code가 여전히 util modal 중심 | P2: code box 가독성/게임 톤 polish. RC-4에서 save vault/ledger로 해결, code density는 P3 |
 | 오프라인 보상 | 귤 바구니 icon과 작은 과일 파티클로 이해 가능 | 중간 | 낮음 | 보상 modal 일부 | 복귀 보상 chest/수확 scene 감정 부족 | P1: offline return illustration 연결 |
 | 스토어 스크린샷 | 카피는 있으나 앱 캡처형 구도와 큰 빈 여백이 남음 | 낮음 | 중간 | store 후보이나 final marketing key visual 부족 | 캐릭터/key visual과 화면의 결합이 약함 | P1: final key visual/frame overlay로 10장 재생성 |
 
@@ -29,6 +29,16 @@
 | 상점 | reward banner PNG와 offer shelf 구성을 연결했고 실제 결제로 오해될 문구는 피했다. | 내부 P1 해결 | 실제 SDK 연결 전까지 sandbox |
 | 오프라인 보상 | harvest/rest PNG가 modal 상단을 차지해 복귀 보상감이 명확해졌다. | 내부 P1 해결 | long-return chest animation은 P2 |
 | 스토어 스크린샷 | raster store key visual을 full-screen background로 쓰고 gameplay panel/copy를 얹어 10장을 재생성했다. | 내부 P1 해결 | 실제 device/simulator frame 재촬영은 P1 external readiness |
+
+## After RC-4 UI Skin Hardening
+
+| 화면 | 변경 결과 | 판정 | 남은 리스크 |
+| --- | --- | --- | --- |
+| 성장/업그레이드 | garden workbench/facility shelf, tool slot, shelf rail, cost plaque, carved buy button, level/effect plaques를 적용했다. | 내부 P1 해결 | quick-buy 반복 조작 최적화는 P2 |
+| 설정 | 집사 장부/정원 관리 서랍 heading과 carved switch/action row로 일반 form UI 느낌을 줄였다. | 내부 P1 해결 | setting-change micro feedback은 P3 |
+| 세이브 modal | save vault frame, sealed code row, parchment code slot, copy action으로 util dialog 냄새를 줄였다. | 내부 P1 해결 | export code 자체의 dense text는 P3 |
+| 앨범 하단 | score grid와 progress를 sticker ledger/groove로 보정했다. | P2 개선 | deeper sticker-book reveal은 P2 |
+| Store save 후보 | `iphone-05-save`, `android-05-save` gameplay panel이 save vault skin을 반영한다. | 내부 P1 해결 | 실제 device/simulator frame 재촬영은 P1 external readiness |
 
 ## Raster Replacement Result
 

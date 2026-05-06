@@ -1,6 +1,6 @@
 # Art Direction
 
-기준일: 2026-05-05
+기준일: 2026-05-06
 
 ## North Star
 
@@ -56,7 +56,7 @@ SVG remains acceptable only for small auxiliary icons, not for core emotion.
 | Secondary button | parchment/leaf button with carved border |
 | Tab bar | wooden dock with individual carved slots and leaf/orange active state |
 | Upgrade card | shop shelf/workbench card, left icon medallion, cost plaque, material depth |
-| Modal | parchment scroll in wood frame, reward glow for positive modal |
+| Modal | parchment scroll or save vault in wood frame, reward glow for positive modal |
 | Progress | ribbon or carved groove, not generic thin web progress |
 | Metric tiles | small plaques, not standalone white rounded cards |
 
@@ -70,7 +70,7 @@ SVG remains acceptable only for small auxiliary icons, not for core emotion.
 | Prestige | golden leaf ritual. Calculation is a support layer on carved plaques. |
 | Shop | harvest festival stall. Rewarded ad mock remains clearly sandboxed but visually rewarding. |
 | Offline reward | chest/basket return scene. Claim action is a game reward, not a form submit. |
-| Settings | butler ledger. Toggles and save/import controls are organized as game settings, not admin settings. |
+| Settings | butler ledger / garden drawer. Toggles and save/import controls are organized as game settings, not admin settings. |
 
 ## QA Review Rubric
 
@@ -84,4 +84,4 @@ For every screenshot:
 
 ## Current Gate
 
-The previous raster pass did not pass because the UI skin still read as white rounded web cards. The v2 pass replaces that surface language with integrated raster scenes and wood/parchment/orange HUD skin. Completion still requires `VISUAL_QA.md` evidence, fresh build/test/E2E, and no P0/P1 contradiction across release docs.
+The previous raster pass did not pass because the UI skin still read as white rounded web cards. The v2 pass replaced the core scene language with integrated raster scenes. The RC-4 hardening pass extends the same wood/parchment/orange HUD skin into upgrade shelves, settings ledger/drawer, save vault modal, sticker-book metrics, carved progress, tab dock, toast, and interaction feedback. Current completion evidence is in `RC4_UI_SKIN_AUDIT.md`, `VISUAL_QA.md`, `QA_REPORT.md`, `SPEC_COVERAGE.md`, `RELEASE_CHECKLIST.md`, and `RELEASE_BLOCKERS.md`.

@@ -15,7 +15,7 @@
 | release blocker 분리 | 완료 | `RELEASE_BLOCKERS.md` |
 | `npm run build` | 완료 | `tsc -b && vite build`, success |
 | `npm test` | 완료 | Vitest 21 files, 479 tests passed |
-| `npm run test:e2e` | 완료 | Playwright 21 tests passed |
+| `npm run test:e2e` | 완료 | Playwright 21 tests passed (58.8s) |
 | Capacitor packaging prep | 완료 | `capacitor.config.ts`, scripts, `npm run cap:sync` success |
 | 실제 스토어 업로드 미수행 | 완료 | 계정/인증서/프로비저닝 미제공. `RELEASE_CHECKLIST.md`와 `RELEASE_BLOCKERS.md`에 사용자 작업으로 분리 |
 
@@ -58,7 +58,7 @@
 | app icon/splash/store art 후보 | 완료 | `src/assets/raster/release/app-icon-candidate.png`, `store-key-visual.png`; splash/frame SVG 후보는 `src/assets/generated/release/`에 보조 후보로 유지 |
 | balance simulation | 완료 | `BalanceSimulator.ts`, `balanceSimulation.test.ts`, `BALANCE_SIMULATION.md` |
 | source budget report | 완료 | `SOURCE_BUDGET_REPORT.md` |
-| source budget 재검증 | 완료 | handwritten runtime 6,918 LOC, handwritten tests/E2E 2,285 LOC, generated/config/docs 제외 기준 `SOURCE_BUDGET_REPORT.md` |
+| source budget 재검증 | 완료 | handwritten runtime 7,574 LOC, handwritten tests/E2E 2,285 LOC, generated/config/docs 제외 기준 `SOURCE_BUDGET_REPORT.md` |
 
 ## Design Requirements
 
@@ -67,7 +67,7 @@
 | 첫 화면부터 실제 게임처럼 보임 | 완료 | v2 raster orchard/capybara integrated scene, carved header, wood currency plaques, next goal, 장기 목표, prestige mini progress, collection shelf, screenshots |
 | 임시 개발자 UI 숨김 | 완료 | Debug panel hidden by default, only `?debug=1` in dev |
 | 360x740 / 390x844 / 430x932 / desktop 중앙 패널 | 완료 | `visual-regression.spec.ts`, 52 screenshots |
-| 버튼/탭/모달/카드/상점/설정/튜토리얼 polish | 완료 | `layout.css`, custom `Toggle`, save export copy action, screenshots, visual QA |
+| 버튼/탭/모달/카드/상점/설정/튜토리얼 polish | 완료 | `layout.css`, custom `Toggle`, upgrade shelf/workbench, settings ledger, save vault modal, save export copy action, screenshots, visual QA |
 | 직접 제작 visual asset | 완료 | 253 generated SVG auxiliary icon/quest/badge/decor/tier assets, 15 raster PNG core/release assets, v2 game HUD skin, `ART_FAILURE_REVIEW.md`, `ASSET_PRODUCTION_BRIEF.md`, `FINAL_ASSET_BRIEF.md` |
 | Playwright screenshots | 완료 | `qa-screenshots/` 52 current PNG files, `store-screenshots/` 10 store 후보 PNG files, `qa-screenshots/rc1-before/` archive |
 | Visual QA document | 완료 | `VISUAL_QA.md` |
@@ -111,8 +111,9 @@
 | `DEVICE_QA_CHECKLIST.md` | 완료 | iPhone/Android physical QA 항목 |
 | `VISUAL_QA.md` | 완료 | screenshots and viewport audit |
 | `PERFORMANCE_QA.md` | 완료 | RAF/effects/storage/perf checks |
+| `RC4_UI_SKIN_AUDIT.md` | 완료 | home/upgrades/settings/save-modal/collection P1/P2 visual audit and CSS audit |
 | 기존 문서 최신화 | 완료 | README/DEVELOPER/BALANCE/SAVE/QA/PLAYTEST updated |
 
 ## P0/P1 Blockers
 
-기존 RC 및 확장 목표 기준의 내부 P0/P1 `미완료`, `검증 불가`, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue 없음. 실제 스토어 제출 완료를 막는 외부 계정/서명/commissioned art 소유권/platform icon export/실기기 QA 항목은 `RELEASE_BLOCKERS.md`에 P1 external readiness로 별도 분리했다.
+기존 RC 및 확장 목표 기준의 내부 P0/P1 `미완료`, `검증 불가`, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue 없음. RC-4에서 업그레이드 card-list P1, 설정 form smell, save util dialog smell은 해결로 판정한다. 실제 스토어 제출 완료를 막는 외부 계정/서명/commissioned art 소유권/platform icon export/실기기 QA 항목은 `RELEASE_BLOCKERS.md`에 P1 external readiness로 별도 분리했다.

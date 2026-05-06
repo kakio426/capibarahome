@@ -27,7 +27,7 @@
 | toast가 카드 내용 가림 | reward toast가 상점 상품 설명과 버튼을 덮어 구매/보상 UX 저하 | compact toast + 2.4초 auto dismiss | 해결 |
 | 장식 content inflation | 장식 25개 중 11개가 장착 후 홈 hero visual 변화 없음 | 누락 class 11개 hero CSS 추가 | 해결 |
 | 첫 화면 장기 목표 부족 | Cats & Soup/Egg, Inc.처럼 다음 행동과 보상감이 첫 화면에서 약함 | 홈에 today quest, next goal, collection shelf, prestige mini progress 추가 | 해결 |
-| 업그레이드 화면이 기능 목록처럼 보임 | AdVenture Capitalist식 빠른 구매 판단 계층 부족 | 구매 가능 summary, ready chip, tap/EPS 지표, 효과 meta 추가 | 해결 |
+| 업그레이드 화면이 기능 목록처럼 보임 | AdVenture Capitalist식 빠른 구매 판단 계층 부족, card-list/spreadsheet처럼 보이는 P1 | RC-4에서 garden workbench/facility shelf, tool slot, shelf rail, cost plaque, level/effect plaques, carved buy button 적용 | 해결 |
 | 상점이 mock/dev 느낌 | 실제 서비스 화면처럼 보이지 않고 테스트 문구가 강함 | reward chip, boost status, sandbox copy로 정리 | 해결 |
 | 콘텐츠 config-only 위험 | 수량만 늘고 UI/저장/게임 효과가 약할 수 있음 | `CONTENT_INTEGRATION_AUDIT.md`에서 항목별 UI/save/test/impact 확인 | 해결 |
 | Collection reward/장기 메타 부족 | 친구/업적이 단순 앨범처럼 보여 장기 동기가 약함 | 8명 passive ability, 친밀도 보너스, 홈 장기 목표, 구간 unlock toast 추가 | 해결 |
@@ -45,7 +45,7 @@
 | 첫 환생이 너무 빠르게 열릴 위험 | 초반 보상을 적극 수령하면 환생이 5분권으로 당겨져 30분 플레이 목표가 무너짐 | 구매 cadence simulation과 prestige requirement `25M` 조정, 첫 환생 33분 기록 | 해결 |
 | 실제 5분권 유저 플로우 검증 부족 | 단위 테스트만으로 보상/저장/장식/동료 루프의 실제 사용성을 판단하기 어려움 | `first-five-minute-playtest.spec.ts` 추가, debug 없이 reward/save/deco/companion/offline 검증 | 해결 |
 | store 후보 이미지 세부 polish 부족 | album crop, prestige `e0` 표기, save copy 길이가 제출 후보 인상을 낮춤 | store screenshot spec과 `PrestigePanel` formatting 보정 후 10장 재생성/검수 | 해결 |
-| 설정/세이브 control이 웹앱처럼 보일 위험 | 브라우저 checkbox, util textarea, toast overlap이 game HUD skin을 깨뜨릴 수 있음 | RC-4에서 custom settings switch, export code copy action, ledger textarea, carved toast/modal/disabled controls로 보강 | 해결 |
+| 설정/세이브 control이 웹앱처럼 보일 위험 | 브라우저 checkbox, util textarea, toast overlap, 일반 form/modal 느낌이 game HUD skin을 깨뜨릴 수 있음 | RC-4에서 settings ledger/drawer, save vault modal, custom settings switch, export code copy action, sealed code slot, carved toast/modal/disabled controls로 보강 | 해결 |
 
 ## P2
 
@@ -69,4 +69,4 @@
 
 ## Current Gate
 
-재감사, reward hardening, playtest/balance/bug bash, direct art/CSS pass, 첫 raster pass 실패 재분류, v2 raster/HUD art pass, RC-4 Game UI Skin & Interaction Polish 중 발견한 내부 P1은 코드/CSS/테스트/E2E로 수정했다. 남은 항목은 commissioned/final art ownership, 실제 SDK, 물리 기기 QA, 더 깊은 수집 연출처럼 외부 준비나 추가 제품 확장에 가깝다. 현재 감사 기준에서 내부 P0/P1 release blocker는 없다.
+재감사, reward hardening, playtest/balance/bug bash, direct art/CSS pass, 첫 raster pass 실패 재분류, v2 raster/HUD art pass, RC-4 Game UI Skin & Interaction Polish 중 발견한 내부 P1은 코드/CSS/테스트/E2E로 수정했다. 특히 업그레이드 card-list P1, 설정 form smell, save util dialog smell은 `RC4_UI_SKIN_AUDIT.md` 기준으로 해결했다. 남은 항목은 commissioned/final art ownership, 실제 SDK, 물리 기기 QA, 더 깊은 수집 연출처럼 외부 준비나 추가 제품 확장에 가깝다. 현재 감사 기준에서 내부 P0/P1 release blocker는 없다.

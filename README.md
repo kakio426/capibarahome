@@ -28,7 +28,7 @@ npm run cap:sync
 - 5개 성장 구간별 unlock toast, 보상 설명, 홈 장기 목표
 - 직접 제작한 SVG auxiliary asset pack 253개와 핵심 raster PNG art pack 15개 연결
 - v2 raster home/prestige/shop/offline/store key visual 후보, wood/parchment/orange game HUD skin, store screenshot 후보 10장
-- RC-4 interaction polish: custom settings switches, save export copy action, modal/toast/card HUD polish
+- RC-4 interaction polish: upgrade workbench/shelf UI, settings ledger/drawer, save vault modal, custom settings switches, save export copy action, modal/toast/card HUD polish
 - RC-3 playtest pass: 첫 환생 33분 목표, 1/5/15/30/120분 밸런스 checkpoint, 실제 5분권 E2E
 - `STORY_BIBLE.md`와 연결된 8마리 카피바라 캐릭터/짧은 인게임 대사
 - 환생과 황금 나뭇잎 영구 배율

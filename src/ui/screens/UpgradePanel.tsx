@@ -40,34 +40,50 @@ export function UpgradePanel() {
         </div>
       </section>
       <section className="upgrade-list" data-tutorial-target="upgrade">
-        {upgrades.map((item) => (
-          <Panel key={item.id} className={`upgrade-card ${!item.unlocked ? "is-content-locked" : item.canBuy ? "is-buyable" : "is-locked"}`}>
-            <div className="upgrade-copy">
-              <div className="upgrade-title-row">
+        {upgrades.map((item) => {
+          const categoryLabel = item.category === "tap" ? "터치" : "자동 생산";
+          const familyLabel = item.category === "tap" ? `${tapCount}종 터치 성장` : `${generatorCount}종 생산 시설`;
+          const purchaseLabel = !item.unlocked
+            ? `잠김 ${item.unlockLabel}`
+            : item.canBuy
+              ? `${item.cost.format(format)} 귤`
+              : `귤 부족 ${item.cost.format(format)}`;
+
+          return (
+            <Panel key={item.id} className={`upgrade-card upgrade-shelf-card ${!item.unlocked ? "is-content-locked" : item.canBuy ? "is-buyable" : "is-locked"}`}>
+              <div className="upgrade-tool-slot">
                 <VisualAssetIcon assetKey={item.id} className="upgrade-icon" />
-                <span className="upgrade-type">{item.category === "tap" ? "터치" : "자동 생산"}</span>
-                <span className="upgrade-tier-chip">{tierNameById.get(item.tier) ?? item.tier}</span>
-                {item.canBuy ? <span className="upgrade-ready-chip">구매 가능</span> : null}
-                <h3>{item.name}</h3>
               </div>
-              <p>{item.description}</p>
-              <p className="upgrade-ui-copy">{item.uiCopy}</p>
-              {!item.unlocked ? <ProgressBar value={item.unlockProgress} label={item.unlockLabel} /> : null}
-              <div className="upgrade-meta">
-                <span>Lv.{item.level}</span>
-                <span>{item.effectText}</span>
-                <span>{item.category === "tap" ? `${tapCount}종 터치 성장` : `${generatorCount}종 생산 시설`}</span>
+              <div className="upgrade-copy">
+                <div className="upgrade-title-row">
+                  <span className="upgrade-type">{categoryLabel}</span>
+                  <span className="upgrade-tier-chip">{tierNameById.get(item.tier) ?? item.tier}</span>
+                  {item.canBuy ? <span className="upgrade-ready-chip">구매 가능</span> : null}
+                  <h3>{item.name}</h3>
+                </div>
+                <p className="upgrade-description">{item.description}</p>
+                <p className="upgrade-ui-copy">{item.uiCopy}</p>
+                {!item.unlocked ? <ProgressBar value={item.unlockProgress} label={item.unlockLabel} /> : null}
+                <div className="upgrade-meta">
+                  <span>Lv.{item.level}</span>
+                  <span>{item.effectText}</span>
+                  <span>{familyLabel}</span>
+                </div>
               </div>
-            </div>
-            <Button
-              variant={item.canBuy ? "primary" : "secondary"}
-              disabled={!item.canBuy}
-              onClick={() => GameActions.buyUpgrade(item.id)}
-            >
-              {!item.unlocked ? `잠김 ${item.unlockLabel}` : item.canBuy ? `${item.cost.format(format)} 귤` : `귤 부족 ${item.cost.format(format)}`}
-            </Button>
-          </Panel>
-        ))}
+              <div className="upgrade-buy-slot">
+                <span className="cost-plaque">{purchaseLabel}</span>
+                <Button
+                  className="upgrade-buy-button"
+                  variant={item.canBuy ? "primary" : "secondary"}
+                  disabled={!item.canBuy}
+                  onClick={() => GameActions.buyUpgrade(item.id)}
+                >
+                  {item.canBuy ? "구매" : item.unlocked ? "대기" : "잠김"}
+                </Button>
+              </div>
+            </Panel>
+          );
+        })}
       </section>
     </main>
   );

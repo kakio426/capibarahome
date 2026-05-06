@@ -6,13 +6,15 @@ type ModalProps = PropsWithChildren<{
   open: boolean;
   onClose?: () => void;
   actions?: ReactNode;
+  className?: string;
+  bodyClassName?: string;
 }>;
 
-export function Modal({ title, open, onClose, actions, children }: ModalProps) {
+export function Modal({ title, open, onClose, actions, children, className = "", bodyClassName = "" }: ModalProps) {
   if (!open) return null;
   return (
     <div className="modal-backdrop" role="presentation">
-      <section className="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <section className={`modal ${className}`.trim()} role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <header className="modal-header">
           <h2 id="modal-title">{title}</h2>
           {onClose ? (
@@ -21,7 +23,7 @@ export function Modal({ title, open, onClose, actions, children }: ModalProps) {
             </button>
           ) : null}
         </header>
-        <div className="modal-body">{children}</div>
+        <div className={`modal-body ${bodyClassName}`.trim()}>{children}</div>
         <footer className="modal-actions">
           {actions ?? (onClose ? <Button onClick={onClose}>확인</Button> : null)}
         </footer>

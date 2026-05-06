@@ -7,7 +7,7 @@
 ```txt
 npm run build
 tsc -b && vite build
-built successfully
+built successfully; Vite large chunk warning remains for bundled raster assets
 ```
 
 ```txt
@@ -18,14 +18,18 @@ Tests       479 passed (479)
 
 ```txt
 npm run test:e2e
-21 passed
+21 passed (1.0m)
 ```
 
 ```txt
 npm run cap:sync
 npm run build && cap sync
-built successfully
-Sync finished
+built successfully; Sync finished
+```
+
+```txt
+git diff --check
+passed
 ```
 
 ## P0 Reload/E2E Fix
@@ -77,7 +81,13 @@ Fix:
 - 세이브 modal에 `Export 코드 복사` action을 추가해 실제 export/import 사용성을 높였다.
 - save/import textarea, modal close button, disabled button, segmented control, toast를 wood/parchment/orange HUD skin에 맞게 보강했다.
 - toast가 settings header를 덮지 않도록 `data-toast-visible` 상태와 content offset을 추가했다.
-- `visual-regression.spec.ts` 단독 4 viewport 통과 후 settings/save/upgrade/offline screenshots를 수동 확인했다.
+- 강화 pass에서 `RC4_UI_SKIN_AUDIT.md`를 추가해 `home/upgrades/settings/save-modal/collection`을 P1/P2로 재분류했다.
+- 성장/업그레이드 화면은 카드 리스트에서 garden workbench/facility shelf 구조로 재구성했다. `.upgrade-card` E2E selector는 유지하고, tool slot, shelf rail, cost plaque, carved buy button, level/effect plaques로 재스킨했다.
+- 설정 화면은 `집사 장부`와 `정원 관리 서랍` heading, custom switch, ledger action button으로 정리해 일반 form row 느낌을 줄였다.
+- 세이브 modal은 `save-vault-modal`과 sealed code row, vault code slot으로 바꿔 util dialog 대신 보관함/봉인 장부 느낌으로 재구성했다.
+- 컬렉션 summary metric과 progress는 sticker-book ledger stamp와 carved groove progress로 보강했다.
+- interaction polish: purchase pulse, error toast shake, prestige ready glow, active tab pop을 추가했고 `effectsEnabled=false` 및 reduced motion media query를 존중한다.
+- `visual-regression.spec.ts` 단독 4 viewport 통과 후 settings/save/upgrade/collection/offline screenshots를 수동 확인했다. `store-screenshot-pack.spec.ts`도 단독 통과 후 store save/home/album 후보를 확인했다.
 
 ## 자동 테스트 커버리지
 
@@ -119,18 +129,20 @@ Fix:
 - 홈 v2 raster orchard/capybara integrated scene, 앨범 raster sticker portraits, 환생 ritual raster, 상점 reward banner raster, 오프라인 보상 raster, save modal 긴 code scroll을 재확인했다.
 - Store 후보 10개는 raster store key visual을 full-screen background로 두고 gameplay panel/copy를 얹는 구성으로 재생성했다.
 - CSS audit: runtime visual files에서 temporary override marker, generic UI marker, external asset fallback marker를 제거했다.
+- RC-4 추가 수동 판정: `390x844-upgrades.png`는 더 이상 spreadsheet/list/card layout로 보지 않는다. `390x844-settings.png`는 browser form UI가 아니며, `390x844-save-modal.png`는 save vault/ledger UI로 보인다.
 
 ## Source Budget Gate
 
-- handwritten runtime implementation: 6,918 LOC.
+- handwritten runtime implementation: 7,574 LOC.
 - handwritten tests/E2E: 2,285 LOC.
-- pure handwritten gameplay/UI/system/test total: 9,203 LOC.
+- pure handwritten gameplay/UI/system/test total: 9,859 LOC.
 - excluded config: 2,529 LOC.
 - excluded generated SVG/registry: 11,533 LOC.
 - excluded generated matrix tests: 5,846 LOC.
 - generated SVG files: 253.
 - registry asset keys: 242.
 - raster PNG files: 15, 19M total.
+- handwritten runtime+test byte size: 339,271 bytes.
 
 ## 남은 리스크
 

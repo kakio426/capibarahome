@@ -56,14 +56,14 @@
 | RC-1 achievement reward 강화 | 완료 | `AchievementRewardConfig.ts`, `AchievementManager.ts`, album claim UI, unit/E2E |
 | RC-1 long-term meta 강화 | 완료 | `ProgressionRewardManager.ts`, `ProgressionConfig.ts`, `MainGameScreen.tsx`, balance simulation |
 | RC-1 sound feedback | 완료 | WebAudio `SoundManager.ts`, settings mute state, unit/E2E |
-| Direct handmade SVG/CSS art pass | 완료 | 245 SVG files, `builtinAssets.ts`, integrated `layout.css`, `visualAssetIntegrity.test.ts`, `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md` |
+| Direct handmade SVG/CSS art pass | 완료 | 253 SVG auxiliary files, `builtinAssets.ts`, integrated `layout.css`, `visualAssetIntegrity.test.ts`, `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md` |
 | RC-2 final visual asset pass | 완료 | portrait accessories, `app-icon-rc2.svg`, `splash-rc2.svg`, `store-screenshot-frame-rc2.svg`, runtime visual fallback 정리 |
 | RC-2 store screenshot pack | 완료 | `e2e/store-screenshot-pack.spec.ts`, `store-screenshots/` 10 PNG 후보, `STORE_SCREENSHOT_PLAN.md` |
 | RC-2 audio readiness | 완료 | `AudioConfig.ts`, file-ready `SoundManager.ts`, `audio.test.ts`, `AUDIO_ASSET_PLAN.md` |
 | RC-2 native/store compliance docs | 완료 | `NATIVE_BUILD_GUIDE.md`, `DEVICE_QA_CHECKLIST.md`, `ASSET_CREDITS.md`, `PRIVACY_NOTES.md`, `STORE_LISTING_DRAFT.md` |
 | RC-3 playtest/balance bug bash | 완료 | `PLAYTEST_REPORT.md`, `BalanceSimulator.ts`, `balanceSimulation.test.ts`, `rc3BugBash.test.ts`, `first-five-minute-playtest.spec.ts` |
 | RC-3 store screenshot polish | 완료 | album crop, prestige multiplier formatting, save screenshot copy 수정, `store-screenshots/` 10장 재생성 |
-| RC-4 Game UI Skin & Interaction Polish | 완료 | custom settings switches, save export copy action, carved modal/toast/disabled controls, `visual-regression.spec.ts`, `store-screenshot-pack.spec.ts` |
+| RC-4 Game UI Skin & Interaction Polish | 완료 | `RC4_UI_SKIN_AUDIT.md`, upgrade workbench/shelf, settings ledger/drawer, save vault modal, custom settings switches, save export copy action, carved modal/toast/disabled controls, `visual-regression.spec.ts`, `store-screenshot-pack.spec.ts` |
 
 ## Trace Gate
 

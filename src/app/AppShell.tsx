@@ -199,6 +199,8 @@ export function AppShell() {
         className="game-shell"
         data-tutorial-active-target={tutorialTarget}
         data-sound-muted={state.settings.soundMuted ? "true" : "false"}
+        data-effects-enabled={state.settings.effectsEnabled ? "true" : "false"}
+        data-last-action-kind={state.lastAction?.kind ?? "none"}
         data-toast-visible={state.lastToast ? "true" : "false"}
       >
         <header className="top-bar">
@@ -255,6 +257,7 @@ export function AppShell() {
         <Modal
           open={Boolean(state.offlineReward?.pending)}
           title="오프라인 보상"
+          className="reward-modal"
           actions={<Button onClick={() => GameActions.claimOffline()}>보상 받기</Button>}
         >
           <p>{offlineReturnLine(state.offlineReward?.seconds ?? 0)}</p>
