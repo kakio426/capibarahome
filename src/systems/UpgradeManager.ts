@@ -5,6 +5,8 @@ import { GameState } from "../game/GameTypes";
 import { getUnlockProgress, isUnlockRequirementMet } from "./UnlockManager";
 
 export type UpgradeCategory = "tap" | "generator";
+export type UpgradePurchaseMode = "one" | "ten" | "max";
+export type UpgradePurchaseFailureReason = "not_found" | "locked" | "max_level" | "insufficient_oranges";
 
 export type UpgradeViewModel = {
   id: UpgradeId;
@@ -24,9 +26,25 @@ export type UpgradeViewModel = {
   uiCopy: string;
 };
 
+export type UpgradePurchasePlan = {
+  mode: UpgradePurchaseMode;
+  quantity: number;
+  requestedQuantity: number;
+  totalCost: BigNumberLite;
+  nextLevel: number;
+  canBuy: boolean;
+  reason?: Exclude<UpgradePurchaseFailureReason, "not_found" | "locked">;
+  limitedBySafety: boolean;
+};
+
+export type UpgradePurchasePreview = Omit<UpgradePurchasePlan, "reason"> & {
+  item?: UpgradeViewModel;
+  reason?: UpgradePurchaseFailureReason;
+};
+
 export type UpgradePurchaseResult =
-  | { ok: true; state: GameState; item: UpgradeViewModel }
-  | { ok: false; state: GameState; reason: "not_found" | "locked" | "max_level" | "insufficient_oranges"; item?: UpgradeViewModel };
+  | { ok: true; state: GameState; item: UpgradeViewModel; quantity: number; totalCost: BigNumberLite; nextLevel: number }
+  | { ok: false; state: GameState; reason: UpgradePurchaseFailureReason; item?: UpgradeViewModel };
 
 function tapEffect(level: number, perLevel: number) {
   return `터치 배율 +${level * perLevel}`;
@@ -94,37 +112,205 @@ export function findUpgrade(state: GameState, id: string) {
   return getUpgradeViewModels(state).find((item) => item.id === id);
 }
 
-export function purchaseUpgrade(state: GameState, id: string, nowMs = Date.now()): UpgradePurchaseResult {
+function getUpgradeConfig(id: string) {
+  const tapUpgrade = BalanceConfig.tapUpgrades.find((upgrade) => upgrade.id === id);
+  if (tapUpgrade) {
+    return { category: "tap" as const, config: tapUpgrade };
+  }
+  const generator = BalanceConfig.generators.find((upgrade) => upgrade.id === id);
+  if (generator) {
+    return { category: "generator" as const, config: generator };
+  }
+  return null;
+}
+
+export function calculateUpgradePurchasePlan({
+  baseCost,
+  growthRate,
+  currentLevel,
+  maxLevel,
+  balance,
+  mode,
+  maxIterations = 500,
+}: {
+  baseCost: string;
+  growthRate: number;
+  currentLevel: number;
+  maxLevel: number | null;
+  balance: BigNumberLite | string | number;
+  mode: UpgradePurchaseMode;
+  maxIterations?: number;
+}): UpgradePurchasePlan {
+  const normalizedLevel = Math.max(0, Math.floor(currentLevel));
+  const availableBalance = BigNumberLite.from(balance);
+  const remainingToCap = maxLevel === null ? Number.POSITIVE_INFINITY : Math.max(0, maxLevel - normalizedLevel);
+  const requestedQuantity = mode === "one" ? 1 : mode === "ten" ? 10 : Number.isFinite(remainingToCap) ? remainingToCap : maxIterations;
+  const targetQuantity = Math.min(requestedQuantity, remainingToCap, maxIterations);
+
+  if (targetQuantity <= 0) {
+    return {
+      mode,
+      quantity: 0,
+      requestedQuantity: 0,
+      totalCost: BigNumberLite.zero(),
+      nextLevel: normalizedLevel,
+      canBuy: false,
+      reason: "max_level",
+      limitedBySafety: false,
+    };
+  }
+
+  let quantity = 0;
+  let totalCost = BigNumberLite.zero();
+  let lacksFullBatch = false;
+
+  for (let offset = 0; offset < targetQuantity; offset += 1) {
+    const nextCost = upgradeCost(baseCost, growthRate, normalizedLevel + offset);
+    totalCost = totalCost.add(nextCost);
+    if (!availableBalance.gte(totalCost)) {
+      if (mode === "max") {
+        totalCost = totalCost.subtract(nextCost);
+        break;
+      }
+      lacksFullBatch = true;
+      continue;
+    }
+    quantity += 1;
+  }
+
+  if (lacksFullBatch) {
+    return {
+      mode,
+      quantity: 0,
+      requestedQuantity: targetQuantity,
+      totalCost,
+      nextLevel: normalizedLevel,
+      canBuy: false,
+      reason: "insufficient_oranges",
+      limitedBySafety: false,
+    };
+  }
+
+  if (quantity <= 0) {
+    return {
+      mode,
+      quantity: 0,
+      requestedQuantity: targetQuantity,
+      totalCost: upgradeCost(baseCost, growthRate, normalizedLevel),
+      nextLevel: normalizedLevel,
+      canBuy: false,
+      reason: "insufficient_oranges",
+      limitedBySafety: false,
+    };
+  }
+
+  const nextLevel = normalizedLevel + quantity;
+  const hasMoreCap = maxLevel === null || nextLevel < maxLevel;
+  const couldAffordAnother = hasMoreCap && availableBalance.gte(totalCost.add(upgradeCost(baseCost, growthRate, nextLevel)));
+
+  return {
+    mode,
+    quantity,
+    requestedQuantity: targetQuantity,
+    totalCost,
+    nextLevel,
+    canBuy: true,
+    limitedBySafety: mode === "max" && quantity >= maxIterations && couldAffordAnother,
+  };
+}
+
+export function getUpgradePurchasePreview(state: GameState, id: string, mode: UpgradePurchaseMode = "one"): UpgradePurchasePreview {
   const item = findUpgrade(state, id);
-  if (!item) return { ok: false, state, reason: "not_found" };
-  if (!item.unlocked) return { ok: false, state, reason: "locked", item };
-  if (item.maxLevel !== null && item.level >= item.maxLevel) {
-    return { ok: false, state, reason: "max_level", item };
+  if (!item) {
+    return {
+      mode,
+      quantity: 0,
+      requestedQuantity: 0,
+      totalCost: BigNumberLite.zero(),
+      nextLevel: 0,
+      canBuy: false,
+      reason: "not_found",
+      limitedBySafety: false,
+    };
   }
-  if (!state.currencies.orange.gte(item.cost)) {
-    return { ok: false, state, reason: "insufficient_oranges", item };
+  if (!item.unlocked) {
+    return {
+      mode,
+      item,
+      quantity: 0,
+      requestedQuantity: 0,
+      totalCost: item.cost,
+      nextLevel: item.level,
+      canBuy: false,
+      reason: "locked",
+      limitedBySafety: false,
+    };
   }
+  const configEntry = getUpgradeConfig(id);
+  if (!configEntry) {
+    return {
+      mode,
+      item,
+      quantity: 0,
+      requestedQuantity: 0,
+      totalCost: BigNumberLite.zero(),
+      nextLevel: item.level,
+      canBuy: false,
+      reason: "not_found",
+      limitedBySafety: false,
+    };
+  }
+  const plan = calculateUpgradePurchasePlan({
+    baseCost: configEntry.config.baseCost,
+    growthRate: configEntry.config.growthRate,
+    currentLevel: item.level,
+    maxLevel: item.maxLevel,
+    balance: state.currencies.orange,
+    mode,
+  });
+  return {
+    ...plan,
+    item,
+  };
+}
+
+export function purchaseUpgrade(
+  state: GameState,
+  id: string,
+  nowMs = Date.now(),
+  mode: UpgradePurchaseMode = "one",
+): UpgradePurchaseResult {
+  const preview = getUpgradePurchasePreview(state, id, mode);
+  const item = preview.item;
+  if (!item) return { ok: false, state, reason: preview.reason ?? "not_found" };
+  if (!preview.canBuy) {
+    return { ok: false, state, reason: preview.reason ?? "insufficient_oranges", item };
+  }
+
+  const quantity = preview.quantity;
+  const nextLevel = preview.nextLevel;
+  const quantityLabel = quantity > 1 ? ` ${quantity}회` : "";
 
   const nextState: GameState = {
     ...state,
     updatedAt: nowMs,
     currencies: {
       ...state.currencies,
-      orange: state.currencies.orange.subtract(item.cost).max(0),
+      orange: state.currencies.orange.subtract(preview.totalCost).max(0),
     },
     upgrades: item.category === "tap"
-      ? { ...state.upgrades, [item.id]: item.level + 1 }
+      ? { ...state.upgrades, [item.id]: nextLevel }
       : state.upgrades,
     generators: item.category === "generator"
-      ? { ...state.generators, [item.id]: item.level + 1 }
+      ? { ...state.generators, [item.id]: nextLevel }
       : state.generators,
-    lastToast: `${item.name}을(를) 업그레이드했어요.`,
+    lastToast: `${item.name}${quantityLabel} 업그레이드 완료`,
     lastAction: {
       kind: "purchase",
-      message: `${item.name} Lv.${item.level + 1}`,
+      message: `${item.name} Lv.${nextLevel}`,
       createdAt: nowMs,
     },
   };
 
-  return { ok: true, state: nextState, item };
+  return { ok: true, state: nextState, item, quantity, totalCost: preview.totalCost, nextLevel };
 }

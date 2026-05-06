@@ -53,7 +53,7 @@ src/ui/styles/
 
 ## Manager 역할
 
-- `UpgradeManager`: 구매 가능 여부, 비용, 레벨 증가, 음수 재화 방지
+- `UpgradeManager`: 구매 가능 여부, 1/10/max quick-buy 비용 계획, 레벨 증가, 음수 재화 방지
 - `PrestigeManager`: 환생 가능 여부, 보상 계산, 초기화 범위 관리
 - `SaveManager`: JSON payload, checksum, Base64 export/import, localStorage
 - `OfflineRewardManager`: 저장 시 EPS 기준 복귀 보상 계산과 claim, 카피바라 오프라인 보너스 반영
@@ -78,6 +78,8 @@ Debug panel은 개발 모드에서도 기본 노출하지 않습니다. `/?debug
 2. 비용은 `baseCost`, `growthRate`, 효과는 `tapMultiplierPerLevel` 또는 `baseEps/generatorMultiplier`로 정의합니다.
 3. UI와 구매 로직은 `UpgradeManager.getUpgradeViewModels`가 자동 반영합니다.
 4. 신규 효과 타입이 필요하면 `gameMath.ts`와 `UpgradeManager`에만 확장합니다.
+
+RC-6부터 업그레이드 구매 UI는 `1개 / 10개 / 최대` 모드를 지원합니다. 새 업그레이드가 `maxLevel`을 가진다면 `calculateUpgradePurchasePlan`이 남은 레벨까지만 계산하는지 `upgrade.test.ts`에 케이스를 추가해야 합니다.
 
 각 업그레이드는 `tier`, `icon`, `unlock`, `unlockLabel`, `uiCopy`를 가져야 합니다. `contentConfig.test.ts`가 누락과 중복을 막습니다.
 
@@ -119,7 +121,7 @@ Debug panel은 개발 모드에서도 기본 노출하지 않습니다. `/?debug
 
 ## Balance Playtest Pipeline
 
-`BalanceSimulator.ts`는 1분/5분/15분/30분/2시간, 첫 환생, 환생 후 30분 checkpoint를 기록합니다. RC-3 기준 첫 환생 가능 시간은 33분 0초이며, 자세한 playtest 판정은 `PLAYTEST_REPORT.md`와 `BALANCE_SIMULATION.md`를 기준으로 봅니다.
+`BalanceSimulator.ts`는 10초/1분/5분/15분/30분/2시간, 첫 환생, 환생 후 30분, D1/D3/D7 retention assumption checkpoint를 기록합니다. RC-6 기준 첫 환생 가능 시간은 33분 0초이며, 자세한 playtest 판정은 `PLAYTEST_REPORT.md`, `RETENTION_PLAN.md`, `BALANCE_SIMULATION.md`를 기준으로 봅니다.
 
 ## 재화 추가
 

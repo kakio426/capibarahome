@@ -1,4 +1,5 @@
-import { getUpgradeViewModels } from "../../systems/UpgradeManager";
+import { useState } from "react";
+import { getUpgradePurchasePreview, getUpgradeViewModels, type UpgradePurchaseMode } from "../../systems/UpgradeManager";
 import { ProgressionConfig } from "../../config/ProgressionConfig";
 import { GameActions } from "../../game/GameActions";
 import { selectEps, selectTapGain } from "../../game/GameSelectors";
@@ -9,15 +10,21 @@ import { ProgressBar } from "../components/ProgressBar";
 import { VisualAssetIcon } from "../components/VisualAssetIcon";
 
 export function UpgradePanel() {
+  const [purchaseMode, setPurchaseMode] = useState<UpgradePurchaseMode>("one");
   const state = useGameStore((snapshot) => snapshot);
   const upgrades = getUpgradeViewModels(state);
   const format = state.settings.numberFormat;
-  const buyableCount = upgrades.filter((item) => item.canBuy).length;
+  const buyableCount = upgrades.filter((item) => getUpgradePurchasePreview(state, item.id, purchaseMode).canBuy).length;
   const tapCount = upgrades.filter((item) => item.category === "tap").length;
   const generatorCount = upgrades.length - tapCount;
   const tapGain = selectTapGain(state);
   const eps = selectEps(state);
   const tierNameById = new Map<string, string>(ProgressionConfig.tiers.map((tier) => [tier.id, tier.name]));
+  const purchaseModes: Array<{ id: UpgradePurchaseMode; label: string; note: string }> = [
+    { id: "one", label: "1개", note: "정확한 한 단계" },
+    { id: "ten", label: "10개", note: "초반 반복 구매" },
+    { id: "max", label: "최대", note: "가진 귤만큼" },
+  ];
 
   return (
     <main className="screen stack-screen">
@@ -39,18 +46,49 @@ export function UpgradePanel() {
           <strong>{eps.format(format)} 귤/초</strong>
         </div>
       </section>
+      <section className="quick-buy-panel ui-panel ui-panel--parchment" aria-label="구매 수량 모드">
+        <div>
+          <span className="app-kicker">구매 수량</span>
+          <strong>{purchaseModes.find((mode) => mode.id === purchaseMode)?.note}</strong>
+        </div>
+        <div className="quick-buy-mode ui-segmented">
+          {purchaseModes.map((mode) => (
+            <button
+              key={mode.id}
+              type="button"
+              className={purchaseMode === mode.id ? "is-active" : ""}
+              aria-pressed={purchaseMode === mode.id}
+              onClick={() => setPurchaseMode(mode.id)}
+            >
+              {mode.label}
+            </button>
+          ))}
+        </div>
+      </section>
       <section className="upgrade-list" data-tutorial-target="upgrade">
         {upgrades.map((item) => {
           const categoryLabel = item.category === "tap" ? "터치" : "자동 생산";
           const familyLabel = item.category === "tap" ? `${tapCount}종 터치 성장` : `${generatorCount}종 생산 시설`;
+          const preview = getUpgradePurchasePreview(state, item.id, purchaseMode);
           const purchaseLabel = !item.unlocked
             ? `잠김 ${item.unlockLabel}`
-            : item.canBuy
-              ? `${item.cost.format(format)} 귤`
-              : `귤 부족 ${item.cost.format(format)}`;
+            : preview.reason === "max_level"
+              ? "최대 레벨"
+              : preview.canBuy
+                ? `${preview.quantity > 1 ? `${preview.quantity}회 · ` : ""}${preview.totalCost.format(format)} 귤`
+                : `귤 부족 ${preview.totalCost.format(format)}`;
+          const buyLabel = preview.canBuy
+            ? purchaseMode === "one"
+              ? "구매"
+              : purchaseMode === "ten"
+                ? `${preview.quantity}회 구매`
+                : `최대 ${preview.quantity}회`
+            : item.unlocked
+              ? "대기"
+              : "잠김";
 
           return (
-            <Panel key={item.id} className={`upgrade-card upgrade-shelf-card ui-shelf-card ${!item.unlocked ? "is-content-locked" : item.canBuy ? "is-buyable" : "is-locked"}`}>
+            <Panel key={item.id} className={`upgrade-card upgrade-shelf-card ui-shelf-card ${!item.unlocked ? "is-content-locked" : preview.canBuy ? "is-buyable" : "is-locked"}`}>
               <div className="upgrade-tool-slot ui-tool-slot">
                 <VisualAssetIcon assetKey={item.id} className="upgrade-icon" />
               </div>
@@ -68,17 +106,18 @@ export function UpgradePanel() {
                   <span>Lv.{item.level}</span>
                   <span>{item.effectText}</span>
                   <span>{familyLabel}</span>
+                  {preview.canBuy ? <span className="upgrade-result-chip">구매 후 Lv.{preview.nextLevel}</span> : null}
                 </div>
               </div>
               <div className="upgrade-buy-slot ui-shelf-card__buy">
                 <span className="cost-plaque ui-plaque ui-cost-plaque">{purchaseLabel}</span>
                 <Button
                   className="upgrade-buy-button"
-                  variant={item.canBuy ? "primary" : "secondary"}
-                  disabled={!item.canBuy}
-                  onClick={() => GameActions.buyUpgrade(item.id)}
+                  variant={preview.canBuy ? "primary" : "secondary"}
+                  disabled={!preview.canBuy}
+                  onClick={() => GameActions.buyUpgrade(item.id, purchaseMode)}
                 >
-                  {item.canBuy ? "구매" : item.unlocked ? "대기" : "잠김"}
+                  {buyLabel}
                 </Button>
               </div>
             </Panel>

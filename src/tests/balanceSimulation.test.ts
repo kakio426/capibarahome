@@ -6,6 +6,7 @@ describe("balance simulation", () => {
     const result = runBalanceSimulation({ durationSeconds: 7200, tickSeconds: 15, tapsPerSecond: 1.2 });
 
     expect(result.checkpoints.map((checkpoint) => checkpoint.label)).toEqual([
+      "첫 10초",
       "첫 1분",
       "첫 5분",
       "첫 15분",
@@ -13,7 +14,7 @@ describe("balance simulation", () => {
       "첫 2시간",
     ]);
     expect(result.checkpoints[0].unlockedUpgrades).toBeGreaterThanOrEqual(2);
-    expect(result.checkpoints[4].upgradesOwned).toBeGreaterThan(result.checkpoints[0].upgradesOwned);
+    expect(result.checkpoints[5].upgradesOwned).toBeGreaterThan(result.checkpoints[0].upgradesOwned);
     expect(result.offlineEightHourReward.length).toBeGreaterThan(0);
     expect(result.firstPrestigeLabel.length).toBeGreaterThan(0);
     expect(result.firstPrestigeSeconds).toBeGreaterThanOrEqual(30 * 60);
@@ -49,6 +50,18 @@ describe("balance simulation", () => {
 
     expect(afterPrestige.finalState.lifetime.totalOrangesEarned.compare(fresh.finalState.lifetime.totalOrangesEarned)).toBeGreaterThan(0);
   }, 10_000);
+
+  it("records D1, D3, and D7 retention assumption checkpoints", () => {
+    const result = runBalanceSimulation({ durationSeconds: 604_800, tickSeconds: 300, tapsPerSecond: 1.2 });
+    const dayOne = result.checkpoints.find((checkpoint) => checkpoint.label === "1일차 복귀");
+    const dayThree = result.checkpoints.find((checkpoint) => checkpoint.label === "3일차 목표");
+    const daySeven = result.checkpoints.find((checkpoint) => checkpoint.label === "7일차 목표");
+
+    expect(dayOne?.systemsSeen).toContain("prestige");
+    expect(dayThree?.lifetimeOranges.length).toBeGreaterThan(0);
+    expect(daySeven?.lifetimeOranges.length).toBeGreaterThan(0);
+    expect(daySeven?.upgradesOwned).toBeGreaterThanOrEqual(dayOne?.upgradesOwned ?? 0);
+  }, 40_000);
 
   it("records first prestige and post-prestige 30 minute checkpoints when reached", () => {
     const result = runBalanceSimulation({ durationSeconds: 7200, tickSeconds: 30, tapsPerSecond: 1.4 });

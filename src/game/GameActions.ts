@@ -1,7 +1,7 @@
 import { selectTapGain } from "./GameSelectors";
 import { getGameState, setGameState } from "../state/useGameStore";
 import { createInitialState } from "../state/initialState";
-import { purchaseUpgrade } from "../systems/UpgradeManager";
+import { purchaseUpgrade, type UpgradePurchaseMode } from "../systems/UpgradeManager";
 import { performPrestige } from "../systems/PrestigeManager";
 import { claimOfflineReward } from "../systems/OfflineRewardManager";
 import { SaveManager } from "../systems/SaveManager";
@@ -26,6 +26,16 @@ function setToast(message: string, kind: "error" | "save" = "save", nowMs = Date
     lastToast: message,
     lastAction: { kind, message, createdAt: nowMs },
   }));
+}
+
+function playHaptic(state: ReturnType<typeof getGameState>, pattern: VibratePattern) {
+  if (!state.settings.vibrationEnabled) return;
+  const browserNavigator = globalThis.navigator as (Navigator & { vibrate?: (pattern: VibratePattern) => boolean }) | undefined;
+  try {
+    browserNavigator?.vibrate?.(pattern);
+  } catch {
+    // Vibration is optional browser feedback; unsupported environments should stay silent.
+  }
 }
 
 export const GameActions = {
@@ -55,16 +65,28 @@ export const GameActions = {
     return gain;
   },
 
-  buyUpgrade(id: string, nowMs = Date.now()) {
-    const result = purchaseUpgrade(getGameState(), id, nowMs);
+  buyUpgrade(id: string, modeOrNowMs: UpgradePurchaseMode | number = "one", maybeNowMs = Date.now()) {
+    const mode = typeof modeOrNowMs === "number" ? "one" : modeOrNowMs;
+    const nowMs = typeof modeOrNowMs === "number" ? modeOrNowMs : maybeNowMs;
+    const state = getGameState();
+    const result = purchaseUpgrade(state, id, nowMs, mode);
     if (!result.ok) {
       setToast(result.reason === "insufficient_oranges" ? "귤이 부족해요." : "구매할 수 없어요.", "error", nowMs);
       SoundManager.play("error");
+      playHaptic(state, [12, 24, 12]);
       return result;
     }
-    setGameState(applyUnlocks(result.state, nowMs));
-    AnalyticsManager.track("purchase_upgrade", { id, level: result.item.level + 1 }, nowMs);
+    const nextState = applyUnlocks(result.state, nowMs);
+    setGameState(nextState);
+    AnalyticsManager.track("purchase_upgrade", {
+      id,
+      level: result.nextLevel,
+      quantity: result.quantity,
+      cost: result.totalCost.toString(),
+      mode,
+    }, nowMs);
     SoundManager.play("purchase");
+    playHaptic(nextState, result.quantity > 1 ? 24 : 14);
     return result;
   },
 
@@ -80,6 +102,7 @@ export const GameActions = {
     SaveManager.saveToStorage(nextState, globalThis.localStorage, nowMs);
     AnalyticsManager.track("prestige_complete", { gain: result.gain.toString() }, nowMs);
     SoundManager.play("prestige");
+    playHaptic(nextState, [28, 36, 28]);
     return result;
   },
 
@@ -89,6 +112,7 @@ export const GameActions = {
     SaveManager.saveToStorage(next, globalThis.localStorage, nowMs);
     AnalyticsManager.track("offline_reward_claimed", { reward: next.lastAction?.message }, nowMs);
     SoundManager.play("offlineReward");
+    playHaptic(next, 22);
   },
 
   save(nowMs = Date.now(), options: { silent?: boolean } = {}) {
@@ -157,6 +181,7 @@ export const GameActions = {
     setGameState(nextState);
     AnalyticsManager.track("quest_claimed", { id: questId }, nowMs);
     SoundManager.play("quest");
+    playHaptic(nextState, 16);
     return result;
   },
 
@@ -171,6 +196,7 @@ export const GameActions = {
     setGameState(nextState);
     AnalyticsManager.track("achievement_reward_claimed", { id: achievementId }, nowMs);
     SoundManager.play("achievement");
+    playHaptic(nextState, 18);
     return result;
   },
 

@@ -30,6 +30,7 @@ npm run cap:sync
 - v2 raster home/prestige/shop/offline/store key visual 후보, wood/parchment/orange game HUD skin, store screenshot 후보 10장
 - RC-4 interaction polish: upgrade workbench/shelf UI, settings ledger/drawer, save vault modal, custom settings switches, save export copy action, modal/toast/card HUD polish
 - RC-5 CSS component pass: `layout.css` import manifest, `shell/hud/screens/effects` split, reusable `.ui-*` game skin classes, upgrade/settings/save/album polish
+- RC-6 product feel pass: quick-buy `1개/10개/최대`, purchase/offline/prestige/album reveal, touch variation, D1/D3/D7 retention plan
 - RC-3 playtest pass: 첫 환생 33분 목표, 1/5/15/30/120분 밸런스 checkpoint, 실제 5분권 E2E
 - `STORY_BIBLE.md`와 연결된 8마리 카피바라 캐릭터/짧은 인게임 대사
 - 환생과 황금 나뭇잎 영구 배율
@@ -43,7 +44,7 @@ npm run cap:sync
 - Capacitor iOS/Android 패키징 준비 config
 - `NATIVE_BUILD_GUIDE.md`, `DEVICE_QA_CHECKLIST.md`, `ASSET_CREDITS.md`, `AUDIO_ASSET_PLAN.md`
 - `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`, `VISUAL_QA.md`
-- balance simulation과 source budget report
+- balance simulation, `RETENTION_PLAN.md`, source budget report
 - `PLAYTEST_REPORT.md` 기반 RC-3 bug bash와 store screenshot 재점검
 - expanded completion audit
 

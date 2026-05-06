@@ -13,12 +13,12 @@ built successfully; Vite large chunk warning remains for bundled raster assets
 ```txt
 npm test
 Test Files  21 passed (21)
-Tests       479 passed (479)
+Tests       485 passed (485)
 ```
 
 ```txt
 npm run test:e2e
-21 passed (1.5m)
+22 passed
 ```
 
 ```txt
@@ -48,8 +48,8 @@ Fix:
 - `offline.test.ts`, `rc1Rewards.test.ts`, 관련 Playwright flow를 업데이트.
 
 검증:
-- `npm test` 전체 479 tests 통과.
-- `npm run test:e2e` 전체 21 tests 통과.
+- 당시 `npm test` 전체 479 tests 통과. RC-6 최종 기준은 485 tests 통과.
+- 당시 `npm run test:e2e` 전체 21 tests 통과. RC-6 최종 기준은 22 tests 통과.
 
 ## Raster Art/CSS Production Pass
 
@@ -103,6 +103,20 @@ Fix:
 - `visualAssetIntegrity.test.ts` runtime visual styling audit에 새 CSS 파일들을 모두 포함했다.
 - `RC5_CSS_COMPONENT_AUDIT.md`에 baseline audit, selector/line metrics, screen 판정, 남은 P2/P3를 기록했다.
 
+## RC-6 Product Feel, Game Juice & Retention Pass
+
+- RC-5 CSS split과 v2 raster art는 유지했다. 새 raster asset 대량 추가나 save schema 변경은 하지 않았다.
+- `UpgradeManager.calculateUpgradePurchasePlan`을 추가해 `1개 / 10개 / 최대` quick-buy를 BigNumber 기반으로 계산한다.
+- `UpgradePanel`에 quick-buy segmented control, 구매 가능 count, 구매 후 Lv chip, batch cost plaque를 추가했다.
+- 구매 성공/실패는 기존 sound에 haptic hook을 더했고, 실패 toast/shake는 주요 클릭을 막지 않는다.
+- 터치 floating text는 위치/색/크기 variation을 갖되 기존 cap을 유지한다.
+- 오프라인 reward modal에 staged return copy, basket lid cue, reward count plaque를 추가했다.
+- 환생 실행 후 `새 계절 시작` result panel을 띄워 획득 황금 나뭇잎, 총 보유량, 새 배율, 다음 목표를 보여준다.
+- 앨범/퀘스트/업적 claim 뒤 sticker stamp/reveal banner가 표시된다.
+- `BalanceSimulator.ts`에 첫 10초와 D1/D3/D7 retention checkpoint를 추가했고, `RETENTION_PLAN.md`에 D0/D1/D3/D7 목표를 기록했다.
+- Unit coverage 추가: 10개 구매, 최대 구매, 부족 상태, maxLevel cap, BigNumber 큰 수치 max-buy, D1/D3/D7 retention checkpoint.
+- E2E coverage 추가: quick-buy 10/max, offline reveal selectors, prestige result panel, album reveal banner, effects-off state.
+
 ## 자동 테스트 커버리지
 
 - 밸런스 계산: 비용 증가, 터치 수익, EPS, BigNumber, format.
@@ -114,7 +128,7 @@ Fix:
 - 오프라인 보상, 환생, 튜토리얼, 설정, 광고/IAP mock.
 - RC reward loops: companion passive, achievement claim reward, permanent multiplier, progression unlock, sound mute.
 - RC bug bash: rapid taps, duplicate reward guards, prestige save/load, mute persistence, long number formatting.
-- balance simulation: 1분/5분/15분/30분/2시간 checkpoint, 첫 환생, 환생 후 30분, 광고 버프.
+- balance simulation: 10초/1분/5분/15분/30분/2시간 checkpoint, 첫 환생, 환생 후 30분, D1/D3/D7 retention assumption, 광고 버프.
 
 ## E2E Coverage
 
@@ -123,21 +137,21 @@ Fix:
 | 파일 | 상태 | 비고 |
 | --- | --- | --- |
 | `e2e/new-user-flow.spec.ts` | 완료 | 튜토리얼, 터치, 앨범 퀘스트 보상, 첫 업그레이드, 홈 목표/컬렉션 |
-| `e2e/upgrade-flow.spec.ts` | 완료 | 구매 가능/불가능 상태, reload blocker regression |
+| `e2e/upgrade-flow.spec.ts` | 완료 | 구매 가능/불가능 상태, quick-buy 10/max, reload blocker regression |
 | `e2e/save-import-export.spec.ts` | 완료 | 저장, reload, export, reset, import |
-| `e2e/offline-reward.spec.ts` | 완료 | 복귀 보상, 중복 지급 방지 |
-| `e2e/prestige-flow.spec.ts` | 완료 | 환생 실행과 영구 재화 유지 |
-| `e2e/settings-tutorial.spec.ts` | 완료 | 설정, 튜토리얼 재시작 |
+| `e2e/offline-reward.spec.ts` | 완료 | 복귀 보상, staged reveal, 중복 지급 방지 |
+| `e2e/prestige-flow.spec.ts` | 완료 | 환생 실행, result panel, 영구 재화 유지 |
+| `e2e/settings-tutorial.spec.ts` | 완료 | 설정, effects-off state, 튜토리얼 재시작 |
 | `e2e/monetization-mock.spec.ts` | 완료 | 광고 보상, IAP 샌드박스 보상 |
 | `e2e/visual-regression.spec.ts` | 완료 | 360/390/430/desktop screenshots, overflow check |
 | `e2e/store-screenshot-pack.spec.ts` | 완료 | iPhone/Android store screenshot 후보 10장 |
 | `e2e/debug-cheat-flow.spec.ts` | 완료 | `?debug=1` 격리와 장기 성장 QA |
 | `e2e/rc1-product-feel.spec.ts` | 완료 | 업적 보상 claim, 카피바라 passive 표시/수익, sound mute, 장기 목표 |
-| `e2e/first-five-minute-playtest.spec.ts` | 완료 | debug 없이 5분권 실제 플레이 보상/저장/장식/동료/복귀 검증 |
+| `e2e/first-five-minute-playtest.spec.ts` | 완료 | debug 없이 5분권 실제 플레이 보상/reveal/저장/장식/동료/복귀 검증 |
 
 ## 시각 QA
 
-- Playwright visual flow가 52개 current screenshot을 갱신했다. `qa-screenshots/` 전체에는 archived before shots를 포함해 88개 PNG가 있다.
+- Playwright visual flow가 64개 current screenshot을 갱신한다. `qa-screenshots/` 전체에는 archived before shots와 RC-6 quick-buy/claim/prestige-result screenshots가 포함된다.
 - Store 후보 10개를 `store-screenshots/`에 갱신했다.
 - 360x740, 390x844, 430x932, desktop 1280x900 중앙 패널에서 overflow assertion 통과.
 - 홈 v2 raster orchard/capybara integrated scene, 앨범 raster sticker portraits, 환생 ritual raster, 상점 reward banner raster, 오프라인 보상 raster, save modal 긴 code scroll을 재확인했다.
@@ -145,19 +159,20 @@ Fix:
 - CSS audit: runtime visual files에서 temporary override marker, generic UI marker, external asset fallback marker를 제거했고, RC-5 이후 `shell/hud/screens/effects` 파일도 audit 대상에 포함했다.
 - RC-4 추가 수동 판정: `390x844-upgrades.png`는 더 이상 spreadsheet/list/card layout로 보지 않는다. `390x844-settings.png`는 browser form UI가 아니며, `390x844-save-modal.png`는 save vault/ledger UI로 보인다.
 - RC-5 추가 수동 판정: `390x844-upgrades.png`, `390x844-settings.png`, `390x844-save-modal.png`, `390x844-collection.png`, `desktop-1280x900-upgrades.png`, store save screenshot을 확인했다. 내부 P0/P1 visual regression은 없음.
+- RC-6 추가 산출물 확인: `390x844-upgrades-quick-buy.png`, `390x844-collection-claim-ready.png`, `390x844-prestige-result.png`, `390x844-offline-reward.png`가 생성됐고 390x844 viewport screenshot artifact dimension과 파일 크기를 확인했다. 내부 P0/P1 gameplay feel blocker는 없음.
 
 ## Source Budget Gate
 
-- handwritten runtime implementation: 7,781 LOC.
-- handwritten tests/E2E: 2,289 LOC.
-- pure handwritten gameplay/UI/system/test total: 10,070 LOC.
+- handwritten runtime implementation: 8,385 LOC.
+- handwritten tests/E2E: 2,449 LOC.
+- pure handwritten gameplay/UI/system/test total: 10,834 LOC.
 - excluded config: 2,529 LOC.
 - excluded generated SVG/registry: 11,533 LOC.
 - excluded generated matrix tests: 5,846 LOC.
 - generated SVG files: 253.
 - registry asset keys: 242.
 - raster PNG files: 15, 19M total.
-- handwritten runtime+test byte size: 345,234 bytes.
+- handwritten runtime+test byte size: 370,237 bytes.
 
 ## 남은 리스크
 

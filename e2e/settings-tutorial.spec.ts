@@ -11,6 +11,8 @@ test("settings and tutorial controls work without debug shortcuts", async ({ pag
   await page.getByRole("button", { name: "건너뛰기" }).click();
 
   await page.getByRole("button", { name: "설정" }).click();
+  await page.getByText("이펙트 켜기").click();
+  await expect(page.locator(".game-shell")).toHaveAttribute("data-effects-enabled", "false");
   await page.getByText("효과음 음소거").click();
   await page.getByText("배경음 음소거").click();
   await page.getByRole("button", { name: "과학적" }).click();

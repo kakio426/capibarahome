@@ -162,13 +162,15 @@ export function AppShell() {
     if (!state.settings.effectsEnabled) return;
 
     const idBase = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-    const x = event.clientX;
-    const y = event.clientY;
+    const x = event.clientX + (Math.random() - 0.5) * 28;
+    const y = event.clientY + (Math.random() - 0.5) * 22;
+    const burstRoll = Math.random();
     const nextFloating: FloatingText = {
       id: `${idBase}-text`,
       text: `+${formatTapBurst(gain, state.settings.numberFormat)} 귤`,
       x,
       y,
+      variant: gain.gte(1000) ? "gold" : burstRoll > 0.66 ? "pop" : "soft",
     };
     const nextParticles = Array.from({ length: 8 }, (_, index) => ({
       id: `${idBase}-p-${index}`,
@@ -260,12 +262,16 @@ export function AppShell() {
           className="reward-modal ui-modal--reward"
           actions={<Button onClick={() => GameActions.claimOffline()}>보상 받기</Button>}
         >
-          <p>{offlineReturnLine(state.offlineReward?.seconds ?? 0)}</p>
-          <p>{formatDuration(state.offlineReward?.seconds ?? 0)} 동안 카피바라가 귤을 모았습니다.</p>
-          <div className="offline-visual" aria-hidden="true">
-            <RasterAssetImage assetKey="offline-reward-raster" className="offline-key-asset" />
+          <div className="reward-reveal-stack">
+            <span className="reward-step-chip">정원 복귀</span>
+            <p>{offlineReturnLine(state.offlineReward?.seconds ?? 0)}</p>
+            <p>{formatDuration(state.offlineReward?.seconds ?? 0)} 동안 카피바라가 귤을 모았습니다.</p>
           </div>
-          <strong className="offline-reward">+{state.offlineReward?.oranges.format(state.settings.numberFormat)} 귤</strong>
+          <div className="offline-visual reward-reveal-visual" aria-hidden="true">
+            <RasterAssetImage assetKey="offline-reward-raster" className="offline-key-asset" />
+            <span className="reward-basket-lid" />
+          </div>
+          <strong className="offline-reward reward-count">+{state.offlineReward?.oranges.format(state.settings.numberFormat)} 귤</strong>
         </Modal>
       </div>
     </div>

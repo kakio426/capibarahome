@@ -9,6 +9,7 @@ async function claimQuest(page: Page, title: string) {
   await expect(button).toBeEnabled();
   await button.click();
   await expect(card.getByRole("button", { name: "완료" })).toBeVisible();
+  await expect(page.locator(".album-reveal-banner")).toBeVisible();
 }
 
 async function buyUpgrade(page: Page, name: string) {
@@ -25,6 +26,7 @@ async function claimAchievement(page: Page, title: string) {
   await expect(button).toBeEnabled();
   await button.click();
   await expect(badge.getByRole("button", { name: "보상 받음" })).toBeVisible();
+  await expect(page.locator(".album-reveal-banner")).toBeVisible();
 }
 
 test("first five-minute manual playtest covers reward, save, decoration, and companion loops without debug", async ({ page }) => {

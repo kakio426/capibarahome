@@ -12,6 +12,9 @@ test("prestige flow preserves permanent currency and resets regular progress", a
   await expect(page.locator(".prestige-badge", { hasText: "환생 가능" })).toBeVisible();
   await page.getByRole("button", { name: "환생하기" }).click();
   await page.getByRole("dialog", { name: "환생 확인" }).getByRole("button", { name: "황금 나뭇잎 받기" }).click();
+  await expect(page.getByRole("dialog", { name: "새 계절 시작" })).toBeVisible();
+  await expect(page.locator(".prestige-result-grid")).toContainText("새 배율");
+  await page.getByRole("dialog", { name: "새 계절 시작" }).getByRole("button", { name: "정원으로 돌아가기" }).click();
   await expect(page.locator(".toast", { hasText: "환생 완료" })).toBeVisible();
 
   await page.reload();

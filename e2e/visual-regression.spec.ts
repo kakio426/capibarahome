@@ -33,6 +33,14 @@ for (const viewport of viewports) {
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-upgrades.png`, fullPage: true });
     await expectNoHorizontalOverflow(page);
 
+    await seedSave(page, (state) => {
+      setOrange(state, "100000");
+    });
+    await page.getByRole("button", { name: "업그레이드" }).click();
+    await page.getByRole("button", { name: "최대" }).click();
+    await page.screenshot({ path: `qa-screenshots/${viewport.name}-upgrades-quick-buy.png`, fullPage: true });
+    await expectNoHorizontalOverflow(page);
+
     await page.getByRole("button", { name: "앨범" }).click();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-collection.png`, fullPage: true });
     await expectNoHorizontalOverflow(page);
@@ -63,6 +71,8 @@ for (const viewport of viewports) {
     await page.getByRole("button", { name: "앨범" }).click();
     await page.locator(".companion-board").scrollIntoViewIfNeeded();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-collection-abilities.png`, fullPage: true });
+    await page.locator(".badge-board").scrollIntoViewIfNeeded();
+    await page.screenshot({ path: `qa-screenshots/${viewport.name}-collection-claim-ready.png`, fullPage: true });
     await expectNoHorizontalOverflow(page);
 
     await seedSave(page, (state) => {
@@ -74,6 +84,10 @@ for (const viewport of viewports) {
     await page.getByRole("button", { name: "환생" }).click();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-prestige.png`, fullPage: true });
     await expectNoHorizontalOverflow(page);
+    await page.getByRole("button", { name: "환생하기" }).click();
+    await page.getByRole("dialog", { name: "환생 확인" }).getByRole("button", { name: "황금 나뭇잎 받기" }).click();
+    await page.screenshot({ path: `qa-screenshots/${viewport.name}-prestige-result.png`, fullPage: true });
+    await page.getByRole("dialog", { name: "새 계절 시작" }).getByRole("button", { name: "정원으로 돌아가기" }).click();
 
     await page.getByRole("button", { name: "상점" }).click();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-shop.png`, fullPage: true });

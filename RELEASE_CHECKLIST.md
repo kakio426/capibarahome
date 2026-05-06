@@ -14,7 +14,7 @@
 - [x] Story bible added and connected to UI/config
 - [x] Balance simulation added and tested
 - [x] Source budget re-audited without generated/config/docs/screenshots/build output
-- [x] Handwritten implementation scale recorded (`runtime 7,781 LOC`, `handwritten tests/E2E 2,289 LOC`)
+- [x] Handwritten implementation scale recorded (`runtime 8,385 LOC`, `handwritten tests/E2E 2,449 LOC`)
 - [x] Content integration audit completed in `CONTENT_INTEGRATION_AUDIT.md`
 - [x] Visual defects audit completed in `VISUAL_DEFECTS.md`
 - [x] RC-1 product-feel hardening completed: companion passive, achievement claim rewards, long-term goal, WebAudio feedback
@@ -24,6 +24,8 @@
 - [x] RC-4 visual audit completed in `RC4_UI_SKIN_AUDIT.md`
 - [x] RC-5 CSS Debt & Component System Pass completed: `layout.css` import manifest, `shell/hud/screens/effects` split, `.ui-*` skin classes, upgrade/settings/save/album P2/P3 polish, refreshed visual/store screenshots
 - [x] RC-5 CSS/component audit completed in `RC5_CSS_COMPONENT_AUDIT.md`
+- [x] RC-6 Product Feel pass completed: quick-buy 1/10/max, purchase/reward/prestige/album reveal, touch feel variation, D1/D3/D7 retention plan
+- [x] RC-6 audit and retention docs completed in `RC6_PRODUCT_FEEL_AUDIT.md` and `RETENTION_PLAN.md`
 - [x] Visual asset integrity tests added for SVG count, raster PNG integrity, coverage, external-reference bans, runtime visual styling audit
 - [x] Art production docs added: `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`
 - [x] RC-2 audio readiness completed: file-ready audio slots and synthetic WebAudio fallback
@@ -36,6 +38,7 @@
 - [x] Save/import failure paths do not crash the app
 - [x] Offline reward, prestige, save/load, export/import flows tested
 - [x] Visual screenshots captured for 360x740, 390x844, 430x932, desktop
+- [x] RC-6 screenshots captured for quick-buy mode, album claim-ready state, prestige result, and offline reward reveal
 
 ## Capacitor Prep
 

@@ -4,16 +4,16 @@
 
 ## Summary
 
-이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면과 정보형 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체했고, RC-4 hardening pass에서는 성장/설정/세이브/앨범 하단 정보 UI까지 wood/parchment/orange game HUD skin으로 묶었다. RC-5에서는 이 방향을 유지하면서 `layout.css` 후반 override 의존을 분리하고 reusable `.ui-*` game skin system으로 안정화했다.
+이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면과 정보형 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체했고, RC-4 hardening pass에서는 성장/설정/세이브/앨범 하단 정보 UI까지 wood/parchment/orange game HUD skin으로 묶었다. RC-5에서는 이 방향을 유지하면서 `layout.css` 후반 override 의존을 분리하고 reusable `.ui-*` game skin system으로 안정화했다. RC-6에서는 구조를 다시 갈아엎지 않고 quick-buy, reward reveal, prestige result, album claim reveal을 추가해 조작감과 보상감을 보강했다.
 
 Current evidence:
 
 ```txt
 npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
-6 passed, 52 QA screenshots and 10 store screenshots regenerated
+6 passed, 64 QA screenshots and 10 store screenshots regenerated
 
 npm run test:e2e
-21 passed, includes visual/store screenshot regeneration
+22 passed, includes visual/store screenshot regeneration and RC-6 quick-buy/reward result screenshots
 ```
 
 Current asset baseline:
@@ -21,7 +21,7 @@ Current asset baseline:
 ```txt
 src/assets/raster: 15 PNG files / 19M
 src/assets/generated: 253 SVG auxiliary files
-qa-screenshots: 88 PNG files including archived before shots
+qa-screenshots: 100 PNG files including archived before shots
 store-screenshots: 10 PNG candidates
 ```
 
@@ -40,11 +40,11 @@ store-screenshots: 10 PNG candidates
 | Screen | v2 판정 | 확인 내용 | 경쟁작 대비 남은 부족점 |
 | --- | --- | --- | --- |
 | 홈 | 완료 | 카피바라와 귤 정원이 숫자보다 먼저 보이고, tap CTA/재화 HUD/하단 탭이 같은 wood HUD skin으로 통일됨 | Cats & Soup 같은 hand-drawn idle animation depth는 P2 |
-| 성장 | 완료 | 카드 리스트에서 garden workbench / facility shelf 구조로 이동. 왼쪽 tool slot, shelf rail, cost plaque, 구매 버튼, 레벨/효과 plaque가 게임 재료처럼 읽힘 | Egg, Inc.식 quick-buy 반복 조작 최적화는 P2 |
-| 앨범 | 완료 | v2 companion portrait 8종과 orchard room background가 보이고, 카드도 game shelf 톤으로 정리됨 | 방 꾸미기 자유 배치와 staged reveal은 P2 |
-| 환생 | 완료 | golden leaf ritual raster scene이 계산보다 먼저 보임. 예상 보상/진행률/확인 flow가 명확함 | ritual animation과 reset ceremony는 P2 |
+| 성장 | 완료 | 카드 리스트에서 garden workbench / facility shelf 구조로 이동. 왼쪽 tool slot, shelf rail, cost plaque, 구매 버튼, 레벨/효과 plaque가 게임 재료처럼 읽힘. RC-6 quick-buy panel과 구매 후 Lv chip 추가 | 후속으로 true animated shopkeeper handoff는 P3 |
+| 앨범 | 완료 | v2 companion portrait 8종과 orchard room background가 보이고, 카드도 game shelf 톤으로 정리됨. RC-6 claim reveal banner로 보상 순간이 강화됨 | 방 꾸미기 자유 배치는 P3 |
+| 환생 | 완료 | golden leaf ritual raster scene이 계산보다 먼저 보임. 예상 보상/진행률/확인 flow가 명확함. RC-6 result panel이 획득 잎/새 배율/다음 목표를 표시 | full ritual animation은 P3 |
 | 상점 | 완료 | reward banner가 mock shop을 게임 상점처럼 잡아주고, 실제 결제 오해 문구는 없음 | 실제 광고/IAP SDK 연결 전까지 sandbox |
-| 오프라인 보상 | 완료 | harvest/rest raster illustration과 보상 숫자가 모달 첫 시선으로 들어옴 | 장시간 복귀 chest opening animation은 P2 |
+| 오프라인 보상 | 완료 | harvest/rest raster illustration과 보상 숫자가 모달 첫 시선으로 들어옴. RC-6 basket/chest reveal cue와 reward count plaque 추가 | 장시간 복귀 count-up numeric animation은 P3 |
 | 설정/저장 | 완료 | 설정은 집사 장부/정원 관리 서랍, 세이브는 보관함/봉인 코드/금고 modal로 보이며 모바일에서 잘리지 않음 | native save/restore와 export code 길이 자체의 시각 부담은 P3 |
 | 튜토리얼 | 완료 | 첫 사용자가 터치/성장/보상 흐름을 막히지 않고 볼 수 있음 | 단계별 mascot animation은 P3 |
 
@@ -70,6 +70,17 @@ store-screenshots: 10 PNG candidates
 | 설정/세이브 | 화면별 one-off ledger/vault CSS | ledger row/toggle/vault/code slot을 common HUD classes로 안정화 | `qa-screenshots/390x844-settings.png`, `qa-screenshots/390x844-save-modal.png` |
 | 앨범 | metric grid 느낌 잔존 | sticker-ledger/stamp strip, groove progress treatment 강화 | `qa-screenshots/390x844-collection.png` |
 | Regression fix | CSS split 직후 screen header가 low-contrast parchment로 회귀 | `screens.css`에서 dark wood header plaque를 재고정하고 screenshots 재생성 | `qa-screenshots/390x844-upgrades.png`, `qa-screenshots/390x844-settings.png` |
+
+## RC-6 Product Feel Pass
+
+| 대상 | RC-5 잔여 리스크 | RC-6 조치 | Evidence |
+| --- | --- | --- | --- |
+| 반복 구매 | 단일 구매만 있어 mid-game 반복 조작이 피곤함 | `1개 / 10개 / 최대` quick-buy, BigNumber purchase plan, 구매 후 Lv chip | `UpgradeManager.ts`, `UpgradePanel.tsx`, `upgrade.test.ts`, `qa-screenshots/390x844-upgrades-quick-buy.png` |
+| 터치 손맛 | floating text가 반복적으로 같은 위치/색으로 보임 | 위치/색/크기 variation, touch press feedback, particle cap 유지 | `AppShell.tsx`, `FloatingTextLayer.tsx`, `effects.css` |
+| 오프라인 보상 | 정적 reward modal 느낌 | staged return copy, basket lid cue, reward count plaque | `qa-screenshots/390x844-offline-reward.png`, `offline-reward.spec.ts` |
+| 환생 결과 | toast만으로는 강해진 느낌이 약함 | result panel with gained leaves, total leaves, new multiplier, next target | `qa-screenshots/390x844-prestige-result.png`, `prestige-flow.spec.ts` |
+| 앨범/업적 claim | 버튼/토스트 위주 보상 | sticker stamp/reveal banner and claimable glow | `qa-screenshots/390x844-collection-claim-ready.png`, `first-five-minute-playtest.spec.ts` |
+| motion settings | 연출 off에서 animation이 남을 수 있음 | effects-off/reduced motion animation disable coverage 확장 | `effects.css`, `settings-tutorial.spec.ts` |
 
 ## Manual Spot Check
 
@@ -99,10 +110,13 @@ store-screenshots: 10 PNG candidates
 | Home after tutorial | `qa-screenshots/390x844-home.png`, `qa-screenshots/360x740-home.png` |
 | Home progression/collection | `qa-screenshots/390x844-home-progression.png` |
 | Upgrade cards | `qa-screenshots/390x844-upgrades.png` |
+| Quick-buy mode | `qa-screenshots/390x844-upgrades-quick-buy.png` |
 | Album / quest / collection | `qa-screenshots/390x844-collection.png` |
 | Album companion abilities | `qa-screenshots/390x844-collection-abilities.png` |
 | Album achievement rewards | `qa-screenshots/390x844-collection-rewards.png` |
+| Album claim-ready state | `qa-screenshots/390x844-collection-claim-ready.png` |
 | Prestige | `qa-screenshots/390x844-prestige.png` |
+| Prestige result | `qa-screenshots/390x844-prestige-result.png` |
 | Shop | `qa-screenshots/390x844-shop.png`, `qa-screenshots/360x740-shop.png` |
 | Offline reward modal | `qa-screenshots/390x844-offline-reward.png`, `qa-screenshots/360x740-offline-reward.png` |
 | Settings | `qa-screenshots/390x844-settings.png` |
@@ -125,4 +139,4 @@ store-screenshots: 10 PNG candidates
 
 ## Remaining Visual Risk
 
-내부 P0/P1 visual blocker는 현재 없음으로 본다. 남은 항목은 P2/P3로 분리한다: companion list의 더 깊은 sticker-book reveal, Egg, Inc.식 quick-buy 반복 조작, chest opening/offline reward animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, 실제 app icon/adaptive icon/splash export, 물리 기기 store screenshot 재촬영.
+내부 P0/P1 visual blocker는 현재 없음으로 본다. RC-6에서 quick-buy와 reward reveal P2는 완화됐다. 남은 항목은 P2/P3로 분리한다: actual daily reward calendar, companion room 자유 배치, 더 긴 offline count-up animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, 실제 app icon/adaptive icon/splash export, 물리 기기 store screenshot 재촬영.

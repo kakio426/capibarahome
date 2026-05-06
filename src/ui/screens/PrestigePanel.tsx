@@ -18,14 +18,28 @@ function formatMultiplier(value: BigNumberLite) {
   return value.format();
 }
 
+type PrestigeResultView = {
+  gain: BigNumberLite;
+  totalLeaves: BigNumberLite;
+  multiplier: BigNumberLite;
+};
+
 export function PrestigePanel() {
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [prestigeResult, setPrestigeResult] = useState<PrestigeResultView | null>(null);
   const state = useGameStore((snapshot) => snapshot);
   const status = getPrestigeStatus(state);
   const format = state.settings.numberFormat;
 
   function confirmPrestige() {
-    GameActions.prestige();
+    const result = GameActions.prestige();
+    if (result.ok) {
+      setPrestigeResult({
+        gain: result.gain,
+        totalLeaves: result.state.currencies.goldenLeaf,
+        multiplier: status.nextMultiplier,
+      });
+    }
     setConfirmOpen(false);
   }
 
@@ -75,6 +89,32 @@ export function PrestigePanel() {
         )}
       >
         <p>현재 귤과 일반 업그레이드는 초기화됩니다. 황금 나뭇잎과 설정, 튜토리얼 기록은 유지됩니다.</p>
+      </Modal>
+
+      <Modal
+        open={Boolean(prestigeResult)}
+        title="새 계절 시작"
+        className="prestige-result-modal ui-modal--reward"
+        onClose={() => setPrestigeResult(null)}
+        actions={<Button onClick={() => setPrestigeResult(null)}>정원으로 돌아가기</Button>}
+      >
+        <div className="prestige-result-stamp" aria-hidden="true">황금잎</div>
+        <p>이전 정원의 기록이 황금 나뭇잎으로 남았습니다.</p>
+        <div className="prestige-result-grid">
+          <div>
+            <span className="metric-label">획득</span>
+            <strong>+{prestigeResult?.gain.format(format)}개</strong>
+          </div>
+          <div>
+            <span className="metric-label">보유</span>
+            <strong>{prestigeResult?.totalLeaves.format(format)}개</strong>
+          </div>
+          <div>
+            <span className="metric-label">새 배율</span>
+            <strong>x{prestigeResult ? formatMultiplier(prestigeResult.multiplier) : "1"}</strong>
+          </div>
+        </div>
+        <p className="prestige-next-copy">다음 목표는 누적 {BigNumberLite.from(GameConfig.prestige.requirement).format(format)} 귤입니다.</p>
       </Modal>
     </main>
   );

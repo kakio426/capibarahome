@@ -600,6 +600,55 @@
   color: #fffdf2;
 }
 
+.prestige-result-modal {
+  color: #2f1d12;
+}
+
+.prestige-result-stamp {
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  width: 108px;
+  height: 108px;
+  border: 6px solid rgba(255, 242, 194, 0.74);
+  border-radius: 50%;
+  color: #5b2a10;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255, 250, 224, 0.84), transparent 38px),
+    linear-gradient(180deg, #ffd568, #dd8c24);
+  box-shadow: 0 9px 0 rgba(47, 27, 18, 0.22), 0 0 34px rgba(255, 213, 104, 0.34);
+  font-weight: 950;
+}
+
+.prestige-result-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.prestige-result-grid > div {
+  display: grid;
+  gap: 4px;
+  border: 3px solid rgba(47, 27, 18, 0.48);
+  border-radius: 10px;
+  padding: 9px 7px;
+  background: linear-gradient(180deg, #fff1bd, #d99e4d);
+  text-align: center;
+}
+
+.prestige-result-grid strong {
+  color: #5b2a10;
+  overflow-wrap: anywhere;
+}
+
+.prestige-next-copy {
+  border: 3px solid rgba(47, 27, 18, 0.44);
+  border-radius: 10px;
+  padding: 9px;
+  background: rgba(255, 250, 224, 0.52);
+  font-weight: 850;
+}
+
 .shop-feature-card {
   display: grid;
   gap: 12px;
@@ -679,6 +728,54 @@
   font-size: 1.22rem;
   font-weight: 950;
   text-align: center;
+}
+
+.reward-reveal-stack {
+  display: grid;
+  gap: 5px;
+}
+
+.reward-step-chip {
+  justify-self: start;
+  border: 3px solid rgba(47, 27, 18, 0.58);
+  border-radius: 999px;
+  padding: 5px 10px;
+  color: #fff4cc;
+  background: linear-gradient(180deg, #8c4d22, #3a2114);
+  box-shadow: inset 0 1px 0 rgba(255, 238, 184, 0.28);
+  font-size: 0.72rem;
+  font-weight: 950;
+}
+
+.reward-reveal-visual {
+  border: 4px solid #3a2114;
+  box-shadow: inset 0 0 0 2px rgba(255, 239, 177, 0.22), 0 8px 0 rgba(47, 27, 18, 0.2);
+}
+
+.reward-basket-lid {
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  bottom: 18px;
+  height: 32px;
+  border: 4px solid rgba(47, 27, 18, 0.68);
+  border-radius: 999px 999px 14px 14px;
+  background:
+    radial-gradient(circle at 50% 0, rgba(255, 237, 178, 0.5), transparent 34px),
+    linear-gradient(180deg, rgba(255, 164, 54, 0.92), rgba(117, 60, 25, 0.92));
+  box-shadow: 0 6px 0 rgba(47, 27, 18, 0.26);
+}
+
+.reward-count {
+  position: relative;
+  border: 4px solid rgba(126, 57, 19, 0.62);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 50% 0, rgba(255, 245, 190, 0.82), transparent 62px),
+    linear-gradient(180deg, #ffd568, #f08f2c);
+  color: #5b2a10;
+  text-shadow: 0 1px 0 rgba(255, 250, 224, 0.62);
+  box-shadow: 0 7px 0 rgba(91, 42, 16, 0.2);
 }
 
 .tutorial-overlay {
@@ -939,6 +1036,35 @@
   overflow-wrap: anywhere;
 }
 
+.quick-buy-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  border: 4px solid #3a2114;
+  border-radius: 12px;
+  padding: 10px;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(255, 213, 104, 0.34), transparent 82px),
+    linear-gradient(180deg, rgba(255, 238, 184, 0.96), rgba(206, 137, 61, 0.72));
+  box-shadow: 0 7px 0 rgba(47, 27, 18, 0.22), inset 0 2px 0 rgba(255, 250, 224, 0.48);
+}
+
+.quick-buy-panel strong {
+  display: block;
+  color: #2f1d12;
+  font-size: 0.84rem;
+}
+
+.quick-buy-mode {
+  grid-template-columns: repeat(3, minmax(54px, 1fr));
+  min-width: 190px;
+}
+
+.quick-buy-mode button {
+  min-height: 40px;
+}
+
 .upgrade-list {
   position: relative;
   gap: 16px;
@@ -1116,6 +1242,13 @@
   font-size: 0.69rem;
 }
 
+.upgrade-shelf-card .upgrade-meta .upgrade-result-chip {
+  color: #fff4cc;
+  background:
+    linear-gradient(180deg, rgba(255, 181, 72, 0.95), rgba(161, 69, 24, 0.92));
+  box-shadow: inset 0 1px 0 rgba(255, 246, 207, 0.34);
+}
+
 .ui-shelf-card__buy,
 .upgrade-buy-slot {
   position: relative;
@@ -1266,6 +1399,45 @@
   background: rgba(70, 42, 23, 0.12);
 }
 
+.album-reveal-banner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  border: 4px solid rgba(47, 27, 18, 0.7);
+  border-radius: 12px;
+  padding: 10px;
+  color: #fff4cc;
+  background:
+    radial-gradient(circle at 14% 50%, rgba(255, 213, 104, 0.44), transparent 74px),
+    linear-gradient(135deg, #244936, #6a3f22);
+  box-shadow: 0 8px 0 rgba(47, 27, 18, 0.22), inset 0 2px 0 rgba(255, 230, 164, 0.18);
+}
+
+.album-reveal-banner strong {
+  display: block;
+  min-width: 0;
+  color: #fff4cc;
+  overflow-wrap: anywhere;
+}
+
+.album-reveal-stamp {
+  display: grid;
+  place-items: center;
+  width: 74px;
+  min-height: 52px;
+  border: 4px solid rgba(255, 230, 164, 0.62);
+  border-radius: 50%;
+  color: #5b2a10;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 246, 207, 0.8), transparent 32px),
+    linear-gradient(180deg, #ffd568, #e4932b);
+  box-shadow: 0 5px 0 rgba(47, 27, 18, 0.24);
+  font-size: 0.72rem;
+  font-weight: 950;
+  text-align: center;
+}
+
 @media (max-width: 420px) {
   .app-frame {
     padding: 0;
@@ -1347,6 +1519,15 @@
     font-size: 0.88rem;
   }
 
+  .quick-buy-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-buy-mode {
+    min-width: 0;
+    width: 100%;
+  }
+
   .upgrade-shelf-card {
     grid-template-columns: 70px minmax(0, 1fr);
     gap: 8px;
@@ -1368,6 +1549,12 @@
   .upgrade-buy-button {
     width: auto;
     min-width: 68px;
+    padding-inline: 7px;
+    font-size: 0.72rem;
+  }
+
+  .prestige-result-grid {
+    grid-template-columns: 1fr;
   }
 
   .album-score-grid {

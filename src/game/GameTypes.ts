@@ -126,4 +126,5 @@ export type FloatingText = {
   text: string;
   x: number;
   y: number;
+  variant?: "soft" | "pop" | "gold";
 };

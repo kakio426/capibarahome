@@ -23,6 +23,17 @@
   animation: floating-rise 0.82s ease-out forwards;
 }
 
+.floating-text--pop {
+  color: #278866;
+  font-size: 1.08rem;
+}
+
+.floating-text--gold {
+  color: #b45a18;
+  text-shadow: 0 2px 0 #fff7dc, 0 0 18px rgba(255, 213, 104, 0.5), 0 9px 18px rgba(79, 49, 31, 0.22);
+  font-size: 1.14rem;
+}
+
 .particle {
   position: fixed;
   width: 10px;
@@ -210,7 +221,72 @@
   }
 }
 
+@keyframes reward-basket-open {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  100% {
+    transform: translateY(-18px) rotate(-5deg);
+  }
+}
+
+@keyframes reward-count-pop {
+  0% {
+    transform: scale(0.88);
+    opacity: 0;
+  }
+
+  55% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes album-stamp-pop {
+  0% {
+    transform: translateY(8px) scale(0.94);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateY(-2px) scale(1.02);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes claim-ready-glow {
+  0%,
+  100% {
+    box-shadow: 0 8px 0 rgba(47, 27, 18, 0.16);
+  }
+
+  50% {
+    box-shadow: 0 8px 0 rgba(47, 27, 18, 0.16), 0 0 20px rgba(255, 213, 104, 0.38);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
+  .game-shell[data-effects-enabled="true"] .capybara-touch:active {
+    transform: scale(0.993) translateY(2px);
+    filter: brightness(1.04) saturate(1.04);
+  }
+
+  .game-shell[data-effects-enabled="true"] .upgrade-buy-button:active,
+  .game-shell[data-effects-enabled="true"] .quick-buy-mode button:active {
+    transform: translateY(2px);
+  }
+
   .game-shell[data-effects-enabled="true"][data-last-action-kind="purchase"] .upgrade-shelf-card.is-buyable {
     animation: shelf-purchase-pulse 420ms ease-out;
   }
@@ -226,11 +302,35 @@
   .game-shell[data-effects-enabled="true"] .prestige-card.is-ready {
     animation: prestige-ready-glow 2.4s ease-in-out infinite;
   }
+
+  .game-shell[data-effects-enabled="true"] .reward-basket-lid {
+    animation: reward-basket-open 680ms 120ms ease-out forwards;
+  }
+
+  .game-shell[data-effects-enabled="true"] .reward-count,
+  .game-shell[data-effects-enabled="true"] .prestige-result-stamp {
+    animation: reward-count-pop 520ms ease-out;
+  }
+
+  .game-shell[data-effects-enabled="true"] .album-reveal-banner {
+    animation: album-stamp-pop 360ms ease-out;
+  }
+
+  .game-shell[data-effects-enabled="true"] .collection-badge.can-claim,
+  .game-shell[data-effects-enabled="true"] .quest-card.is-ready {
+    animation: claim-ready-glow 2.2s ease-in-out infinite;
+  }
 }
 
 .game-shell[data-effects-enabled="false"] .floating-text,
 .game-shell[data-effects-enabled="false"] .particle,
 .game-shell[data-effects-enabled="false"] .prestige-card.is-ready,
-.game-shell[data-effects-enabled="false"] .bottom-tabs button.is-active .tab-icon {
+.game-shell[data-effects-enabled="false"] .bottom-tabs button.is-active .tab-icon,
+.game-shell[data-effects-enabled="false"] .reward-basket-lid,
+.game-shell[data-effects-enabled="false"] .reward-count,
+.game-shell[data-effects-enabled="false"] .prestige-result-stamp,
+.game-shell[data-effects-enabled="false"] .album-reveal-banner,
+.game-shell[data-effects-enabled="false"] .collection-badge.can-claim,
+.game-shell[data-effects-enabled="false"] .quest-card.is-ready {
   animation: none;
 }

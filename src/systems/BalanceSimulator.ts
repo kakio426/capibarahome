@@ -57,11 +57,15 @@ export type BalanceSimulationOptions = {
 };
 
 const CHECKPOINTS = [
+  { label: "첫 10초", seconds: 10 },
   { label: "첫 1분", seconds: 60 },
   { label: "첫 5분", seconds: 300 },
   { label: "첫 15분", seconds: 900 },
   { label: "첫 30분", seconds: 1800 },
   { label: "첫 2시간", seconds: 7200 },
+  { label: "1일차 복귀", seconds: 86_400 },
+  { label: "3일차 목표", seconds: 259_200 },
+  { label: "7일차 목표", seconds: 604_800 },
 ];
 
 function ownedLevels(state: GameState) {
@@ -242,6 +246,7 @@ export function runBalanceSimulation(options: BalanceSimulationOptions): Balance
   let firstPrestigeSeconds: number | null = null;
   let firstPrestigeCheckpoint: BalanceCheckpoint | null = null;
   let postPrestigeThirtyMinuteCheckpoint: BalanceCheckpoint | null = null;
+  let checkpointIndex = 0;
 
   for (let elapsed = tickSeconds; elapsed <= options.durationSeconds; elapsed += tickSeconds) {
     const nowMs = startMs + elapsed * 1000;
@@ -266,9 +271,10 @@ export function runBalanceSimulation(options: BalanceSimulationOptions): Balance
         );
       }
     }
-    const checkpoint = CHECKPOINTS.find((item) => item.seconds === elapsed);
-    if (checkpoint) {
+    while (checkpointIndex < CHECKPOINTS.length && elapsed >= CHECKPOINTS[checkpointIndex].seconds) {
+      const checkpoint = CHECKPOINTS[checkpointIndex];
       checkpoints.push(createCheckpoint(checkpoint.label, elapsed, state, nowMs));
+      checkpointIndex += 1;
     }
   }
 

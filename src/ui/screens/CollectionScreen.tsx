@@ -30,6 +30,9 @@ export function CollectionScreen() {
   const unlockedBadges = badges.filter((badge) => badge.unlocked);
   const tierNameById = new Map(ProgressionConfig.tiers.map((tier) => [tier.id, tier.name]));
   const highlightedQuest = questBoard.ready[0] ?? questBoard.next;
+  const albumReveal = state.lastAction?.kind === "achievement" || state.lastAction?.kind === "quest"
+    ? state.lastAction.message
+    : null;
   const visibleQuests = [
     ...questBoard.ready,
     ...questBoard.quests.filter((quest) => !quest.readyToClaim && !quest.claimed).slice(0, 12),
@@ -77,6 +80,16 @@ export function CollectionScreen() {
         </div>
         <ProgressBar value={questBoard.completionRatio} label="퀘스트 보상 수령률" />
       </section>
+
+      {albumReveal ? (
+        <section className="album-reveal-banner" role="status" aria-label="앨범 보상 연출">
+          <span className="album-reveal-stamp">도장 완료</span>
+          <div>
+            <span className="app-kicker">새 기록</span>
+            <strong>{albumReveal}</strong>
+          </div>
+        </section>
+      ) : null}
 
       <section className="quest-board" aria-label="퀘스트 보드">
         <div className="section-title-row">
