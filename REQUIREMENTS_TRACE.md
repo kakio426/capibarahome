@@ -1,6 +1,6 @@
 # Requirements Trace
 
-기준일: 2026-05-05
+기준일: 2026-05-06
 
 이 문서는 교체 전 `PROJECT_SPEC.md` 원본 0-26번 요구사항을 production RC 명세와 실제 구현 근거에 매핑한다. 상태는 문서 선언이 아니라 코드, 테스트, E2E, 스크린샷, 빌드 산출물 기준으로 판단한다.
 
@@ -63,6 +63,7 @@
 | RC-2 native/store compliance docs | 완료 | `NATIVE_BUILD_GUIDE.md`, `DEVICE_QA_CHECKLIST.md`, `ASSET_CREDITS.md`, `PRIVACY_NOTES.md`, `STORE_LISTING_DRAFT.md` |
 | RC-3 playtest/balance bug bash | 완료 | `PLAYTEST_REPORT.md`, `BalanceSimulator.ts`, `balanceSimulation.test.ts`, `rc3BugBash.test.ts`, `first-five-minute-playtest.spec.ts` |
 | RC-3 store screenshot polish | 완료 | album crop, prestige multiplier formatting, save screenshot copy 수정, `store-screenshots/` 10장 재생성 |
+| RC-4 Game UI Skin & Interaction Polish | 완료 | custom settings switches, save export copy action, carved modal/toast/disabled controls, `visual-regression.spec.ts`, `store-screenshot-pack.spec.ts` |
 
 ## Trace Gate
 

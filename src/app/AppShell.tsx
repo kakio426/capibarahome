@@ -199,6 +199,7 @@ export function AppShell() {
         className="game-shell"
         data-tutorial-active-target={tutorialTarget}
         data-sound-muted={state.settings.soundMuted ? "true" : "false"}
+        data-toast-visible={state.lastToast ? "true" : "false"}
       >
         <header className="top-bar">
           <div>

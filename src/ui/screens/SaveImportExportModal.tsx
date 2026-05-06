@@ -21,14 +21,26 @@ export function SaveImportExportModal({ open, onClose }: SaveImportExportModalPr
     }
   }
 
+  async function copyExportCode() {
+    try {
+      await navigator.clipboard.writeText(exportCode);
+      setMessage("Export 코드를 복사했습니다.");
+    } catch {
+      setMessage("복사가 막혔습니다. Export 코드를 직접 선택해서 보관하세요.");
+    }
+  }
+
   return (
     <Modal open={open} title="저장 내보내기/가져오기" onClose={onClose}>
       <label className="field-stack">
-        <span>Export 코드</span>
+        <span className="field-heading">Export 코드</span>
         <textarea className="save-code-textarea" aria-label="Export 코드" readOnly value={exportCode} />
       </label>
+      <div className="save-ledger-actions">
+        <Button variant="secondary" onClick={copyExportCode} disabled={!exportCode}>Export 코드 복사</Button>
+      </div>
       <label className="field-stack">
-        <span>Import 코드</span>
+        <span className="field-heading">Import 코드</span>
         <textarea
           className="save-import-textarea"
           aria-label="Import 코드"

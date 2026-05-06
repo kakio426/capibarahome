@@ -1,6 +1,6 @@
 # Release Blockers
 
-기준일: 2026-05-05
+기준일: 2026-05-06
 
 ## Internal RC Blockers
 
@@ -17,13 +17,14 @@
 | visual defect P1 | 없음 | `VISUAL_DEFECTS.md`, save modal/tab/toast 수정 |
 | RC-1 reward feel P1 | 없음 | companion passive, achievement claim reward, long-term goal, WebAudio mute, RC-1 tests/E2E 추가 |
 | direct art/CSS readiness P1 | 없음 | 첫 raster pass 실패 기록 후 v2 HUD/raster pass 적용, `layout.css` 통합 정리, 253 SVG auxiliary files, 15 raster PNG core/release assets, `visualAssetIntegrity.test.ts`, `rasterAssetIntegrity.test.ts`, art direction docs |
+| RC-4 webapp control smell P1 | 없음 | browser checkbox 제거, custom settings switch, save export copy action, carved modal/toast/disabled controls, refreshed visual screenshots |
 | RC-3 playtest/balance/bug bash P1 | 없음 | 첫 환생 33분, 실제 5분권 E2E, migration/corrupt import/rapid tap/reward duplicate tests, store screenshot 재감사 |
 
 ## Source Budget Audit Gate
 
 | 항목 | 판정 | 근거 |
 | --- | --- | --- |
-| generated/config/docs 제외 구현량 | 기록 완료 | runtime 6,721 LOC, handwritten tests/E2E 2,285 LOC |
+| generated/config/docs 제외 구현량 | 기록 완료 | runtime 6,918 LOC, handwritten tests/E2E 2,285 LOC |
 | 이전 대형 `src` LOC 주장 | 완료 근거로 사용 금지 | generated SVG/registry 11,533 LOC와 generated tests 5,846 LOC는 별도 분리 |
 | 콘텐츠 실제 연결성 | 통과 | 30 upgrades/facilities, 50 quests, 40 achievements with claim rewards, 25 decorations, 8 capybaras with passive abilities, 5 tiers 항목별 감사 |
 

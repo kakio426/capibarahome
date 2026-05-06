@@ -1,6 +1,6 @@
 # QA Report
 
-기준일: 2026-05-05
+기준일: 2026-05-06
 
 ## Final Command Results
 
@@ -70,6 +70,15 @@ Fix:
 - `FINAL_ASSET_BRIEF.md`, `FINAL_ART_AUDIT.md`: raster key visual 제작/연결 범위와 before/after QA evidence.
 - `VISUAL_QA.md`: 화면별 첫인상, 캐릭터성, 보상감, placeholder 냄새, 양산형 앱 UI 냄새, 모바일 가독성, 텍스트 잘림, 버튼 터치성, 화면 밀도, 경쟁작 대비 부족한 점을 표로 기록.
 
+## RC-4 Game UI Skin & Interaction Polish
+
+- v2 raster art는 유지했다. `src/assets/raster`는 15 PNG / 19M 상태를 유지한다.
+- 설정 토글을 browser checkbox에서 carved wood/orange custom switch로 교체했다.
+- 세이브 modal에 `Export 코드 복사` action을 추가해 실제 export/import 사용성을 높였다.
+- save/import textarea, modal close button, disabled button, segmented control, toast를 wood/parchment/orange HUD skin에 맞게 보강했다.
+- toast가 settings header를 덮지 않도록 `data-toast-visible` 상태와 content offset을 추가했다.
+- `visual-regression.spec.ts` 단독 4 viewport 통과 후 settings/save/upgrade/offline screenshots를 수동 확인했다.
+
 ## 자동 테스트 커버리지
 
 - 밸런스 계산: 비용 증가, 터치 수익, EPS, BigNumber, format.
@@ -113,9 +122,9 @@ Fix:
 
 ## Source Budget Gate
 
-- handwritten runtime implementation: 6,721 LOC.
+- handwritten runtime implementation: 6,918 LOC.
 - handwritten tests/E2E: 2,285 LOC.
-- pure handwritten gameplay/UI/system/test total: 9,006 LOC.
+- pure handwritten gameplay/UI/system/test total: 9,203 LOC.
 - excluded config: 2,529 LOC.
 - excluded generated SVG/registry: 11,533 LOC.
 - excluded generated matrix tests: 5,846 LOC.

@@ -40,7 +40,7 @@ const shots = [
     id: "05-save",
     tab: "설정",
     title: "저장, 복구, 오프라인 보상까지",
-    subtitle: "export/import와 설정 토글을 모바일에서 관리합니다",
+    subtitle: "저장 코드와 설정을 한곳에서",
     modal: "save",
   },
 ];

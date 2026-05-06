@@ -1,6 +1,6 @@
 # Production Gap Backlog
 
-기준일: 2026-05-05
+기준일: 2026-05-06
 
 우선순위 기준:
 - P0: release candidate 판정을 막는 blocking issue
@@ -45,6 +45,7 @@
 | 첫 환생이 너무 빠르게 열릴 위험 | 초반 보상을 적극 수령하면 환생이 5분권으로 당겨져 30분 플레이 목표가 무너짐 | 구매 cadence simulation과 prestige requirement `25M` 조정, 첫 환생 33분 기록 | 해결 |
 | 실제 5분권 유저 플로우 검증 부족 | 단위 테스트만으로 보상/저장/장식/동료 루프의 실제 사용성을 판단하기 어려움 | `first-five-minute-playtest.spec.ts` 추가, debug 없이 reward/save/deco/companion/offline 검증 | 해결 |
 | store 후보 이미지 세부 polish 부족 | album crop, prestige `e0` 표기, save copy 길이가 제출 후보 인상을 낮춤 | store screenshot spec과 `PrestigePanel` formatting 보정 후 10장 재생성/검수 | 해결 |
+| 설정/세이브 control이 웹앱처럼 보일 위험 | 브라우저 checkbox, util textarea, toast overlap이 game HUD skin을 깨뜨릴 수 있음 | RC-4에서 custom settings switch, export code copy action, ledger textarea, carved toast/modal/disabled controls로 보강 | 해결 |
 
 ## P2
 
@@ -68,4 +69,4 @@
 
 ## Current Gate
 
-재감사, reward hardening, playtest/balance/bug bash, direct art/CSS pass, 첫 raster pass 실패 재분류, v2 raster/HUD art pass 중 발견한 내부 P1은 코드/CSS/테스트/E2E로 수정했다. 남은 항목은 commissioned/final art ownership, 실제 SDK, 물리 기기 QA, 더 깊은 수집 연출처럼 외부 준비나 추가 제품 확장에 가깝다. 현재 감사 기준에서 내부 P0/P1 release blocker는 없다.
+재감사, reward hardening, playtest/balance/bug bash, direct art/CSS pass, 첫 raster pass 실패 재분류, v2 raster/HUD art pass, RC-4 Game UI Skin & Interaction Polish 중 발견한 내부 P1은 코드/CSS/테스트/E2E로 수정했다. 남은 항목은 commissioned/final art ownership, 실제 SDK, 물리 기기 QA, 더 깊은 수집 연출처럼 외부 준비나 추가 제품 확장에 가깝다. 현재 감사 기준에서 내부 P0/P1 release blocker는 없다.

@@ -1,6 +1,6 @@
 # Visual QA
 
-기준일: 2026-05-05
+기준일: 2026-05-06
 
 ## Summary
 
@@ -48,6 +48,16 @@ store-screenshots: 10 PNG candidates
 | 설정/저장 | 완료 | tab/modal/textarea가 모바일에서 잘리지 않고 export/import 사용법이 보임 | native save/restore와 final code panel polish는 P3 |
 | 튜토리얼 | 완료 | 첫 사용자가 터치/성장/보상 흐름을 막히지 않고 볼 수 있음 | 단계별 mascot animation은 P3 |
 
+## RC-4 Interaction Polish
+
+| 대상 | 이전 잔여 문제 | RC-4 조치 | Evidence |
+| --- | --- | --- | --- |
+| 설정 토글 | 브라우저 checkbox처럼 보여 game HUD skin과 충돌 | carved rectangular switch, ON/OFF label, wood/orange thumb으로 교체 | `src/ui/components/Toggle.tsx`, `qa-screenshots/390x844-settings.png` |
+| Toast | settings screenshot에서 screen header를 덮어 정보 위계가 깨짐 | `data-toast-visible` content offset과 carved toast banner 적용 | `AppShell.tsx`, `qa-screenshots/390x844-settings.png` |
+| 세이브 modal | export/import code box가 기능형 form처럼 보이고 복사 action이 없음 | parchment ledger textarea와 `Export 코드 복사` action 추가 | `SaveImportExportModal.tsx`, `qa-screenshots/390x844-save-modal.png` |
+| Modal close/action | 기본 util dialog 느낌 일부 잔존 | close button, disabled button, modal frame shadow를 wood HUD로 보강 | `layout.css`, `qa-screenshots/390x844-save-modal.png`, `qa-screenshots/390x844-offline-reward.png` |
+| 업그레이드/카드/탭바 | v2 pass에서 해결됐지만 RC-4 회귀 확인 필요 | visual-regression 4 viewport 재생성 후 수동 확인 | `qa-screenshots/390x844-upgrades.png`, `qa-screenshots/390x844-settings.png` |
+
 ## Manual Spot Check
 
 - `qa-screenshots/390x844-home.png`: 첫인상은 웹 대시보드가 아니라 모바일 게임 home scene이다. 큰 흰 카드가 주인공이 되지 않는다.
@@ -55,6 +65,8 @@ store-screenshots: 10 PNG candidates
 - `qa-screenshots/390x844-collection.png`: portrait sticker room과 companion card가 보이며, 캐릭터 구분력이 이전보다 확실하다.
 - `qa-screenshots/390x844-prestige.png`: golden leaf ritual art가 화면 성격을 결정한다.
 - `qa-screenshots/390x844-shop.png`: reward banner와 상품 shelf가 mock provider 화면을 서비스 화면으로 보이게 한다.
+- `qa-screenshots/390x844-settings.png`: browser checkbox가 사라지고 custom ON/OFF switch가 적용됐으며 toast가 제목을 가리지 않는다.
+- `qa-screenshots/390x844-save-modal.png`: export code copy action과 ledger textarea가 추가되어 실제 복구 사용성이 좋아졌다.
 - `store-screenshots/iphone-01-home.png`: store-facing key art와 gameplay panel이 함께 보여 단순 앱 캡처 수준에서 벗어났다.
 
 ## Viewports
