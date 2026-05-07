@@ -20,11 +20,12 @@ export function UpgradePanel() {
   const tapGain = selectTapGain(state);
   const eps = selectEps(state);
   const tierNameById = new Map<string, string>(ProgressionConfig.tiers.map((tier) => [tier.id, tier.name]));
-  const purchaseModes: Array<{ id: UpgradePurchaseMode; label: string; note: string }> = [
-    { id: "one", label: "1개", note: "정확한 한 단계" },
-    { id: "ten", label: "10개", note: "초반 반복 구매" },
-    { id: "max", label: "최대", note: "가진 귤만큼" },
+  const purchaseModes: Array<{ id: UpgradePurchaseMode; label: string; note: string; short: string }> = [
+    { id: "one", label: "1개", note: "한 단계씩 정밀 조정", short: "정밀" },
+    { id: "ten", label: "10개", note: "초반 선반 빠르게 채우기", short: "묶음" },
+    { id: "max", label: "최대", note: "현재 귤로 가능한 만큼", short: "전력" },
   ];
+  const currentMode = purchaseModes.find((mode) => mode.id === purchaseMode) ?? purchaseModes[0];
 
   return (
     <main className="screen stack-screen">
@@ -47,9 +48,9 @@ export function UpgradePanel() {
         </div>
       </section>
       <section className="quick-buy-panel ui-panel ui-panel--parchment" aria-label="구매 수량 모드">
-        <div>
-          <span className="app-kicker">구매 수량</span>
-          <strong>{purchaseModes.find((mode) => mode.id === purchaseMode)?.note}</strong>
+        <div className="quick-buy-head">
+          <span className="app-kicker">작업대 레버</span>
+          <strong>{currentMode.note}</strong>
         </div>
         <div className="quick-buy-mode ui-segmented">
           {purchaseModes.map((mode) => (
@@ -57,10 +58,12 @@ export function UpgradePanel() {
               key={mode.id}
               type="button"
               className={purchaseMode === mode.id ? "is-active" : ""}
+              aria-label={mode.label}
               aria-pressed={purchaseMode === mode.id}
               onClick={() => setPurchaseMode(mode.id)}
             >
-              {mode.label}
+              <span>{mode.label}</span>
+              <small>{mode.short}</small>
             </button>
           ))}
         </div>
@@ -91,23 +94,29 @@ export function UpgradePanel() {
             <Panel key={item.id} className={`upgrade-card upgrade-shelf-card ui-shelf-card ${!item.unlocked ? "is-content-locked" : preview.canBuy ? "is-buyable" : "is-locked"}`}>
               <div className="upgrade-tool-slot ui-tool-slot">
                 <VisualAssetIcon assetKey={item.id} className="upgrade-icon" />
+                <span>{categoryLabel}</span>
               </div>
               <div className="upgrade-copy">
                 <div className="upgrade-title-row">
-                  <span className="upgrade-type">{categoryLabel}</span>
                   <span className="upgrade-tier-chip">{tierNameById.get(item.tier) ?? item.tier}</span>
                   {item.canBuy ? <span className="upgrade-ready-chip">구매 가능</span> : null}
                   <h3>{item.name}</h3>
                 </div>
-                <p className="upgrade-description">{item.description}</p>
-                <p className="upgrade-ui-copy">{item.uiCopy}</p>
                 {!item.unlocked ? <ProgressBar value={item.unlockProgress} label={item.unlockLabel} /> : null}
                 <div className="upgrade-meta">
-                  <span>Lv.{item.level}</span>
-                  <span>{item.effectText}</span>
-                  <span>{familyLabel}</span>
+                  <span>
+                    <small>현재</small>
+                    Lv.{item.level}
+                  </span>
+                  <span>
+                    <small>효과</small>
+                    {item.effectText}
+                  </span>
                   {preview.canBuy ? <span className="upgrade-result-chip">구매 후 Lv.{preview.nextLevel}</span> : null}
                 </div>
+                <p className="upgrade-ui-copy">{item.uiCopy}</p>
+                <p className="upgrade-description">{item.description}</p>
+                <span className="upgrade-family-chip">{familyLabel}</span>
               </div>
               <div className="upgrade-buy-slot ui-shelf-card__buy">
                 <span className="cost-plaque ui-plaque ui-cost-plaque">{purchaseLabel}</span>

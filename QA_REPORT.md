@@ -156,6 +156,20 @@ Fix:
   - `npx playwright test e2e/store-screenshot-pack.spec.ts --reporter=line`: 2 passed
 - RC-10 integrity pass에서 기존 `RC10_SCREEN_SCORECARD.md`의 8.2 self-score를 독립 재감사했다. `RC10_INDEPENDENT_RESCORE.md` 기준 corrected combined average는 7.7/10이며, upgrade quick-buy 7.2와 store screenshots 7.5는 product-quality P1으로 남는다. 따라서 RC-10은 방향성 개선은 맞지만 product release candidate gate는 no-go다.
 
+## RC-11 Narrow P1 Kill Pass
+
+- RC-10 no-go 문서와 보정 점수는 before evidence로 유지했다.
+- 새 기능, save schema, 대형 raster asset 추가 없이 남은 P1 두 개만 수정했다.
+- 업그레이드 quick-buy/shelf는 작업대 레버 장치, selected depth/glow/notch, filled pedestal, first card hierarchy, 360px focused shelf screenshot으로 보강했다.
+- Store screenshot pack은 phone panel scale/crop, upgrade shelf scroll framing, milestone/prestige/reward close framing, public Korean copy line-break를 재조정했다.
+- Full E2E 첫 재실행에서 quick-buy 보조 라벨 때문에 `최대` exact accessible name selector가 실패했다. 시각 보조 라벨은 유지하고 `aria-label`을 기존 값으로 복구한 뒤 관련 E2E와 전체 E2E를 재실행했다.
+- `RC11_INDEPENDENT_RESCORE.md` 기준 upgrade quick-buy 8.1, store screenshots 8.1, daily reward 8.0, milestone 8.0, prestige result 8.2, combined 8.1이다.
+- RC-11 screenshot 재생성 결과:
+  - `npx playwright test e2e/visual-regression.spec.ts --reporter=line`: 4 passed
+  - `npx playwright test e2e/store-screenshot-pack.spec.ts --reporter=line`: 2 passed
+  - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: 6 passed
+- RC-11 기준 scoped product-quality P1은 해소됐다. daily/milestone reward moment는 8.0 근처이므로 P2 polish 후보로 남긴다.
+
 ## 자동 테스트 커버리지
 
 - 밸런스 계산: 비용 증가, 터치 수익, EPS, BigNumber, format.
@@ -226,4 +240,4 @@ Fix:
 - 실제 Apple/Google 개발자 계정, 인증서, 프로비저닝, 스토어 업로드는 수행하지 않았다.
 - commissioned art 소유권/법무 확정, platform icon/adaptive icon/splash export, 실제 device store screenshot 재촬영은 제출 전 P1 external art readiness로 남는다.
 - Vite JS chunk warning은 `BUNDLE_ASSET_AUDIT.md` 기준 P2 performance optimization으로 남긴다.
-- RC-10 independent rescore 기준 product-quality P1이 남아 있다: upgrade quick-buy/shelf 7.2, store screenshot framing 7.5, combined 7.7. 따라서 현재 상태를 product release candidate complete로 보고하지 않는다.
+- RC-11 independent rescore 기준 scoped product-quality P1은 해소됐다: upgrade quick-buy/shelf 8.1, store screenshot framing 8.1, combined 8.1. 실제 App Store/Google Play 제출 완료로는 보고하지 않으며 외부 제출 준비 항목은 `RELEASE_BLOCKERS.md`에 분리한다.

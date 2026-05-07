@@ -68,6 +68,13 @@ for (const viewport of viewports) {
     });
     await page.getByRole("button", { name: "업그레이드" }).click();
     await page.getByRole("button", { name: "최대" }).click();
+    await page.locator(".upgrade-card").first().evaluate((element) => {
+      const shell = document.querySelector(".content-shell");
+      if (!(shell instanceof HTMLElement) || !(element instanceof HTMLElement)) return;
+      const shellRect = shell.getBoundingClientRect();
+      const cardRect = element.getBoundingClientRect();
+      shell.scrollTop = Math.max(0, shell.scrollTop + cardRect.top - shellRect.top - 156);
+    });
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-upgrades-quick-buy.png`, fullPage: true });
     await expectNoHorizontalOverflow(page);
 

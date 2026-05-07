@@ -4,7 +4,7 @@
 
 ## Summary
 
-이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면과 정보형 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체했고, RC-4 hardening pass에서는 성장/설정/세이브/앨범 하단 정보 UI까지 wood/parchment/orange game HUD skin으로 묶었다. RC-5에서는 이 방향을 유지하면서 `layout.css` 후반 override 의존을 분리하고 reusable `.ui-*` game skin system으로 안정화했다. RC-6에서는 quick-buy, reward reveal, prestige result, album claim reveal을 추가했고, RC-7에서는 daily reward, D1/D3/D7 badge ledger, post-prestige goal chain을 같은 HUD skin 안에 넣었다. RC-8에서는 safe-area/360px modal/device-readiness regression을 추가 점검했다. RC-9 독립 감사에서는 product-quality P1이 남아 release candidate no-go로 재분류했고, RC-10 구현 후 integrity pass에서 기존 8.2 self-score를 독립 재검토해 combined 7.7로 보정했다. 현재 RC-10은 방향은 개선됐지만 product release candidate gate는 no-go다.
+이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면과 정보형 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체했고, RC-4 hardening pass에서는 성장/설정/세이브/앨범 하단 정보 UI까지 wood/parchment/orange game HUD skin으로 묶었다. RC-5에서는 이 방향을 유지하면서 `layout.css` 후반 override 의존을 분리하고 reusable `.ui-*` game skin system으로 안정화했다. RC-6에서는 quick-buy, reward reveal, prestige result, album claim reveal을 추가했고, RC-7에서는 daily reward, D1/D3/D7 badge ledger, post-prestige goal chain을 같은 HUD skin 안에 넣었다. RC-8에서는 safe-area/360px modal/device-readiness regression을 추가 점검했다. RC-9 독립 감사에서는 product-quality P1이 남아 release candidate no-go로 재분류했고, RC-10 구현 후 integrity pass에서 기존 8.2 self-score를 독립 재검토해 combined 7.7로 보정했다. RC-11에서는 남은 P1 두 개만 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined 8.1로 scoped product-quality P1을 해소했다.
 
 Current evidence:
 
@@ -14,6 +14,9 @@ npx playwright test e2e/visual-regression.spec.ts --reporter=line
 
 npx playwright test e2e/store-screenshot-pack.spec.ts --reporter=line
 2 passed, 10 store screenshots regenerated
+
+npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
+6 passed, RC-11 visual/store evidence regenerated
 
 npm run test:e2e
 32 passed, includes visual/store screenshot regeneration and RC-8 release bug bash flow
@@ -36,7 +39,7 @@ store-screenshots: 10 PNG candidates
 | 390x844 home first impression | 실패. 핵심 이미지는 있었지만 흰 카드형 웹앱 UI가 먼저 보임 | 통과. 통합 orchard raster scene, carved header, wood tab dock, dark currency plaques가 먼저 읽힘 | `qa-screenshots/390x844-home.png` |
 | Core art quality | 실패. 일부 화면이 CSS/SVG/flat-vector 보조물처럼 보임 | 통과. home/prestige/shop/offline/store/companion에 professional raster 후보 연결 | `src/assets/raster/**/*.png`, `rasterAssetIntegrity.test.ts` |
 | UI skin | 실패. 카드/패널/버튼이 generic app 느낌 | 통과. wood/parchment/orange lacquer HUD로 교체하고 upgrade shelf, ledger settings, save vault까지 확장. RC-5에서 CSS를 `shell/hud/screens/effects`로 분리하고 `.ui-*` skin classes를 적용 | `src/ui/styles/layout.css`, `src/ui/styles/shell.css`, `src/ui/styles/hud.css`, `src/ui/styles/screens.css`, `RC4_UI_SKIN_AUDIT.md`, `RC5_CSS_COMPONENT_AUDIT.md` |
-| Store screenshot | 부분 실패. 앱 캡처 포장 느낌이 강함 | 부분 통과. key visual background + gameplay panel + store copy 구성은 좋아졌지만 gameplay panel이 작고 약한 화면이 남음 | `store-screenshots/iphone-01-home.png`, `RC10_INDEPENDENT_RESCORE.md` |
+| Store screenshot | 부분 실패. 앱 캡처 포장 느낌이 강함 | 통과. RC-11에서 phone panel scale/crop, upgrade shelf framing, milestone/prestige/reward modal close framing, public copy line-break를 재조정해 store pack 8.1로 보정 | `store-screenshots/iphone-01-home.png`, `store-screenshots/iphone-02-upgrade.png`, `RC11_INDEPENDENT_RESCORE.md` |
 | 설정/저장 util 냄새 | 부분 실패 | 통과. 설정은 집사 장부/서랍, 저장은 보관함 봉인 코드와 금고 modal로 재스킨. 긴 export code 자체는 기능상 남는 P3 | `qa-screenshots/390x844-settings.png`, `qa-screenshots/390x844-save-modal.png` |
 
 ## Screen-by-Screen Review
@@ -44,14 +47,14 @@ store-screenshots: 10 PNG candidates
 | Screen | v2 판정 | 확인 내용 | 경쟁작 대비 남은 부족점 |
 | --- | --- | --- | --- |
 | 홈 | 완료 | 카피바라와 귤 정원이 숫자보다 먼저 보이고, tap CTA/재화 HUD/하단 탭이 같은 wood HUD skin으로 통일됨 | Cats & Soup 같은 hand-drawn idle animation depth는 P2 |
-| 성장 | 부분 완료 | RC-10에서 quick-buy를 carved mode stones로 바꾸고, selected depth/aria state, tool pedestal, cost/CTA hierarchy를 재조정했다. 일반 카드 리스트보다 garden workbench / facility shelf로 읽히지만 360/390 screenshot 기준 긴 정보 카드와 CTA/tab 밀도 문제가 남아 8.0 gate를 넘지 못했다 | upgrade shelf/product gate P1 |
+| 성장 | 완료 | RC-11에서 quick-buy를 작업대 레버 장치로 재스킨하고, filled pedestal/icon centering, current/effect/next level/cost/CTA 위계, 360px focused shelf capture를 보강했다. 독립 재점수 8.1로 upgrade shelf P1을 해소했다 | card compactness와 richer purchase ceremony는 P2 |
 | 앨범 | 완료 | v2 companion portrait 8종과 orchard room background가 보이고, 카드도 game shelf 톤으로 정리됨. RC-6 claim reveal banner로 보상 순간이 강화됨 | 방 꾸미기 자유 배치는 P3 |
 | 환생 | 완료 | golden leaf ritual raster scene이 계산보다 먼저 보임. RC-10 result ceremony는 ritual art crop, 획득 잎, 보유량, 배율 before/after, 다음 목표를 하나의 보상 순간으로 묶었다 | full ritual animation은 P3 |
 | 상점 | 완료 | reward banner가 mock shop을 게임 상점처럼 잡아주고, 실제 결제 오해 문구는 없음 | 실제 광고/IAP SDK 연결 전까지 sandbox |
 | 오프라인 보상 | 완료 | harvest/rest raster illustration과 보상 숫자가 모달 첫 시선으로 들어옴. RC-6 basket/chest reveal cue와 reward count plaque 추가 | 장시간 복귀 count-up numeric animation은 P3 |
 | 설정/저장 | 완료 | 설정은 집사 장부/정원 관리 서랍, 세이브는 보관함/봉인 코드/금고 modal로 보이며 모바일에서 잘리지 않음 | native save/restore와 export code 길이 자체의 시각 부담은 P3 |
 | 튜토리얼 | 완료 | 첫 사용자가 터치/성장/보상 흐름을 막히지 않고 볼 수 있음 | 단계별 mascot animation은 P3 |
-| 리텐션 | 부분 완료 | RC-10에서 홈 daily badge와 dedicated reward sheet, D1/D3/D7 stamp board, milestone reward sheet를 추가해 toast/card 수준에서 보상 순간으로 격상했다. 독립 재점수에서는 daily 7.9, milestone 7.8로 8.0 gate 미만이다 | 서버 검증 calendar/push notification은 P2 external, reward moment/sticker board polish는 P2 |
+| 리텐션 | 완료 | RC-10에서 홈 daily badge와 dedicated reward sheet, D1/D3/D7 stamp board, milestone reward sheet를 추가했고 RC-11 재점수에서 daily/milestone 모두 8.0 gate를 넘겼다 | 서버 검증 calendar/push notification은 P2 external, reward moment/sticker board polish는 P2 |
 
 ## RC-4 Interaction Polish
 
@@ -117,16 +120,31 @@ RC-9는 product-quality 기준으로 release candidate no-go였고 평균 점수
 | Prestige result | util modal 느낌 | ritual art ceremony, gained/total leaves, before/after multiplier, next goal | 보정 8.2, 통과, `qa-screenshots/390x844-prestige-result.png` |
 | Store screenshots | internal/mock wording, 약한 순간 선택 | home/upgrade/milestone/prestige/reward 5장으로 재구성, 공개 문구에서 mock/sandbox/internal 제거 | 보정 7.5, store framing P1 남음, `store-screenshots/iphone-*.png`, `store-screenshots/android-*.png` |
 
+## RC-11 Narrow P1 Kill Pass
+
+RC-11은 RC-10 no-go 기록을 삭제하지 않고, 남은 P1 두 개만 좁게 수정했다.
+
+| 대상 | RC-10 보정 점수 | RC-11 조치 | RC-11 점수/Evidence |
+| --- | ---: | --- | --- |
+| 업그레이드 quick-buy/shelf | 7.2 | carved mode stones를 작업대 레버 장치로 강화, selected depth/glow/notch, filled pedestal, cost/CTA safe capture, shelf hierarchy 조정 | 8.1, `qa-screenshots/360x740-upgrades-quick-buy.png`, `qa-screenshots/390x844-upgrades-quick-buy.png` |
+| Store screenshots | 7.5 | phone panel scale/crop 확대, upgrade shelf close framing, modal reward moment close framing, public Korean copy 정렬 | 8.1, `store-screenshots/iphone-02-upgrade.png`, `store-screenshots/android-02-upgrade.png` |
+| Daily reward | 7.9 | 기존 reward sheet를 유지하고 regenerated evidence 기준 spacing/readability 재확인 | 8.0, `qa-screenshots/390x844-daily-reward-claim.png` |
+| D1/D3/D7 milestones | 7.8 | badge board와 claim sheet를 유지하고 360/390 bottom-safe state 재확인 | 8.0, `qa-screenshots/390x844-collection-milestones.png`, `qa-screenshots/390x844-milestone-claim.png` |
+
+RC-11 combined score: 8.1. Scoped product-quality P1은 해소됐고 남은 항목은 P2/P3 또는 외부 제출 준비다.
+
 ## Manual Spot Check
 
 - `qa-screenshots/390x844-home.png`: 첫인상은 웹 대시보드가 아니라 모바일 게임 home scene이다. 큰 흰 카드가 주인공이 되지 않는다.
-- `qa-screenshots/390x844-upgrades.png`: 일반 rounded card list보다는 작업대 선반, tool slot, cost plaque, 구매/대기 버튼으로 읽힌다. 다만 quick-buy 상태의 독립 재점수는 7.2로, 긴 정보 카드와 모바일 CTA 밀도 때문에 product-quality P1이 남는다.
+- `qa-screenshots/390x844-upgrades.png`: 일반 rounded card list보다는 작업대 선반, tool slot, cost plaque, 구매/대기 버튼으로 읽힌다.
+- `qa-screenshots/390x844-upgrades-quick-buy.png`: RC-11 기준 quick-buy가 버튼 묶음이 아니라 작업대 레버 장치로 읽히며, first shelf card의 비용/CTA가 2초 안에 읽힌다.
 - `qa-screenshots/390x844-collection.png`: portrait sticker room과 companion card가 보이며, score grid/progress도 sticker ledger/groove 방향으로 보정됐다.
 - `qa-screenshots/390x844-prestige.png`: golden leaf ritual art가 화면 성격을 결정한다.
 - `qa-screenshots/390x844-shop.png`: reward banner와 상품 shelf가 개발자용 제어판이 아니라 게임 상점 화면으로 보이게 한다.
 - `qa-screenshots/390x844-settings.png`: browser checkbox가 사라지고 custom ON/OFF switch가 적용됐으며 toast가 제목을 가리지 않는다.
 - `qa-screenshots/390x844-save-modal.png`: export code copy action, sealed code row, vault frame이 적용되어 util dialog 냄새가 줄었고 실제 복구 사용성도 유지된다.
-- `store-screenshots/iphone-01-home.png`: store-facing key art와 gameplay panel이 함께 보여 단순 앱 캡처 수준에서는 벗어났다. 그러나 store pack 전체는 gameplay panel scale/framing이 약해 보정 점수 7.5로 남는다.
+- `store-screenshots/iphone-01-home.png`: store-facing key art와 gameplay panel이 함께 보여 단순 앱 캡처 수준에서는 벗어났다.
+- `store-screenshots/iphone-02-upgrade.png`: upgrade shelf 장면이 가까이 보이고 first shelf CTA가 도크에 묻히지 않는다.
 
 ## Viewports
 
@@ -178,4 +196,4 @@ RC-9는 product-quality 기준으로 release candidate no-go였고 평균 점수
 
 ## Remaining Visual Risk
 
-RC-10 integrity pass 기준으로 기술적 visual overflow P0/P1은 없지만, product-quality visual P1은 남아 있다. `RC10_INDEPENDENT_RESCORE.md`가 previous 8.2 self-score를 combined 7.7로 보정했으며, upgrade quick-buy는 7.2, store screenshots는 7.5다. 따라서 현재 상태를 product release candidate로 부르지 않는다. 남은 P1은 upgrade shelf/quick-buy와 store screenshot framing이고, 남은 P2/P3는 daily reward sheet polish, milestone sticker-board polish, server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, 실제 app icon/adaptive icon/splash export, 물리 기기 store screenshot 재촬영이다.
+RC-11 기준 기술적 visual overflow P0/P1과 scoped product-quality P1은 발견되지 않았다. `RC11_INDEPENDENT_RESCORE.md`가 upgrade quick-buy 8.1, store screenshots 8.1, combined 8.1로 보정했다. 남은 P2/P3는 daily reward sheet polish, milestone sticker-board polish, server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, 실제 app icon/adaptive icon/splash export, 물리 기기 store screenshot 재촬영이다.

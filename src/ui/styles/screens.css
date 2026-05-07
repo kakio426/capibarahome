@@ -1163,82 +1163,150 @@
 }
 
 .quick-buy-panel {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 0.72fr) minmax(178px, 1fr);
+  grid-template-columns: minmax(92px, 0.54fr) minmax(0, 1fr);
   align-items: center;
   gap: 10px;
   border: 4px solid #3a2114;
-  border-radius: 12px;
-  padding: 9px;
+  border-radius: 14px;
+  padding: 10px 11px 12px;
   background:
-    radial-gradient(circle at 90% 10%, rgba(255, 213, 104, 0.38), transparent 82px),
-    repeating-linear-gradient(90deg, rgba(75, 43, 22, 0.12) 0 7px, transparent 7px 30px),
-    linear-gradient(180deg, rgba(255, 238, 184, 0.96), rgba(188, 114, 48, 0.74));
+    radial-gradient(circle at 14% 18%, rgba(255, 248, 199, 0.72), transparent 58px),
+    radial-gradient(circle at 92% 22%, rgba(255, 173, 49, 0.42), transparent 84px),
+    repeating-linear-gradient(90deg, rgba(75, 43, 22, 0.16) 0 8px, transparent 8px 30px),
+    linear-gradient(180deg, #ffe7a3, #bd7434);
   box-shadow:
-    0 7px 0 rgba(47, 27, 18, 0.25),
-    inset 0 2px 0 rgba(255, 250, 224, 0.52);
+    0 8px 0 rgba(47, 27, 18, 0.27),
+    inset 0 2px 0 rgba(255, 250, 224, 0.58);
+}
+
+.quick-buy-panel::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 8px;
+  height: 7px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(53, 30, 17, 0.22), rgba(255, 232, 166, 0.5), rgba(53, 30, 17, 0.22));
+  pointer-events: none;
+}
+
+.quick-buy-head {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 4px;
+  border: 3px solid rgba(52, 30, 17, 0.52);
+  border-radius: 12px;
+  padding: 8px 9px;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 224, 0.72), rgba(255, 213, 104, 0.3));
+  box-shadow: inset 0 2px 0 rgba(255, 250, 224, 0.5);
 }
 
 .quick-buy-panel strong {
   display: block;
   color: #2f1d12;
-  font-size: 0.84rem;
+  font-size: 0.8rem;
+  line-height: 1.14;
 }
 
 .quick-buy-mode {
-  grid-template-columns: repeat(3, minmax(54px, 1fr));
-  min-width: 190px;
-  gap: 5px;
-  border: 3px solid rgba(58, 34, 18, 0.64);
-  border-radius: 14px;
-  padding: 6px;
+  position: relative;
+  z-index: 1;
+  grid-template-columns: repeat(3, minmax(50px, 1fr));
+  min-width: 0;
+  gap: 7px;
+  border: 4px solid rgba(58, 34, 18, 0.7);
+  border-radius: 18px;
+  padding: 8px;
   background:
-    linear-gradient(180deg, rgba(83, 47, 25, 0.42), rgba(255, 238, 184, 0.56)),
-    rgba(255, 232, 166, 0.68);
-  box-shadow: inset 0 2px 0 rgba(255, 248, 216, 0.32);
+    linear-gradient(180deg, rgba(76, 43, 22, 0.68), rgba(115, 64, 29, 0.3)),
+    rgba(255, 238, 184, 0.52);
+  box-shadow:
+    inset 0 3px 0 rgba(47, 27, 18, 0.24),
+    0 4px 0 rgba(47, 27, 18, 0.18);
+}
+
+.quick-buy-mode::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 50%;
+  height: 8px;
+  border: 2px solid rgba(47, 27, 18, 0.34);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #4c2d1a, #26170f);
+  transform: translateY(-50%);
 }
 
 .quick-buy-mode button {
   position: relative;
   appearance: none;
-  min-height: 43px;
-  border: 3px solid rgba(47, 27, 18, 0.44);
-  border-radius: 12px;
+  min-height: 52px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 1px;
+  border: 3px solid rgba(47, 27, 18, 0.48);
+  border-radius: 50% 50% 14px 14px;
   color: #4b2e19;
   background:
-    radial-gradient(circle at 42% 18%, rgba(255, 248, 216, 0.66), transparent 28px),
-    linear-gradient(180deg, #f7c973, #a45b25);
+    radial-gradient(circle at 48% 18%, rgba(255, 250, 224, 0.78), transparent 29px),
+    linear-gradient(180deg, #ffe09a 0%, #ca7a34 70%, #7c401e 100%);
   box-shadow:
-    0 5px 0 rgba(55, 32, 17, 0.38),
-    inset 0 2px 0 rgba(255, 250, 224, 0.42);
-  font-size: 0.78rem;
+    0 6px 0 rgba(55, 32, 17, 0.42),
+    inset 0 2px 0 rgba(255, 250, 224, 0.48);
+  font-size: 0.77rem;
   font-weight: 950;
   cursor: pointer;
   text-shadow: 0 1px 0 rgba(255, 250, 224, 0.36);
 }
 
+.quick-buy-mode button span,
+.quick-buy-mode button small {
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+}
+
+.quick-buy-mode button small {
+  color: rgba(75, 46, 25, 0.78);
+  font-size: 0.56rem;
+  font-weight: 950;
+}
+
 .quick-buy-mode button::after {
   content: "";
   position: absolute;
-  left: 12px;
-  right: 12px;
+  left: 50%;
   bottom: 5px;
-  height: 3px;
+  width: 21px;
+  height: 5px;
   border-radius: 999px;
-  background: rgba(255, 246, 207, 0.34);
+  background: rgba(255, 246, 207, 0.42);
+  transform: translateX(-50%);
 }
 
 .quick-buy-mode button.is-active {
   color: #fff9df;
   border-color: #5a2e16;
+  transform: translateY(-5px);
   background:
-    radial-gradient(circle at 50% 18%, rgba(255, 252, 226, 0.82), transparent 32px),
-    linear-gradient(180deg, #ffc85d 0%, #ef7f22 56%, #b83b14 100%);
+    radial-gradient(circle at 50% 18%, rgba(255, 252, 226, 0.9), transparent 32px),
+    linear-gradient(180deg, #ffd875 0%, #f18724 58%, #b93b14 100%);
   box-shadow:
-    0 6px 0 #803011,
-    0 0 18px rgba(255, 193, 83, 0.5),
-    inset 0 2px 0 rgba(255, 248, 216, 0.54);
+    0 10px 0 #803011,
+    0 0 20px rgba(255, 193, 83, 0.62),
+    inset 0 2px 0 rgba(255, 248, 216, 0.58);
   text-shadow: 0 2px 0 rgba(71, 35, 15, 0.45);
+}
+
+.quick-buy-mode button.is-active small {
+  color: rgba(255, 249, 223, 0.86);
 }
 
 .upgrade-list {
@@ -1261,10 +1329,10 @@
 .upgrade-shelf-card {
   isolation: isolate;
   overflow: visible;
-  grid-template-columns: 86px minmax(0, 1fr);
-  gap: 8px 10px;
+  grid-template-columns: 104px minmax(0, 1fr);
+  gap: 9px 12px;
   align-items: stretch;
-  padding: 10px;
+  padding: 11px;
   border-width: 4px;
   border-radius: 12px;
   background:
@@ -1290,7 +1358,7 @@
 .upgrade-shelf-card::after {
   content: "";
   position: absolute;
-  left: 102px;
+  left: 122px;
   top: 12px;
   bottom: 18px;
   z-index: 0;
@@ -1304,18 +1372,35 @@
   position: relative;
   z-index: 1;
   grid-row: 1 / span 2;
-  min-height: 126px;
+  min-height: 132px;
   display: grid;
   place-items: center;
   align-content: center;
-  padding: 9px 7px 18px;
+  padding: 10px 8px 20px;
   border: 4px solid rgba(47, 27, 18, 0.72);
   border-radius: 12px;
   background:
-    radial-gradient(circle at 50% 24%, rgba(255, 246, 207, 0.78), transparent 42px),
+    radial-gradient(circle at 50% 22%, rgba(255, 246, 207, 0.82), transparent 50px),
     radial-gradient(ellipse at 50% 80%, rgba(255, 182, 75, 0.42), transparent 46px),
     linear-gradient(180deg, #734421, #3a2114);
   box-shadow: 0 6px 0 rgba(47, 27, 18, 0.26), inset 0 2px 0 rgba(255, 234, 165, 0.2);
+}
+
+.ui-tool-slot > span,
+.upgrade-tool-slot > span {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 8px;
+  z-index: 2;
+  border: 2px solid rgba(255, 235, 170, 0.24);
+  border-radius: 8px;
+  padding: 2px 4px;
+  color: rgba(255, 246, 207, 0.88);
+  background: rgba(43, 25, 15, 0.28);
+  font-size: 0.58rem;
+  font-weight: 950;
+  text-align: center;
 }
 
 .ui-tool-slot::before,
@@ -1350,12 +1435,12 @@
 .upgrade-tool-slot .upgrade-icon {
   position: relative;
   z-index: 1;
-  width: 70px;
-  height: 70px;
+  width: 82px;
+  height: 82px;
   border-width: 0;
   background: transparent;
   box-shadow: none;
-  transform: translateY(-8px);
+  transform: translateY(-4px);
   filter:
     drop-shadow(0 8px 0 rgba(24, 14, 8, 0.2))
     drop-shadow(0 12px 14px rgba(31, 20, 12, 0.24));
@@ -1363,25 +1448,25 @@
 
 .upgrade-shelf-card .upgrade-copy {
   z-index: 1;
-  gap: 6px;
+  gap: 7px;
 }
 
 .upgrade-shelf-card .upgrade-title-row {
-  grid-template-columns: auto auto minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 6px;
 }
 
 .upgrade-shelf-card .upgrade-title-row h3 {
   grid-column: 1 / -1;
   color: #2f1d12;
-  font-size: 1rem;
+  font-size: 1.08rem;
   text-shadow: 0 1px 0 rgba(255, 248, 216, 0.52);
 }
 
 .upgrade-description {
   margin: 0;
   color: #4b341f;
-  font-size: 0.76rem;
+  font-size: 0.69rem;
   font-weight: 820;
   line-height: 1.28;
   display: -webkit-box;
@@ -1392,17 +1477,20 @@
 
 .upgrade-shelf-card .upgrade-ui-copy {
   margin: 0;
-  border: 2px solid rgba(65, 38, 20, 0.28);
+  border: 3px solid rgba(65, 38, 20, 0.28);
   border-radius: 9px;
-  padding: 6px 8px;
-  color: #243c30;
-  background: linear-gradient(180deg, rgba(242, 196, 93, 0.42), rgba(255, 240, 190, 0.68));
-  font-size: 0.72rem;
+  padding: 7px 9px;
+  color: #173e32;
+  background:
+    radial-gradient(circle at 92% 30%, rgba(255, 214, 92, 0.42), transparent 72px),
+    linear-gradient(180deg, rgba(255, 246, 207, 0.86), rgba(244, 190, 88, 0.52));
+  font-size: 0.73rem;
+  font-weight: 900;
   line-height: 1.24;
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
 }
 
 .upgrade-shelf-card .progress-block {
@@ -1414,22 +1502,47 @@
 
 .upgrade-meta {
   gap: 6px;
+  grid-template-columns: 0.78fr 1.1fr auto;
 }
 
 .upgrade-shelf-card .upgrade-meta span {
-  min-height: 25px;
+  min-height: 32px;
+  display: grid;
+  align-content: center;
+  gap: 1px;
   border-radius: 8px;
-  padding: 4px 7px;
+  padding: 5px 7px;
   background:
     linear-gradient(180deg, #fff1bd, #d69e50);
-  font-size: 0.67rem;
+  color: #244936;
+  font-size: 0.7rem;
+  font-weight: 950;
+}
+
+.upgrade-shelf-card .upgrade-meta span small {
+  color: rgba(36, 73, 54, 0.74);
+  font-size: 0.52rem;
+  font-weight: 950;
+  line-height: 1;
 }
 
 .upgrade-shelf-card .upgrade-meta .upgrade-result-chip {
+  min-width: 86px;
   color: #fff4cc;
   background:
     linear-gradient(180deg, rgba(255, 181, 72, 0.95), rgba(161, 69, 24, 0.92));
   box-shadow: inset 0 1px 0 rgba(255, 246, 207, 0.34);
+}
+
+.upgrade-family-chip {
+  justify-self: start;
+  border: 2px solid rgba(47, 27, 18, 0.28);
+  border-radius: 999px;
+  padding: 3px 8px;
+  color: #42645c;
+  background: rgba(255, 250, 224, 0.48);
+  font-size: 0.62rem;
+  font-weight: 950;
 }
 
 .ui-shelf-card__buy,
@@ -1438,9 +1551,15 @@
   z-index: 1;
   grid-column: 2;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(78px, 92px);
+  grid-template-columns: minmax(0, 1fr) minmax(92px, 108px);
   gap: 8px;
   align-items: center;
+  border: 4px solid rgba(47, 27, 18, 0.2);
+  border-radius: 12px;
+  padding: 6px;
+  background:
+    linear-gradient(180deg, rgba(58, 34, 18, 0.16), rgba(255, 236, 174, 0.36));
+  box-shadow: inset 0 2px 0 rgba(255, 250, 224, 0.32);
 }
 
 .upgrade-shelf-card.is-buyable {
@@ -2140,37 +2259,62 @@
 
   .quick-buy-panel {
     grid-template-columns: 1fr;
-    gap: 7px;
+    gap: 6px;
     padding: 8px;
+  }
+
+  .quick-buy-head {
+    min-height: 44px;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 7px;
+    padding: 6px 8px;
   }
 
   .quick-buy-mode {
     min-width: 0;
     width: 100%;
+    gap: 4px;
+    padding: 6px;
   }
 
   .quick-buy-mode button {
-    min-height: 40px;
-    font-size: 0.72rem;
+    min-height: 43px;
+    font-size: 0.7rem;
+    box-shadow:
+      0 5px 0 rgba(55, 32, 17, 0.4),
+      inset 0 2px 0 rgba(255, 250, 224, 0.48);
+  }
+
+  .quick-buy-mode button small {
+    font-size: 0.52rem;
+  }
+
+  .quick-buy-mode button.is-active {
+    transform: translateY(-4px);
+    box-shadow:
+      0 8px 0 #803011,
+      0 0 16px rgba(255, 193, 83, 0.58),
+      inset 0 2px 0 rgba(255, 248, 216, 0.58);
   }
 
   .upgrade-shelf-card {
-    grid-template-columns: 76px minmax(0, 1fr);
+    grid-template-columns: 84px minmax(0, 1fr);
     gap: 8px;
     padding: 9px;
   }
 
   .upgrade-shelf-card::after {
-    left: 90px;
+    left: 100px;
   }
 
   .upgrade-tool-slot {
-    min-height: 118px;
+    min-height: 124px;
   }
 
   .upgrade-tool-slot .upgrade-icon {
-    width: 64px;
-    height: 64px;
+    width: 72px;
+    height: 72px;
   }
 
   .upgrade-description {
@@ -2181,13 +2325,26 @@
     display: none;
   }
 
+  .upgrade-meta {
+    grid-template-columns: 0.7fr 1fr;
+  }
+
+  .upgrade-shelf-card .upgrade-meta .upgrade-result-chip {
+    grid-column: 1 / -1;
+  }
+
+  .upgrade-family-chip {
+    display: none;
+  }
+
   .upgrade-buy-slot {
-    grid-template-columns: minmax(0, 1fr) minmax(68px, 78px);
+    grid-template-columns: minmax(0, 1fr) minmax(80px, 92px);
+    padding: 5px;
   }
 
   .upgrade-buy-button {
     width: auto;
-    min-width: 68px;
+    min-width: 80px;
     padding-inline: 7px;
     font-size: 0.72rem;
   }

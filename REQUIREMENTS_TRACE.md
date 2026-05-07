@@ -48,7 +48,7 @@
 | 추가 요구사항 | 상태 | 근거 |
 | --- | --- | --- |
 | 경쟁작 벤치마크 | 완료 | `COMPETITOR_BENCHMARK.md` |
-| gap backlog와 P0/P1 수정 | 부분 완료 | 기술/기능 P0/P1은 닫혔으나 RC-10 independent rescore 기준 product-quality P1 남음: upgrade quick-buy/shelf, store screenshot framing |
+| gap backlog와 P0/P1 수정 | 완료 | 기술/기능 P0/P1은 닫혔고, RC-10 no-go 보정 후 RC-11 independent rescore 기준 product-quality P1도 해소: upgrade 8.1, store screenshots 8.1 |
 | 최소 3회 polish pass | 완료 | `PRODUCTION_GAP_BACKLOG.md` pass log |
 | release blockers 문서 | 완료 | `RELEASE_BLOCKERS.md` |
 | E2E 파일명 재정렬 | 완료 | `e2e/save-import-export.spec.ts`, `offline-reward.spec.ts`, `settings-tutorial.spec.ts`, `monetization-mock.spec.ts`, `visual-regression.spec.ts` |
@@ -67,8 +67,9 @@
 | RC-7 Retention Systems Pass | 완료 | `RetentionManager.ts`, `RetentionConfig.ts`, save v5 migration, daily reward, D1/D3/D7 milestone, post-prestige goal chain, `retention.test.ts`, `retention-flow.spec.ts`, `RC7_RETENTION_SYSTEM_AUDIT.md` |
 | RC-5 CSS Debt & Component System Pass | 완료 | `RC5_CSS_COMPONENT_AUDIT.md`, `layout.css` manifest, `shell/hud/screens/effects` split, reusable `.ui-*` skin classes, refreshed visual/store screenshots |
 | RC-8 Release Candidate Bug Bash | 완료 | `RC8_RELEASE_CANDIDATE_AUDIT.md`, `BUNDLE_ASSET_AUDIT.md`, save v5 regression, long-session stress, localStorage/pagehide fallback, WebView CSS readiness, bundle asset audit, `rc8ReleaseBugBash.test.ts`, `rc8-release-bug-bash.spec.ts` |
-| RC-10 Integrity Fix & Independent Re-Score | 부분 완료 | `RC10_INTEGRITY_AUDIT.md`, `RC10_INDEPENDENT_RESCORE.md`; worktree 정합성은 정리 대상이며 product score는 7.7 no-go로 보정 |
+| RC-10 Integrity Fix & Independent Re-Score | 완료 | `RC10_INTEGRITY_AUDIT.md`, `RC10_INDEPENDENT_RESCORE.md`; RC-10 product score는 7.7 no-go로 보정해 before evidence로 보존 |
+| RC-11 Narrow P1 Kill Pass | 완료 | `RC11_P1_KILL_SCOPE.md`, `RC11_INDEPENDENT_RESCORE.md`; 남은 upgrade/store P1을 좁게 수정하고 combined 8.1로 재점수 |
 
 ## Trace Gate
 
-매핑되지 않은 원본 요구사항 없음. 원본 기능/검증 요구사항의 P0/P1 `미완료`, `검증 불가` 항목은 현재 발견되지 않았다. 다만 RC-10 product-quality gate는 독립 재점수 결과 `부분 완료`이며, upgrade quick-buy/shelf와 store screenshot framing P1이 남아 있다.
+매핑되지 않은 원본 요구사항 없음. 원본 기능/검증 요구사항의 P0/P1 `미완료`, `검증 불가` 항목은 현재 발견되지 않았다. RC-10 product-quality gate는 독립 재점수 결과 no-go였지만, RC-11에서 upgrade quick-buy/shelf와 store screenshot framing P1을 해소했다. 실제 제출 완료를 막는 외부 계정/서명/실기기/법무 항목은 `RELEASE_BLOCKERS.md`에 분리했다.

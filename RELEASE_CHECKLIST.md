@@ -10,7 +10,7 @@
 - [x] Store-facing copy/screenshots avoid mock/sandbox/internal readiness wording after RC-10 cleanup
 - [x] Original 0-26 requirements mapped in `REQUIREMENTS_TRACE.md`
 - [x] Competitor benchmark completed in `COMPETITOR_BENCHMARK.md`
-- [ ] P0/P1 production gaps tracked and closed in `PRODUCTION_GAP_BACKLOG.md` and RC-10 independent product-quality rescore
+- [x] P0/P1 production gaps tracked and closed in `PRODUCTION_GAP_BACKLOG.md`; RC-10 no-go is preserved and RC-11 scoped rescore clears remaining product P1
 - [x] Release blockers separated in `RELEASE_BLOCKERS.md`
 - [x] Story bible added and connected to UI/config
 - [x] Balance simulation added and tested
@@ -33,12 +33,13 @@
 - [x] RC-8 audit completed in `RC8_RELEASE_CANDIDATE_AUDIT.md` and `BUNDLE_ASSET_AUDIT.md`
 - [x] RC-9 independent product-quality audit preserved as before evidence: no-go, 5.8 average, P1 blockers listed in `PRODUCT_QUALITY_RED_TEAM.md`, `SCREEN_SCORECARD.md`, `TOP_30_PRODUCT_GAPS.md`, `RC9_FIX_PLAN.md`, `RELEASE_REALITY_CHECK.md`
 - [x] RC-10 Product UI & Reward Moment Fix implementation completed and evidence generated
-- [ ] RC-10 Product UI score gate passed. Integrity pass corrected the previous 8.2 self-score to combined 7.7 in `RC10_INDEPENDENT_RESCORE.md`; upgrade quick-buy and store screenshots remain below 8.0
+- [x] RC-10 Product UI score gate no-go preserved. Integrity pass corrected the previous 8.2 self-score to combined 7.7 in `RC10_INDEPENDENT_RESCORE.md`
+- [x] RC-11 Narrow P1 Kill pass completed: upgrade quick-buy/shelf 8.1, store screenshots 8.1, combined 8.1 in `RC11_INDEPENDENT_RESCORE.md`
 - [x] Visual asset integrity tests added for SVG count, raster PNG integrity, coverage, external-reference bans, runtime visual styling audit
 - [x] Art production docs added: `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`
 - [x] RC-2 audio readiness completed: file-ready audio slots and synthetic WebAudio fallback
 - [x] RC-10 store screenshot pack generated: home, upgrade, milestone, prestige ceremony, reward moments for iPhone/Android in `store-screenshots/`
-- [ ] Store screenshot pack product-quality gate passed. Public/internal wording is clean, but gameplay panel framing remains below 8.0 on independent rescore
+- [x] Store screenshot pack product-quality gate passed for RC-11. Public/internal wording is clean and gameplay panel framing is 8.1 on independent rescore
 - [x] Native/store compliance docs added: asset credits, audio plan, native guide, device QA checklist
 - [x] RC-3 playtest/balance pass completed: first prestige 33m target, 1/5/15/30/120 minute checkpoint report
 - [x] RC-3 bug bash completed: save migration, corrupt import, rapid tap, duplicate rewards, prestige save/load, mute persistence

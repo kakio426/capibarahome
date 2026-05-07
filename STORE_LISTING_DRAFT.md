@@ -58,15 +58,15 @@
 
 ## Screenshot Pack
 
-스토어용 후보는 `store-screenshots/`에 생성한다. 상세 목록은 `STORE_SCREENSHOT_PLAN.md`를 기준으로 관리한다. RC-10 integrity pass 기준 공개 문구의 내부 개발 표현은 제거됐지만, screenshot framing 점수는 7.5로 보정되어 최종 제출 전 추가 crop/scale polish가 필요하다.
+스토어용 후보는 `store-screenshots/`에 생성한다. 상세 목록은 `STORE_SCREENSHOT_PLAN.md`를 기준으로 관리한다. RC-11 기준 공개 문구의 비공개 구현 표현은 제거되어 있고, screenshot framing은 `RC11_INDEPENDENT_RESCORE.md`에서 8.1로 보정됐다. 최종 제출 전에는 실제 기기/시뮬레이터 frame, 최종 icon/splash, 법무 승인 기준으로 다시 확정한다.
 
 추천 공개 순서:
 
-1. 홈: 귤 정원이 바로 살아나요
-2. 업그레이드: 도구 선반을 빠르게 채우세요
-3. 복귀 배지: 돌아올 때마다 찍히는 배지
-4. 환생: 황금 나뭇잎 의식
-5. 보상: 오늘의 보상이 기다려요
+1. 홈: 귤 정원에서 시작하는 포근한 성장
+2. 업그레이드: 한 번에 쑥쑥 키우는 업그레이드 작업대
+3. 복귀 배지: 복귀할수록 채워지는 정원 배지
+4. 환생: 황금 나뭇잎으로 새 계절을 여세요
+5. 보상: 돌아오면 기다리는 귤 보상
 
 현재 생성 파일:
 
@@ -86,4 +86,4 @@
 - 실제 App Store/Google Play 제출 완료로 주장하지 않는다.
 - 실제 광고/IAP SDK가 붙기 전에는 real paid product 또는 real rewarded ad 제공으로 표현하지 않는다.
 - 최종 store listing은 사용자의 법적 이름, support/privacy URL, 실제 SDK 상태, age rating 답변을 반영해 다시 확정한다.
-- 광고/IAP 구현 상태 같은 내부 caveat는 `PRIVACY_NOTES.md`, `RELEASE_BLOCKERS.md`, `NATIVE_BUILD_GUIDE.md`에만 기록하고 공개 설명/스크린샷 문구에는 노출하지 않는다.
+- 광고/IAP 구현 상태 같은 비공개 주석은 `PRIVACY_NOTES.md`, `RELEASE_BLOCKERS.md`, `NATIVE_BUILD_GUIDE.md`에만 기록하고 공개 설명/스크린샷 문구에는 노출하지 않는다.

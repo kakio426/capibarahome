@@ -4,7 +4,7 @@
 
 ## 현재 구현 기준 결론
 
-현재 RC-10 후보는 서버 계정, 원격 저장, 실제 광고 SDK, 실제 IAP SDK, 실제 analytics SDK를 포함하지 않는다. 게임 진행, 설정, 복귀 보상 상태는 로컬 저장소에만 보관된다.
+현재 RC-11 후보는 서버 계정, 원격 저장, 실제 광고 SDK, 실제 IAP SDK, 실제 analytics SDK를 포함하지 않는다. 게임 진행, 설정, 복귀 보상 상태는 로컬 저장소에만 보관된다.
 
 이 문서는 실제 SDK를 추가하기 전 기준이다. 광고/IAP/analytics SDK를 붙이면 제출 전 반드시 다시 감사해야 한다.
 
@@ -50,7 +50,7 @@ RC-8에서 localStorage 접근 실패 시 crash 방지용 volatile session fallb
 - IAP restore purchase
 - 환불/소비성 상품 정책
 
-RC-10 store-facing cleanup:
+RC-11 store-facing cleanup:
 
 - 공개 스토어 설명과 store screenshot copy에서는 mock/sandbox/internal wording을 제거했다.
 - 위 구현 caveat는 privacy/release/internal notes에만 남긴다.
