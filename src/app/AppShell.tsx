@@ -251,6 +251,11 @@ export function AppShell() {
               <Button variant="secondary" onClick={() => debugApply((current) => DebugManager.resetTutorial(current))}>튜토리얼 초기화</Button>
               <Button variant="secondary" onClick={() => debugApply((current) => DebugManager.forceAdBoost(current))}>광고 버프</Button>
               <Button variant="secondary" onClick={() => debugApply((current) => DebugManager.makePrestigeReady(current))}>환생 가능</Button>
+              <Button variant="secondary" onClick={() => debugApply((current) => DebugManager.makeDailyRewardReady(current))}>일일 보상 가능</Button>
+              <Button variant="secondary" onClick={() => debugApply((current) => DebugManager.simulateRetentionStreak3(current))}>리텐션 3일</Button>
+              <Button variant="secondary" onClick={() => debugApply((current) => DebugManager.simulateRetentionStreak7(current))}>리텐션 7일</Button>
+              <Button variant="secondary" onClick={() => debugApply((current) => DebugManager.resetRetentionMilestones(current))}>마일스톤 초기화</Button>
+              <Button variant="secondary" onClick={() => debugApply((current) => DebugManager.advancePostPrestigeGoal(current))}>환생 목표 +1</Button>
               <Button variant="danger" onClick={() => GameActions.resetSave()}>저장 초기화</Button>
             </div>
           </details>

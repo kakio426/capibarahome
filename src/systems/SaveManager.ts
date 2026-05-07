@@ -89,6 +89,13 @@ function payloadWithoutChecksum(state: GameState, nowMs = Date.now()): SavePaylo
       unlockedTierIds: [...state.progression.unlockedTierIds],
       lastUnlockedTierId: state.progression.lastUnlockedTierId,
     },
+    retention: {
+      firstPlayedAt: state.retention.firstPlayedAt,
+      lastDailyClaimAt: state.retention.lastDailyClaimAt,
+      dailyStreak: state.retention.dailyStreak,
+      claimedMilestones: { ...state.retention.claimedMilestones },
+      postPrestigeGoalStep: state.retention.postPrestigeGoalStep,
+    },
     epsAtLastSave: selectEps(state, nowMs).toString(),
   };
 }
@@ -146,6 +153,13 @@ function stateFromPayload(payload: SavePayloadWithoutChecksum, nowMs = Date.now(
     progression: {
       unlockedTierIds: [...payload.progression.unlockedTierIds],
       lastUnlockedTierId: payload.progression.lastUnlockedTierId,
+    },
+    retention: {
+      firstPlayedAt: payload.retention.firstPlayedAt,
+      lastDailyClaimAt: payload.retention.lastDailyClaimAt,
+      dailyStreak: payload.retention.dailyStreak,
+      claimedMilestones: { ...payload.retention.claimedMilestones },
+      postPrestigeGoalStep: payload.retention.postPrestigeGoalStep,
     },
     epsAtLastSave: BigNumberLite.from(payload.epsAtLastSave),
   };

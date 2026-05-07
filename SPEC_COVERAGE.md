@@ -1,6 +1,6 @@
 # Spec Coverage
 
-기준일: 2026-05-06
+기준일: 2026-05-07
 
 상태 기준: `완료`는 실제 구현 파일과 테스트, E2E, screenshot, build 산출물 중 하나 이상의 근거가 있을 때만 사용한다. 기존 RC 요구사항과 확장 목표의 P0/P1 blocking issue는 현재 없음으로 판단한다.
 
@@ -14,8 +14,8 @@
 | gap backlog와 P0/P1 해결 | 완료 | `PRODUCTION_GAP_BACKLOG.md` |
 | release blocker 분리 | 완료 | `RELEASE_BLOCKERS.md` |
 | `npm run build` | 완료 | `tsc -b && vite build`, success |
-| `npm test` | 완료 | Vitest 21 files, 485 tests passed |
-| `npm run test:e2e` | 완료 | Playwright 22 tests passed |
+| `npm test` | 완료 | Vitest 22 files, 491 tests passed |
+| `npm run test:e2e` | 완료 | Playwright 27 tests passed |
 | Capacitor packaging prep | 완료 | `capacitor.config.ts`, scripts, `npm run cap:sync` success |
 | 실제 스토어 업로드 미수행 | 완료 | 계정/인증서/프로비저닝 미제공. `RELEASE_CHECKLIST.md`와 `RELEASE_BLOCKERS.md`에 사용자 작업으로 분리 |
 
@@ -30,6 +30,7 @@
 | EPS 자동 수익 | 완료 | `GameEngine.advanceGameState`, `GameSelectors` | `gameLoop.test.ts`, `upgrade-flow.spec.ts` |
 | 업그레이드 | 완료 | `UpgradeManager.ts`, `UpgradePanel.tsx`, 30 upgrade/facility items, RC-6 quick-buy `1개/10개/최대` | `upgrade.test.ts`, `contentConfig.test.ts`, `upgrade-flow.spec.ts` |
 | 진행 목표/컬렉션 | 완료 | `selectNextUpgradeGoal`, `selectQuestBoard`, `selectCollectionDashboard`, companion ability, achievement reward claim, home/album UI | `progression.test.ts`, `questManager.test.ts`, `collectionManager.test.ts`, `rc1Rewards.test.ts`, `rc1-product-feel.spec.ts` |
+| 리텐션 시스템 | 완료 | `RetentionConfig.ts`, `RetentionManager.ts`, daily reward, D1/D3/D7 milestone, post-prestige goal chain, home/album UI, save v5 retention state | `retention.test.ts`, `retention-flow.spec.ts`, `visual-regression.spec.ts` |
 | 환생 | 완료 | `PrestigeManager.ts`, `PrestigePanel.tsx`, RC-6 result panel | `prestige.test.ts`, `prestige-flow.spec.ts` |
 | 저장/로드 | 완료 | `SaveManager.ts`, localStorage, checksum, Base64 | `save.test.ts`, `save-import-export.spec.ts` |
 | 오프라인 보상 | 완료 | `OfflineRewardManager.ts`, return modal, RC-6 staged reward reveal | `offline.test.ts`, `offline-reward.spec.ts` |
@@ -58,7 +59,7 @@
 | app icon/splash/store art 후보 | 완료 | `src/assets/raster/release/app-icon-candidate.png`, `store-key-visual.png`; splash/frame SVG 후보는 `src/assets/generated/release/`에 보조 후보로 유지 |
 | balance simulation | 완료 | `BalanceSimulator.ts`, `balanceSimulation.test.ts`, `BALANCE_SIMULATION.md`, `RETENTION_PLAN.md` |
 | source budget report | 완료 | `SOURCE_BUDGET_REPORT.md` |
-| source budget 재검증 | 완료 | handwritten runtime 8,385 LOC, handwritten tests/E2E 2,449 LOC, generated/config/docs 제외 기준 `SOURCE_BUDGET_REPORT.md` |
+| source budget 재검증 | 완료 | handwritten runtime 9,323 LOC, handwritten tests/E2E 2,750 LOC, generated/config/docs 제외 기준 `SOURCE_BUDGET_REPORT.md` |
 
 ## Design Requirements
 
@@ -66,10 +67,10 @@
 | --- | --- | --- |
 | 첫 화면부터 실제 게임처럼 보임 | 완료 | v2 raster orchard/capybara integrated scene, carved header, wood currency plaques, next goal, 장기 목표, prestige mini progress, collection shelf, screenshots |
 | 임시 개발자 UI 숨김 | 완료 | Debug panel hidden by default, only `?debug=1` in dev |
-| 360x740 / 390x844 / 430x932 / desktop 중앙 패널 | 완료 | `visual-regression.spec.ts`, 64 current screenshots including quick-buy/reward result states |
-| 버튼/탭/모달/카드/상점/설정/튜토리얼 polish | 완료 | split CSS system in `layout.css`, `shell.css`, `hud.css`, `screens.css`, `effects.css`; `.ui-*` skin classes, custom `Toggle`, upgrade shelf/workbench, RC-6 quick-buy, settings ledger, save vault modal, save export copy action, reward/prestige/album reveal screenshots, visual QA |
+| 360x740 / 390x844 / 430x932 / desktop 중앙 패널 | 완료 | `visual-regression.spec.ts`, 88 current screenshots including quick-buy/reward/retention states |
+| 버튼/탭/모달/카드/상점/설정/튜토리얼 polish | 완료 | split CSS system in `layout.css`, `shell.css`, `hud.css`, `screens.css`, `effects.css`; `.ui-*` skin classes, custom `Toggle`, upgrade shelf/workbench, RC-6 quick-buy, RC-7 retention panels, settings ledger, save vault modal, save export copy action, reward/prestige/album reveal screenshots, visual QA |
 | 직접 제작 visual asset | 완료 | 253 generated SVG auxiliary icon/quest/badge/decor/tier assets, 15 raster PNG core/release assets, v2 game HUD skin, `ART_FAILURE_REVIEW.md`, `ASSET_PRODUCTION_BRIEF.md`, `FINAL_ASSET_BRIEF.md` |
-| Playwright screenshots | 완료 | `qa-screenshots/` 64 current PNG files, `store-screenshots/` 10 store 후보 PNG files, `qa-screenshots/rc1-before/` archive |
+| Playwright screenshots | 완료 | `qa-screenshots/` 88 current PNG files, `store-screenshots/` 10 store 후보 PNG files, `qa-screenshots/rc1-before/` archive |
 | Visual QA document | 완료 | `VISUAL_QA.md` |
 
 ## E2E Split
@@ -85,6 +86,7 @@
 | 광고/IAP mock | 완료: `e2e/monetization-mock.spec.ts` | 사용 안 함 |
 | 모바일 레이아웃 스크린샷 | 완료: `e2e/visual-regression.spec.ts` | 사용 안 함 |
 | debug/cheat QA | 완료: `e2e/debug-cheat-flow.spec.ts` | 별도 `?debug=1`에서만 사용 |
+| retention flow | 완료: `e2e/retention-flow.spec.ts` | 사용 안 함 |
 | RC-1 제품 감각 플로우 | 완료: `e2e/rc1-product-feel.spec.ts` | 사용 안 함 |
 | RC-2 store screenshot pack | 완료: `e2e/store-screenshot-pack.spec.ts` | 사용 안 함, store용 seed save fixture 사용 |
 | RC-3/RC-6 first five-minute playtest | 완료: `e2e/first-five-minute-playtest.spec.ts`, claim reveal 포함 | 사용 안 함, 실제 유저 플로우와 저장/오프라인 복귀 분리 |
@@ -114,9 +116,10 @@
 | `RC4_UI_SKIN_AUDIT.md` | 완료 | home/upgrades/settings/save-modal/collection P1/P2 visual audit and CSS audit |
 | `RC5_CSS_COMPONENT_AUDIT.md` | 완료 | CSS debt/component system audit, split stylesheet ownership, `.ui-*` skin classes, regenerated screenshots |
 | `RC6_PRODUCT_FEEL_AUDIT.md` | 완료 | product feel severity audit, quick-buy P1 identification, reward/reveal/retention action plan |
-| `RETENTION_PLAN.md` | 완료 | D0/D1/D3/D7 goals, implemented rewards, missing rewards, P2/P3 follow-ups |
+| `RC7_RETENTION_SYSTEM_AUDIT.md` | 완료 | retention baseline, save v5 risk, implemented/excluded scope, P0/P1 mitigation |
+| `RETENTION_PLAN.md` | 완료 | D0/D1/D3/D7 goals, daily/milestone/post-prestige rewards, remaining P2/P3 follow-ups |
 | 기존 문서 최신화 | 완료 | README/DEVELOPER/BALANCE/SAVE/QA/PLAYTEST updated |
 
 ## P0/P1 Blockers
 
-기존 RC 및 확장 목표 기준의 내부 P0/P1 `미완료`, `검증 불가`, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue 없음. RC-4에서 업그레이드 card-list P1, 설정 form smell, save util dialog smell은 해결로 판정했고, RC-5에서 CSS debt와 component system 안정화가 완료됐다. RC-6에서 반복 구매 P1은 quick-buy로 해결했고, reward/reveal/retention 잔여 항목은 P2/P3로 분리했다. 실제 스토어 제출 완료를 막는 외부 계정/서명/commissioned art 소유권/platform icon export/실기기 QA 항목은 `RELEASE_BLOCKERS.md`에 P1 external readiness로 별도 분리했다.
+기존 RC 및 확장 목표 기준의 내부 P0/P1 `미완료`, `검증 불가`, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue 없음. RC-4에서 업그레이드 card-list P1, 설정 form smell, save util dialog smell은 해결로 판정했고, RC-5에서 CSS debt와 component system 안정화가 완료됐다. RC-6에서 반복 구매 P1은 quick-buy로 해결했고, RC-7에서 daily reward, D1/D3/D7 milestone, post-prestige goal chain을 실제 저장되는 시스템으로 구현했다. 실제 스토어 제출 완료를 막는 외부 계정/서명/commissioned art 소유권/platform icon export/실기기 QA, 서버 검증 calendar/push notification 항목은 `RELEASE_BLOCKERS.md`에 external readiness로 별도 분리했다.

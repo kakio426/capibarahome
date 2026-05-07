@@ -33,3 +33,19 @@ test("debug long growth QA reaches late content without using debug in normal fl
   await page.getByRole("button", { name: "홈" }).click();
   await expect(page.getByText("정원 컬렉션")).toBeVisible();
 });
+
+test("debug retention helpers are only available in debug mode", async ({ page }) => {
+  await openFresh(page);
+  await expect(page.getByRole("button", { name: "일일 보상 가능" })).toHaveCount(0);
+
+  await openFresh(page, "/?debug=1");
+  await openDebug(page);
+  await page.getByRole("button", { name: "일일 보상 가능" }).click();
+  await expect(page.locator(".toast", { hasText: "일일 보상 가능 상태" })).toBeVisible();
+  await page.getByRole("button", { name: "리텐션 7일" }).click();
+  await expect(page.locator(".toast", { hasText: "리텐션 7일차" })).toBeVisible();
+  await page.getByRole("button", { name: "마일스톤 초기화" }).click();
+  await expect(page.locator(".toast", { hasText: "복귀 마일스톤 초기화" })).toBeVisible();
+  await page.getByRole("button", { name: "환생 목표 +1" }).click();
+  await expect(page.locator(".toast", { hasText: "환생 목표 단계 이동" })).toBeVisible();
+});

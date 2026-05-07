@@ -17,6 +17,9 @@ describe("save manager", () => {
     state.currencies.orange = state.currencies.orange.add(1234);
     state.currencies.goldenLeaf = state.currencies.goldenLeaf.add(3);
     state.upgrades.soft_paw = 2;
+    state.retention.dailyStreak = 3;
+    state.retention.lastDailyClaimAt = 1_500;
+    state.retention.claimedMilestones.d1_returner = true;
 
     SaveManager.saveToStorage(state, storage, 2_000);
     const loaded = SaveManager.loadFromStorage(storage, 3_000);
@@ -25,6 +28,9 @@ describe("save manager", () => {
       expect(loaded.state.currencies.orange.toNumberSafe()).toBe(1234);
       expect(loaded.state.currencies.goldenLeaf.toNumberSafe()).toBe(3);
       expect(loaded.state.upgrades.soft_paw).toBe(2);
+      expect(loaded.state.retention.dailyStreak).toBe(3);
+      expect(loaded.state.retention.lastDailyClaimAt).toBe(1_500);
+      expect(loaded.state.retention.claimedMilestones.d1_returner).toBe(true);
     }
   });
 
@@ -68,8 +74,36 @@ describe("save manager", () => {
       expect(result.state.decorations.equippedBySlot.sky).toBe("sunny_yard");
       expect(result.state.achievements.claimedRewardIds).toEqual([]);
       expect(result.state.progression.unlockedTierIds).toEqual(["yard"]);
+      expect(result.state.retention.firstPlayedAt).toBe(1_000);
+      expect(result.state.retention.dailyStreak).toBe(0);
+      expect(result.state.retention.claimedMilestones.d1_returner).toBe(false);
+      expect(result.state.retention.postPrestigeGoalStep).toBe(0);
       expect(result.state.lastSavedAt).toBe(1_000);
     }
-    expect(GameConfig.save.version).toBe(4);
+    expect(GameConfig.save.version).toBe(5);
+  });
+
+  it("sanitizes corrupted retention state during import without crashing", () => {
+    const state = makeState(2_000);
+    const code = SaveManager.exportState({
+      ...state,
+      retention: {
+        firstPlayedAt: Number.POSITIVE_INFINITY,
+        lastDailyClaimAt: 999_999_999_999_999,
+        dailyStreak: 999,
+        claimedMilestones: { d1_returner: true, d3_steady_butler: "yes" as unknown as boolean },
+        postPrestigeGoalStep: -50,
+      },
+    }, 3_000);
+    const result = SaveManager.importState(code, 4_000);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.state.retention.firstPlayedAt).toBe(2_000);
+      expect(result.state.retention.lastDailyClaimAt).toBe(4_000);
+      expect(result.state.retention.dailyStreak).toBe(7);
+      expect(result.state.retention.claimedMilestones.d1_returner).toBe(true);
+      expect(result.state.retention.claimedMilestones.d3_steady_butler).toBe(false);
+      expect(result.state.retention.postPrestigeGoalStep).toBe(0);
+    }
   });
 });

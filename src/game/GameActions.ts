@@ -14,6 +14,7 @@ import { applyAchievementUnlocks, claimAchievementReward } from "../systems/Achi
 import { applyProgressionUnlocks } from "../systems/ProgressionRewardManager";
 import { claimQuestReward } from "../systems/QuestManager";
 import { equipDecoration as equipDecorationItem } from "../systems/CollectionManager";
+import { claimDailyReward, claimMilestoneReward, claimPostPrestigeGoal } from "../systems/RetentionManager";
 
 function applyUnlocks(state: ReturnType<typeof getGameState>, nowMs = Date.now()) {
   return applyProgressionUnlocks(applyAchievementUnlocks(state, nowMs), nowMs);
@@ -196,6 +197,67 @@ export const GameActions = {
     setGameState(nextState);
     AnalyticsManager.track("achievement_reward_claimed", { id: achievementId }, nowMs);
     SoundManager.play("achievement");
+    playHaptic(nextState, 18);
+    return result;
+  },
+
+  claimDailyReward(nowMs = Date.now()) {
+    const state = getGameState();
+    const result = claimDailyReward(state, nowMs);
+    if (!result.ok) {
+      setToast("아직 복귀 보상을 받을 시간이 아니에요.", "error", nowMs);
+      SoundManager.play("error");
+      return result;
+    }
+    const nextState = applyUnlocks(result.state, nowMs);
+    setGameState(nextState);
+    SaveManager.saveToStorage(nextState, globalThis.localStorage, nowMs);
+    AnalyticsManager.track("daily_reward_claimed", {
+      day: result.status.day,
+      reward: result.status.reward.label,
+    }, nowMs);
+    SoundManager.play("achievement");
+    playHaptic(nextState, [18, 28, 18]);
+    return result;
+  },
+
+  claimRetentionMilestone(milestoneId: string, nowMs = Date.now()) {
+    const state = getGameState();
+    const result = claimMilestoneReward(state, milestoneId, nowMs);
+    if (!result.ok) {
+      setToast(result.reason === "locked" ? "아직 복귀 배지 조건이 부족해요." : "복귀 배지를 받을 수 없어요.", "error", nowMs);
+      SoundManager.play("error");
+      return result;
+    }
+    const nextState = applyUnlocks(result.state, nowMs);
+    setGameState(nextState);
+    SaveManager.saveToStorage(nextState, globalThis.localStorage, nowMs);
+    AnalyticsManager.track("retention_milestone_claimed", {
+      id: milestoneId,
+      reward: result.milestone.reward.label,
+    }, nowMs);
+    SoundManager.play("achievement");
+    playHaptic(nextState, [20, 30, 20]);
+    return result;
+  },
+
+  claimPostPrestigeGoal(nowMs = Date.now()) {
+    const state = getGameState();
+    const result = claimPostPrestigeGoal(state, nowMs);
+    if (!result.ok) {
+      setToast(result.reason === "completed" ? "환생 목표 장부를 모두 마쳤어요." : "아직 환생 목표가 완료되지 않았어요.", "error", nowMs);
+      SoundManager.play("error");
+      return result;
+    }
+    const nextState = applyUnlocks(result.state, nowMs);
+    setGameState(nextState);
+    SaveManager.saveToStorage(nextState, globalThis.localStorage, nowMs);
+    AnalyticsManager.track("post_prestige_goal_claimed", {
+      id: result.goal.id,
+      step: result.goal.step,
+      reward: result.goal.reward.label,
+    }, nowMs);
+    SoundManager.play("quest");
     playHaptic(nextState, 18);
     return result;
   },

@@ -64,6 +64,7 @@
 | RC-3 playtest/balance bug bash | 완료 | `PLAYTEST_REPORT.md`, `BalanceSimulator.ts`, `balanceSimulation.test.ts`, `rc3BugBash.test.ts`, `first-five-minute-playtest.spec.ts` |
 | RC-3 store screenshot polish | 완료 | album crop, prestige multiplier formatting, save screenshot copy 수정, `store-screenshots/` 10장 재생성 |
 | RC-4 Game UI Skin & Interaction Polish | 완료 | `RC4_UI_SKIN_AUDIT.md`, upgrade workbench/shelf, settings ledger/drawer, save vault modal, custom settings switches, save export copy action, carved modal/toast/disabled controls, `visual-regression.spec.ts`, `store-screenshot-pack.spec.ts` |
+| RC-7 Retention Systems Pass | 완료 | `RetentionManager.ts`, `RetentionConfig.ts`, save v5 migration, daily reward, D1/D3/D7 milestone, post-prestige goal chain, `retention.test.ts`, `retention-flow.spec.ts`, `RC7_RETENTION_SYSTEM_AUDIT.md` |
 | RC-5 CSS Debt & Component System Pass | 완료 | `RC5_CSS_COMPONENT_AUDIT.md`, `layout.css` manifest, `shell/hud/screens/effects` split, reusable `.ui-*` skin classes, refreshed visual/store screenshots |
 
 ## Trace Gate

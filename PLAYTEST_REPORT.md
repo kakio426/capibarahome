@@ -102,4 +102,27 @@ RC-6 implemented feel changes:
 - Album/quest/achievement claim reveal banner.
 - Sound and haptic hooks for tap/purchase/fail/claim/offline/prestige, respecting mute and vibration settings.
 
-Remaining playtest risks are P2/P3 only: true daily reward calendar, D3/D7 milestone badge rewards, deeper album free-placement, real audio files, and physical-device retention/thermal checks.
+## RC-7 Retention Systems Recheck
+
+기준일: 2026-05-07
+
+RC-7은 RC-6에서 문서화만 했던 장기 복귀 보상을 실제 시스템으로 추가했다. Save schema는 version 5로 상승했고, 기존 save migration과 corrupted retention state 복구 테스트를 추가했다.
+
+구현된 리텐션 루프:
+
+- Daily reward: 20시간 cooldown, 48시간 초과 시 streak reset, 1~7일 루프, Day 3/7 황금 나뭇잎 포함.
+- D1/D3/D7 milestone: `정원 복귀자`, `꾸준한 집사`, `황금 숲 단골` 배지와 중복 claim 방지.
+- Post-prestige goal chain: 첫 환생 완료 이후 5단계 목표를 홈과 환생 result panel에 노출.
+- UI: 홈 retention panel, 앨범 복귀 배지 ledger, debug-only retention helpers.
+
+Balance simulator는 이제 장기 checkpoint에서 daily/milestone/post-prestige goal claim도 자동 처리한다. `balanceSimulation.test.ts`는 D1/D3/D7 checkpoint가 계속 생성되고 업그레이드/환생 progression이 깨지지 않는지 검증한다. 보상은 EPS-minute 기반과 최소 보장값을 함께 사용해 초반에는 체감되고 장기에는 경제를 압도하지 않도록 제한했다.
+
+RC-7 E2E 확인:
+
+- 신규 유저 홈에서 retention panel이 깨지지 않음.
+- seeded D1 daily reward claim 후 reload 시 cooldown 유지.
+- seeded D3/D7 milestone claim 후 reload 시 받은 상태 유지.
+- 첫 환생 후 result panel과 홈에서 post-prestige goal chain 표시.
+- debug retention helpers는 `?debug=1` 전용 spec에서만 검증.
+
+Remaining playtest risks are P2/P3 only: server-verified calendar/push notification, deeper companion room free-placement, longer offline numeric count-up, real audio files, and physical-device retention/thermal checks.

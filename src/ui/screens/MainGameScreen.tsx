@@ -4,7 +4,10 @@ import { StoryConfig } from "../../config/StoryConfig";
 import { BigNumberLite } from "../../core/BigNumberLite";
 import { selectCollectionBadges, selectCollectionDashboard, selectCurrentProgressionTier, selectEps, selectNextProgressionTier, selectNextUpgradeGoal, selectPrestigeGain, selectPrestigeProgress, selectQuestBoard, selectTapGain } from "../../game/GameSelectors";
 import { GameState } from "../../game/GameTypes";
+import { GameActions } from "../../game/GameActions";
 import { useGameStore } from "../../state/useGameStore";
+import { formatRetentionDuration, getDailyRewardStatus, getMilestoneViewModels, getPostPrestigeGoalView } from "../../systems/RetentionManager";
+import { Button } from "../components/Button";
 import { CurrencyDisplay } from "../components/CurrencyDisplay";
 import { ProgressBar } from "../components/ProgressBar";
 import { RasterAssetImage } from "../components/RasterAssetImage";
@@ -48,6 +51,10 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
   const nextTier = selectNextProgressionTier(state);
   const questBoard = selectQuestBoard(state, nowMs);
   const collection = selectCollectionDashboard(state);
+  const dailyReward = getDailyRewardStatus(state, nowMs);
+  const milestones = getMilestoneViewModels(state, nowMs);
+  const nextMilestone = milestones.find((milestone) => milestone.canClaim) ?? milestones.find((milestone) => !milestone.claimed) ?? milestones[milestones.length - 1];
+  const postPrestigeGoal = getPostPrestigeGoalView(state, nowMs);
   const featuredCapybara = StoryConfig.capybaras[(currentTier.order - 1) % StoryConfig.capybaras.length];
   const mascotMood = getMascotMood(state);
   const equippedDecorationClasses = collection.equippedDecorations.map((decoration) => decoration.visualClass).join(" ");
@@ -119,6 +126,69 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
           <ProgressBar value={highlightedQuest.progress} label={highlightedQuest.instruction} />
         </section>
       ) : null}
+
+      <section className={`retention-panel ${dailyReward.eligible ? "is-ready" : ""}`} aria-label="복귀 보상과 장기 루프">
+        <div className="retention-daily-card">
+          <div>
+            <span className="app-kicker">복귀 보상</span>
+            <h2>Day {dailyReward.day} · {dailyReward.title}</h2>
+            <p>{dailyReward.flavor}</p>
+          </div>
+          <span className={dailyReward.eligible ? "goal-chip is-ready" : "goal-chip"}>
+            {dailyReward.eligible ? "수령 가능" : `${formatRetentionDuration(dailyReward.cooldownRemainingMs)} 남음`}
+          </span>
+          <div className="retention-reward-row">
+            <VisualAssetIcon assetKey={dailyReward.reward.goldenLeaf.gte(1) ? "leaf" : "orange"} className="retention-reward-icon" />
+            <strong>{dailyReward.reward.label}</strong>
+            <span>연속 {dailyReward.currentStreak}일 기록</span>
+          </div>
+          <Button
+            fullWidth
+            disabled={!dailyReward.eligible}
+            onClick={() => GameActions.claimDailyReward()}
+          >
+            복귀 보상 받기
+          </Button>
+        </div>
+
+        <div className="retention-goal-card">
+          <div className="retention-goal-header">
+            <div>
+              <span className="app-kicker">환생 이후 목표</span>
+              <h3>{postPrestigeGoal.title}</h3>
+            </div>
+            <span className={postPrestigeGoal.canClaim ? "goal-chip is-ready" : "goal-chip"}>
+              {postPrestigeGoal.completed ? "완료" : `${postPrestigeGoal.step + 1}/${postPrestigeGoal.totalSteps}`}
+            </span>
+          </div>
+          <p>{postPrestigeGoal.description}</p>
+          <ProgressBar value={postPrestigeGoal.progress} label={postPrestigeGoal.canClaim ? `보상 ${postPrestigeGoal.reward.label}` : "장기 목표 진행률"} />
+          <Button
+            variant={postPrestigeGoal.canClaim ? "primary" : "secondary"}
+            disabled={!postPrestigeGoal.canClaim}
+            onClick={() => GameActions.claimPostPrestigeGoal()}
+          >
+            {postPrestigeGoal.canClaim ? "목표 보상 받기" : "진행 중"}
+          </Button>
+        </div>
+
+        {nextMilestone ? (
+          <div className="retention-milestone-strip">
+            <span className="retention-stamp">{nextMilestone.claimed ? "완료" : `D${nextMilestone.day}`}</span>
+            <div>
+              <strong>{nextMilestone.title}</strong>
+              <span>{nextMilestone.claimed ? "복귀 배지 장부에 기록됨" : nextMilestone.canClaim ? `보상 ${nextMilestone.reward.label}` : `${Math.round(nextMilestone.progress * 100)}% 진행`}</span>
+            </div>
+          </div>
+        ) : null}
+
+        {state.lastAction?.kind === "daily" || state.lastAction?.kind === "milestone" || state.lastAction?.kind === "retention_goal" ? (
+          <div className="retention-reveal-banner" role="status">
+            <span>장부 도장</span>
+            <strong>{state.lastAction.message}</strong>
+          </div>
+        ) : null}
+      </section>
 
       <section className={`tier-story-panel ${currentTier.backgroundClass}`} aria-label="정원 구간">
         <div>

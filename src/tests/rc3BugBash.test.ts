@@ -53,7 +53,7 @@ function legacyPayload(version: 1 | 2 | 3) {
 }
 
 describe("RC-3 bug bash regressions", () => {
-  it("migrates v1, v2, and v3 saves into the current v4 state safely", () => {
+  it("migrates v1, v2, and v3 saves into the current v5 state safely", () => {
     const v1 = SaveManager.importState(saveCodeFor(legacyPayload(1)), 2_000);
     const v2 = SaveManager.importState(saveCodeFor(legacyPayload(2)), 2_000);
     const v3 = SaveManager.importState(saveCodeFor(legacyPayload(3)), 2_000);
@@ -67,6 +67,8 @@ describe("RC-3 bug bash regressions", () => {
       expect(v1.state.achievements.claimedRewardIds).toEqual([]);
       expect(v1.state.decorations.equippedBySlot.sky).toBe("sunny_yard");
       expect(v1.state.progression.unlockedTierIds).toEqual(["yard"]);
+      expect(v1.state.retention.dailyStreak).toBe(0);
+      expect(v1.state.retention.claimedMilestones.d1_returner).toBe(false);
     }
     if (v2.ok) {
       expect(v2.state.achievements.unlockedIds).toEqual(["first_orange"]);
@@ -79,7 +81,7 @@ describe("RC-3 bug bash regressions", () => {
       expect(v3.state.companions.friendshipById.momo).toBe(12);
       expect(v3.state.progression.unlockedTierIds).toEqual(["yard", "storehouse"]);
     }
-    expect(GameConfig.save.version).toBe(4);
+    expect(GameConfig.save.version).toBe(5);
   });
 
   it("rejects corrupted imports without mutating game state assumptions", () => {

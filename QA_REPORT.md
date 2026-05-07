@@ -1,6 +1,6 @@
 # QA Report
 
-기준일: 2026-05-06
+기준일: 2026-05-07
 
 ## Final Command Results
 
@@ -12,13 +12,13 @@ built successfully; Vite large chunk warning remains for bundled raster assets
 
 ```txt
 npm test
-Test Files  21 passed (21)
-Tests       485 passed (485)
+Test Files  22 passed (22)
+Tests       491 passed (491)
 ```
 
 ```txt
 npm run test:e2e
-22 passed
+27 passed
 ```
 
 ```txt
@@ -117,6 +117,18 @@ Fix:
 - Unit coverage 추가: 10개 구매, 최대 구매, 부족 상태, maxLevel cap, BigNumber 큰 수치 max-buy, D1/D3/D7 retention checkpoint.
 - E2E coverage 추가: quick-buy 10/max, offline reveal selectors, prestige result panel, album reveal banner, effects-off state.
 
+## RC-7 Retention Systems Pass
+
+- Save schema를 version 5로 올리고 `retention` state를 추가했다.
+- `RetentionConfig.ts`가 daily reward table, D1/D3/D7 milestone, post-prestige goal chain reward를 중앙 관리한다.
+- `RetentionManager.ts`가 daily eligibility/claim, streak reset, milestone claim, post-prestige goal progression을 BigNumber 기반으로 처리한다.
+- 홈에 복귀 보상/환생 이후 목표 compact panel을 추가했고, 앨범에 D1/D3/D7 복귀 배지 ledger를 추가했다.
+- 환생 result panel은 generic next target 대신 post-prestige goal chain의 다음 목표를 표시한다.
+- DebugManager에는 `일일 보상 가능`, `리텐션 3일`, `리텐션 7일`, `마일스톤 초기화`, `환생 목표 +1`을 추가했으며 `?debug=1`에서만 노출된다.
+- `BalanceSimulator.ts`는 D1/D3/D7 checkpoint에서 daily/milestone/post-prestige goal claim을 자동 처리해 retention reward가 경제를 깨지 않는지 회귀 검증한다.
+- Unit coverage 추가: daily eligibility/claim/duplicate, streak reset, D1/D3/D7 milestone duplicate guard, post-prestige goal step, save/load retention, corrupted retention migration.
+- E2E coverage 추가: 신규 유저 retention panel, D1 daily claim/reload cooldown, D3/D7 milestone claim/reload persistence, first prestige 후 goal chain, debug retention helpers 격리.
+
 ## 자동 테스트 커버리지
 
 - 밸런스 계산: 비용 증가, 터치 수익, EPS, BigNumber, format.
@@ -128,7 +140,7 @@ Fix:
 - 오프라인 보상, 환생, 튜토리얼, 설정, 광고/IAP mock.
 - RC reward loops: companion passive, achievement claim reward, permanent multiplier, progression unlock, sound mute.
 - RC bug bash: rapid taps, duplicate reward guards, prestige save/load, mute persistence, long number formatting.
-- balance simulation: 10초/1분/5분/15분/30분/2시간 checkpoint, 첫 환생, 환생 후 30분, D1/D3/D7 retention assumption, 광고 버프.
+- balance simulation: 10초/1분/5분/15분/30분/2시간 checkpoint, 첫 환생, 환생 후 30분, D1/D3/D7 retention rewards, 광고 버프.
 
 ## E2E Coverage
 
@@ -148,10 +160,11 @@ Fix:
 | `e2e/debug-cheat-flow.spec.ts` | 완료 | `?debug=1` 격리와 장기 성장 QA |
 | `e2e/rc1-product-feel.spec.ts` | 완료 | 업적 보상 claim, 카피바라 passive 표시/수익, sound mute, 장기 목표 |
 | `e2e/first-five-minute-playtest.spec.ts` | 완료 | debug 없이 5분권 실제 플레이 보상/reveal/저장/장식/동료/복귀 검증 |
+| `e2e/retention-flow.spec.ts` | 완료 | debug 없이 daily reward, D3/D7 milestone, post-prestige goal chain 검증 |
 
 ## 시각 QA
 
-- Playwright visual flow가 64개 current screenshot을 갱신한다. `qa-screenshots/` 전체에는 archived before shots와 RC-6 quick-buy/claim/prestige-result screenshots가 포함된다.
+- Playwright visual flow가 88개 current screenshot을 갱신한다. `qa-screenshots/` 전체에는 archived before shots와 RC-7 daily/milestone/post-prestige screenshots가 포함된다.
 - Store 후보 10개를 `store-screenshots/`에 갱신했다.
 - 360x740, 390x844, 430x932, desktop 1280x900 중앙 패널에서 overflow assertion 통과.
 - 홈 v2 raster orchard/capybara integrated scene, 앨범 raster sticker portraits, 환생 ritual raster, 상점 reward banner raster, 오프라인 보상 raster, save modal 긴 code scroll을 재확인했다.
@@ -160,23 +173,25 @@ Fix:
 - RC-4 추가 수동 판정: `390x844-upgrades.png`는 더 이상 spreadsheet/list/card layout로 보지 않는다. `390x844-settings.png`는 browser form UI가 아니며, `390x844-save-modal.png`는 save vault/ledger UI로 보인다.
 - RC-5 추가 수동 판정: `390x844-upgrades.png`, `390x844-settings.png`, `390x844-save-modal.png`, `390x844-collection.png`, `desktop-1280x900-upgrades.png`, store save screenshot을 확인했다. 내부 P0/P1 visual regression은 없음.
 - RC-6 추가 산출물 확인: `390x844-upgrades-quick-buy.png`, `390x844-collection-claim-ready.png`, `390x844-prestige-result.png`, `390x844-offline-reward.png`가 생성됐고 390x844 viewport screenshot artifact dimension과 파일 크기를 확인했다. 내부 P0/P1 gameplay feel blocker는 없음.
+- RC-7 추가 산출물 확인: `390x844-home-daily-available.png`, `390x844-home-daily-cooldown.png`, `390x844-daily-reward-claim.png`, `390x844-home-post-prestige-goal.png`, `390x844-collection-milestones.png`, `390x844-milestone-claim.png`가 생성됐고 360/390/430/desktop overflow assertion을 통과했다. 내부 P0/P1 retention blocker는 없음.
 
 ## Source Budget Gate
 
-- handwritten runtime implementation: 8,385 LOC.
-- handwritten tests/E2E: 2,449 LOC.
-- pure handwritten gameplay/UI/system/test total: 10,834 LOC.
-- excluded config: 2,529 LOC.
+- handwritten runtime implementation: 9,323 LOC.
+- handwritten tests/E2E: 2,750 LOC.
+- pure handwritten gameplay/UI/system/test total: 12,073 LOC.
+- excluded config: 2,684 LOC.
 - excluded generated SVG/registry: 11,533 LOC.
 - excluded generated matrix tests: 5,846 LOC.
 - generated SVG files: 253.
 - registry asset keys: 242.
 - raster PNG files: 15, 19M total.
-- handwritten runtime+test byte size: 370,237 bytes.
+- handwritten runtime+test byte size: 416,811 bytes.
 
 ## 남은 리스크
 
-- 실제 물리 디바이스 60fps/thermal profiling은 수행하지 않았다.
+- 실제 물리 디바이스 60fps/thermal/retention clock profiling은 수행하지 않았다.
+- 서버 검증 daily calendar, push notification, 날짜 조작 완전 방어는 RC-7 범위가 아니다.
 - 실제 commissioned/final art ownership, 라이선스 확정 사운드, 광고 SDK/IAP SDK는 연결하지 않았다.
 - 실제 Apple/Google 개발자 계정, 인증서, 프로비저닝, 스토어 업로드는 수행하지 않았다.
 - commissioned art 소유권/법무 확정, platform icon/adaptive icon/splash export, 실제 device store screenshot 재촬영은 제출 전 P1 external art readiness로 남는다.

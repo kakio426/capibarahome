@@ -1,6 +1,6 @@
 # Source Budget Report
 
-기준일: 2026-05-06
+기준일: 2026-05-07
 
 이번 재검증은 `src` 전체 LOC를 구현 규모로 보지 않는다. Generated SVG, generated registry, 반복 config, docs, screenshots, build output, `node_modules`를 제외하고 순수 handwritten gameplay/UI/system/test 규모를 따로 계산했다.
 
@@ -21,14 +21,14 @@ find src/app src/core src/game src/state src/systems src/ui src/tests e2e -type 
 
 | 항목 | LOC/bytes | 감사 판정 |
 | --- | ---: | --- |
-| 순수 handwritten runtime 구현 `src/app src/core src/game src/state src/systems src/ui` | 8,385 LOC | 실제 gameplay/UI/system 구현 규모. RC-6 quick-buy/reward feel 포함 |
-| 순수 handwritten unit/E2E tests `src/tests e2e` excluding generated matrix | 2,449 LOC | 실제 사람이 작성한 검증 규모 |
-| 순수 handwritten gameplay/UI/system/test 합계 | 10,834 LOC | 이번 감사의 기준값 |
-| 반복 config `src/config` | 2,529 LOC | 콘텐츠/오디오 데이터이므로 구현 LOC에서 분리 |
+| 순수 handwritten runtime 구현 `src/app src/core src/game src/state src/systems src/ui` | 9,323 LOC | 실제 gameplay/UI/system 구현 규모. RC-7 retention systems 포함 |
+| 순수 handwritten unit/E2E tests `src/tests e2e` excluding generated matrix | 2,750 LOC | 실제 사람이 작성한 검증 규모 |
+| 순수 handwritten gameplay/UI/system/test 합계 | 12,073 LOC | 이번 감사의 기준값 |
+| 반복 config `src/config` | 2,684 LOC | 콘텐츠/오디오/리텐션 보상 데이터이므로 구현 LOC에서 분리 |
 | generated SVG/asset registry `src/assets/generated` | 11,533 LOC | visual asset 산출물이므로 구현 LOC에서 분리 |
 | raster PNG asset pack `src/assets/raster` | 15 files / 19M | v2 core/release art 후보이므로 구현 LOC에서 분리 |
 | generated matrix tests `src/tests/generated` | 5,846 LOC | 항목별 스냅샷 검증으로 인정하되 handwritten test LOC에서 분리 |
-| handwritten runtime+test byte size | 370,237 bytes | docs/build/assets 제외 기준 |
+| handwritten runtime+test byte size | 416,811 bytes | docs/build/assets 제외 기준 |
 
 ## 콘텐츠 수량 재검증
 
@@ -46,4 +46,4 @@ find src/app src/core src/game src/state src/systems src/ui src/tests e2e -type 
 
 ## 판단
 
-순수 handwritten 구현은 약 8.4K LOC, handwritten 검증까지 합치면 약 10.8K LOC다. 이번 v2 raster/HUD art pass, RC-4 interaction polish, RC-5 CSS component system pass, RC-6 product feel pass에서 SVG와 PNG 산출물은 직접 관리 가능한 asset pack으로 유지되지만, generated/asset 파일 용량 자체를 구현 규모 근거로 쓰지 않는다. 남은 리스크는 commissioned/final art ownership, 실제 파일 기반 사운드, 실제 광고/IAP SDK, 물리 기기 QA 쪽으로 분리한다.
+순수 handwritten 구현은 약 9.3K LOC, handwritten 검증까지 합치면 약 12.1K LOC다. 이번 v2 raster/HUD art pass, RC-4 interaction polish, RC-5 CSS component system pass, RC-6 product feel pass, RC-7 retention systems pass에서 SVG와 PNG 산출물은 직접 관리 가능한 asset pack으로 유지되지만, generated/asset 파일 용량 자체를 구현 규모 근거로 쓰지 않는다. 남은 리스크는 commissioned/final art ownership, 실제 파일 기반 사운드, 실제 광고/IAP SDK, 서버 검증 calendar/push notification, 물리 기기 QA 쪽으로 분리한다.

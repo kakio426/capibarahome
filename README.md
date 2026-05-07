@@ -30,11 +30,12 @@ npm run cap:sync
 - v2 raster home/prestige/shop/offline/store key visual 후보, wood/parchment/orange game HUD skin, store screenshot 후보 10장
 - RC-4 interaction polish: upgrade workbench/shelf UI, settings ledger/drawer, save vault modal, custom settings switches, save export copy action, modal/toast/card HUD polish
 - RC-5 CSS component pass: `layout.css` import manifest, `shell/hud/screens/effects` split, reusable `.ui-*` game skin classes, upgrade/settings/save/album polish
-- RC-6 product feel pass: quick-buy `1개/10개/최대`, purchase/offline/prestige/album reveal, touch variation, D1/D3/D7 retention plan
+- RC-6 product feel pass: quick-buy `1개/10개/최대`, purchase/offline/prestige/album reveal, touch variation
+- RC-7 retention systems pass: 20시간 daily reward, D1/D3/D7 복귀 배지, 첫 환생 이후 goal chain, save version 5 migration
 - RC-3 playtest pass: 첫 환생 33분 목표, 1/5/15/30/120분 밸런스 checkpoint, 실제 5분권 E2E
 - `STORY_BIBLE.md`와 연결된 8마리 카피바라 캐릭터/짧은 인게임 대사
 - 환생과 황금 나뭇잎 영구 배율
-- localStorage 저장/로드, checksum, Base64 export/import, migration
+- localStorage 저장/로드, checksum, Base64 export/import, migration, retention claim state
 - 오프라인 보상 모달
 - 설정, 튜토리얼 3단계, 이펙트 on/off, file-ready audio slot과 WebAudio fallback/mute 연결
 - 광고 보상 mock, IAP mock provider 인터페이스
@@ -44,7 +45,7 @@ npm run cap:sync
 - Capacitor iOS/Android 패키징 준비 config
 - `NATIVE_BUILD_GUIDE.md`, `DEVICE_QA_CHECKLIST.md`, `ASSET_CREDITS.md`, `AUDIO_ASSET_PLAN.md`
 - `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`, `VISUAL_QA.md`
-- balance simulation, `RETENTION_PLAN.md`, source budget report
+- balance simulation, `RETENTION_PLAN.md`, `RC7_RETENTION_SYSTEM_AUDIT.md`, source budget report
 - `PLAYTEST_REPORT.md` 기반 RC-3 bug bash와 store screenshot 재점검
 - expanded completion audit
 

@@ -13,7 +13,10 @@ export type AnalyticsEventName =
   | "iap_mock_purchase_completed"
   | "quest_claimed"
   | "achievement_reward_claimed"
-  | "decoration_equipped";
+  | "decoration_equipped"
+  | "daily_reward_claimed"
+  | "retention_milestone_claimed"
+  | "post_prestige_goal_claimed";
 
 export type AnalyticsEvent = {
   name: AnalyticsEventName;

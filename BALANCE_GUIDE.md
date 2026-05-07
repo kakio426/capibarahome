@@ -2,7 +2,7 @@
 
 콘텐츠 확장 기준: 현재 업그레이드/시설은 30종이며, 5개 성장 구간(`마당`, `귤 창고`, `온천`, `대나무 정원`, `황금 숲`)에 tiered unlock으로 배치되어 있습니다.
 
-모든 수치는 `src/config/GameConfig.ts`, `src/config/BalanceConfig.ts`, `src/config/MonetizationConfig.ts`에서 조정합니다.
+모든 수치는 `src/config/GameConfig.ts`, `src/config/BalanceConfig.ts`, `src/config/MonetizationConfig.ts`, `src/config/RetentionConfig.ts`에서 조정합니다.
 
 ## 터치 수익
 
@@ -88,15 +88,36 @@ RC-6 playtest checkpoint:
 | 첫 환생 | 47.8M | 10.6K | 황금 나뭇잎 1개 |
 | 환생 후 30분 | 93M | 20.5K | 황금 나뭇잎 2개 예상 |
 
-## RC-6 Retention Checkpoints
+## RC-7 Retention Rewards
 
-`BalanceSimulator.ts`는 D1/D3/D7 가정 checkpoint도 기록한다. 이 값은 장기 자동 플레이 기준의 방향 확인용이며, 실제 daily reward calendar는 아직 구현하지 않았다.
+`RetentionConfig.ts`가 daily reward, D1/D3/D7 milestone, post-prestige goal chain reward를 중앙 관리합니다.
+
+Daily reward policy:
+
+- 20시간 cooldown 기준. local calendar day가 아니라 timestamp 기반입니다.
+- 마지막 daily claim 이후 48시간을 넘기면 streak는 1일차로 reset합니다.
+- 1~7일 보상 후 Day 7 reward를 반복합니다.
+- 귤 보상은 `max(currentEPS x rewardMinutes, minimumOranges)`로 계산하고 `BigNumberLite.floor()`를 적용합니다.
+- Day 3/7만 소량 황금 나뭇잎을 지급합니다.
+
+Milestone policy:
+
+- D1: 귤 30분치 또는 최소 5,000귤.
+- D3: 귤 60분치 또는 최소 25,000귤 + 황금 나뭇잎 1개.
+- D7: 귤 120분치 또는 최소 100,000귤 + 황금 나뭇잎 3개.
+- Milestone badge는 cosmetic persistence이며 현재 별도 multiplier를 주지 않습니다.
+
+Post-prestige goal reward는 환생 직후 목표 상실을 막기 위한 소량 보상입니다. 현재 단계는 첫 환생 완료, 황금 나뭇잎 2개, 말랑 앞발 Lv.10, 귤 바구니 Lv.10, 두 번째 환생 가능 상태입니다.
+
+## RC-7 Retention Checkpoints
+
+`BalanceSimulator.ts`는 D1/D3/D7 checkpoint를 기록하며 RC-7부터 daily reward, milestone, post-prestige goal claim도 자동 처리합니다. 이 값은 장기 자동 플레이 기준의 방향 확인용이며, 서버 기반 calendar/push 검증은 범위 밖입니다.
 
 | 구간 | 누적 귤 | EPS | 환생 예상 |
 | --- | ---: | ---: | ---: |
-| 1일차 복귀 | 935B | 99.8M | 212 |
-| 3일차 목표 | 634T | 6.56B | 5.54K |
-| 7일차 목표 | 3.79Qa | 11.1B | 13.5K |
+| 1일차 복귀 | 자동 시뮬레이션에서 checkpoint 생성 | 자동 claim 이후에도 progression 유지 | 과도한 단축 없음 |
+| 3일차 목표 | 자동 시뮬레이션에서 checkpoint 생성 | D3 reward 포함 | 과도한 단축 없음 |
+| 7일차 목표 | 자동 시뮬레이션에서 checkpoint 생성 | D7 reward 포함 | 과도한 단축 없음 |
 
 ## RC-3 보상 루프
 

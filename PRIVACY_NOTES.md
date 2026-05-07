@@ -1,10 +1,10 @@
 # Privacy Notes
 
-기준일: 2026-05-05
+기준일: 2026-05-07
 
 ## 현재 구현 기준 결론
 
-현재 RC-3 후보는 서버 계정, 원격 저장, 실제 광고 SDK, 실제 IAP SDK, 실제 analytics SDK를 포함하지 않는다. 게임 진행과 설정은 로컬 저장소에만 보관된다.
+현재 RC-7 후보는 서버 계정, 원격 저장, 실제 광고 SDK, 실제 IAP SDK, 실제 analytics SDK를 포함하지 않는다. 게임 진행, 설정, 복귀 보상 상태는 로컬 저장소에만 보관된다.
 
 이 문서는 실제 SDK를 추가하기 전 기준이다. 광고/IAP/analytics SDK를 붙이면 제출 전 반드시 다시 감사해야 한다.
 
@@ -13,7 +13,7 @@
 | 항목 | 현재 상태 |
 | --- | --- |
 | 저장 위치 | Web: `localStorage`, Native packaging 후: Capacitor WebView storage |
-| 저장 데이터 | 귤/황금 나뭇잎, 업그레이드/시설 레벨, 환생/누적 진행도, 퀘스트/업적/장식/동료 상태, 설정, 튜토리얼, monetization mock state, timestamps |
+| 저장 데이터 | 귤/황금 나뭇잎, 업그레이드/시설 레벨, 환생/누적 진행도, 퀘스트/업적/장식/동료 상태, daily reward streak/cooldown, D1/D3/D7 milestone claim, post-prestige goal step, 설정, 튜토리얼, monetization mock state, timestamps |
 | 전송 여부 | 서버 전송 없음 |
 | 계정 연결 | 없음 |
 | 암호화 주장 | 하지 않음. Base64는 전송/복사 편의 포맷일 뿐 암호화가 아님 |

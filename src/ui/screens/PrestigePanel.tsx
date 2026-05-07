@@ -2,6 +2,7 @@ import { useState } from "react";
 import { GameConfig } from "../../config/GameConfig";
 import { BigNumberLite } from "../../core/BigNumberLite";
 import { getPrestigeStatus } from "../../systems/PrestigeManager";
+import { getPostPrestigeGoalView } from "../../systems/RetentionManager";
 import { GameActions } from "../../game/GameActions";
 import { useGameStore } from "../../state/useGameStore";
 import { Button } from "../components/Button";
@@ -22,6 +23,8 @@ type PrestigeResultView = {
   gain: BigNumberLite;
   totalLeaves: BigNumberLite;
   multiplier: BigNumberLite;
+  nextGoalTitle: string;
+  nextGoalDescription: string;
 };
 
 export function PrestigePanel() {
@@ -34,10 +37,13 @@ export function PrestigePanel() {
   function confirmPrestige() {
     const result = GameActions.prestige();
     if (result.ok) {
+      const nextGoal = getPostPrestigeGoalView(result.state);
       setPrestigeResult({
         gain: result.gain,
         totalLeaves: result.state.currencies.goldenLeaf,
         multiplier: status.nextMultiplier,
+        nextGoalTitle: nextGoal.title,
+        nextGoalDescription: nextGoal.description,
       });
     }
     setConfirmOpen(false);
@@ -114,7 +120,9 @@ export function PrestigePanel() {
             <strong>x{prestigeResult ? formatMultiplier(prestigeResult.multiplier) : "1"}</strong>
           </div>
         </div>
-        <p className="prestige-next-copy">다음 목표는 누적 {BigNumberLite.from(GameConfig.prestige.requirement).format(format)} 귤입니다.</p>
+        <p className="prestige-next-copy">
+          다음 목표: {prestigeResult?.nextGoalTitle ?? "누적 귤"} · {prestigeResult?.nextGoalDescription ?? `${BigNumberLite.from(GameConfig.prestige.requirement).format(format)} 귤`}
+        </p>
       </Modal>
     </main>
   );

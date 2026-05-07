@@ -109,7 +109,7 @@ test("first five-minute return session shows offline reward once without debug",
 
   await expect(page.locator(".debug-panel")).toHaveCount(0);
   await expect(page.getByRole("dialog", { name: "오프라인 보상" })).toBeVisible();
-  await page.getByRole("button", { name: "보상 받기" }).click();
+  await page.getByRole("button", { name: "보상 받기", exact: true }).click();
   await expect(page.getByRole("dialog", { name: "오프라인 보상" })).toHaveCount(0);
   await page.reload();
   await expect(page.getByRole("dialog", { name: "오프라인 보상" })).toHaveCount(0);

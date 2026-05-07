@@ -10,7 +10,7 @@ src/
   core/         BigNumberLite, 수식, formatter, time helper
   game/         GameLoop, GameEngine, selectors, actions, types
   state/        lightweight store, initial state, migrations
-  systems/      Save, Offline, Prestige, Upgrade, Quest, Collection, CompanionBonus, ProgressionReward, Tutorial, Settings, Sound, Ads, IAP, Analytics, Debug
+  systems/      Save, Offline, Prestige, Upgrade, Quest, Collection, Retention, CompanionBonus, ProgressionReward, Tutorial, Settings, Sound, Ads, IAP, Analytics, Debug
   ui/           components, screens, effects, styles
   tests/        Vitest 시뮬레이션 테스트
 ```
@@ -65,6 +65,7 @@ src/ui/styles/
 - `QuestManager`: 50개 quest 조건 판정, 보상 수령, 동료 친밀도와 passive 보상 반영
 - `CollectionManager`: 카피바라 카드, 고유 능력 표시, 장식 해금/배치, 앨범 summary view model 관리
 - `CompanionBonusManager`: 8마리 카피바라 친밀도 레벨을 tap/EPS/offline/quest/achievement/decoration/prestige 보너스로 집계
+- `RetentionManager`: 20시간 daily reward, 48시간 streak reset, D1/D3/D7 milestone, post-prestige goal chain claim/preview 관리
 - `ProgressionRewardManager`: 5개 성장 구간 unlock 기록, unlock toast, 장기 목표 상태 관리
 - `AnalyticsManager`: in-memory/console mock 이벤트 기록
 - `SoundManager`: `AudioConfig`의 file-ready slot을 재생하고 파일이 없으면 WebAudio fallback tone 사용
@@ -121,7 +122,7 @@ RC-6부터 업그레이드 구매 UI는 `1개 / 10개 / 최대` 모드를 지원
 
 ## Balance Playtest Pipeline
 
-`BalanceSimulator.ts`는 10초/1분/5분/15분/30분/2시간, 첫 환생, 환생 후 30분, D1/D3/D7 retention assumption checkpoint를 기록합니다. RC-6 기준 첫 환생 가능 시간은 33분 0초이며, 자세한 playtest 판정은 `PLAYTEST_REPORT.md`, `RETENTION_PLAN.md`, `BALANCE_SIMULATION.md`를 기준으로 봅니다.
+`BalanceSimulator.ts`는 10초/1분/5분/15분/30분/2시간, 첫 환생, 환생 후 30분, D1/D3/D7 retention checkpoint를 기록합니다. RC-7부터 long-run checkpoint에서는 daily reward, milestone, post-prestige goal reward도 자동 claim합니다. RC-6 기준 첫 환생 가능 시간은 33분 0초이며, 자세한 playtest 판정은 `PLAYTEST_REPORT.md`, `RETENTION_PLAN.md`, `BALANCE_SIMULATION.md`를 기준으로 봅니다.
 
 ## 재화 추가
 
@@ -159,4 +160,8 @@ npm run cap:sync
 - 튜토리얼 초기화
 - 광고 버프 강제 적용
 - 환생 가능 상태 만들기
+- 일일 보상 가능 상태 만들기
+- 리텐션 3일/7일 시뮬레이션
+- 복귀 마일스톤 초기화
+- 환생 목표 단계 이동
 - 저장 초기화

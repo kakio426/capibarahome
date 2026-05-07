@@ -91,7 +91,7 @@ async function seedShowcaseSave(page: Parameters<typeof seedSave>[0]) {
 async function dismissBlockingModal(page: Parameters<typeof seedSave>[0]) {
   const modal = page.locator(".modal-backdrop");
   if (!(await modal.isVisible().catch(() => false))) return;
-  const rewardButton = page.getByRole("button", { name: "보상 받기" });
+  const rewardButton = page.getByRole("button", { name: "보상 받기", exact: true });
   if (await rewardButton.isVisible().catch(() => false)) {
     await rewardButton.click();
     return;

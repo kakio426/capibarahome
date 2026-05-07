@@ -55,6 +55,13 @@ export function createInitialState(nowMs = Date.now()): GameState {
       unlockedTierIds: ["yard"],
       lastUnlockedTierId: null,
     },
+    retention: {
+      firstPlayedAt: nowMs,
+      lastDailyClaimAt: null,
+      dailyStreak: 0,
+      claimedMilestones: {},
+      postPrestigeGoalStep: 0,
+    },
     offlineReward: null,
     epsAtLastSave: BigNumberLite.zero(),
     lastToast: null,

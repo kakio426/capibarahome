@@ -316,8 +316,17 @@
     animation: album-stamp-pop 360ms ease-out;
   }
 
+  .game-shell[data-effects-enabled="true"] .retention-reveal-banner,
+  .game-shell[data-effects-enabled="true"][data-last-action-kind="daily"] .retention-daily-card,
+  .game-shell[data-effects-enabled="true"][data-last-action-kind="milestone"] .retention-milestone-card.can-claim,
+  .game-shell[data-effects-enabled="true"][data-last-action-kind="retention_goal"] .retention-goal-card {
+    animation: album-stamp-pop 360ms ease-out;
+  }
+
   .game-shell[data-effects-enabled="true"] .collection-badge.can-claim,
-  .game-shell[data-effects-enabled="true"] .quest-card.is-ready {
+  .game-shell[data-effects-enabled="true"] .quest-card.is-ready,
+  .game-shell[data-effects-enabled="true"] .retention-panel.is-ready,
+  .game-shell[data-effects-enabled="true"] .retention-milestone-card.can-claim {
     animation: claim-ready-glow 2.2s ease-in-out infinite;
   }
 }
@@ -331,6 +340,11 @@
 .game-shell[data-effects-enabled="false"] .prestige-result-stamp,
 .game-shell[data-effects-enabled="false"] .album-reveal-banner,
 .game-shell[data-effects-enabled="false"] .collection-badge.can-claim,
-.game-shell[data-effects-enabled="false"] .quest-card.is-ready {
+.game-shell[data-effects-enabled="false"] .quest-card.is-ready,
+.game-shell[data-effects-enabled="false"] .retention-reveal-banner,
+.game-shell[data-effects-enabled="false"] .retention-panel.is-ready,
+.game-shell[data-effects-enabled="false"] .retention-milestone-card.can-claim,
+.game-shell[data-effects-enabled="false"] .retention-goal-card,
+.game-shell[data-effects-enabled="false"] .retention-daily-card {
   animation: none;
 }

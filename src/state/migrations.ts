@@ -1,7 +1,52 @@
 import { GameConfig } from "../config/GameConfig";
+import { RetentionConfig } from "../config/RetentionConfig";
 import { SavePayloadWithoutChecksum } from "../game/GameTypes";
 
 type LooseSave = Partial<SavePayloadWithoutChecksum> & Record<string, unknown>;
+
+function finiteNumber(value: unknown, fallback: number) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function safeTimestamp(value: unknown, fallback: number, nowMs: number) {
+  const parsed = finiteNumber(value, fallback);
+  if (parsed <= 0) return fallback;
+  return parsed > nowMs + 5 * 60 * 1000 ? nowMs : parsed;
+}
+
+function safeObject(value: unknown) {
+  return typeof value === "object" && value !== null ? value as Record<string, unknown> : {};
+}
+
+function migrateRetention(raw: LooseSave, nowMs: number) {
+  const source = safeObject(raw.retention);
+  const createdAt = safeTimestamp(raw.createdAt, nowMs, nowMs);
+  const firstPlayedAt = safeTimestamp(source.firstPlayedAt, createdAt, nowMs);
+  const lastDailyClaimAt = source.lastDailyClaimAt === null || source.lastDailyClaimAt === undefined
+    ? null
+    : safeTimestamp(source.lastDailyClaimAt, firstPlayedAt, nowMs);
+  const claimedSource = safeObject(source.claimedMilestones);
+  const claimedMilestones = Object.fromEntries(
+    RetentionConfig.milestones.map((milestone) => [milestone.id, claimedSource[milestone.id] === true]),
+  );
+  const dailyStreak = Math.max(0, Math.min(
+    RetentionConfig.daily.loopLength,
+    Math.floor(finiteNumber(source.dailyStreak, 0)),
+  ));
+  const postPrestigeGoalStep = Math.max(0, Math.min(
+    RetentionConfig.postPrestigeGoals.length,
+    Math.floor(finiteNumber(source.postPrestigeGoalStep, 0)),
+  ));
+
+  return {
+    firstPlayedAt,
+    lastDailyClaimAt,
+    dailyStreak,
+    claimedMilestones,
+    postPrestigeGoalStep,
+  };
+}
 
 export function migrateSaveData(raw: LooseSave, nowMs = Date.now()): SavePayloadWithoutChecksum {
   const version = Number(raw.version ?? 0);
@@ -76,6 +121,7 @@ export function migrateSaveData(raw: LooseSave, nowMs = Date.now()): SavePayload
         : ["yard"],
       lastUnlockedTierId: typeof raw.progression?.lastUnlockedTierId === "string" ? raw.progression.lastUnlockedTierId : null,
     },
+    retention: migrateRetention(raw, nowMs),
     epsAtLastSave: String(raw.epsAtLastSave ?? "0"),
   };
 

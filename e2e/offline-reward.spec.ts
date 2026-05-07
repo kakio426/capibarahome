@@ -13,7 +13,7 @@ test("offline reward appears on return and does not duplicate", async ({ page })
   await expect(page.getByText(/동안 카피바라가 귤을 모았습니다/)).toBeVisible();
   await expect(page.locator(".reward-reveal-visual")).toBeVisible();
   await expect(page.locator(".reward-count", { hasText: /귤/ })).toBeVisible();
-  await page.getByRole("button", { name: "보상 받기" }).click();
+  await page.getByRole("button", { name: "보상 받기", exact: true }).click();
   await expect(page.getByRole("dialog", { name: "오프라인 보상" })).toHaveCount(0);
 
   await page.reload();

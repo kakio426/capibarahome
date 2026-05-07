@@ -10,6 +10,7 @@ import { equipDecoration, getCollectionSummary, getDecorationViewModels } from "
 import { performPrestige } from "./PrestigeManager";
 import { applyProgressionUnlocks, getNextProgressionReward } from "./ProgressionRewardManager";
 import { claimQuestReward, getQuestBoardSummary } from "./QuestManager";
+import { claimDailyReward, claimMilestoneReward, claimPostPrestigeGoal, getDailyRewardStatus, getMilestoneViewModels, getPostPrestigeGoalView } from "./RetentionManager";
 import { getUpgradeViewModels, purchaseUpgrade } from "./UpgradeManager";
 
 export type BalanceCheckpoint = {
@@ -136,6 +137,33 @@ function autoClaimReadyRewards(state: GameState, nowMs: number) {
       }
     }
 
+    const dailyStatus = getDailyRewardStatus(nextState, nowMs);
+    if (dailyStatus.eligible) {
+      const result = claimDailyReward(nextState, nowMs);
+      if (result.ok) {
+        nextState = applyUnlocks(result.state, nowMs);
+        continue;
+      }
+    }
+
+    const readyMilestone = getMilestoneViewModels(nextState, nowMs).find((milestone) => milestone.canClaim);
+    if (readyMilestone) {
+      const result = claimMilestoneReward(nextState, readyMilestone.id, nowMs);
+      if (result.ok) {
+        nextState = applyUnlocks(result.state, nowMs);
+        continue;
+      }
+    }
+
+    const postPrestigeGoal = getPostPrestigeGoalView(nextState, nowMs);
+    if (postPrestigeGoal.canClaim) {
+      const result = claimPostPrestigeGoal(nextState, nowMs);
+      if (result.ok) {
+        nextState = applyUnlocks(result.state, nowMs);
+        continue;
+      }
+    }
+
     break;
   }
   return nextState;
@@ -188,6 +216,9 @@ function checkpointSystemsSeen(state: GameState, nowMs: number) {
     achievements.some((achievement) => achievement.unlocked || achievement.rewardClaimed) ? "album" : null,
     collection.unlockedCompanions > 0 ? "companion" : null,
     collection.equippedDecorations.length > 1 ? "decoration" : null,
+    state.retention.dailyStreak > 0 ? "daily" : null,
+    Object.values(state.retention.claimedMilestones).some(Boolean) ? "retention_milestone" : null,
+    state.retention.postPrestigeGoalStep > 0 ? "post_prestige_goal" : null,
     selectCanPrestige(state) ? "prestige" : null,
   ];
   return systems.filter((system): system is string => Boolean(system));

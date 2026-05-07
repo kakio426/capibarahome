@@ -2,6 +2,7 @@ import { ProgressionConfig } from "../../config/ProgressionConfig";
 import { GameActions } from "../../game/GameActions";
 import { selectCollectionBadges, selectCollectionDashboard, selectQuestBoard } from "../../game/GameSelectors";
 import { useGameStore } from "../../state/useGameStore";
+import { getMilestoneViewModels } from "../../systems/RetentionManager";
 import { Button } from "../components/Button";
 import { Panel } from "../components/Panel";
 import { ProgressBar } from "../components/ProgressBar";
@@ -27,10 +28,14 @@ export function CollectionScreen() {
   const questBoard = selectQuestBoard(state, nowMs);
   const collection = selectCollectionDashboard(state);
   const badges = selectCollectionBadges(state, nowMs);
+  const retentionMilestones = getMilestoneViewModels(state, nowMs);
   const unlockedBadges = badges.filter((badge) => badge.unlocked);
   const tierNameById = new Map(ProgressionConfig.tiers.map((tier) => [tier.id, tier.name]));
   const highlightedQuest = questBoard.ready[0] ?? questBoard.next;
-  const albumReveal = state.lastAction?.kind === "achievement" || state.lastAction?.kind === "quest"
+  const albumReveal = state.lastAction?.kind === "achievement"
+    || state.lastAction?.kind === "quest"
+    || state.lastAction?.kind === "milestone"
+    || state.lastAction?.kind === "retention_goal"
     ? state.lastAction.message
     : null;
   const visibleQuests = [
@@ -90,6 +95,41 @@ export function CollectionScreen() {
           </div>
         </section>
       ) : null}
+
+      <section className="retention-milestone-board" aria-label="복귀 배지">
+        <div className="section-title-row">
+          <div>
+            <span className="app-kicker">복귀 배지</span>
+            <h3>D1 · D3 · D7 정원 장부</h3>
+          </div>
+          <span className="collection-count">{retentionMilestones.filter((milestone) => milestone.claimed).length}/{retentionMilestones.length}</span>
+        </div>
+        <div className="retention-milestone-grid">
+          {retentionMilestones.map((milestone) => (
+            <article
+              key={milestone.id}
+              className={`retention-milestone-card ${milestone.claimed ? "is-claimed" : milestone.canClaim ? "can-claim" : ""}`}
+            >
+              <div className="milestone-sticker">
+                <VisualAssetIcon assetKey={milestone.assetKey} />
+                <span>D{milestone.day}</span>
+              </div>
+              <div className="milestone-copy">
+                <h4>{milestone.title}</h4>
+                <p>{milestone.description}</p>
+                <ProgressBar value={milestone.progress} label={milestone.claimed ? "장부 도장 완료" : milestone.canClaim ? `보상 ${milestone.reward.label}` : "복귀 일수 진행률"} />
+              </div>
+              <Button
+                variant={milestone.canClaim ? "primary" : "secondary"}
+                disabled={!milestone.canClaim}
+                onClick={() => GameActions.claimRetentionMilestone(milestone.id)}
+              >
+                {milestone.claimed ? "받음" : milestone.canClaim ? "배지 받기" : "대기"}
+              </Button>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <section className="quest-board" aria-label="퀘스트 보드">
         <div className="section-title-row">

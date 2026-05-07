@@ -1,6 +1,6 @@
 # Balance Simulation
 
-기준일: 2026-05-06
+기준일: 2026-05-07
 
 자동 시뮬레이션 구현 위치:
 
@@ -25,7 +25,7 @@ balanceSimulation.test.ts
 - 기본 입력: 1.2 taps/sec
 - 기본 RC-3 playtest tick: 15초
 - 자동 구매: 현재 해금되고 구매 가능한 가장 저렴한 업그레이드를 tick당 최대 4회 구매
-- 자동 보상: 완료된 퀘스트/업적 보상 claim과 해금 장식 배치를 유저 유지 행동으로 반영
+- 자동 보상: 완료된 퀘스트/업적 보상 claim, RC-7 daily/milestone/post-prestige goal claim, 해금 장식 배치를 유저 유지 행동으로 반영
 - 수익 계산: `selectTapGain`, `selectEps` 사용
 - 카피바라 passive, 업적 claim 영구 배율, 장식 EPS 보너스는 selector 경유로 반영
 - 광고 버프: `adBoostActive` option으로 2배 수익 반영
@@ -44,7 +44,7 @@ balanceSimulation.test.ts
 | 첫 2시간 | checkpoint 생성 및 업그레이드 보유량 증가 확인 |
 | 첫 환생까지 예상 시간 | `firstPrestigeSeconds`, `firstPrestigeLabel` 계산 |
 | 환생 후 30분 | 첫 환생 도달 시 `postPrestigeThirtyMinuteCheckpoint` 생성 |
-| D1/D3/D7 retention | 1일차/3일차/7일차 checkpoint 생성 |
+| D1/D3/D7 retention | 1일차/3일차/7일차 checkpoint 생성 및 retention reward 자동 claim |
 | 환생 후 성장 속도 | `startingGoldenLeaf: "5"` 결과가 fresh보다 빠른지 확인 |
 | 광고 버프 적용 시 변화 | `adBoostActive: true` 결과가 normal보다 큰지 확인 |
 | 오프라인 보상 상한 | 8시간 cap reward 문자열 계산 |
@@ -62,13 +62,15 @@ balanceSimulation.test.ts
 
 첫 환생 가능 시간은 33분 0초다. 환생 가능 직전 상태는 누적 47.8M 귤, EPS 10.6K, 황금 나뭇잎 1개 예상이다.
 
-## Retention Assumption Output
+## RC-7 Retention Output
 
-| 구간 | 누적 귤 | EPS | 구매 레벨 | 보상 상태 | 환생 예상 |
-| --- | ---: | ---: | ---: | --- | ---: |
-| 1일차 복귀 | 935B | 99.8M | 1,152 | 퀘스트 39, 업적 보상 30 | 212 |
-| 3일차 목표 | 634T | 6.56B | 2,189 | 퀘스트 39, 업적 보상 30 | 5.54K |
-| 7일차 목표 | 3.79Qa | 11.1B | 2,388 | 퀘스트 39, 업적 보상 30 | 13.5K |
+RC-7부터 long-run simulation은 실제 retention systems를 반영한다.
+
+| 구간 | 검증 상태 | 보상 상태 |
+| --- | --- | --- |
+| 1일차 복귀 | checkpoint 생성, progression 유지 | daily reward + D1 milestone claim 가능 |
+| 3일차 목표 | checkpoint 생성, progression 유지 | D3 milestone과 황금 나뭇잎 보상 반영 |
+| 7일차 목표 | checkpoint 생성, progression 유지 | D7 milestone과 Day 7 loop 보상 반영 |
 
 ## Balance Decision
 

@@ -1,6 +1,6 @@
 # Production Gap Backlog
 
-기준일: 2026-05-06
+기준일: 2026-05-07
 
 우선순위 기준:
 - P0: release candidate 판정을 막는 blocking issue
@@ -46,6 +46,7 @@
 | 실제 5분권 유저 플로우 검증 부족 | 단위 테스트만으로 보상/저장/장식/동료 루프의 실제 사용성을 판단하기 어려움 | `first-five-minute-playtest.spec.ts` 추가, debug 없이 reward/save/deco/companion/offline 검증 | 해결 |
 | store 후보 이미지 세부 polish 부족 | album crop, prestige `e0` 표기, save copy 길이가 제출 후보 인상을 낮춤 | store screenshot spec과 `PrestigePanel` formatting 보정 후 10장 재생성/검수 | 해결 |
 | 설정/세이브 control이 웹앱처럼 보일 위험 | 브라우저 checkbox, util textarea, toast overlap, 일반 form/modal 느낌이 game HUD skin을 깨뜨릴 수 있음 | RC-4에서 settings ledger/drawer, save vault modal, custom settings switch, export code copy action, sealed code slot, carved toast/modal/disabled controls로 보강 | 해결 |
+| 다음날/3일차/7일차 복귀 이유 부족 | RC-6까지는 D1/D3/D7이 문서상 plan에 머물러 장기 리텐션 시스템이 약함 | RC-7에서 20시간 daily reward, D1/D3/D7 milestone badge, post-prestige goal chain, save v5 migration, retention E2E/visual QA 추가 | 해결 |
 
 ## P2
 
@@ -54,7 +55,7 @@
 | Cats & Soup 수준의 visual warmth | 현재는 v2 generated raster core art와 직접 제작 SVG auxiliary pack이며 bespoke hand-drawn animation은 아님 | commissioned/final art ownership and legal approval, richer idle animation, physical device store screenshot art direction |
 | Collection motivation의 깊이 | RC-1에서 능력/보상은 생겼지만 방 꾸미기 자유도와 staged reveal은 제한적 | album reward chest, room layout expansion, set collection animation |
 | Reward feel의 연출 깊이 | claim 보상은 실제 지급되지만 chest/opening animation은 없음 | milestone chest, staged reveal, stronger haptics/audio mix |
-| Long-term goal depth | 첫 환생 전후 목표는 보이지만 시즌/도감 완성/시설 배치 메타는 없음 | season collection, decoration set bonus, late-game narrative milestones |
+| Long-term goal depth | RC-7에서 첫 환생 이후 goal chain은 생겼지만 시즌/도감 완성/시설 배치 메타는 없음 | season collection, decoration set bonus, late-game narrative milestones |
 | 실제 파일 기반 사운드/BGM | 파일 교체 pipeline은 있으나 라이선스 확정 음원이 없음 | 효과음/BGM 파일과 라이선스 기록 |
 | 실제 광고/IAP SDK | provider와 계정/상품 ID 미제공 | AdMob/AppLovin 등 광고 SDK, App Store/Play Billing 상품 연결 |
 | 실제 기기 성능 QA | 물리 기기 접근/제출 계정 없음 | iPhone/Android physical QA, thermal/background/offline 확인 |
@@ -69,4 +70,4 @@
 
 ## Current Gate
 
-재감사, reward hardening, playtest/balance/bug bash, direct art/CSS pass, 첫 raster pass 실패 재분류, v2 raster/HUD art pass, RC-4 Game UI Skin & Interaction Polish, RC-5 CSS Debt & Component System Pass 중 발견한 내부 P1은 코드/CSS/테스트/E2E로 수정했다. 특히 업그레이드 card-list P1, 설정 form smell, save util dialog smell은 `RC4_UI_SKIN_AUDIT.md` 기준으로 해결했고, CSS override debt는 `RC5_CSS_COMPONENT_AUDIT.md` 기준으로 P0/P1 없이 정리했다. 남은 항목은 commissioned/final art ownership, 실제 SDK, 물리 기기 QA, 더 깊은 수집 연출처럼 외부 준비나 추가 제품 확장에 가깝다. 현재 감사 기준에서 내부 P0/P1 release blocker는 없다.
+재감사, reward hardening, playtest/balance/bug bash, direct art/CSS pass, 첫 raster pass 실패 재분류, v2 raster/HUD art pass, RC-4 Game UI Skin & Interaction Polish, RC-5 CSS Debt & Component System Pass, RC-6 product feel pass, RC-7 retention systems pass 중 발견한 내부 P1은 코드/CSS/테스트/E2E로 수정했다. 특히 업그레이드 card-list P1, 설정 form smell, save util dialog smell은 `RC4_UI_SKIN_AUDIT.md` 기준으로 해결했고, CSS override debt는 `RC5_CSS_COMPONENT_AUDIT.md` 기준으로 P0/P1 없이 정리했다. D1/D3/D7 복귀 보상과 첫 환생 이후 목표 chain도 RC-7에서 실제 시스템으로 구현했다. 남은 항목은 commissioned/final art ownership, 실제 SDK, 서버 검증 calendar/push notification, 물리 기기 QA, 더 깊은 수집 연출처럼 외부 준비나 추가 제품 확장에 가깝다. 현재 감사 기준에서 내부 P0/P1 release blocker는 없다.

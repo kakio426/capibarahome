@@ -1,19 +1,19 @@
 # Visual QA
 
-기준일: 2026-05-06
+기준일: 2026-05-07
 
 ## Summary
 
-이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면과 정보형 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체했고, RC-4 hardening pass에서는 성장/설정/세이브/앨범 하단 정보 UI까지 wood/parchment/orange game HUD skin으로 묶었다. RC-5에서는 이 방향을 유지하면서 `layout.css` 후반 override 의존을 분리하고 reusable `.ui-*` game skin system으로 안정화했다. RC-6에서는 구조를 다시 갈아엎지 않고 quick-buy, reward reveal, prestige result, album claim reveal을 추가해 조작감과 보상감을 보강했다.
+이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면과 정보형 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체했고, RC-4 hardening pass에서는 성장/설정/세이브/앨범 하단 정보 UI까지 wood/parchment/orange game HUD skin으로 묶었다. RC-5에서는 이 방향을 유지하면서 `layout.css` 후반 override 의존을 분리하고 reusable `.ui-*` game skin system으로 안정화했다. RC-6에서는 quick-buy, reward reveal, prestige result, album claim reveal을 추가했고, RC-7에서는 daily reward, D1/D3/D7 badge ledger, post-prestige goal chain을 같은 HUD skin 안에 넣었다.
 
 Current evidence:
 
 ```txt
 npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
-6 passed, 64 QA screenshots and 10 store screenshots regenerated
+6 passed, 88 QA screenshots and 10 store screenshots regenerated
 
 npm run test:e2e
-22 passed, includes visual/store screenshot regeneration and RC-6 quick-buy/reward result screenshots
+27 passed, includes visual/store screenshot regeneration and RC-7 retention screenshots
 ```
 
 Current asset baseline:
@@ -21,7 +21,7 @@ Current asset baseline:
 ```txt
 src/assets/raster: 15 PNG files / 19M
 src/assets/generated: 253 SVG auxiliary files
-qa-screenshots: 100 PNG files including archived before shots
+qa-screenshots: 88 current PNG files plus archived before shots
 store-screenshots: 10 PNG candidates
 ```
 
@@ -47,6 +47,7 @@ store-screenshots: 10 PNG candidates
 | 오프라인 보상 | 완료 | harvest/rest raster illustration과 보상 숫자가 모달 첫 시선으로 들어옴. RC-6 basket/chest reveal cue와 reward count plaque 추가 | 장시간 복귀 count-up numeric animation은 P3 |
 | 설정/저장 | 완료 | 설정은 집사 장부/정원 관리 서랍, 세이브는 보관함/봉인 코드/금고 modal로 보이며 모바일에서 잘리지 않음 | native save/restore와 export code 길이 자체의 시각 부담은 P3 |
 | 튜토리얼 | 완료 | 첫 사용자가 터치/성장/보상 흐름을 막히지 않고 볼 수 있음 | 단계별 mascot animation은 P3 |
+| 리텐션 | 완료 | 홈 daily reward/long-term goal panel, 앨범 D1/D3/D7 badge ledger, daily/milestone claim/reload states가 game HUD skin으로 통일됨 | 서버 검증 calendar/push notification은 P2 external |
 
 ## RC-4 Interaction Polish
 
@@ -82,6 +83,15 @@ store-screenshots: 10 PNG candidates
 | 앨범/업적 claim | 버튼/토스트 위주 보상 | sticker stamp/reveal banner and claimable glow | `qa-screenshots/390x844-collection-claim-ready.png`, `first-five-minute-playtest.spec.ts` |
 | motion settings | 연출 off에서 animation이 남을 수 있음 | effects-off/reduced motion animation disable coverage 확장 | `effects.css`, `settings-tutorial.spec.ts` |
 
+## RC-7 Retention Pass
+
+| 대상 | RC-6 잔여 리스크 | RC-7 조치 | Evidence |
+| --- | --- | --- | --- |
+| Daily reward | 문서화만 있고 실제 claim/cooldown 없음 | 20시간 cooldown daily reward, 48시간 reset, save version 5 retention state | `RetentionManager.ts`, `retention.test.ts`, `qa-screenshots/390x844-home-daily-available.png` |
+| D1/D3/D7 milestone | 장기 복귀 badge/reward가 없음 | 앨범 복귀 배지 ledger, claim/reload persistence, duplicate guard | `qa-screenshots/390x844-collection-milestones.png`, `retention-flow.spec.ts` |
+| Post-prestige goal | 환생 후 다음 목표가 generic copy에 가까움 | 5단계 goal chain, home panel, prestige result next-goal copy | `qa-screenshots/390x844-home-post-prestige-goal.png`, `prestige-flow.spec.ts` |
+| UI regression | 새 retention UI가 웹 카드처럼 보일 위험 | 기존 wood/parchment/orange HUD panel, stamp, reward plaque, progress groove 재사용 | `screens.css`, `hud.css`, `effects.css` |
+
 ## Manual Spot Check
 
 - `qa-screenshots/390x844-home.png`: 첫인상은 웹 대시보드가 아니라 모바일 게임 home scene이다. 큰 흰 카드가 주인공이 되지 않는다.
@@ -109,12 +119,16 @@ store-screenshots: 10 PNG candidates
 | Home + tutorial | `qa-screenshots/390x844-home-tutorial.png` |
 | Home after tutorial | `qa-screenshots/390x844-home.png`, `qa-screenshots/360x740-home.png` |
 | Home progression/collection | `qa-screenshots/390x844-home-progression.png` |
+| Home daily reward available/cooldown | `qa-screenshots/390x844-home-daily-available.png`, `qa-screenshots/390x844-home-daily-cooldown.png` |
+| Daily reward claim | `qa-screenshots/390x844-daily-reward-claim.png` |
+| Home post-prestige goal | `qa-screenshots/390x844-home-post-prestige-goal.png` |
 | Upgrade cards | `qa-screenshots/390x844-upgrades.png` |
 | Quick-buy mode | `qa-screenshots/390x844-upgrades-quick-buy.png` |
 | Album / quest / collection | `qa-screenshots/390x844-collection.png` |
 | Album companion abilities | `qa-screenshots/390x844-collection-abilities.png` |
 | Album achievement rewards | `qa-screenshots/390x844-collection-rewards.png` |
 | Album claim-ready state | `qa-screenshots/390x844-collection-claim-ready.png` |
+| Album retention milestones | `qa-screenshots/390x844-collection-milestones.png`, `qa-screenshots/390x844-milestone-claim.png` |
 | Prestige | `qa-screenshots/390x844-prestige.png` |
 | Prestige result | `qa-screenshots/390x844-prestige-result.png` |
 | Shop | `qa-screenshots/390x844-shop.png`, `qa-screenshots/360x740-shop.png` |
@@ -139,4 +153,4 @@ store-screenshots: 10 PNG candidates
 
 ## Remaining Visual Risk
 
-내부 P0/P1 visual blocker는 현재 없음으로 본다. RC-6에서 quick-buy와 reward reveal P2는 완화됐다. 남은 항목은 P2/P3로 분리한다: actual daily reward calendar, companion room 자유 배치, 더 긴 offline count-up animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, 실제 app icon/adaptive icon/splash export, 물리 기기 store screenshot 재촬영.
+내부 P0/P1 visual blocker는 현재 없음으로 본다. RC-7에서 timestamp 기반 20시간 daily reward loop, D1/D3/D7 badge, post-prestige goal chain은 구현됐다. 남은 항목은 P2/P3로 분리한다: server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, 실제 app icon/adaptive icon/splash export, 물리 기기 store screenshot 재촬영.

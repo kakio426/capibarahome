@@ -46,6 +46,14 @@ export type ProgressionState = {
   lastUnlockedTierId: string | null;
 };
 
+export type RetentionState = {
+  firstPlayedAt: number;
+  lastDailyClaimAt: number | null;
+  dailyStreak: number;
+  claimedMilestones: Record<string, boolean>;
+  postPrestigeGoalStep: number;
+};
+
 export type OfflineRewardState = {
   pending: boolean;
   claimed: boolean;
@@ -54,7 +62,7 @@ export type OfflineRewardState = {
 };
 
 export type LastActionState = {
-  kind: "tap" | "purchase" | "prestige" | "ad" | "iap" | "save" | "error" | "debug" | "achievement" | "quest" | "decoration" | "tier";
+  kind: "tap" | "purchase" | "prestige" | "ad" | "iap" | "save" | "error" | "debug" | "achievement" | "quest" | "decoration" | "tier" | "daily" | "milestone" | "retention_goal";
   message: string;
   createdAt: number;
 } | null;
@@ -82,6 +90,7 @@ export type GameState = {
   companions: CompanionState;
   decorations: DecorationState;
   progression: ProgressionState;
+  retention: RetentionState;
   offlineReward: OfflineRewardState | null;
   epsAtLastSave: BigNumberLite;
   lastToast: string | null;
@@ -116,6 +125,7 @@ export type SavePayload = {
   companions: CompanionState;
   decorations: DecorationState;
   progression: ProgressionState;
+  retention: RetentionState;
   epsAtLastSave: string;
 };
 

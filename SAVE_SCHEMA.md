@@ -5,7 +5,7 @@
 ## localStorage
 
 - key: `capybara-butler-save`
-- version: `GameConfig.save.version` = 4
+- version: `GameConfig.save.version` = 5
 - auto save interval: `GameConfig.save.autoSaveIntervalMs`
 
 Capacitor native wrapper에서도 같은 WebView storage 계층을 사용합니다. 실제 native packaging 이후에는 iOS/Android에서 앱 삭제, 업데이트, 강제 종료 후 저장 유지 동작을 별도로 확인해야 합니다.
@@ -65,9 +65,26 @@ Capacitor native wrapper에서도 같은 WebView storage 계층을 사용합니�
     unlockedTierIds: string[];
     lastUnlockedTierId: string | null;
   };
+  retention: {
+    firstPlayedAt: number;
+    lastDailyClaimAt: number | null;
+    dailyStreak: number;
+    claimedMilestones: Record<string, boolean>;
+    postPrestigeGoalStep: number;
+  };
   epsAtLastSave: string;
 }
 ```
+
+## Version 5 변경점
+
+- `retention.firstPlayedAt`
+- `retention.lastDailyClaimAt`
+- `retention.dailyStreak`
+- `retention.claimedMilestones`
+- `retention.postPrestigeGoalStep`
+
+RC-7에서 일일 복귀 보상, D1/D3/D7 복귀 배지, 첫 환생 이후 goal chain을 저장하기 위해 추가했습니다. 구버전 save는 `createdAt` 기준의 `firstPlayedAt`, `null` daily claim, streak `0`, known milestone false, post-prestige step `0`으로 migration합니다. 손상된 retention timestamp는 앱이 죽지 않도록 안전값으로 보정합니다.
 
 ## Version 4 변경점
 
@@ -98,7 +115,7 @@ Capacitor native wrapper에서도 같은 WebView storage 계층을 사용합니�
 
 초기 save는 currency/lifetime/upgrades/generators/settings/tutorial/monetization/epsAtLastSave 중심입니다. `settings.vibrationEnabled`, `settings.numberFormat`, `monetization.purchasedProductIds`, achievement/quest/companion/decoration/progression 필드가 없을 수 있습니다.
 
-RC-3 bug bash에서 v1/v2/v3 payload를 checksum 포함 import하고 현재 v4 state로 안전하게 변환되는지 `src/tests/rc3BugBash.test.ts`로 검증합니다.
+RC-3 bug bash와 RC-7 save tests에서 v1/v2/v3 payload를 checksum 포함 import하고 현재 v5 state로 안전하게 변환되는지 검증합니다.
 
 ## Checksum
 
@@ -123,3 +140,4 @@ RC-3 bug bash에서 v1/v2/v3 payload를 checksum 포함 import하고 현재 v4 s
 - checksum 불일치
 - 지원하지 않는 미래 saveVersion
 - 숫자 파싱 실패
+- 손상된 retention state

@@ -40,7 +40,7 @@ test("sound mute setting is connected to the app state", async ({ page }) => {
 test("home screen always shows the long-term goal before and after prestige", async ({ page }) => {
   await openFresh(page);
   await skipTutorial(page);
-  await expect(page.getByText("장기 목표")).toBeVisible();
+  await expect(page.getByText("장기 목표", { exact: true })).toBeVisible();
   await expect(page.getByText("첫 환생 준비")).toBeVisible();
 
   await seedSave(page, (state) => {
@@ -48,6 +48,6 @@ test("home screen always shows the long-term goal before and after prestige", as
     state.currencies.goldenLeaf = BigNumberLite.from("2");
     state.lifetime.totalOrangesEarned = BigNumberLite.from("1200000");
   });
-  await expect(page.getByText("장기 목표")).toBeVisible();
+  await expect(page.getByText("장기 목표", { exact: true })).toBeVisible();
   await expect(page.getByText("환생 이후 정원 재건")).toBeVisible();
 });

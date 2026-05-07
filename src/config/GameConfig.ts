@@ -17,7 +17,7 @@ export const GameConfig = {
   },
   save: {
     key: "capybara-butler-save",
-    version: 4,
+    version: 5,
     autoSaveIntervalMs: 5000,
   },
   loop: {

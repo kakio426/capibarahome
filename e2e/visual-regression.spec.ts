@@ -9,6 +9,9 @@ const viewports = [
   { name: "desktop-1280x900", width: 1280, height: 900 },
 ];
 
+const hour = 60 * 60 * 1000;
+const day = 24 * hour;
+
 test.beforeAll(() => {
   ensureScreenshotDir();
 });
@@ -29,6 +32,30 @@ for (const viewport of viewports) {
       element.scrollTop = 0;
     });
 
+    await seedSave(page, (state, nowMs) => {
+      state.retention.firstPlayedAt = nowMs - 21 * hour;
+      state.retention.lastDailyClaimAt = null;
+    });
+    await page.screenshot({ path: `qa-screenshots/${viewport.name}-home-daily-available.png`, fullPage: true });
+    await page.getByRole("button", { name: "복귀 보상 받기" }).click();
+    await page.screenshot({ path: `qa-screenshots/${viewport.name}-daily-reward-claim.png`, fullPage: true });
+    await expectNoHorizontalOverflow(page);
+
+    await seedSave(page, (state, nowMs) => {
+      state.retention.firstPlayedAt = nowMs - 2 * hour;
+      state.retention.lastDailyClaimAt = nowMs - 1 * hour;
+      state.retention.dailyStreak = 1;
+    });
+    await page.screenshot({ path: `qa-screenshots/${viewport.name}-home-daily-cooldown.png`, fullPage: true });
+
+    await seedSave(page, (state) => {
+      state.lifetime.totalPrestiges = 1;
+      state.currencies.goldenLeaf = BigNumberLite.from("2");
+      state.retention.postPrestigeGoalStep = 0;
+    });
+    await page.screenshot({ path: `qa-screenshots/${viewport.name}-home-post-prestige-goal.png`, fullPage: true });
+    await expectNoHorizontalOverflow(page);
+
     await page.getByRole("button", { name: "업그레이드" }).click();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-upgrades.png`, fullPage: true });
     await expectNoHorizontalOverflow(page);
@@ -44,6 +71,19 @@ for (const viewport of viewports) {
     await page.getByRole("button", { name: "앨범" }).click();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-collection.png`, fullPage: true });
     await expectNoHorizontalOverflow(page);
+
+    await seedSave(page, (state, nowMs) => {
+      state.retention.firstPlayedAt = nowMs - 8 * day;
+      state.retention.lastDailyClaimAt = nowMs - 21 * hour;
+      state.retention.dailyStreak = 6;
+    });
+    await page.getByRole("button", { name: "앨범" }).click();
+    await page.locator(".retention-milestone-board").scrollIntoViewIfNeeded();
+    await page.screenshot({ path: `qa-screenshots/${viewport.name}-collection-milestones.png`, fullPage: true });
+    await page.locator(".retention-milestone-card", { hasText: "황금 숲 단골" }).getByRole("button", { name: "배지 받기" }).click();
+    await page.screenshot({ path: `qa-screenshots/${viewport.name}-milestone-claim.png`, fullPage: true });
+    await expectNoHorizontalOverflow(page);
+
     await page.locator(".companion-board").scrollIntoViewIfNeeded();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-collection-companions.png`, fullPage: true });
     await page.locator(".badge-board").scrollIntoViewIfNeeded();
@@ -101,7 +141,7 @@ for (const viewport of viewports) {
     await expect(page.getByRole("dialog", { name: "오프라인 보상" })).toBeVisible();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-offline-reward.png`, fullPage: true });
     await expectNoHorizontalOverflow(page);
-    await page.getByRole("button", { name: "보상 받기" }).click();
+    await page.getByRole("button", { name: "보상 받기", exact: true }).click();
 
     await page.getByRole("button", { name: "설정" }).click();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-settings.png`, fullPage: true });
