@@ -4,7 +4,7 @@
 
 ## 현재 구현 기준 결론
 
-현재 RC-7 후보는 서버 계정, 원격 저장, 실제 광고 SDK, 실제 IAP SDK, 실제 analytics SDK를 포함하지 않는다. 게임 진행, 설정, 복귀 보상 상태는 로컬 저장소에만 보관된다.
+현재 RC-8 후보는 서버 계정, 원격 저장, 실제 광고 SDK, 실제 IAP SDK, 실제 analytics SDK를 포함하지 않는다. 게임 진행, 설정, 복귀 보상 상태는 로컬 저장소에만 보관된다.
 
 이 문서는 실제 SDK를 추가하기 전 기준이다. 광고/IAP/analytics SDK를 붙이면 제출 전 반드시 다시 감사해야 한다.
 
@@ -18,6 +18,8 @@
 | 계정 연결 | 없음 |
 | 암호화 주장 | 하지 않음. Base64는 전송/복사 편의 포맷일 뿐 암호화가 아님 |
 | 사용자 유의 | export save code에는 게임 진행 상태가 들어 있으므로 공개 공유는 권장하지 않음 |
+
+RC-8에서 localStorage 접근 실패 시 crash 방지용 volatile session fallback을 추가했다. 이 fallback은 원격 전송이나 서버 수집이 아니며, 영구 저장 보장도 아니다.
 
 ## Analytics Mock
 

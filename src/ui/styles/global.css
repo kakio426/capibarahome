@@ -6,7 +6,13 @@ html,
 body,
 #root {
   min-height: 100%;
+  min-height: 100dvh;
   margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -23,10 +29,12 @@ button,
 textarea,
 input {
   font: inherit;
+  font-size: 16px;
 }
 
 button {
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 textarea {

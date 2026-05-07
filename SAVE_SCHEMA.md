@@ -8,7 +8,7 @@
 - version: `GameConfig.save.version` = 5
 - auto save interval: `GameConfig.save.autoSaveIntervalMs`
 
-Capacitor native wrapper에서도 같은 WebView storage 계층을 사용합니다. 실제 native packaging 이후에는 iOS/Android에서 앱 삭제, 업데이트, 강제 종료 후 저장 유지 동작을 별도로 확인해야 합니다.
+Capacitor native wrapper에서도 같은 WebView storage 계층을 사용합니다. RC-8에서 localStorage 접근 자체가 막히는 WebView/private-storage 상황에 대비해 volatile session fallback과 throwing storage safe failure를 추가했습니다. 이 fallback은 crash 방지용이며 영구 저장 보장은 아닙니다. 실제 native packaging 이후에는 iOS/Android에서 앱 삭제, 업데이트, 강제 종료 후 저장 유지 동작을 별도로 확인해야 합니다.
 
 ## Payload
 
@@ -141,3 +141,8 @@ RC-3 bug bash와 RC-7 save tests에서 v1/v2/v3 payload를 checksum 포함 impor
 - 지원하지 않는 미래 saveVersion
 - 숫자 파싱 실패
 - 손상된 retention state
+- localStorage 접근/쓰기/삭제 실패
+
+## Lifecycle Save
+
+RC-8 기준 자동 저장은 interval, 주요 액션 저장, `beforeunload`, `pagehide`, hidden `visibilitychange`에서 수행됩니다. WebView나 브라우저가 lifecycle event를 생략할 수 있으므로, native 제출 전에는 background/foreground, 강제 종료, OS memory reclaim 이후 저장 유지 여부를 실제 기기에서 확인해야 합니다.

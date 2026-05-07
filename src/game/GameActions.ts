@@ -100,7 +100,7 @@ export const GameActions = {
     }
     const nextState = applyUnlocks(result.state, nowMs);
     setGameState(nextState);
-    SaveManager.saveToStorage(nextState, globalThis.localStorage, nowMs);
+    SaveManager.saveToStorage(nextState, nowMs);
     AnalyticsManager.track("prestige_complete", { gain: result.gain.toString() }, nowMs);
     SoundManager.play("prestige");
     playHaptic(nextState, [28, 36, 28]);
@@ -110,7 +110,7 @@ export const GameActions = {
   claimOffline(nowMs = Date.now()) {
     const next = applyUnlocks(claimOfflineReward(getGameState(), nowMs), nowMs);
     setGameState(next);
-    SaveManager.saveToStorage(next, globalThis.localStorage, nowMs);
+    SaveManager.saveToStorage(next, nowMs);
     AnalyticsManager.track("offline_reward_claimed", { reward: next.lastAction?.message }, nowMs);
     SoundManager.play("offlineReward");
     playHaptic(next, 22);
@@ -118,7 +118,7 @@ export const GameActions = {
 
   save(nowMs = Date.now(), options: { silent?: boolean } = {}) {
     const state = getGameState();
-    const code = SaveManager.saveToStorage(state, globalThis.localStorage, nowMs);
+    const code = SaveManager.saveToStorage(state, nowMs);
     if (!options.silent) {
       setToast("저장 완료", "save", nowMs);
     }
@@ -140,14 +140,14 @@ export const GameActions = {
     }
     const nextState = applyUnlocks(result.state, nowMs);
     setGameState(nextState);
-    SaveManager.saveToStorage(nextState, globalThis.localStorage, nowMs);
+    SaveManager.saveToStorage(nextState, nowMs);
     AnalyticsManager.track("save_imported", undefined, nowMs);
     setToast("저장 데이터를 불러왔어요.", "save", nowMs);
     return result;
   },
 
   resetSave(nowMs = Date.now()) {
-    SaveManager.clearStorage(globalThis.localStorage);
+    SaveManager.clearStorage();
     setGameState(createInitialState(nowMs));
     return nowMs;
   },
@@ -211,7 +211,7 @@ export const GameActions = {
     }
     const nextState = applyUnlocks(result.state, nowMs);
     setGameState(nextState);
-    SaveManager.saveToStorage(nextState, globalThis.localStorage, nowMs);
+    SaveManager.saveToStorage(nextState, nowMs);
     AnalyticsManager.track("daily_reward_claimed", {
       day: result.status.day,
       reward: result.status.reward.label,
@@ -231,7 +231,7 @@ export const GameActions = {
     }
     const nextState = applyUnlocks(result.state, nowMs);
     setGameState(nextState);
-    SaveManager.saveToStorage(nextState, globalThis.localStorage, nowMs);
+    SaveManager.saveToStorage(nextState, nowMs);
     AnalyticsManager.track("retention_milestone_claimed", {
       id: milestoneId,
       reward: result.milestone.reward.label,
@@ -251,7 +251,7 @@ export const GameActions = {
     }
     const nextState = applyUnlocks(result.state, nowMs);
     setGameState(nextState);
-    SaveManager.saveToStorage(nextState, globalThis.localStorage, nowMs);
+    SaveManager.saveToStorage(nextState, nowMs);
     AnalyticsManager.track("post_prestige_goal_claimed", {
       id: result.goal.id,
       step: result.goal.step,

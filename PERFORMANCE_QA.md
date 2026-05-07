@@ -13,6 +13,9 @@
 - Game calculations run outside React render loops
 - Store uses `useSyncExternalStore`
 - Event listeners are cleaned up on `AppShell` unmount
+- RC-8 page lifecycle save uses `pagehide` and hidden `visibilitychange`
+- RC-8 WebView CSS readiness uses safe-area variables, `100dvh`, `touch-action: manipulation`, and 16px input/textarea controls to avoid iOS zoom
+- RC-8 runtime raster registry excludes store-only PNG candidates so they do not ship in `dist`
 
 ## Automated Checks
 
@@ -26,17 +29,37 @@
 | no horizontal overflow on target viewports | 완료 | `e2e/visual-regression.spec.ts` |
 | heavy visual screens render in mobile profile | 완료 | `npm run test:e2e` |
 | store screenshot pack renders high-resolution compositions | 완료 | `e2e/store-screenshot-pack.spec.ts`, 10 PNG outputs |
+| 2 hour long-session simulation | 완료 | `src/tests/rc8ReleaseBugBash.test.ts` |
+| 8 hour offline cap | 완료 | `src/tests/rc8ReleaseBugBash.test.ts` |
+| 500 rapid taps | 완료 | `src/tests/rc8ReleaseBugBash.test.ts` |
+| quick-buy repeat stress | 완료 | `src/tests/rc8ReleaseBugBash.test.ts` |
+| save/load repeated 20 times | 완료 | `src/tests/rc8ReleaseBugBash.test.ts` |
+| RAF visibility listener cleanup | 완료 | `src/tests/rc8ReleaseBugBash.test.ts` |
+| 360px save modal bounds after settings toggles | 완료 | `e2e/rc8-release-bug-bash.spec.ts` |
+
+## Bundle / Asset Audit
+
+| 항목 | RC-8 결과 |
+| --- | --- |
+| `dist` total | 15M |
+| `dist/assets` total | 15M |
+| runtime PNG payload | 12 files / 14M |
+| runtime JS chunk | 1.1M |
+| runtime CSS | 68K |
+| source raster pack | 15 PNG / 19M |
+
+RC-8 removed release-only `store-key-visual.png`, `app-icon-candidate.png`, and `main-capybara-character.png` from the runtime raster registry. Vite's JS large chunk warning remains and is classified as P2 because build/E2E/screenshot verification passes and the remaining optimization needs route-level code splitting or deeper registry splitting.
 
 ## Command Results
 
 ```txt
 npm test
-21 files passed, 479 tests passed
+23 files passed, 502 tests passed
 ```
 
 ```txt
 npm run test:e2e
-21 passed
+32 passed
 ```
 
 ```txt

@@ -66,6 +66,7 @@
 | RC-4 Game UI Skin & Interaction Polish | 완료 | `RC4_UI_SKIN_AUDIT.md`, upgrade workbench/shelf, settings ledger/drawer, save vault modal, custom settings switches, save export copy action, carved modal/toast/disabled controls, `visual-regression.spec.ts`, `store-screenshot-pack.spec.ts` |
 | RC-7 Retention Systems Pass | 완료 | `RetentionManager.ts`, `RetentionConfig.ts`, save v5 migration, daily reward, D1/D3/D7 milestone, post-prestige goal chain, `retention.test.ts`, `retention-flow.spec.ts`, `RC7_RETENTION_SYSTEM_AUDIT.md` |
 | RC-5 CSS Debt & Component System Pass | 완료 | `RC5_CSS_COMPONENT_AUDIT.md`, `layout.css` manifest, `shell/hud/screens/effects` split, reusable `.ui-*` skin classes, refreshed visual/store screenshots |
+| RC-8 Release Candidate Bug Bash | 완료 | `RC8_RELEASE_CANDIDATE_AUDIT.md`, `BUNDLE_ASSET_AUDIT.md`, save v5 regression, long-session stress, localStorage/pagehide fallback, WebView CSS readiness, bundle asset audit, `rc8ReleaseBugBash.test.ts`, `rc8-release-bug-bash.spec.ts` |
 
 ## Trace Gate
 

@@ -16,6 +16,8 @@ test.beforeAll(() => {
   ensureScreenshotDir();
 });
 
+test.describe.configure({ timeout: 60_000 });
+
 for (const viewport of viewports) {
   test(`layout screenshot set ${viewport.name}`, async ({ page }) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });

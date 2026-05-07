@@ -103,9 +103,10 @@ RC-6부터 업그레이드 구매 UI는 `1개 / 10개 / 최대` 모드를 지원
 - `scripts/generateVisualAssets.mjs`는 config의 id/icon/tier/capybara key를 읽어 `src/assets/generated` 아래 직접 제작 SVG assets와 `GeneratedAssetRegistry.ts`를 생성합니다.
 - UI 보조 아이콘/카드는 `VisualAssetIcon.tsx`를 사용합니다. asset key가 없으면 `builtinAssets.ts`의 CSS fallback key로 안전하게 렌더링합니다.
 - 핵심 감정/캐릭터/스토어 이미지는 `src/assets/raster/RasterAssetRegistry.ts`와 `RasterAssetImage.tsx`를 사용합니다.
+- RC-8부터 runtime gameplay에서 쓰지 않는 store key visual, app icon candidate, main capybara crop은 `RasterAssetRegistry`에 넣지 않습니다. 해당 파일은 source/release candidate로 유지하고 `rasterAssetIntegrity.test.ts`에서 별도 검증합니다.
 - asset 무결성은 `src/tests/visualAssetIntegrity.test.ts`, `src/tests/rasterAssetIntegrity.test.ts`, generated matrix test가 함께 검증합니다.
 - final art를 받으면 같은 registry key와 aspect ratio를 유지한 채 SVG/PNG 파일만 교체하면 UI와 테스트 연결을 유지할 수 있습니다.
-- Raster release candidate assets는 `src/assets/raster/home/main-hero-background.png`, `main-capybara-character.png`, `src/assets/raster/companions/capybara-*.png`, `src/assets/raster/release/prestige-ritual.png`, `shop-reward-banner.png`, `offline-reward.png`, `store-key-visual.png`, `app-icon-candidate.png`에 있습니다. SVG release draft files도 보조/비교용으로 유지합니다.
+- Raster release candidate assets는 `src/assets/raster/home/main-hero-background.png`, `main-capybara-character.png`, `src/assets/raster/companions/capybara-*.png`, `src/assets/raster/release/prestige-ritual.png`, `shop-reward-banner.png`, `offline-reward.png`, `store-key-visual.png`, `app-icon-candidate.png`에 있습니다. Runtime registry에는 실제 게임 화면에서 쓰는 home/companion/prestige/shop/offline PNG만 포함합니다. SVG release draft files도 보조/비교용으로 유지합니다.
 
 ## Audio Pipeline
 

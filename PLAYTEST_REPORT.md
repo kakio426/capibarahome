@@ -1,6 +1,6 @@
 # Playtest Report
 
-기준일: 2026-05-05
+기준일: 2026-05-07
 
 목표: RC-2 main 상태에서 실제 유저가 30분 이상 플레이할 때 진행, 보상, 저장, 오프라인, 환생, 성능 리스크가 없는지 확인하고 P0/P1 gap을 줄인다.
 
@@ -126,3 +126,21 @@ RC-7 E2E 확인:
 - debug retention helpers는 `?debug=1` 전용 spec에서만 검증.
 
 Remaining playtest risks are P2/P3 only: server-verified calendar/push notification, deeper companion room free-placement, longer offline numeric count-up, real audio files, and physical-device retention/thermal checks.
+
+## RC-8 Release Candidate Bug Bash Recheck
+
+기준일: 2026-05-07
+
+RC-8은 새 성장 콘텐츠를 늘리지 않고 제출 전 회귀 가능성이 큰 save/retention/offline/prestige/quick-buy/WebView/bundle 영역을 다시 검증했다.
+
+추가 자동 검증:
+
+- v1/v2/v3/v4 save를 현재 v5 retention state로 migration.
+- corrupted v5 retention fields safe recovery.
+- D1 daily reward와 2시간 offline reward가 같은 복귀 세션에서 동시에 처리되어도 중복 지급/충돌 없음.
+- daily reward, D7 milestone, post-prestige goal claim이 export/import/reload 후 중복 지급되지 않음.
+- quick-buy max safety cap과 0회 disabled 상태 확인.
+- 2시간 long-session simulation, 8시간 offline cap, rapid tap 500회, quick-buy 반복, save/load 20회, RAF visibility listener cleanup.
+- Playwright normal flow에서 daily+offline same session, first prestige goal claim/reload, quick-buy max save/reload, 360px save modal bounds, repeated tab switching 검증.
+
+판정: 내부 P0/P1 playtest/regression blocker는 없다. 실제 저사양 Android/iPhone thermal/FPS, WebView storage persistence, notification/re-engagement는 물리 기기와 플랫폼 계정 준비 후 별도 확인한다.

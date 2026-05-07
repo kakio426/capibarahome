@@ -76,3 +76,11 @@ RC-7의 리텐션 목표는 RC-6에서 문서로만 남긴 D1/D3/D7 복귀 이�
 - P2: 첫 환생 이후 goal chain을 두 번째 환생 이후 단계까지 확장.
 - P3: album sticker placement와 companion room decoration 확대.
 - P3 external: 실제 디바이스 notification/re-engagement 정책 검토.
+
+## RC-8 Regression Check
+
+- D1 daily reward와 offline reward가 같은 복귀 세션에서 발생해도 충돌하지 않음.
+- daily claim 후 export/import/reload에서 cooldown 유지.
+- D3/D7 milestone claim 후 reload에서 받은 상태 유지.
+- 첫 환생 후 post-prestige goal claim/reload에서 다음 step 유지.
+- 서버 검증 calendar와 push notification은 여전히 외부 P2 범위이며 현재 구현은 timestamp 기반 local cooldown이다.

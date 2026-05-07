@@ -21,8 +21,8 @@
 | 오프라인 보상 illustration | `offline-reward-raster` | `src/assets/raster/release/offline-reward.png` | 오프라인 보상 modal |
 | 업그레이드/시설 icon set | config item keys | `src/assets/generated/items/*.svg` | 성장/퀘스트/장식 카드 |
 | 퀘스트/업적 badge set | quest/achievement keys | `src/assets/generated/items/*.svg` | 앨범/업적 shelf |
-| 앱 아이콘 후보 | `app-icon-candidate-raster` | `src/assets/raster/release/app-icon-candidate.png` | release asset 후보 |
-| Store screenshot key visual | `store-key-visual-raster` | `src/assets/raster/release/store-key-visual.png` | Playwright store screenshot key art |
+| 앱 아이콘 후보 | source/release candidate | `src/assets/raster/release/app-icon-candidate.png` | release asset 후보. RC-8부터 runtime registry 제외 |
+| Store screenshot key visual | source/store screenshot candidate | `src/assets/raster/release/store-key-visual.png` | Playwright store screenshot key art. RC-8부터 runtime registry 제외 |
 
 ## Asset 제작 원칙
 
@@ -35,7 +35,7 @@
 ## Integration Gate
 
 - 문서에만 있는 asset은 실패다.
-- `main-hero-background`, `main-capybara-character`, `prestige-ritual-raster`, `shop-reward-banner-raster`, `offline-reward-raster`, `store-key-visual-raster`는 실제 React UI 또는 Playwright store screenshot flow에서 직접 참조해야 한다.
+- `main-hero-background`, `prestige-ritual-raster`, `shop-reward-banner-raster`, `offline-reward-raster`는 실제 React UI에서 직접 참조해야 한다. `main-capybara-character`, `store-key-visual.png`, `app-icon-candidate.png`는 RC-8부터 runtime registry가 아니라 release/source candidate와 Playwright store screenshot source로 유지한다.
 - `rasterAssetIntegrity.test.ts`는 final raster key 존재와 PNG file integrity를 검증해야 한다.
 
 ## 남은 External Art

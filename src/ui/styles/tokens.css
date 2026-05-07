@@ -20,5 +20,6 @@
   --shadow: 0 18px 44px rgba(36, 67, 52, 0.2);
   --shadow-soft: 0 10px 24px rgba(36, 67, 52, 0.14);
   --radius: 8px;
+  --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }

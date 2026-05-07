@@ -45,13 +45,13 @@
 | 요구 항목 | Raster asset | 실제 연결 |
 | --- | --- | --- |
 | main hero background | `src/assets/raster/home/main-hero-background.png` | `MainGameScreen.tsx`, `.hero-raster-background`, `CollectionScreen.tsx` album room background |
-| main capybara crop candidate | `src/assets/raster/home/main-capybara-character.png` | `RasterAssetRegistry`, app icon/fallback candidate. Home v2 uses the integrated hero scene instead of a duplicate overlay |
+| main capybara crop candidate | `src/assets/raster/home/main-capybara-character.png` | source/release candidate. RC-8 excludes it from runtime registry because Home v2 uses the integrated hero scene |
 | 8 companion portraits | `src/assets/raster/companions/capybara-*.png` | `CollectionScreen.tsx`, `.companion-portrait`, `.album-sticker` |
 | prestige ritual illustration | `src/assets/raster/release/prestige-ritual.png` | `PrestigePanel.tsx`, `.prestige-visual` |
 | shop reward banner | `src/assets/raster/release/shop-reward-banner.png` | `MonetizationPanel.tsx`, `.shop-banner-visual` |
 | offline reward illustration | `src/assets/raster/release/offline-reward.png` | `AppShell.tsx`, offline reward modal |
 | store key visual | `src/assets/raster/release/store-key-visual.png` | `e2e/store-screenshot-pack.spec.ts` |
-| app icon candidate | `src/assets/raster/release/app-icon-candidate.png` | `RasterAssetRegistry`, release candidate asset |
+| app icon candidate | `src/assets/raster/release/app-icon-candidate.png` | source/release candidate. RC-8 excludes it from runtime registry |
 
 ## Dirty Screenshot 판단
 

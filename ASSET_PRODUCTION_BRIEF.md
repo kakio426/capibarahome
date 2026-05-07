@@ -50,7 +50,7 @@
 ## Registry/Test Contract
 
 - `GeneratedAssetRegistry.ts`는 242 registry key를 제공한다. 파일 수 253과 key 수가 다른 이유는 일부 item/icon이 같은 semantic key를 공유하고, UI registry는 게임 content key 우선으로 연결하기 때문이다.
-- `RasterAssetRegistry.ts`는 핵심 raster keys를 제공한다. Home, collection, prestige, shop, offline modal, store screenshot flow는 이 registry를 통해 PNG를 직접 참조한다.
+- `RasterAssetRegistry.ts`는 runtime gameplay raster keys를 제공한다. Home, collection, prestige, shop, offline modal은 이 registry를 통해 PNG를 직접 참조한다. RC-8부터 store screenshot key visual, app icon candidate, main capybara crop은 runtime bundle에 넣지 않고 source/release candidate 파일로 유지한다. Store screenshot flow는 `e2e/store-screenshot-pack.spec.ts`가 source PNG를 직접 읽는다.
 - `src/tests/generated/assetRegistryMatrix.test.ts`는 registry key, SVG root, `aria-label`, 외부 image/href/url 부재, 깨진 문자 부재를 검증한다.
 - `src/tests/visualAssetIntegrity.test.ts`는 253개 파일 수와 balance/story/quest/achievement/decoration/tier/release coverage를 별도로 검증한다.
 - `src/tests/rasterAssetIntegrity.test.ts`는 required raster keys, PNG magic bytes, file existence, 최소 file size를 검증한다.

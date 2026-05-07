@@ -2,10 +2,11 @@
 .app-frame {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   place-items: center;
   overflow: hidden;
-  padding: 16px;
+  padding: calc(16px + var(--safe-top)) 16px calc(16px + var(--safe-bottom));
   background:
     radial-gradient(circle at 50% 100%, rgba(39, 136, 102, 0.18), transparent 34rem),
     repeating-linear-gradient(112deg, rgba(79, 49, 31, 0.04) 0 2px, transparent 2px 18px);
@@ -41,6 +42,7 @@
   position: relative;
   width: min(100%, 430px);
   height: min(820px, calc(100vh - 24px));
+  height: min(820px, calc(100dvh - 24px - var(--safe-top) - var(--safe-bottom)));
   min-height: 700px;
   overflow: hidden;
   border-radius: 28px;

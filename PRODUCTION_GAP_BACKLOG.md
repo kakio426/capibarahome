@@ -47,6 +47,7 @@
 | store 후보 이미지 세부 polish 부족 | album crop, prestige `e0` 표기, save copy 길이가 제출 후보 인상을 낮춤 | store screenshot spec과 `PrestigePanel` formatting 보정 후 10장 재생성/검수 | 해결 |
 | 설정/세이브 control이 웹앱처럼 보일 위험 | 브라우저 checkbox, util textarea, toast overlap, 일반 form/modal 느낌이 game HUD skin을 깨뜨릴 수 있음 | RC-4에서 settings ledger/drawer, save vault modal, custom settings switch, export code copy action, sealed code slot, carved toast/modal/disabled controls로 보강 | 해결 |
 | 다음날/3일차/7일차 복귀 이유 부족 | RC-6까지는 D1/D3/D7이 문서상 plan에 머물러 장기 리텐션 시스템이 약함 | RC-7에서 20시간 daily reward, D1/D3/D7 milestone badge, post-prestige goal chain, save v5 migration, retention E2E/visual QA 추가 | 해결 |
+| 제출 전 WebView/storage/bundle 회귀 위험 | localStorage 실패, pagehide 저장 누락, daily+offline 동시 복귀, max-buy reload, 큰 raster bundle이 제출 전 리스크가 될 수 있음 | RC-8에서 localStorage fallback, pagehide/visibility save, stress/E2E regression, runtime raster registry trimming, bundle audit 추가 | 해결 |
 
 ## P2
 
@@ -70,4 +71,4 @@
 
 ## Current Gate
 
-재감사, reward hardening, playtest/balance/bug bash, direct art/CSS pass, 첫 raster pass 실패 재분류, v2 raster/HUD art pass, RC-4 Game UI Skin & Interaction Polish, RC-5 CSS Debt & Component System Pass, RC-6 product feel pass, RC-7 retention systems pass 중 발견한 내부 P1은 코드/CSS/테스트/E2E로 수정했다. 특히 업그레이드 card-list P1, 설정 form smell, save util dialog smell은 `RC4_UI_SKIN_AUDIT.md` 기준으로 해결했고, CSS override debt는 `RC5_CSS_COMPONENT_AUDIT.md` 기준으로 P0/P1 없이 정리했다. D1/D3/D7 복귀 보상과 첫 환생 이후 목표 chain도 RC-7에서 실제 시스템으로 구현했다. 남은 항목은 commissioned/final art ownership, 실제 SDK, 서버 검증 calendar/push notification, 물리 기기 QA, 더 깊은 수집 연출처럼 외부 준비나 추가 제품 확장에 가깝다. 현재 감사 기준에서 내부 P0/P1 release blocker는 없다.
+재감사, reward hardening, playtest/balance/bug bash, direct art/CSS pass, 첫 raster pass 실패 재분류, v2 raster/HUD art pass, RC-4 Game UI Skin & Interaction Polish, RC-5 CSS Debt & Component System Pass, RC-6 product feel pass, RC-7 retention systems pass, RC-8 release bug bash 중 발견한 내부 P1은 코드/CSS/테스트/E2E로 수정했다. 특히 업그레이드 card-list P1, 설정 form smell, save util dialog smell은 `RC4_UI_SKIN_AUDIT.md` 기준으로 해결했고, CSS override debt는 `RC5_CSS_COMPONENT_AUDIT.md` 기준으로 P0/P1 없이 정리했다. D1/D3/D7 복귀 보상과 첫 환생 이후 목표 chain도 RC-7에서 실제 시스템으로 구현했다. RC-8에서는 save v5/WebView/pagehide/localStorage fallback/stress/bundle 회귀를 검증했다. 남은 항목은 commissioned/final art ownership, 실제 SDK, 서버 검증 calendar/push notification, 물리 기기 QA, 더 깊은 수집 연출처럼 외부 준비나 추가 제품 확장에 가깝다. 현재 감사 기준에서 내부 P0/P1 release blocker는 없다.

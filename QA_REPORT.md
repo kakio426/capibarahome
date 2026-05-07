@@ -12,13 +12,13 @@ built successfully; Vite large chunk warning remains for bundled raster assets
 
 ```txt
 npm test
-Test Files  22 passed (22)
-Tests       491 passed (491)
+Test Files  23 passed (23)
+Tests       502 passed (502)
 ```
 
 ```txt
 npm run test:e2e
-27 passed
+32 passed
 ```
 
 ```txt
@@ -129,6 +129,18 @@ Fix:
 - Unit coverage 추가: daily eligibility/claim/duplicate, streak reset, D1/D3/D7 milestone duplicate guard, post-prestige goal step, save/load retention, corrupted retention migration.
 - E2E coverage 추가: 신규 유저 retention panel, D1 daily claim/reload cooldown, D3/D7 milestone claim/reload persistence, first prestige 후 goal chain, debug retention helpers 격리.
 
+## RC-8 Release Candidate Bug Bash & Device Readiness Prep
+
+- 새 save schema는 추가하지 않고 v5를 유지했다.
+- `SaveManager`에 localStorage unavailable fallback과 throwing storage safe failure guard를 추가했다.
+- `AppShell`은 `beforeunload` 외에 `pagehide`, hidden `visibilitychange`에서도 silent save를 수행한다.
+- WebView viewport를 위해 safe-area top/bottom CSS 변수, `100dvh`, iOS input zoom 방지, touch-action 보강을 적용했다.
+- `RasterAssetRegistry`에서 runtime UI가 쓰지 않는 `store-key-visual.png`, `app-icon-candidate.png`, `main-capybara-character.png`를 제외했다. 파일은 release/source candidate로 유지하고 integrity test에서 별도 검증한다.
+- `RC8_RELEASE_CANDIDATE_AUDIT.md`와 `BUNDLE_ASSET_AUDIT.md`를 추가했다.
+- Full E2E 중 desktop visual screenshot set이 30초 기본 timeout을 초과해 한 번 실패했다. 기능 결함은 아니며, visual screenshot spec은 의도적으로 많은 화면을 저장하므로 timeout을 60초로 조정했다. `visual-regression.spec.ts` 단독 4 passed 및 전체 `npm run test:e2e` 32 passed로 재검증했다.
+- Unit/stress coverage 추가: v1/v2/v3/v4 -> v5 migration, corrupted v5 retention recovery, offline+daily 같은 복귀 세션, daily/milestone export/import, post-prestige goal save/load, max-buy safety cap, large retention reward formatting, localStorage unavailable fallback, 2시간 simulation, 8시간 offline cap, rapid tap 500회, quick-buy 반복, save/load 20회, RAF listener cleanup.
+- E2E coverage 추가: D1 daily+offline 같은 세션, first prestige goal claim/reload, quick-buy max save/reload, 360px settings/save modal overflow, 반복 탭 전환.
+
 ## 자동 테스트 커버리지
 
 - 밸런스 계산: 비용 증가, 터치 수익, EPS, BigNumber, format.
@@ -161,10 +173,11 @@ Fix:
 | `e2e/rc1-product-feel.spec.ts` | 완료 | 업적 보상 claim, 카피바라 passive 표시/수익, sound mute, 장기 목표 |
 | `e2e/first-five-minute-playtest.spec.ts` | 완료 | debug 없이 5분권 실제 플레이 보상/reveal/저장/장식/동료/복귀 검증 |
 | `e2e/retention-flow.spec.ts` | 완료 | debug 없이 daily reward, D3/D7 milestone, post-prestige goal chain 검증 |
+| `e2e/rc8-release-bug-bash.spec.ts` | 완료 | daily+offline 동시 복귀, prestige goal reload, quick-buy reload, 360px modal, 반복 tab 전환 |
 
 ## 시각 QA
 
-- Playwright visual flow가 88개 current screenshot을 갱신한다. `qa-screenshots/` 전체에는 archived before shots와 RC-7 daily/milestone/post-prestige screenshots가 포함된다.
+- Playwright visual flow가 88개 current screenshot을 갱신한다. `qa-screenshots/` 전체에는 archived before shots와 RC-7/RC-8 daily/milestone/post-prestige/device-readiness screenshots가 포함된다.
 - Store 후보 10개를 `store-screenshots/`에 갱신했다.
 - 360x740, 390x844, 430x932, desktop 1280x900 중앙 패널에서 overflow assertion 통과.
 - 홈 v2 raster orchard/capybara integrated scene, 앨범 raster sticker portraits, 환생 ritual raster, 상점 reward banner raster, 오프라인 보상 raster, save modal 긴 code scroll을 재확인했다.
@@ -174,19 +187,21 @@ Fix:
 - RC-5 추가 수동 판정: `390x844-upgrades.png`, `390x844-settings.png`, `390x844-save-modal.png`, `390x844-collection.png`, `desktop-1280x900-upgrades.png`, store save screenshot을 확인했다. 내부 P0/P1 visual regression은 없음.
 - RC-6 추가 산출물 확인: `390x844-upgrades-quick-buy.png`, `390x844-collection-claim-ready.png`, `390x844-prestige-result.png`, `390x844-offline-reward.png`가 생성됐고 390x844 viewport screenshot artifact dimension과 파일 크기를 확인했다. 내부 P0/P1 gameplay feel blocker는 없음.
 - RC-7 추가 산출물 확인: `390x844-home-daily-available.png`, `390x844-home-daily-cooldown.png`, `390x844-daily-reward-claim.png`, `390x844-home-post-prestige-goal.png`, `390x844-collection-milestones.png`, `390x844-milestone-claim.png`가 생성됐고 360/390/430/desktop overflow assertion을 통과했다. 내부 P0/P1 retention blocker는 없음.
+- RC-8 추가 회귀 확인: 360x740 save modal bounding box가 viewport 안에 남고, toast는 pointer event를 막지 않으며, repeated tab switching 뒤 홈 tap CTA가 유지된다. 내부 P0/P1 device-readiness blocker는 없음.
 
 ## Source Budget Gate
 
-- handwritten runtime implementation: 9,323 LOC.
-- handwritten tests/E2E: 2,750 LOC.
-- pure handwritten gameplay/UI/system/test total: 12,073 LOC.
+- handwritten runtime implementation: 9,388 LOC.
+- handwritten tests/E2E: 3,235 LOC.
+- pure handwritten gameplay/UI/system/test total: 12,623 LOC.
 - excluded config: 2,684 LOC.
 - excluded generated SVG/registry: 11,533 LOC.
 - excluded generated matrix tests: 5,846 LOC.
 - generated SVG files: 253.
 - registry asset keys: 242.
 - raster PNG files: 15, 19M total.
-- handwritten runtime+test byte size: 416,811 bytes.
+- handwritten runtime+test byte size: 439,730 bytes.
+- runtime `dist/assets` PNG payload: 12 files / 14M after excluding release-only raster candidates from the runtime registry.
 
 ## 남은 리스크
 
@@ -195,3 +210,4 @@ Fix:
 - 실제 commissioned/final art ownership, 라이선스 확정 사운드, 광고 SDK/IAP SDK는 연결하지 않았다.
 - 실제 Apple/Google 개발자 계정, 인증서, 프로비저닝, 스토어 업로드는 수행하지 않았다.
 - commissioned art 소유권/법무 확정, platform icon/adaptive icon/splash export, 실제 device store screenshot 재촬영은 제출 전 P1 external art readiness로 남는다.
+- Vite JS chunk warning은 `BUNDLE_ASSET_AUDIT.md` 기준 P2 performance optimization으로 남긴다.

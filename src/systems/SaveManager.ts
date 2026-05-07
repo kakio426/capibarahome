@@ -12,6 +12,40 @@ export type ImportResult =
   | { ok: true; state: GameState }
   | { ok: false; error: string };
 
+class VolatileSaveStorage implements SaveStorage {
+  private readonly data = new Map<string, string>();
+
+  getItem(key: string) {
+    return this.data.get(key) ?? null;
+  }
+
+  setItem(key: string, value: string) {
+    this.data.set(key, value);
+  }
+
+  removeItem(key: string) {
+    this.data.delete(key);
+  }
+}
+
+const volatileStorage = new VolatileSaveStorage();
+
+export function getDefaultSaveStorage(): SaveStorage {
+  try {
+    return globalThis.localStorage ?? volatileStorage;
+  } catch (error) {
+    console.warn("[save] localStorage unavailable, using volatile session storage", error);
+    return volatileStorage;
+  }
+}
+
+function resolveStorageAndTime(storageOrNowMs: SaveStorage | number | undefined, maybeNowMs: number) {
+  if (typeof storageOrNowMs === "number") {
+    return { storage: getDefaultSaveStorage(), nowMs: storageOrNowMs };
+  }
+  return { storage: storageOrNowMs ?? getDefaultSaveStorage(), nowMs: maybeNowMs };
+}
+
 function stableStringify(value: unknown): string {
   if (value === null || typeof value !== "object") return JSON.stringify(value);
   if (Array.isArray(value)) return `[${value.map(stableStringify).join(",")}]`;
@@ -198,7 +232,8 @@ export const SaveManager = {
     return parseSaveCode(code, nowMs);
   },
 
-  saveToStorage(state: GameState, storage: SaveStorage = globalThis.localStorage, nowMs = Date.now()) {
+  saveToStorage(state: GameState, storageOrNowMs?: SaveStorage | number, maybeNowMs = Date.now()) {
+    const { storage, nowMs } = resolveStorageAndTime(storageOrNowMs, maybeNowMs);
     const code = this.exportState(state, nowMs);
     try {
       storage.setItem(GameConfig.save.key, code);
@@ -208,7 +243,8 @@ export const SaveManager = {
     return code;
   },
 
-  loadFromStorage(storage: SaveStorage = globalThis.localStorage, nowMs = Date.now()): ImportResult {
+  loadFromStorage(storageOrNowMs?: SaveStorage | number, maybeNowMs = Date.now()): ImportResult {
+    const { storage, nowMs } = resolveStorageAndTime(storageOrNowMs, maybeNowMs);
     try {
       const code = storage.getItem(GameConfig.save.key);
       if (!code) return { ok: true, state: createInitialState(nowMs) };
@@ -231,7 +267,7 @@ export const SaveManager = {
     }
   },
 
-  clearStorage(storage: SaveStorage = globalThis.localStorage) {
+  clearStorage(storage: SaveStorage = getDefaultSaveStorage()) {
     try {
       storage.removeItem(GameConfig.save.key);
     } catch (error) {

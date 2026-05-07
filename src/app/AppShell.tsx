@@ -76,7 +76,7 @@ export function AppShell() {
   useEffect(() => {
     if (bootedRef.current) return;
     bootedRef.current = true;
-    const loaded = SaveManager.loadFromStorage(globalThis.localStorage);
+    const loaded = SaveManager.loadFromStorage();
     if (loaded.ok) {
       if (loaded.state.offlineReward) {
         const reward = loaded.state.offlineReward;
@@ -89,7 +89,7 @@ export function AppShell() {
           },
         };
         setGameState(stateWithModal);
-        SaveManager.saveToStorage(claimedState, globalThis.localStorage);
+        SaveManager.saveToStorage(claimedState);
       } else {
         setGameState(loaded.state);
       }
@@ -115,19 +115,37 @@ export function AppShell() {
       }
     }, GameConfig.save.autoSaveIntervalMs);
 
-    function saveBeforeUnload() {
+    function saveForLifecycle(eventName: string) {
       try {
         GameActions.save(Date.now(), { silent: true });
       } catch (error) {
-        console.warn("[save:beforeunload] failed", error);
+        console.warn(`[save:${eventName}] failed`, error);
+      }
+    }
+
+    function saveBeforeUnload() {
+      saveForLifecycle("beforeunload");
+    }
+
+    function savePageHide() {
+      saveForLifecycle("pagehide");
+    }
+
+    function saveWhenHidden() {
+      if (document.visibilityState === "hidden") {
+        saveForLifecycle("visibilitychange");
       }
     }
 
     window.addEventListener("beforeunload", saveBeforeUnload);
+    window.addEventListener("pagehide", savePageHide);
+    document.addEventListener("visibilitychange", saveWhenHidden);
     return () => {
       loop.stop();
       window.clearInterval(intervalId);
       window.removeEventListener("beforeunload", saveBeforeUnload);
+      window.removeEventListener("pagehide", savePageHide);
+      document.removeEventListener("visibilitychange", saveWhenHidden);
     };
   }, []);
 

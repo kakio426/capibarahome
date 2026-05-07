@@ -7,8 +7,8 @@
 | 항목 | 상태 | 근거 |
 | --- | --- | --- |
 | TypeScript/build 실패 | 없음 | `npm run build` 통과 |
-| unit/simulation test 실패 | 없음 | `npm test` 22 files / 491 tests passed |
-| E2E 실패 | 없음 | `npm run test:e2e` 27 passed |
+| unit/simulation test 실패 | 없음 | `npm test` 23 files / 502 tests passed |
+| E2E 실패 | 없음 | `npm run test:e2e` 32 passed |
 | 실제 유저 플로우 debug 의존 | 없음 | debug는 `e2e/debug-cheat-flow.spec.ts`에 격리 |
 | 모바일 overflow/주요 화면 깨짐 | 없음 | `visual-regression.spec.ts` screenshot/overflow 검증 통과 |
 | 저장/환생/오프라인 보상 blocking issue | 없음 | unit + E2E coverage |
@@ -21,13 +21,14 @@
 | RC-5 CSS/component debt P1 | 없음 | `layout.css` import manifest, `shell/hud/screens/effects` split, `.ui-*` skin system, visualAssetIntegrity runtime CSS coverage, refreshed visual/store screenshots |
 | RC-6 product feel P1 | 없음 | quick-buy 1/10/max, BigNumber purchase plan tests, reward/prestige/album reveal, D1/D3/D7 retention docs, RC-6 E2E assertions |
 | RC-7 retention P1 | 없음 | daily reward, D1/D3/D7 milestone, post-prestige goal chain, save v5 migration, duplicate guard, retention E2E/screenshots |
+| RC-8 release bug bash P1 | 없음 | save v5 regression, offline+daily same session, prestige goal reload, quick-buy reload, long-session stress, localStorage/pagehide fallback, safe-area/WebView prep, bundle audit |
 | RC-3 playtest/balance/bug bash P1 | 없음 | 첫 환생 33분, 실제 5분권 E2E, migration/corrupt import/rapid tap/reward duplicate tests, store screenshot 재감사 |
 
 ## Source Budget Audit Gate
 
 | 항목 | 판정 | 근거 |
 | --- | --- | --- |
-| generated/config/docs 제외 구현량 | 기록 완료 | runtime 9,323 LOC, handwritten tests/E2E 2,750 LOC |
+| generated/config/docs 제외 구현량 | 기록 완료 | runtime 9,388 LOC, handwritten tests/E2E 3,235 LOC |
 | 이전 대형 `src` LOC 주장 | 완료 근거로 사용 금지 | generated SVG/registry 11,533 LOC와 generated tests 5,846 LOC는 별도 분리 |
 | 콘텐츠 실제 연결성 | 통과 | 30 upgrades/facilities, 50 quests, 40 achievements with claim rewards, 25 decorations, 8 capybaras with passive abilities, 5 tiers 항목별 감사 |
 
@@ -53,4 +54,4 @@
 
 ## Decision
 
-현재 감사 기준에서 내부 P0/P1 release blocker는 없다. 업그레이드 card-list P1, 설정 form smell, save util dialog smell은 RC-4 hardening pass에서 해결됐고, RC-5 CSS/component debt는 내부 P0/P1 없이 정리된 것으로 판정한다. RC-6의 반복 구매 P1은 quick-buy로 해결됐고, RC-7의 daily reward/milestone/post-prestige goal chain P1은 실제 저장되는 시스템과 테스트로 해결했다. 실제 스토어 제출 완료로 주장하지 않으며, commissioned/final art ownership, real audio files, SDK, signing, platform icon/splash export, 물리 기기 QA, 서버 검증 calendar/push notification은 external readiness blocker로 남긴다.
+현재 감사 기준에서 내부 P0/P1 release blocker는 없다. 업그레이드 card-list P1, 설정 form smell, save util dialog smell은 RC-4 hardening pass에서 해결됐고, RC-5 CSS/component debt는 내부 P0/P1 없이 정리된 것으로 판정한다. RC-6의 반복 구매 P1은 quick-buy로 해결됐고, RC-7의 daily reward/milestone/post-prestige goal chain P1은 실제 저장되는 시스템과 테스트로 해결했다. RC-8의 save/WebView/stress/bundle regression risk도 내부 P0/P1 없이 정리했다. 실제 스토어 제출 완료로 주장하지 않으며, commissioned/final art ownership, real audio files, SDK, signing, platform icon/splash export, 물리 기기 QA, 서버 검증 calendar/push notification은 external readiness blocker로 남긴다.

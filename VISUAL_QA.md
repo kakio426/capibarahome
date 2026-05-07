@@ -4,7 +4,7 @@
 
 ## Summary
 
-이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면과 정보형 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체했고, RC-4 hardening pass에서는 성장/설정/세이브/앨범 하단 정보 UI까지 wood/parchment/orange game HUD skin으로 묶었다. RC-5에서는 이 방향을 유지하면서 `layout.css` 후반 override 의존을 분리하고 reusable `.ui-*` game skin system으로 안정화했다. RC-6에서는 quick-buy, reward reveal, prestige result, album claim reveal을 추가했고, RC-7에서는 daily reward, D1/D3/D7 badge ledger, post-prestige goal chain을 같은 HUD skin 안에 넣었다.
+이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면과 정보형 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체했고, RC-4 hardening pass에서는 성장/설정/세이브/앨범 하단 정보 UI까지 wood/parchment/orange game HUD skin으로 묶었다. RC-5에서는 이 방향을 유지하면서 `layout.css` 후반 override 의존을 분리하고 reusable `.ui-*` game skin system으로 안정화했다. RC-6에서는 quick-buy, reward reveal, prestige result, album claim reveal을 추가했고, RC-7에서는 daily reward, D1/D3/D7 badge ledger, post-prestige goal chain을 같은 HUD skin 안에 넣었다. RC-8에서는 safe-area/360px modal/device-readiness regression을 추가 점검했다.
 
 Current evidence:
 
@@ -13,13 +13,14 @@ npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec
 6 passed, 88 QA screenshots and 10 store screenshots regenerated
 
 npm run test:e2e
-27 passed, includes visual/store screenshot regeneration and RC-7 retention screenshots
+32 passed, includes visual/store screenshot regeneration and RC-8 release bug bash flow
 ```
 
 Current asset baseline:
 
 ```txt
 src/assets/raster: 15 PNG files / 19M
+runtime dist PNG assets: 12 files / 14M
 src/assets/generated: 253 SVG auxiliary files
 qa-screenshots: 88 current PNG files plus archived before shots
 store-screenshots: 10 PNG candidates
@@ -92,6 +93,15 @@ store-screenshots: 10 PNG candidates
 | Post-prestige goal | 환생 후 다음 목표가 generic copy에 가까움 | 5단계 goal chain, home panel, prestige result next-goal copy | `qa-screenshots/390x844-home-post-prestige-goal.png`, `prestige-flow.spec.ts` |
 | UI regression | 새 retention UI가 웹 카드처럼 보일 위험 | 기존 wood/parchment/orange HUD panel, stamp, reward plaque, progress groove 재사용 | `screens.css`, `hud.css`, `effects.css` |
 
+## RC-8 Device Readiness Visual Pass
+
+| 대상 | RC-8 리스크 | RC-8 확인 | Evidence |
+| --- | --- | --- | --- |
+| 360px save modal | safe-area/input zoom/padding 변경 후 modal이 하단 탭과 충돌할 수 있음 | 360x740에서 settings toggle 후 save modal bounding box와 horizontal overflow를 확인 | `e2e/rc8-release-bug-bash.spec.ts`, `qa-screenshots/360x740-save-modal.png` |
+| retention panel density | daily/goal panel이 홈 tap loop를 밀어낼 수 있음 | home daily available/cooldown/post-prestige screenshots 재생성 | `qa-screenshots/390x844-home-daily-available.png`, `qa-screenshots/390x844-home-post-prestige-goal.png` |
+| toast click safety | toast가 주요 클릭을 막을 수 있음 | quick-buy/settings/tap flow 후 클릭 가능성 확인 | `e2e/rc8-release-bug-bash.spec.ts` |
+| repeated tab dock | 탭 전환 중 active state나 pointer layer가 남을 수 있음 | 24회 tab switching 후 home tap CTA visible/clickable 확인 | `e2e/rc8-release-bug-bash.spec.ts` |
+
 ## Manual Spot Check
 
 - `qa-screenshots/390x844-home.png`: 첫인상은 웹 대시보드가 아니라 모바일 게임 home scene이다. 큰 흰 카드가 주인공이 되지 않는다.
@@ -153,4 +163,4 @@ store-screenshots: 10 PNG candidates
 
 ## Remaining Visual Risk
 
-내부 P0/P1 visual blocker는 현재 없음으로 본다. RC-7에서 timestamp 기반 20시간 daily reward loop, D1/D3/D7 badge, post-prestige goal chain은 구현됐다. 남은 항목은 P2/P3로 분리한다: server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, 실제 app icon/adaptive icon/splash export, 물리 기기 store screenshot 재촬영.
+내부 P0/P1 visual blocker는 현재 없음으로 본다. RC-7에서 timestamp 기반 20시간 daily reward loop, D1/D3/D7 badge, post-prestige goal chain은 구현됐고, RC-8에서 360px save modal/device-readiness flow도 회귀 없이 통과했다. 남은 항목은 P2/P3로 분리한다: server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, 실제 app icon/adaptive icon/splash export, 물리 기기 store screenshot 재촬영.

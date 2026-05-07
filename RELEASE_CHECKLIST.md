@@ -14,7 +14,7 @@
 - [x] Story bible added and connected to UI/config
 - [x] Balance simulation added and tested
 - [x] Source budget re-audited without generated/config/docs/screenshots/build output
-- [x] Handwritten implementation scale recorded (`runtime 9,323 LOC`, `handwritten tests/E2E 2,750 LOC`)
+- [x] Handwritten implementation scale recorded (`runtime 9,388 LOC`, `handwritten tests/E2E 3,235 LOC`)
 - [x] Content integration audit completed in `CONTENT_INTEGRATION_AUDIT.md`
 - [x] Visual defects audit completed in `VISUAL_DEFECTS.md`
 - [x] RC-1 product-feel hardening completed: companion passive, achievement claim rewards, long-term goal, WebAudio feedback
@@ -28,6 +28,8 @@
 - [x] RC-6 audit and retention docs completed in `RC6_PRODUCT_FEEL_AUDIT.md` and `RETENTION_PLAN.md`
 - [x] RC-7 Retention Systems pass completed: daily reward, D1/D3/D7 milestone badges, post-prestige goal chain, save v5 migration, retention E2E/screenshots
 - [x] RC-7 audit completed in `RC7_RETENTION_SYSTEM_AUDIT.md`
+- [x] RC-8 Release Candidate Bug Bash completed: save v5 regression, daily+offline same return, prestige goal reload, quick-buy reload, long-session stress, localStorage/pagehide fallback, WebView CSS readiness, bundle asset audit
+- [x] RC-8 audit completed in `RC8_RELEASE_CANDIDATE_AUDIT.md` and `BUNDLE_ASSET_AUDIT.md`
 - [x] Visual asset integrity tests added for SVG count, raster PNG integrity, coverage, external-reference bans, runtime visual styling audit
 - [x] Art production docs added: `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`
 - [x] RC-2 audio readiness completed: file-ready audio slots and synthetic WebAudio fallback
@@ -42,6 +44,7 @@
 - [x] Visual screenshots captured for 360x740, 390x844, 430x932, desktop
 - [x] RC-6 screenshots captured for quick-buy mode, album claim-ready state, prestige result, and offline reward reveal
 - [x] RC-7 screenshots captured for daily reward available/cooldown/claim, D1/D3/D7 milestone ledger/claim, and post-prestige goal state
+- [x] RC-8 visual/device readiness flow confirms 360px save modal bounds, toast click safety, and repeated tab clickability
 
 ## Capacitor Prep
 

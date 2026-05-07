@@ -1,8 +1,19 @@
 # Device QA Checklist
 
-기준일: 2026-05-05
+기준일: 2026-05-07
 
 실제 물리 기기 또는 시뮬레이터에서 제출 전 확인해야 할 항목이다. 현재 환경에서는 Playwright 브라우저와 Capacitor sync까지만 자동 검증했다.
+
+## Automated RC-8 Coverage Before Device QA
+
+- [x] 360x740 / 390x844 / 430x932 / desktop screenshot and overflow checks
+- [x] 360x740 save modal bounds check after settings toggles
+- [x] daily reward + offline reward same return session E2E
+- [x] first prestige goal claim + reload E2E
+- [x] quick-buy max + save/reload E2E
+- [x] repeated tab switching clickability E2E
+- [x] 2 hour simulation, 8 hour offline cap, 500 rapid taps, quick-buy stress, save/load 20x unit tests
+- [x] `npm run cap:sync` web asset sync
 
 ## iPhone Safari / iOS WebView
 
