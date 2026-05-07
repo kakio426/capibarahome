@@ -208,9 +208,69 @@
   backdrop-filter: blur(8px);
 }
 
+.hero-card.has-daily-badge .scene-reward-badge {
+  top: 178px;
+}
+
 .scene-reward-badge.is-ready {
   color: #4f311f;
   background: rgba(255, 213, 104, 0.9);
+}
+
+.home-daily-badge {
+  position: absolute;
+  top: 124px;
+  left: 14px;
+  z-index: 4;
+  min-width: 142px;
+  min-height: 46px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  border: 3px solid rgba(255, 242, 194, 0.72);
+  border-radius: 999px;
+  padding: 5px 12px 5px 7px;
+  color: #fff9df;
+  background:
+    radial-gradient(circle at 18% 34%, rgba(255, 246, 207, 0.36), transparent 36px),
+    linear-gradient(180deg, rgba(69, 117, 74, 0.94), rgba(43, 69, 47, 0.88));
+  box-shadow: 0 10px 0 rgba(47, 27, 18, 0.18), 0 16px 24px rgba(31, 44, 36, 0.18);
+  font-weight: 950;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.home-daily-badge:disabled {
+  cursor: default;
+  opacity: 0.95;
+}
+
+.home-daily-badge.is-ready {
+  color: #4f2d18;
+  background:
+    radial-gradient(circle at 18% 34%, rgba(255, 250, 224, 0.86), transparent 38px),
+    linear-gradient(180deg, #ffd568, #e5791d);
+  box-shadow: 0 10px 0 rgba(127, 53, 20, 0.34), 0 0 26px rgba(255, 213, 104, 0.46);
+}
+
+.home-daily-badge span {
+  min-width: 42px;
+  min-height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  color: #5b2a10;
+  background: rgba(255, 250, 224, 0.86);
+  font-size: 0.72rem;
+}
+
+.home-daily-badge strong {
+  min-width: 0;
+  font-size: 0.78rem;
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
 .tap-copy {
@@ -604,20 +664,63 @@
   color: #2f1d12;
 }
 
+.prestige-ceremony-visual {
+  position: relative;
+  min-height: 176px;
+  overflow: hidden;
+  border: 4px solid rgba(47, 27, 18, 0.64);
+  border-radius: 16px;
+  background: #1f3b2d;
+  box-shadow: 0 8px 0 rgba(47, 27, 18, 0.18), inset 0 2px 0 rgba(255, 250, 224, 0.28);
+}
+
+.prestige-ceremony-art {
+  width: 100%;
+  height: 176px;
+  object-fit: cover;
+  object-position: 50% 45%;
+  filter: saturate(1.08) contrast(1.03);
+}
+
+.prestige-ceremony-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(22, 38, 30, 0.02), rgba(22, 38, 30, 0.44)),
+    radial-gradient(circle at 50% 64%, rgba(255, 213, 104, 0.34), transparent 38%);
+}
+
 .prestige-result-stamp {
-  justify-self: center;
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  z-index: 2;
+  min-height: 46px;
   display: grid;
   place-items: center;
-  width: 108px;
-  height: 108px;
-  border: 6px solid rgba(255, 242, 194, 0.74);
-  border-radius: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  border: 5px solid rgba(255, 242, 194, 0.86);
+  border-radius: 999px;
+  padding: 0 18px;
   color: #5b2a10;
   background:
-    radial-gradient(circle at 50% 34%, rgba(255, 250, 224, 0.84), transparent 38px),
+    radial-gradient(circle at 50% 34%, rgba(255, 250, 224, 0.9), transparent 44px),
     linear-gradient(180deg, #ffd568, #dd8c24);
-  box-shadow: 0 9px 0 rgba(47, 27, 18, 0.22), 0 0 34px rgba(255, 213, 104, 0.34);
+  box-shadow: 0 9px 0 rgba(47, 27, 18, 0.24), 0 0 34px rgba(255, 213, 104, 0.42);
   font-weight: 950;
+  white-space: nowrap;
+}
+
+.prestige-ceremony-lead {
+  margin: 0;
+  border: 3px solid rgba(47, 27, 18, 0.38);
+  border-radius: 12px;
+  padding: 9px;
+  color: #3a2818;
+  background: rgba(255, 250, 224, 0.64);
+  font-weight: 860;
+  line-height: 1.38;
 }
 
 .prestige-result-grid {
@@ -639,6 +742,29 @@
 .prestige-result-grid strong {
   color: #5b2a10;
   overflow-wrap: anywhere;
+}
+
+.prestige-multiplier-ribbon {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  border: 4px solid rgba(91, 42, 16, 0.54);
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: #fff9df;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 213, 104, 0.28), transparent 100px),
+    linear-gradient(90deg, #5d3520, #9b4b18, #5d3520);
+  box-shadow: inset 0 2px 0 rgba(255, 246, 207, 0.22);
+  font-size: 0.82rem;
+  font-weight: 950;
+  text-align: center;
+}
+
+.prestige-multiplier-ribbon strong {
+  color: #ffd568;
+  font-size: 1rem;
 }
 
 .prestige-next-copy {
@@ -1038,16 +1164,19 @@
 
 .quick-buy-panel {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 0.72fr) minmax(178px, 1fr);
   align-items: center;
   gap: 10px;
   border: 4px solid #3a2114;
   border-radius: 12px;
-  padding: 10px;
+  padding: 9px;
   background:
-    radial-gradient(circle at 90% 10%, rgba(255, 213, 104, 0.34), transparent 82px),
-    linear-gradient(180deg, rgba(255, 238, 184, 0.96), rgba(206, 137, 61, 0.72));
-  box-shadow: 0 7px 0 rgba(47, 27, 18, 0.22), inset 0 2px 0 rgba(255, 250, 224, 0.48);
+    radial-gradient(circle at 90% 10%, rgba(255, 213, 104, 0.38), transparent 82px),
+    repeating-linear-gradient(90deg, rgba(75, 43, 22, 0.12) 0 7px, transparent 7px 30px),
+    linear-gradient(180deg, rgba(255, 238, 184, 0.96), rgba(188, 114, 48, 0.74));
+  box-shadow:
+    0 7px 0 rgba(47, 27, 18, 0.25),
+    inset 0 2px 0 rgba(255, 250, 224, 0.52);
 }
 
 .quick-buy-panel strong {
@@ -1059,16 +1188,63 @@
 .quick-buy-mode {
   grid-template-columns: repeat(3, minmax(54px, 1fr));
   min-width: 190px;
+  gap: 5px;
+  border: 3px solid rgba(58, 34, 18, 0.64);
+  border-radius: 14px;
+  padding: 6px;
+  background:
+    linear-gradient(180deg, rgba(83, 47, 25, 0.42), rgba(255, 238, 184, 0.56)),
+    rgba(255, 232, 166, 0.68);
+  box-shadow: inset 0 2px 0 rgba(255, 248, 216, 0.32);
 }
 
 .quick-buy-mode button {
-  min-height: 40px;
+  position: relative;
+  appearance: none;
+  min-height: 43px;
+  border: 3px solid rgba(47, 27, 18, 0.44);
+  border-radius: 12px;
+  color: #4b2e19;
+  background:
+    radial-gradient(circle at 42% 18%, rgba(255, 248, 216, 0.66), transparent 28px),
+    linear-gradient(180deg, #f7c973, #a45b25);
+  box-shadow:
+    0 5px 0 rgba(55, 32, 17, 0.38),
+    inset 0 2px 0 rgba(255, 250, 224, 0.42);
+  font-size: 0.78rem;
+  font-weight: 950;
+  cursor: pointer;
+  text-shadow: 0 1px 0 rgba(255, 250, 224, 0.36);
+}
+
+.quick-buy-mode button::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 5px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 246, 207, 0.34);
+}
+
+.quick-buy-mode button.is-active {
+  color: #fff9df;
+  border-color: #5a2e16;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 252, 226, 0.82), transparent 32px),
+    linear-gradient(180deg, #ffc85d 0%, #ef7f22 56%, #b83b14 100%);
+  box-shadow:
+    0 6px 0 #803011,
+    0 0 18px rgba(255, 193, 83, 0.5),
+    inset 0 2px 0 rgba(255, 248, 216, 0.54);
+  text-shadow: 0 2px 0 rgba(71, 35, 15, 0.45);
 }
 
 .upgrade-list {
   position: relative;
-  gap: 16px;
-  padding: 10px 0 14px;
+  gap: 13px;
+  padding: 8px 0 calc(92px + var(--safe-bottom));
 }
 
 .upgrade-list::before {
@@ -1085,10 +1261,10 @@
 .upgrade-shelf-card {
   isolation: isolate;
   overflow: visible;
-  grid-template-columns: 78px minmax(0, 1fr);
-  gap: 9px 11px;
+  grid-template-columns: 86px minmax(0, 1fr);
+  gap: 8px 10px;
   align-items: stretch;
-  padding: 11px;
+  padding: 10px;
   border-width: 4px;
   border-radius: 12px;
   background:
@@ -1114,7 +1290,7 @@
 .upgrade-shelf-card::after {
   content: "";
   position: absolute;
-  left: 94px;
+  left: 102px;
   top: 12px;
   bottom: 18px;
   z-index: 0;
@@ -1128,15 +1304,16 @@
   position: relative;
   z-index: 1;
   grid-row: 1 / span 2;
-  min-height: 112px;
+  min-height: 126px;
   display: grid;
   place-items: center;
   align-content: center;
-  padding: 10px 6px 18px;
+  padding: 9px 7px 18px;
   border: 4px solid rgba(47, 27, 18, 0.72);
   border-radius: 12px;
   background:
-    radial-gradient(circle at 50% 28%, rgba(255, 242, 194, 0.64), transparent 38px),
+    radial-gradient(circle at 50% 24%, rgba(255, 246, 207, 0.78), transparent 42px),
+    radial-gradient(ellipse at 50% 80%, rgba(255, 182, 75, 0.42), transparent 46px),
     linear-gradient(180deg, #734421, #3a2114);
   box-shadow: 0 6px 0 rgba(47, 27, 18, 0.26), inset 0 2px 0 rgba(255, 234, 165, 0.2);
 }
@@ -1147,8 +1324,8 @@
   position: absolute;
   left: 10px;
   right: 10px;
-  bottom: 21px;
-  height: 15px;
+  bottom: 22px;
+  height: 18px;
   border: 3px solid rgba(47, 27, 18, 0.64);
   border-radius: 999px;
   background:
@@ -1173,13 +1350,15 @@
 .upgrade-tool-slot .upgrade-icon {
   position: relative;
   z-index: 1;
-  width: 64px;
-  height: 64px;
+  width: 70px;
+  height: 70px;
   border-width: 0;
   background: transparent;
   box-shadow: none;
-  transform: translateY(-7px);
-  filter: drop-shadow(0 7px 0 rgba(24, 14, 8, 0.22)) drop-shadow(0 9px 12px rgba(31, 20, 12, 0.22));
+  transform: translateY(-8px);
+  filter:
+    drop-shadow(0 8px 0 rgba(24, 14, 8, 0.2))
+    drop-shadow(0 12px 14px rgba(31, 20, 12, 0.24));
 }
 
 .upgrade-shelf-card .upgrade-copy {
@@ -1202,30 +1381,34 @@
 .upgrade-description {
   margin: 0;
   color: #4b341f;
-  font-size: 0.8rem;
-  font-weight: 780;
-  line-height: 1.34;
+  font-size: 0.76rem;
+  font-weight: 820;
+  line-height: 1.28;
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
 }
 
 .upgrade-shelf-card .upgrade-ui-copy {
   margin: 0;
   border: 2px solid rgba(65, 38, 20, 0.28);
   border-radius: 9px;
-  padding: 7px 8px;
+  padding: 6px 8px;
   color: #243c30;
   background: linear-gradient(180deg, rgba(242, 196, 93, 0.42), rgba(255, 240, 190, 0.68));
-  font-size: 0.77rem;
-  line-height: 1.3;
+  font-size: 0.72rem;
+  line-height: 1.24;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .upgrade-shelf-card .progress-block {
   border: 2px solid rgba(65, 38, 20, 0.28);
   border-radius: 9px;
-  padding: 7px;
+  padding: 6px;
   background: rgba(65, 38, 20, 0.1);
 }
 
@@ -1234,12 +1417,12 @@
 }
 
 .upgrade-shelf-card .upgrade-meta span {
-  min-height: 27px;
+  min-height: 25px;
   border-radius: 8px;
   padding: 4px 7px;
   background:
     linear-gradient(180deg, #fff1bd, #d69e50);
-  font-size: 0.69rem;
+  font-size: 0.67rem;
 }
 
 .upgrade-shelf-card .upgrade-meta .upgrade-result-chip {
@@ -1255,7 +1438,7 @@
   z-index: 1;
   grid-column: 2;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(74px, 86px);
+  grid-template-columns: minmax(0, 1fr) minmax(78px, 92px);
   gap: 8px;
   align-items: center;
 }
@@ -1582,6 +1765,135 @@
   overflow-wrap: anywhere;
 }
 
+.daily-reward-modal .ui-modal__body,
+.milestone-reward-modal .ui-modal__body {
+  gap: 10px;
+}
+
+.daily-reward-sheet,
+.milestone-reward-sheet {
+  display: grid;
+  gap: 11px;
+  color: #2f1d12;
+}
+
+.daily-reward-crest,
+.milestone-reward-stamp {
+  justify-self: center;
+  position: relative;
+  width: 128px;
+  min-height: 128px;
+  display: grid;
+  place-items: center;
+  border: 7px solid rgba(255, 242, 194, 0.82);
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255, 250, 224, 0.92), transparent 52px),
+    repeating-linear-gradient(-12deg, rgba(91, 42, 16, 0.08) 0 7px, transparent 7px 22px),
+    linear-gradient(180deg, #ffd568, #dd8c24);
+  box-shadow: 0 10px 0 rgba(47, 27, 18, 0.24), 0 0 36px rgba(255, 213, 104, 0.36);
+  transform: rotate(-2deg);
+}
+
+.daily-reward-crest .visual-asset,
+.daily-reward-crest .visual-icon,
+.milestone-reward-stamp .visual-asset,
+.milestone-reward-stamp .visual-icon {
+  width: 72px;
+  height: 72px;
+  filter: drop-shadow(0 8px 0 rgba(47, 27, 18, 0.15));
+}
+
+.daily-reward-crest span,
+.milestone-reward-stamp span {
+  position: absolute;
+  left: 50%;
+  bottom: -12px;
+  min-width: 68px;
+  min-height: 34px;
+  display: grid;
+  place-items: center;
+  transform: translateX(-50%);
+  border: 4px solid rgba(47, 27, 18, 0.58);
+  border-radius: 999px;
+  color: #fff9df;
+  background: linear-gradient(180deg, #6f4121, #3a2114);
+  font-size: 0.82rem;
+  font-weight: 950;
+}
+
+.milestone-reward-stamp em {
+  position: absolute;
+  top: 14px;
+  right: -22px;
+  transform: rotate(14deg);
+  border: 4px solid rgba(117, 40, 22, 0.78);
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: #752816;
+  background: rgba(255, 250, 224, 0.88);
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 950;
+}
+
+.daily-reward-copy,
+.milestone-reward-copy {
+  display: grid;
+  gap: 5px;
+  text-align: center;
+}
+
+.daily-reward-copy h3,
+.milestone-reward-copy h3 {
+  margin: 0;
+  color: #2f1d12;
+}
+
+.daily-reward-copy p,
+.milestone-reward-copy p {
+  margin: 0;
+  color: #4f4b3d;
+  font-weight: 800;
+  line-height: 1.38;
+}
+
+.daily-reward-prize,
+.milestone-reward-prize,
+.daily-next-preview {
+  display: grid;
+  gap: 4px;
+  border: 4px solid rgba(91, 42, 16, 0.44);
+  border-radius: 12px;
+  padding: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 247, 211, 0.94), rgba(218, 166, 88, 0.58)),
+    repeating-linear-gradient(90deg, rgba(95, 55, 27, 0.07) 0 8px, transparent 8px 24px);
+  text-align: center;
+}
+
+.daily-reward-prize span,
+.milestone-reward-prize span,
+.daily-next-preview span,
+.daily-next-preview small {
+  color: #6d4b28;
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.daily-reward-prize strong,
+.milestone-reward-prize strong,
+.daily-next-preview strong {
+  color: #5b2a10;
+  font-size: 1.04rem;
+  overflow-wrap: anywhere;
+}
+
+.daily-next-preview {
+  background:
+    linear-gradient(180deg, rgba(255, 250, 224, 0.7), rgba(255, 226, 145, 0.52));
+}
+
 .retention-milestone-board {
   display: grid;
   gap: 10px;
@@ -1592,21 +1904,32 @@
 
 .retention-milestone-grid {
   display: grid;
-  gap: 9px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  border: 5px solid rgba(57, 33, 17, 0.58);
+  border-radius: 14px;
+  padding: 10px;
+  background:
+    radial-gradient(circle at 50% 4%, rgba(255, 246, 207, 0.72), transparent 128px),
+    repeating-linear-gradient(0deg, rgba(88, 50, 25, 0.08) 0 2px, transparent 2px 22px),
+    linear-gradient(180deg, rgba(255, 250, 224, 0.64), rgba(181, 111, 52, 0.34));
+  box-shadow: inset 0 2px 0 rgba(255, 250, 224, 0.48);
 }
 
 .retention-milestone-card {
+  position: relative;
   display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
+  grid-template-columns: 1fr;
   align-items: center;
-  gap: 9px;
+  gap: 7px;
   border: 3px solid rgba(57, 33, 17, 0.62);
-  border-radius: 10px;
-  padding: 9px;
+  border-radius: 14px;
+  padding: 8px 7px 9px;
   background:
     linear-gradient(180deg, rgba(255, 247, 211, 0.9), rgba(218, 166, 88, 0.5)),
     repeating-linear-gradient(-8deg, rgba(95, 55, 27, 0.08) 0 6px, transparent 6px 20px);
   box-shadow: 0 6px 0 rgba(55, 32, 17, 0.16), inset 0 2px 0 rgba(255, 250, 224, 0.45);
+  text-align: center;
 }
 
 .retention-milestone-card.can-claim {
@@ -1622,6 +1945,7 @@
 
 .milestone-sticker {
   position: relative;
+  justify-self: center;
   display: grid;
   place-items: center;
   width: 72px;
@@ -1654,26 +1978,61 @@
   font-weight: 950;
 }
 
+.milestone-claimed-seal {
+  position: absolute;
+  inset: auto auto 16px 50%;
+  z-index: 2;
+  transform: translateX(-50%) rotate(-10deg);
+  border: 4px solid rgba(117, 40, 22, 0.84);
+  border-radius: 999px;
+  padding: 4px 8px;
+  color: #752816;
+  background: rgba(255, 250, 224, 0.9);
+  box-shadow: 0 3px 0 rgba(117, 40, 22, 0.14);
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
 .milestone-copy {
   min-width: 0;
   display: grid;
-  gap: 6px;
+  gap: 5px;
 }
 
 .milestone-copy h4,
 .milestone-copy p {
   min-width: 0;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
+.milestone-copy h4 {
+  min-height: 2.2em;
+  display: grid;
+  place-items: center;
+  color: #2f1d12;
+  font-size: 0.78rem;
+  line-height: 1.1;
 }
 
 .milestone-copy p {
   color: #4f5748;
-  font-size: 0.82rem;
+  font-size: 0.68rem;
   font-weight: 780;
+  line-height: 1.2;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .retention-milestone-card .btn {
-  grid-column: 1 / -1;
+  width: 100%;
+  min-height: 38px;
+  padding-inline: 6px;
+  font-size: 0.69rem;
 }
 
 @media (max-width: 420px) {
@@ -1732,6 +2091,28 @@
     top: 78px;
   }
 
+  .hero-card.has-daily-badge .scene-reward-badge {
+    top: 166px;
+  }
+
+  .home-daily-badge {
+    top: 116px;
+    left: 12px;
+    min-width: 132px;
+    min-height: 42px;
+    padding: 4px 10px 4px 6px;
+  }
+
+  .home-daily-badge span {
+    min-width: 38px;
+    min-height: 30px;
+    font-size: 0.66rem;
+  }
+
+  .home-daily-badge strong {
+    font-size: 0.72rem;
+  }
+
   .currency-display {
     grid-template-columns: 38px minmax(0, 1fr);
     min-height: 58px;
@@ -1759,6 +2140,8 @@
 
   .quick-buy-panel {
     grid-template-columns: 1fr;
+    gap: 7px;
+    padding: 8px;
   }
 
   .quick-buy-mode {
@@ -1766,18 +2149,36 @@
     width: 100%;
   }
 
+  .quick-buy-mode button {
+    min-height: 40px;
+    font-size: 0.72rem;
+  }
+
   .upgrade-shelf-card {
-    grid-template-columns: 70px minmax(0, 1fr);
+    grid-template-columns: 76px minmax(0, 1fr);
     gap: 8px;
-    padding: 10px;
+    padding: 9px;
   }
 
   .upgrade-shelf-card::after {
-    left: 84px;
+    left: 90px;
   }
 
   .upgrade-tool-slot {
-    min-height: 106px;
+    min-height: 118px;
+  }
+
+  .upgrade-tool-slot .upgrade-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .upgrade-description {
+    font-size: 0.72rem;
+  }
+
+  .upgrade-shelf-card .upgrade-ui-copy {
+    display: none;
   }
 
   .upgrade-buy-slot {
@@ -1837,12 +2238,35 @@
   }
 
   .retention-milestone-card {
-    grid-template-columns: 64px minmax(0, 1fr);
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 7px 5px 8px;
   }
 
   .milestone-sticker {
-    width: 64px;
-    height: 64px;
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+  }
+
+  .milestone-sticker .visual-asset,
+  .milestone-sticker .visual-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .milestone-copy h4 {
+    font-size: 0.7rem;
+  }
+
+  .milestone-copy p {
+    font-size: 0.62rem;
+    -webkit-line-clamp: 1;
+  }
+
+  .retention-milestone-card .btn {
+    min-height: 36px;
+    font-size: 0.62rem;
   }
 
   .tutorial-overlay {

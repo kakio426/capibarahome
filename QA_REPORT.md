@@ -141,6 +141,21 @@ Fix:
 - Unit/stress coverage 추가: v1/v2/v3/v4 -> v5 migration, corrupted v5 retention recovery, offline+daily 같은 복귀 세션, daily/milestone export/import, post-prestige goal save/load, max-buy safety cap, large retention reward formatting, localStorage unavailable fallback, 2시간 simulation, 8시간 offline cap, rapid tap 500회, quick-buy 반복, save/load 20회, RAF listener cleanup.
 - E2E coverage 추가: D1 daily+offline 같은 세션, first prestige goal claim/reload, quick-buy max save/reload, 360px settings/save modal overflow, 반복 탭 전환.
 
+## RC-9 Reality Check / RC-10 Product UI Fix
+
+- RC-9 독립 감사에서 product-quality 기준 release candidate no-go로 재분류했다. 평균 점수는 5.8/10이었고, 업그레이드 quick-buy, daily reward, D1/D3/D7 milestone, prestige result, store screenshot/listing이 P1이었다.
+- RC-9 문서는 삭제하거나 완화하지 않고 before audit 근거로 유지한다.
+- RC-10에서는 새 save schema나 대형 기능을 추가하지 않고 P1 화면만 수정했다.
+- 업그레이드 quick-buy는 carved mode stones, selected depth, filled pedestal, cost/CTA hierarchy로 재구성했다.
+- Daily reward는 홈 hero 안의 compact badge와 dedicated reward sheet를 추가했다. claim 후 toast만으로 끝나지 않고 Day, streak, reward amount, next reward preview가 보인다.
+- D1/D3/D7 milestone은 3-badge stamp board와 seal overlay, badge reward sheet로 바꿨다.
+- Prestige result는 ritual raster crop, gained/total leaves, multiplier before/after, next goal을 한 ceremony panel에 묶었다.
+- Store screenshot pack은 home/upgrade/milestone/prestige/reward 순간으로 재구성했고, public/store-facing copy에서 mock/sandbox/internal wording을 제거했다.
+- RC-10 screenshot 재생성 결과:
+  - `npx playwright test e2e/visual-regression.spec.ts --reporter=line`: 4 passed
+  - `npx playwright test e2e/store-screenshot-pack.spec.ts --reporter=line`: 2 passed
+- RC-10 integrity pass에서 기존 `RC10_SCREEN_SCORECARD.md`의 8.2 self-score를 독립 재감사했다. `RC10_INDEPENDENT_RESCORE.md` 기준 corrected combined average는 7.7/10이며, upgrade quick-buy 7.2와 store screenshots 7.5는 product-quality P1으로 남는다. 따라서 RC-10은 방향성 개선은 맞지만 product release candidate gate는 no-go다.
+
 ## 자동 테스트 커버리지
 
 - 밸런스 계산: 비용 증가, 터치 수익, EPS, BigNumber, format.
@@ -184,7 +199,7 @@ Fix:
 - Store 후보 10개는 raster store key visual을 full-screen background로 두고 gameplay panel/copy를 얹는 구성으로 재생성했다.
 - CSS audit: runtime visual files에서 temporary override marker, generic UI marker, external asset fallback marker를 제거했고, RC-5 이후 `shell/hud/screens/effects` 파일도 audit 대상에 포함했다.
 - RC-4 추가 수동 판정: `390x844-upgrades.png`는 더 이상 spreadsheet/list/card layout로 보지 않는다. `390x844-settings.png`는 browser form UI가 아니며, `390x844-save-modal.png`는 save vault/ledger UI로 보인다.
-- RC-5 추가 수동 판정: `390x844-upgrades.png`, `390x844-settings.png`, `390x844-save-modal.png`, `390x844-collection.png`, `desktop-1280x900-upgrades.png`, store save screenshot을 확인했다. 내부 P0/P1 visual regression은 없음.
+- RC-5 추가 수동 판정: `390x844-upgrades.png`, `390x844-settings.png`, `390x844-save-modal.png`, `390x844-collection.png`, `desktop-1280x900-upgrades.png`, store screenshot 후보를 확인했다. 당시 내부 P0/P1 visual regression은 없음.
 - RC-6 추가 산출물 확인: `390x844-upgrades-quick-buy.png`, `390x844-collection-claim-ready.png`, `390x844-prestige-result.png`, `390x844-offline-reward.png`가 생성됐고 390x844 viewport screenshot artifact dimension과 파일 크기를 확인했다. 내부 P0/P1 gameplay feel blocker는 없음.
 - RC-7 추가 산출물 확인: `390x844-home-daily-available.png`, `390x844-home-daily-cooldown.png`, `390x844-daily-reward-claim.png`, `390x844-home-post-prestige-goal.png`, `390x844-collection-milestones.png`, `390x844-milestone-claim.png`가 생성됐고 360/390/430/desktop overflow assertion을 통과했다. 내부 P0/P1 retention blocker는 없음.
 - RC-8 추가 회귀 확인: 360x740 save modal bounding box가 viewport 안에 남고, toast는 pointer event를 막지 않으며, repeated tab switching 뒤 홈 tap CTA가 유지된다. 내부 P0/P1 device-readiness blocker는 없음.
@@ -211,3 +226,4 @@ Fix:
 - 실제 Apple/Google 개발자 계정, 인증서, 프로비저닝, 스토어 업로드는 수행하지 않았다.
 - commissioned art 소유권/법무 확정, platform icon/adaptive icon/splash export, 실제 device store screenshot 재촬영은 제출 전 P1 external art readiness로 남는다.
 - Vite JS chunk warning은 `BUNDLE_ASSET_AUDIT.md` 기준 P2 performance optimization으로 남긴다.
+- RC-10 independent rescore 기준 product-quality P1이 남아 있다: upgrade quick-buy/shelf 7.2, store screenshot framing 7.5, combined 7.7. 따라서 현재 상태를 product release candidate complete로 보고하지 않는다.

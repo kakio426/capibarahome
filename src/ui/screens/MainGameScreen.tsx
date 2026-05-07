@@ -1,4 +1,4 @@
-import { PointerEvent } from "react";
+import { PointerEvent, useState } from "react";
 import { GameConfig } from "../../config/GameConfig";
 import { StoryConfig } from "../../config/StoryConfig";
 import { BigNumberLite } from "../../core/BigNumberLite";
@@ -9,6 +9,7 @@ import { useGameStore } from "../../state/useGameStore";
 import { formatRetentionDuration, getDailyRewardStatus, getMilestoneViewModels, getPostPrestigeGoalView } from "../../systems/RetentionManager";
 import { Button } from "../components/Button";
 import { CurrencyDisplay } from "../components/CurrencyDisplay";
+import { Modal } from "../components/Modal";
 import { ProgressBar } from "../components/ProgressBar";
 import { RasterAssetImage } from "../components/RasterAssetImage";
 import { VisualAssetIcon } from "../components/VisualAssetIcon";
@@ -37,6 +38,7 @@ function getMascotMood(state: GameState) {
 }
 
 export function MainGameScreen({ onTap }: MainGameScreenProps) {
+  const [dailyClaimMoment, setDailyClaimMoment] = useState<ReturnType<typeof getDailyRewardStatus> | null>(null);
   const state = useGameStore((snapshot) => snapshot);
   const format = state.settings.numberFormat;
   const nowMs = Date.now();
@@ -70,9 +72,16 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
       ? "환생 탭에서 황금 나뭇잎을 받고 영구 배율을 정원에 남겨 주세요."
       : currentTier.nextInstruction;
 
+  function claimDailyReward() {
+    const result = GameActions.claimDailyReward();
+    if (result.ok) {
+      setDailyClaimMoment(result.status);
+    }
+  }
+
   return (
     <main className="screen home-screen">
-      <div className={`hero-card ${currentTier.backgroundClass} ${equippedDecorationClasses}`}>
+      <div className={`hero-card ${dailyReward.eligible ? "has-daily-badge" : ""} ${currentTier.backgroundClass} ${equippedDecorationClasses}`}>
         <div className="currency-grid">
           <CurrencyDisplay label={GameConfig.currency.orange.name} value={state.currencies.orange} assetKey="orange" format={format} />
           <CurrencyDisplay label={GameConfig.currency.goldenLeaf.name} value={state.currencies.goldenLeaf} assetKey="leaf" format={format} />
@@ -84,6 +93,17 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
             {highlightedQuest?.readyToClaim ? "보상 수령 가능" : currentTier.name}
           </span>
           <span className="tap-copy">귤 주기</span>
+        </button>
+
+        <button
+          className={dailyReward.eligible ? "home-daily-badge is-ready" : "home-daily-badge"}
+          type="button"
+          disabled={!dailyReward.eligible}
+          onClick={claimDailyReward}
+          aria-label={dailyReward.eligible ? `Day ${dailyReward.day} 오늘 보상` : `복귀 보상 ${formatRetentionDuration(dailyReward.cooldownRemainingMs)} 남음`}
+        >
+          <span>Day {dailyReward.day}</span>
+          <strong>{dailyReward.eligible ? "오늘 보상" : formatRetentionDuration(dailyReward.cooldownRemainingMs)}</strong>
         </button>
 
         <div className="income-grid">
@@ -145,7 +165,7 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
           <Button
             fullWidth
             disabled={!dailyReward.eligible}
-            onClick={() => GameActions.claimDailyReward()}
+            onClick={claimDailyReward}
           >
             복귀 보상 받기
           </Button>
@@ -270,6 +290,35 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
           ))}
         </div>
       </section>
+
+      <Modal
+        open={Boolean(dailyClaimMoment)}
+        title="복귀 보상 도장"
+        className="daily-reward-modal ui-modal--reward"
+        onClose={() => setDailyClaimMoment(null)}
+        actions={<Button onClick={() => setDailyClaimMoment(null)}>정원으로 돌아가기</Button>}
+      >
+        <div className="daily-reward-sheet">
+          <div className="daily-reward-crest" aria-hidden="true">
+            <VisualAssetIcon assetKey={dailyClaimMoment?.reward.goldenLeaf.gte(1) ? "leaf" : "orange"} />
+            <span>Day {dailyClaimMoment?.day}</span>
+          </div>
+          <div className="daily-reward-copy">
+            <span className="app-kicker">연속 {dailyClaimMoment?.streakAfterClaim ?? 0}일 기록</span>
+            <h3>{dailyClaimMoment?.title}</h3>
+            <p>{dailyClaimMoment?.flavor}</p>
+          </div>
+          <div className="daily-reward-prize">
+            <span>오늘 받은 보상</span>
+            <strong>{dailyClaimMoment?.reward.label}</strong>
+          </div>
+          <div className="daily-next-preview">
+            <span>다음 보상</span>
+            <strong>Day {dailyReward.day} · {dailyReward.title}</strong>
+            <small>{dailyReward.reward.label}</small>
+          </div>
+        </div>
+      </Modal>
     </main>
   );
 }

@@ -2,7 +2,7 @@
 
 기준일: 2026-05-07
 
-상태 기준: `완료`는 실제 구현 파일과 테스트, E2E, screenshot, build 산출물 중 하나 이상의 근거가 있을 때만 사용한다. 기존 RC 요구사항과 확장 목표의 P0/P1 blocking issue는 현재 없음으로 판단한다.
+상태 기준: `완료`는 실제 구현 파일과 테스트, E2E, screenshot, build 산출물 중 하나 이상의 근거가 있을 때만 사용한다. RC-9 독립 감사에서는 product-quality P1이 존재해 release candidate no-go였고, RC-10 구현은 해당 화면을 개선했다. 다만 RC-10 integrity pass에서 previous 8.2 self-score를 독립 재점수한 결과 corrected combined average는 7.7이므로 product-quality P1은 남아 있다. 현재 상태를 product release candidate complete로 판단하지 않는다.
 
 ## Release Gate
 
@@ -11,7 +11,7 @@
 | `AGENTS.md`, `PROJECT_SPEC.md` 선확인 | 완료 | 구현 전 확인 및 `PROJECT_SPEC.md` RC spec으로 교체 |
 | 원본 0-26 요구사항 누락 방지 | 완료 | `REQUIREMENTS_TRACE.md` |
 | 경쟁작 벤치마크 | 완료 | `COMPETITOR_BENCHMARK.md` |
-| gap backlog와 P0/P1 해결 | 완료 | `PRODUCTION_GAP_BACKLOG.md` |
+| gap backlog와 P0/P1 해결 | 부분 완료 | 기술/기능 P0/P1은 닫혔으나 RC-10 independent rescore 기준 product-quality P1 남음: upgrade 7.2, store screenshots 7.5 |
 | release blocker 분리 | 완료 | `RELEASE_BLOCKERS.md` |
 | `npm run build` | 완료 | `tsc -b && vite build`, success |
 | `npm test` | 완료 | Vitest 23 files, 502 tests passed |
@@ -120,9 +120,15 @@
 | `RC7_RETENTION_SYSTEM_AUDIT.md` | 완료 | retention baseline, save v5 risk, implemented/excluded scope, P0/P1 mitigation |
 | `RC8_RELEASE_CANDIDATE_AUDIT.md` | 완료 | release regression severity audit, WebView/storage/bundle/device readiness scope |
 | `BUNDLE_ASSET_AUDIT.md` | 완료 | dist/runtime asset size, release-only raster exclusion, remaining chunk warning classification |
+| `PRODUCT_QUALITY_RED_TEAM.md` | 완료 | RC-9 before audit, no-go 판정, P1 product-quality blocker 기록 |
+| `SCREEN_SCORECARD.md` | 완료 | RC-9 screen scores, average 5.8, P1 target 근거 |
+| `RC10_FIX_SCOPE.md` | 완료 | RC-10에서 고칠 P1과 제외할 P2/P3 범위 |
+| `RC10_SCREEN_SCORECARD.md` | 완료 | RC-10 scorecard를 integrity pass에서 corrected 7.7 no-go 기준으로 보정 |
+| `RC10_INTEGRITY_AUDIT.md` | 완료 | 이전 완료/커밋/푸시 보고와 실제 dirty worktree 불일치 기록 |
+| `RC10_INDEPENDENT_RESCORE.md` | 완료 | RC-10 previous 8.2 self-score를 independent corrected 7.7로 보정, 남은 P1 기록 |
 | `RETENTION_PLAN.md` | 완료 | D0/D1/D3/D7 goals, daily/milestone/post-prestige rewards, remaining P2/P3 follow-ups |
 | 기존 문서 최신화 | 완료 | README/DEVELOPER/BALANCE/SAVE/QA/PLAYTEST updated |
 
 ## P0/P1 Blockers
 
-기존 RC 및 확장 목표 기준의 내부 P0/P1 `미완료`, `검증 불가`, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue 없음. RC-4에서 업그레이드 card-list P1, 설정 form smell, save util dialog smell은 해결로 판정했고, RC-5에서 CSS debt와 component system 안정화가 완료됐다. RC-6에서 반복 구매 P1은 quick-buy로 해결했고, RC-7에서 daily reward, D1/D3/D7 milestone, post-prestige goal chain을 실제 저장되는 시스템으로 구현했다. RC-8에서 save v5/WebView/pagehide/localStorage fallback/stress/bundle audit 회귀를 추가 검증했다. 실제 스토어 제출 완료를 막는 외부 계정/서명/commissioned art 소유권/platform icon export/실기기 QA, 서버 검증 calendar/push notification 항목은 `RELEASE_BLOCKERS.md`에 external readiness로 별도 분리했다.
+기술/기능 기준의 내부 P0/P1 `미완료`, `검증 불가`, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue는 현재 발견되지 않았다. 단, RC-9 독립 감사에서는 제품 품질 기준으로 upgrades/daily reward/milestone/prestige result/store screenshot P1이 남아 있었고, 기존 문서의 "내부 P0/P1 없음" 선언과 충돌했다. RC-10 구현으로 화면은 개선됐지만 `RC10_INDEPENDENT_RESCORE.md` 기준 corrected combined average는 7.7이며 upgrade quick-buy/shelf와 store screenshot framing에는 product-quality P1이 남는다. 실제 스토어 제출 완료를 막는 외부 계정/서명/commissioned art 소유권/platform icon export/실기기 QA, 서버 검증 calendar/push notification 항목은 `RELEASE_BLOCKERS.md`에 external readiness로 별도 분리했다.

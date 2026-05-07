@@ -43,8 +43,10 @@ test("D3 and D7 milestone badges claim without debug shortcuts", async ({ page }
   await expect(d3).toContainText("보상");
   await expect(d7).toContainText("보상");
   await d3.getByRole("button", { name: "배지 받기" }).click();
+  await page.getByRole("dialog", { name: "복귀 배지 도장" }).getByRole("button", { name: "앨범으로 돌아가기" }).click();
   await expect(d3.getByRole("button")).toHaveText("받음");
   await d7.getByRole("button", { name: "배지 받기" }).click();
+  await page.getByRole("dialog", { name: "복귀 배지 도장" }).getByRole("button", { name: "앨범으로 돌아가기" }).click();
   await expect(d7.getByRole("button")).toHaveText("받음");
 
   await page.reload();

@@ -16,7 +16,7 @@ test.beforeAll(() => {
   ensureScreenshotDir();
 });
 
-test.describe.configure({ timeout: 60_000 });
+test.describe.configure({ timeout: 120_000 });
 
 for (const viewport of viewports) {
   test(`layout screenshot set ${viewport.name}`, async ({ page }) => {
@@ -42,6 +42,7 @@ for (const viewport of viewports) {
     await page.getByRole("button", { name: "복귀 보상 받기" }).click();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-daily-reward-claim.png`, fullPage: true });
     await expectNoHorizontalOverflow(page);
+    await page.getByRole("dialog", { name: "복귀 보상 도장" }).getByRole("button", { name: "정원으로 돌아가기" }).click();
 
     await seedSave(page, (state, nowMs) => {
       state.retention.firstPlayedAt = nowMs - 2 * hour;
@@ -85,6 +86,7 @@ for (const viewport of viewports) {
     await page.locator(".retention-milestone-card", { hasText: "황금 숲 단골" }).getByRole("button", { name: "배지 받기" }).click();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-milestone-claim.png`, fullPage: true });
     await expectNoHorizontalOverflow(page);
+    await page.getByRole("dialog", { name: "복귀 배지 도장" }).getByRole("button", { name: "앨범으로 돌아가기" }).click();
 
     await page.locator(".companion-board").scrollIntoViewIfNeeded();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-collection-companions.png`, fullPage: true });

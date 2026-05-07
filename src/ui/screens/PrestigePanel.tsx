@@ -22,6 +22,7 @@ function formatMultiplier(value: BigNumberLite) {
 type PrestigeResultView = {
   gain: BigNumberLite;
   totalLeaves: BigNumberLite;
+  previousMultiplier: BigNumberLite;
   multiplier: BigNumberLite;
   nextGoalTitle: string;
   nextGoalDescription: string;
@@ -41,6 +42,7 @@ export function PrestigePanel() {
       setPrestigeResult({
         gain: result.gain,
         totalLeaves: result.state.currencies.goldenLeaf,
+        previousMultiplier: status.currentMultiplier,
         multiplier: status.nextMultiplier,
         nextGoalTitle: nextGoal.title,
         nextGoalDescription: nextGoal.description,
@@ -104,8 +106,11 @@ export function PrestigePanel() {
         onClose={() => setPrestigeResult(null)}
         actions={<Button onClick={() => setPrestigeResult(null)}>정원으로 돌아가기</Button>}
       >
-        <div className="prestige-result-stamp" aria-hidden="true">황금잎</div>
-        <p>이전 정원의 기록이 황금 나뭇잎으로 남았습니다.</p>
+        <div className="prestige-ceremony-visual" aria-hidden="true">
+          <RasterAssetImage assetKey="prestige-ritual-raster" className="prestige-ceremony-art" />
+          <div className="prestige-result-stamp">+{prestigeResult?.gain.format(format)} 황금잎</div>
+        </div>
+        <p className="prestige-ceremony-lead">이전 정원의 기록이 황금 나뭇잎으로 남아 새 계절의 배율이 올라갑니다.</p>
         <div className="prestige-result-grid">
           <div>
             <span className="metric-label">획득</span>
@@ -119,6 +124,11 @@ export function PrestigePanel() {
             <span className="metric-label">새 배율</span>
             <strong>x{prestigeResult ? formatMultiplier(prestigeResult.multiplier) : "1"}</strong>
           </div>
+        </div>
+        <div className="prestige-multiplier-ribbon">
+          <span>이전 x{prestigeResult ? formatMultiplier(prestigeResult.previousMultiplier) : "1"}</span>
+          <strong>→</strong>
+          <span>새 계절 x{prestigeResult ? formatMultiplier(prestigeResult.multiplier) : "1"}</span>
         </div>
         <p className="prestige-next-copy">
           다음 목표: {prestigeResult?.nextGoalTitle ?? "누적 귤"} · {prestigeResult?.nextGoalDescription ?? `${BigNumberLite.from(GameConfig.prestige.requirement).format(format)} 귤`}

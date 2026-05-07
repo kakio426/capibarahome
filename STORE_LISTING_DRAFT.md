@@ -22,9 +22,9 @@
 
 매일 돌아오면 복귀 보상과 D1/D3/D7 정원 배지를 받을 수 있고, 첫 환생 뒤에는 다음 장기 목표 장부가 이어집니다.
 
-앨범에서는 8마리 카피바라 친구, 퀘스트, 업적, 장식을 확인합니다. 각 친구의 친밀도와 passive ability가 터치 수익, 자동 생산, 오프라인 보상, 퀘스트 보상에 영향을 주어 장기 목표를 이어갑니다.
+앨범에서는 8마리 카피바라 친구, 퀘스트, 업적, 장식을 확인합니다. 각 친구의 친밀도와 능력 보너스가 터치 수익, 자동 생산, 오프라인 보상, 퀘스트 보상에 영향을 주어 장기 목표를 이어갑니다.
 
-현재 이 빌드는 광고와 IAP가 mock provider로 분리된 제출 준비 후보입니다. 실제 광고 SDK와 실제 결제 상품은 스토어 제출 전 별도 연동과 정책 검토가 필요합니다.
+이 초안은 공개 스토어 문구 기준이다. 실제 광고, 결제, 계정, 서버 기능을 제공한다고 오해될 표현은 넣지 않는다.
 
 ## Key Features
 
@@ -38,7 +38,6 @@
 - 퀘스트, 업적, 장식 보상
 - 저장/불러오기와 export/import
 - 튜토리얼, 설정, 효과음/이펙트 토글
-- 광고/IAP mock provider 구조
 
 ## Keywords
 
@@ -59,18 +58,32 @@
 
 ## Screenshot Pack
 
-스토어용 후보는 `store-screenshots/`에 생성한다. 상세 목록은 `STORE_SCREENSHOT_PLAN.md`를 기준으로 관리한다.
+스토어용 후보는 `store-screenshots/`에 생성한다. 상세 목록은 `STORE_SCREENSHOT_PLAN.md`를 기준으로 관리한다. RC-10 integrity pass 기준 공개 문구의 내부 개발 표현은 제거됐지만, screenshot framing 점수는 7.5로 보정되어 최종 제출 전 추가 crop/scale polish가 필요하다.
 
 추천 공개 순서:
 
-1. 홈: 카피바라 귤 정원 키우기
-2. 앨범: 8마리 친구와 정원 앨범
-3. 환생: 황금 나뭇잎으로 다음 회차 성장
-4. 상점: 샌드박스 보상 상점
-5. 설정/save: 저장, 복구, export/import
+1. 홈: 귤 정원이 바로 살아나요
+2. 업그레이드: 도구 선반을 빠르게 채우세요
+3. 복귀 배지: 돌아올 때마다 찍히는 배지
+4. 환생: 황금 나뭇잎 의식
+5. 보상: 오늘의 보상이 기다려요
+
+현재 생성 파일:
+
+- `store-screenshots/iphone-01-home.png`
+- `store-screenshots/iphone-02-upgrade.png`
+- `store-screenshots/iphone-03-milestone.png`
+- `store-screenshots/iphone-04-prestige.png`
+- `store-screenshots/iphone-05-reward.png`
+- `store-screenshots/android-01-home.png`
+- `store-screenshots/android-02-upgrade.png`
+- `store-screenshots/android-03-milestone.png`
+- `store-screenshots/android-04-prestige.png`
+- `store-screenshots/android-05-reward.png`
 
 ## Submission Notes
 
 - 실제 App Store/Google Play 제출 완료로 주장하지 않는다.
 - 실제 광고/IAP SDK가 붙기 전에는 real paid product 또는 real rewarded ad 제공으로 표현하지 않는다.
 - 최종 store listing은 사용자의 법적 이름, support/privacy URL, 실제 SDK 상태, age rating 답변을 반영해 다시 확정한다.
+- 광고/IAP 구현 상태 같은 내부 caveat는 `PRIVACY_NOTES.md`, `RELEASE_BLOCKERS.md`, `NATIVE_BUILD_GUIDE.md`에만 기록하고 공개 설명/스크린샷 문구에는 노출하지 않는다.

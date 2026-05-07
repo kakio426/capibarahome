@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { BigNumberLite } from "../src/core/BigNumberLite";
 import { expectNoHorizontalOverflow, seedSave, setOrange } from "./helpers";
 
-test.describe.configure({ timeout: 90_000 });
+test.describe.configure({ timeout: 180_000 });
 
 const devices = [
   { name: "iphone", width: 1290, height: 2796, scale: 1.58, top: 620, shellHeight: 980 },
@@ -15,33 +15,35 @@ const shots = [
   {
     id: "01-home",
     tab: "홈",
-    title: "카피바라 귤 정원 키우기",
-    subtitle: "터치 수확과 자동 생산이 한 화면에서 바로 느껴지는 방치형 클리커",
+    title: "귤 정원이 바로 살아나요",
+    subtitle: "터치할 때마다 수확과 자동 생산이 쌓이는 카피바라 방치형 정원",
   },
   {
-    id: "02-album",
+    id: "02-upgrade",
+    tab: "업그레이드",
+    title: "도구 선반을 빠르게 채우세요",
+    subtitle: "1개, 10개, 최대 구매로 성장 리듬을 원하는 속도로 조절합니다",
+  },
+  {
+    id: "03-milestone",
     tab: "앨범",
-    title: "8마리 친구와 정원 앨범",
-    subtitle: "카피바라별 능력과 보상으로 장기 목표를 이어갑니다",
+    title: "돌아올 때마다 찍히는 배지",
+    subtitle: "D1, D3, D7 복귀 기록이 정원 장부에 남습니다",
+    modal: "milestone",
   },
   {
-    id: "03-prestige",
+    id: "04-prestige",
     tab: "환생",
-    title: "황금 나뭇잎으로 다음 회차 성장",
-    subtitle: "환생 보상과 영구 배율을 미리 보고 결정할 수 있습니다",
+    title: "황금 나뭇잎 의식",
+    subtitle: "새 계절 보상, 배율 상승, 다음 목표를 한 번에 확인합니다",
+    modal: "prestige-result",
   },
   {
-    id: "04-shop",
-    tab: "상점",
-    title: "샌드박스 보상 상점",
-    subtitle: "광고와 IAP는 mock provider로 분리되어 출시 연동 전에도 검증됩니다",
-  },
-  {
-    id: "05-save",
-    tab: "설정",
-    title: "저장, 복구, 오프라인 보상까지",
-    subtitle: "저장 코드와 설정을 한곳에서",
-    modal: "save",
+    id: "05-reward",
+    tab: "홈",
+    title: "오늘의 보상이 기다려요",
+    subtitle: "오프라인 수확과 복귀 보상으로 다시 켜는 순간이 즐거워집니다",
+    modal: "daily",
   },
 ];
 
@@ -85,6 +87,9 @@ async function seedShowcaseSave(page: Parameters<typeof seedSave>[0]) {
     state.decorations.equippedBySlot.path = "tiny_watering_path";
     state.decorations.equippedBySlot.shade = "yard_parasol";
     state.monetization.adBoostUntil = nowMs + 1000 * 60 * 22;
+    state.retention.firstPlayedAt = nowMs - 8 * 24 * 60 * 60 * 1000;
+    state.retention.lastDailyClaimAt = nowMs - 21 * 60 * 60 * 1000;
+    state.retention.dailyStreak = 6;
   });
 }
 
@@ -159,6 +164,8 @@ async function applyStoreComposition(
         text-align: left;
         letter-spacing: 0;
         text-shadow: 0 3px 18px rgba(255, 253, 242, 0.82);
+        word-break: keep-all;
+        overflow-wrap: normal;
       }
       .store-key-visual {
         position: fixed;
@@ -175,6 +182,8 @@ async function applyStoreComposition(
         font-size: ${device.name === "iphone" ? 72 : 54}px;
         line-height: 1.06;
         font-weight: 950;
+        word-break: keep-all;
+        overflow-wrap: normal;
       }
       .store-shot-copy span {
         max-width: ${device.name === "iphone" ? 780 : 620}px;
@@ -182,10 +191,12 @@ async function applyStoreComposition(
         font-size: ${device.name === "iphone" ? 38 : 27}px;
         line-height: 1.34;
         font-weight: 800;
+        word-break: keep-all;
+        overflow-wrap: normal;
       }
       .app-frame {
         min-height: 100vh !important;
-        padding: ${device.top + (device.name === "iphone" ? 360 : 180)}px 0 0 !important;
+        padding: ${device.top + (device.name === "iphone" ? 300 : 142)}px 0 0 !important;
         align-items: start !important;
         justify-items: center !important;
         background: transparent !important;
@@ -198,7 +209,7 @@ async function applyStoreComposition(
         min-height: ${device.shellHeight}px !important;
         max-height: ${device.shellHeight}px !important;
         border-radius: 38px !important;
-        transform: scale(${device.scale * (device.name === "iphone" ? 0.86 : 0.9)});
+        transform: scale(${device.scale * (device.name === "iphone" ? 0.98 : 0.96)});
         transform-origin: top center;
         box-shadow: 0 46px 112px rgba(40, 50, 45, 0.32), 0 0 0 1px rgba(40, 50, 45, 0.08);
       }
@@ -220,16 +231,25 @@ for (const device of devices) {
       if (shot.tab !== "홈") {
         await page.getByRole("button", { name: shot.tab }).click();
       }
-      if (shot.id === "02-album") {
-        await page.locator(".companion-board").evaluate((element) => {
+      if (shot.id === "02-upgrade") {
+        await page.getByRole("button", { name: "최대" }).click();
+      }
+      if (shot.modal === "milestone") {
+        await page.locator(".retention-milestone-board").evaluate((element) => {
           const shell = document.querySelector(".content-shell");
           if (!(shell instanceof HTMLElement) || !(element instanceof HTMLElement)) return;
           shell.scrollTop = Math.max(0, element.offsetTop - 90);
         });
+        await page.locator(".retention-milestone-card", { hasText: "황금 숲 단골" }).getByRole("button", { name: "배지 받기" }).click();
       }
-      if (shot.modal === "save") {
-        await page.getByRole("button", { name: "세이브 Export/Import" }).click();
-        await expect(page.getByRole("dialog", { name: "저장 내보내기/가져오기" })).toBeVisible();
+      if (shot.modal === "prestige-result") {
+        await page.getByRole("button", { name: "환생하기" }).click();
+        await page.getByRole("dialog", { name: "환생 확인" }).getByRole("button", { name: "황금 나뭇잎 받기" }).click();
+        await expect(page.getByRole("dialog", { name: "새 계절 시작" })).toBeVisible();
+      }
+      if (shot.modal === "daily") {
+        await page.getByRole("button", { name: "복귀 보상 받기" }).click();
+        await expect(page.getByRole("dialog", { name: "복귀 보상 도장" })).toBeVisible();
       }
       await applyStoreComposition(page, device, shot.title, shot.subtitle);
       await expectNoHorizontalOverflow(page);

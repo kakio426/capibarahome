@@ -12,7 +12,7 @@
 | 실제 유저 플로우 debug 의존 | 없음 | debug는 `e2e/debug-cheat-flow.spec.ts`에 격리 |
 | 모바일 overflow/주요 화면 깨짐 | 없음 | `visual-regression.spec.ts` screenshot/overflow 검증 통과 |
 | 저장/환생/오프라인 보상 blocking issue | 없음 | unit + E2E coverage |
-| 문서 불일치 | 없음 | source budget 재감사와 RC-7 retention audit 기준으로 `SPEC_COVERAGE.md`, `QA_REPORT.md`, `VISUAL_QA.md`, `RELEASE_CHECKLIST.md`, `RELEASE_BLOCKERS.md`, `RC7_RETENTION_SYSTEM_AUDIT.md`, `RETENTION_PLAN.md`, `SAVE_SCHEMA.md` 갱신 |
+| 문서 불일치 | 없음 | RC-10 integrity pass에서 previous 8.2 self-score를 보정하고 `RC10_INDEPENDENT_RESCORE.md`, `SPEC_COVERAGE.md`, `QA_REPORT.md`, `VISUAL_QA.md`, `RELEASE_CHECKLIST.md`, `RELEASE_BLOCKERS.md`를 no-go 기준으로 재정렬 |
 | content inflation P1 | 없음 | `CONTENT_INTEGRATION_AUDIT.md`, 누락 decoration hero visual 11개 수정 |
 | visual defect P1 | 없음 | `VISUAL_DEFECTS.md`, save modal/tab/toast 수정 |
 | RC-1 reward feel P1 | 없음 | companion passive, achievement claim reward, long-term goal, WebAudio mute, RC-1 tests/E2E 추가 |
@@ -23,6 +23,8 @@
 | RC-7 retention P1 | 없음 | daily reward, D1/D3/D7 milestone, post-prestige goal chain, save v5 migration, duplicate guard, retention E2E/screenshots |
 | RC-8 release bug bash P1 | 없음 | save v5 regression, offline+daily same session, prestige goal reload, quick-buy reload, long-session stress, localStorage/pagehide fallback, safe-area/WebView prep, bundle audit |
 | RC-3 playtest/balance/bug bash P1 | 없음 | 첫 환생 33분, 실제 5분권 E2E, migration/corrupt import/rapid tap/reward duplicate tests, store screenshot 재감사 |
+| RC-9 product-quality P1 | 일부 남음 | RC-9 `PRODUCT_QUALITY_RED_TEAM.md`와 `SCREEN_SCORECARD.md`는 before audit로 보존. RC-10 구현은 upgrades/daily/milestone/prestige result/store screenshots를 개선했지만 `RC10_INDEPENDENT_RESCORE.md` 기준 combined average 7.7, upgrade 7.2, store screenshots 7.5로 product release gate 미달 |
+| RC-10 product-quality score gate | 있음 | upgrade quick-buy/shelf와 store screenshot framing이 8.0 미만. 기술 검증은 통과하지만 product release candidate로는 no-go |
 
 ## Source Budget Audit Gate
 
@@ -54,4 +56,4 @@
 
 ## Decision
 
-현재 감사 기준에서 내부 P0/P1 release blocker는 없다. 업그레이드 card-list P1, 설정 form smell, save util dialog smell은 RC-4 hardening pass에서 해결됐고, RC-5 CSS/component debt는 내부 P0/P1 없이 정리된 것으로 판정한다. RC-6의 반복 구매 P1은 quick-buy로 해결됐고, RC-7의 daily reward/milestone/post-prestige goal chain P1은 실제 저장되는 시스템과 테스트로 해결했다. RC-8의 save/WebView/stress/bundle regression risk도 내부 P0/P1 없이 정리했다. 실제 스토어 제출 완료로 주장하지 않으며, commissioned/final art ownership, real audio files, SDK, signing, platform icon/splash export, 물리 기기 QA, 서버 검증 calendar/push notification은 external readiness blocker로 남긴다.
+기술/검증 기준의 내부 P0/P1 blocker는 현재 발견되지 않았다. 그러나 product-quality 기준의 내부 P1은 남아 있다. RC-10 integrity pass에서 previous `8.2 / 10` self-score를 독립 재검토했고, corrected combined average는 `7.7 / 10`이다. Upgrade quick-buy/shelf와 store screenshot framing이 8.0 gate를 넘지 못하므로 현재 상태를 product release candidate complete로 주장하지 않는다. 실제 스토어 제출 완료로 주장하지 않으며, commissioned/final art ownership, real audio files, SDK, signing, platform icon/splash export, 물리 기기 QA, 서버 검증 calendar/push notification은 external readiness blocker로 남긴다.

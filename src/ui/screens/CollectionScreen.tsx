@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { ProgressionConfig } from "../../config/ProgressionConfig";
 import { GameActions } from "../../game/GameActions";
 import { selectCollectionBadges, selectCollectionDashboard, selectQuestBoard } from "../../game/GameSelectors";
 import { useGameStore } from "../../state/useGameStore";
 import { getMilestoneViewModels } from "../../systems/RetentionManager";
 import { Button } from "../components/Button";
+import { Modal } from "../components/Modal";
 import { Panel } from "../components/Panel";
 import { ProgressBar } from "../components/ProgressBar";
 import { RasterAssetImage } from "../components/RasterAssetImage";
@@ -23,6 +25,7 @@ function questChapterLabel(chapter: string) {
 }
 
 export function CollectionScreen() {
+  const [claimedMilestone, setClaimedMilestone] = useState<ReturnType<typeof getMilestoneViewModels>[number] | null>(null);
   const state = useGameStore((snapshot) => snapshot);
   const nowMs = Date.now();
   const questBoard = selectQuestBoard(state, nowMs);
@@ -43,6 +46,13 @@ export function CollectionScreen() {
     ...questBoard.quests.filter((quest) => !quest.readyToClaim && !quest.claimed).slice(0, 12),
     ...questBoard.quests.filter((quest) => quest.claimed).slice(-6),
   ].filter((quest, index, list) => list.findIndex((item) => item.id === quest.id) === index);
+
+  function claimMilestone(id: string) {
+    const result = GameActions.claimRetentionMilestone(id);
+    if (result.ok) {
+      setClaimedMilestone(result.milestone);
+    }
+  }
 
   return (
     <main className="screen collection-screen">
@@ -109,10 +119,12 @@ export function CollectionScreen() {
             <article
               key={milestone.id}
               className={`retention-milestone-card ${milestone.claimed ? "is-claimed" : milestone.canClaim ? "can-claim" : ""}`}
+              data-day={milestone.day}
             >
               <div className="milestone-sticker">
                 <VisualAssetIcon assetKey={milestone.assetKey} />
                 <span>D{milestone.day}</span>
+                {milestone.claimed ? <em className="milestone-claimed-seal">완료</em> : null}
               </div>
               <div className="milestone-copy">
                 <h4>{milestone.title}</h4>
@@ -122,7 +134,7 @@ export function CollectionScreen() {
               <Button
                 variant={milestone.canClaim ? "primary" : "secondary"}
                 disabled={!milestone.canClaim}
-                onClick={() => GameActions.claimRetentionMilestone(milestone.id)}
+                onClick={() => claimMilestone(milestone.id)}
               >
                 {milestone.claimed ? "받음" : milestone.canClaim ? "배지 받기" : "대기"}
               </Button>
@@ -259,6 +271,31 @@ export function CollectionScreen() {
           ))}
         </div>
       </section>
+
+      <Modal
+        open={Boolean(claimedMilestone)}
+        title="복귀 배지 도장"
+        className="milestone-reward-modal ui-modal--reward"
+        onClose={() => setClaimedMilestone(null)}
+        actions={<Button onClick={() => setClaimedMilestone(null)}>앨범으로 돌아가기</Button>}
+      >
+        <div className="milestone-reward-sheet">
+          <div className="milestone-reward-stamp" aria-hidden="true">
+            <VisualAssetIcon assetKey={claimedMilestone?.assetKey ?? "leaf"} />
+            <span>D{claimedMilestone?.day}</span>
+            <em>도장 완료</em>
+          </div>
+          <div className="milestone-reward-copy">
+            <span className="app-kicker">정원 장부 기록</span>
+            <h3>{claimedMilestone?.title}</h3>
+            <p>{claimedMilestone?.description}</p>
+          </div>
+          <div className="milestone-reward-prize">
+            <span>받은 보상</span>
+            <strong>{claimedMilestone?.reward.label}</strong>
+          </div>
+        </div>
+      </Modal>
     </main>
   );
 }
