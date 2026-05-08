@@ -33,6 +33,7 @@ npm run cap:sync
 - RC-6 product feel pass: quick-buy `1개/10개/최대`, purchase/offline/prestige/album reveal, touch variation
 - RC-7 retention systems pass: 20시간 daily reward, D1/D3/D7 복귀 배지, 첫 환생 이후 goal chain, save version 5 migration
 - RC-8 release bug bash: save v5/WebView/pagehide/localStorage fallback, daily+offline same-session regression, quick-buy/prestige reload regression, long-session stress, bundle asset audit
+- RC-12 submission readiness/layout pass: critical text clipping, CTA/tab overlap, modal action clickability, store screenshot public copy guard, icon/splash/metadata readiness docs
 - RC-3 playtest pass: 첫 환생 33분 목표, 1/5/15/30/120분 밸런스 checkpoint, 실제 5분권 E2E
 - `STORY_BIBLE.md`와 연결된 8마리 카피바라 캐릭터/짧은 인게임 대사
 - 환생과 황금 나뭇잎 영구 배율
@@ -45,9 +46,9 @@ npm run cap:sync
 - Vitest 기반 시뮬레이션 테스트
 - Playwright 기반 모바일 브라우저 플로우 테스트
 - Capacitor iOS/Android 패키징 준비 config
-- `NATIVE_BUILD_GUIDE.md`, `DEVICE_QA_CHECKLIST.md`, `ASSET_CREDITS.md`, `AUDIO_ASSET_PLAN.md`
+- `NATIVE_BUILD_GUIDE.md`, `DEVICE_QA_CHECKLIST.md`, `APP_ICON_SPLASH_EXPORT.md`, `STORE_METADATA_PACKAGE.md`, `ASSET_CREDITS.md`, `AUDIO_ASSET_PLAN.md`
 - `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`, `VISUAL_QA.md`
-- balance simulation, `RETENTION_PLAN.md`, `RC7_RETENTION_SYSTEM_AUDIT.md`, `RC8_RELEASE_CANDIDATE_AUDIT.md`, `BUNDLE_ASSET_AUDIT.md`, source budget report
+- balance simulation, `RETENTION_PLAN.md`, `RC7_RETENTION_SYSTEM_AUDIT.md`, `RC8_RELEASE_CANDIDATE_AUDIT.md`, `RC12_SUBMISSION_READINESS_AUDIT.md`, `UI_LAYOUT_DEFECT_AUDIT.md`, `BUNDLE_ASSET_AUDIT.md`, source budget report
 - `PLAYTEST_REPORT.md` 기반 RC-3 bug bash와 store screenshot 재점검
 - expanded completion audit
 

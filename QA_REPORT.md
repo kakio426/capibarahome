@@ -1,13 +1,13 @@
 # QA Report
 
-기준일: 2026-05-07
+기준일: 2026-05-08
 
 ## Final Command Results
 
 ```txt
 npm run build
 tsc -b && vite build
-built successfully; Vite large chunk warning remains for bundled raster assets
+built successfully; Vite large chunk warning remains for index-DvH7_6MF.js
 ```
 
 ```txt
@@ -18,7 +18,12 @@ Tests       502 passed (502)
 
 ```txt
 npm run test:e2e
-32 passed
+36 passed
+```
+
+```txt
+npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
+6 passed
 ```
 
 ```txt
@@ -137,7 +142,7 @@ Fix:
 - WebView viewport를 위해 safe-area top/bottom CSS 변수, `100dvh`, iOS input zoom 방지, touch-action 보강을 적용했다.
 - `RasterAssetRegistry`에서 runtime UI가 쓰지 않는 `store-key-visual.png`, `app-icon-candidate.png`, `main-capybara-character.png`를 제외했다. 파일은 release/source candidate로 유지하고 integrity test에서 별도 검증한다.
 - `RC8_RELEASE_CANDIDATE_AUDIT.md`와 `BUNDLE_ASSET_AUDIT.md`를 추가했다.
-- Full E2E 중 desktop visual screenshot set이 30초 기본 timeout을 초과해 한 번 실패했다. 기능 결함은 아니며, visual screenshot spec은 의도적으로 많은 화면을 저장하므로 timeout을 60초로 조정했다. `visual-regression.spec.ts` 단독 4 passed 및 전체 `npm run test:e2e` 32 passed로 재검증했다.
+- Full E2E 중 desktop visual screenshot set이 30초 기본 timeout을 초과해 한 번 실패했다. 기능 결함은 아니며, visual screenshot spec은 의도적으로 많은 화면을 저장하므로 timeout을 60초로 조정했다. RC-8 당시 `visual-regression.spec.ts` 단독 4 passed 및 전체 `npm run test:e2e` 32 passed로 재검증했다. 현재 RC-12 전체 결과는 상단 Final Command Results의 36 passed가 기준이다.
 - Unit/stress coverage 추가: v1/v2/v3/v4 -> v5 migration, corrupted v5 retention recovery, offline+daily 같은 복귀 세션, daily/milestone export/import, post-prestige goal save/load, max-buy safety cap, large retention reward formatting, localStorage unavailable fallback, 2시간 simulation, 8시간 offline cap, rapid tap 500회, quick-buy 반복, save/load 20회, RAF listener cleanup.
 - E2E coverage 추가: D1 daily+offline 같은 세션, first prestige goal claim/reload, quick-buy max save/reload, 360px settings/save modal overflow, 반복 탭 전환.
 
@@ -170,6 +175,30 @@ Fix:
   - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: 6 passed
 - RC-11 기준 scoped product-quality P1은 해소됐다. daily/milestone reward moment는 8.0 근처이므로 P2 polish 후보로 남긴다.
 
+## RC-12 Store Submission Readiness + Layout Defect Kill Pass
+
+- 새 기능, save schema, 대형 asset 추가 없이 layout/readiness 회귀만 좁게 점검했다.
+- `UI_LAYOUT_DEFECT_AUDIT.md`와 `RC12_SUBMISSION_READINESS_AUDIT.md`를 추가해 실제 screenshot/DOM/build evidence 기준으로 P1/P2를 재분류했다.
+- `e2e/layout-regression.spec.ts`를 추가해 360x740, 390x844, 430x932, desktop 1280x900에서 horizontal overflow, critical text clipping, bottom tab/CTA overlap, modal action clickability, save textarea 16px 이상을 검증한다.
+- `e2e/helpers.ts`에 `expectNoCriticalTextClipping`, `expectVisibleWithinViewport`, `expectClearOfBottomDock`, `expectModalActionUsable` helper를 추가했다.
+- `e2e/store-screenshot-pack.spec.ts`는 public screenshot copy 금지어, heading/subtitle clipping, screenshot file size guard를 추가했다.
+- 발견/수정한 P1:
+  - desktop centered panel에서 D7 milestone `황금 숲 단골` CTA가 하단 tab dock과 약 3px 겹치던 문제를 `.content-shell` bottom padding/scroll-padding 증대로 수정.
+  - save export/import textarea가 16px 미만이라 iOS focus zoom risk가 있던 문제를 16px로 보정하고 wrapping/scroll 정책을 유지.
+- 발견/수정한 P2:
+  - 기존 fullPage visual screenshot이 fixed bottom nav를 긴 페이지 하단에 합성해 실제 viewport보다 더 나쁜 occlusion artifact를 만들 수 있어 viewport screenshot으로 전환.
+  - `upgrades-quick-buy` screenshot scroll offset을 max-buy shelf/CTA 중심으로 재조정.
+- RC-12 targeted verification:
+  - `npx playwright test e2e/layout-regression.spec.ts --reporter=line`: 4 passed
+  - `npx playwright test e2e/store-screenshot-pack.spec.ts --reporter=line`: 2 passed
+  - `npx playwright test e2e/visual-regression.spec.ts --reporter=line`: 4 passed
+  - `npm run test:e2e`: 36 passed
+  - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: 6 passed
+- Store submission readiness package:
+  - `APP_ICON_SPLASH_EXPORT.md`: icon/splash source 후보와 platform export gap 정리
+  - `STORE_METADATA_PACKAGE.md`: 공개 listing copy, screenshot order, URL/age rating/user-provided 항목 정리
+  - `RC12_SUBMISSION_READINESS_AUDIT.md`: 실제 제출 완료가 아니라 제출 준비 패키지 정리 완료로 판정
+
 ## 자동 테스트 커버리지
 
 - 밸런스 계산: 비용 증가, 터치 수익, EPS, BigNumber, format.
@@ -198,6 +227,7 @@ Fix:
 | `e2e/monetization-mock.spec.ts` | 완료 | 광고 보상, IAP 샌드박스 보상 |
 | `e2e/visual-regression.spec.ts` | 완료 | 360/390/430/desktop screenshots, overflow check |
 | `e2e/store-screenshot-pack.spec.ts` | 완료 | iPhone/Android store screenshot 후보 10장 |
+| `e2e/layout-regression.spec.ts` | 완료 | 360/390/430/desktop critical clipping, CTA/tab overlap, modal clickability, textarea zoom risk |
 | `e2e/debug-cheat-flow.spec.ts` | 완료 | `?debug=1` 격리와 장기 성장 QA |
 | `e2e/rc1-product-feel.spec.ts` | 완료 | 업적 보상 claim, 카피바라 passive 표시/수익, sound mute, 장기 목표 |
 | `e2e/first-five-minute-playtest.spec.ts` | 완료 | debug 없이 5분권 실제 플레이 보상/reveal/저장/장식/동료/복귀 검증 |
@@ -217,6 +247,7 @@ Fix:
 - RC-6 추가 산출물 확인: `390x844-upgrades-quick-buy.png`, `390x844-collection-claim-ready.png`, `390x844-prestige-result.png`, `390x844-offline-reward.png`가 생성됐고 390x844 viewport screenshot artifact dimension과 파일 크기를 확인했다. 내부 P0/P1 gameplay feel blocker는 없음.
 - RC-7 추가 산출물 확인: `390x844-home-daily-available.png`, `390x844-home-daily-cooldown.png`, `390x844-daily-reward-claim.png`, `390x844-home-post-prestige-goal.png`, `390x844-collection-milestones.png`, `390x844-milestone-claim.png`가 생성됐고 360/390/430/desktop overflow assertion을 통과했다. 내부 P0/P1 retention blocker는 없음.
 - RC-8 추가 회귀 확인: 360x740 save modal bounding box가 viewport 안에 남고, toast는 pointer event를 막지 않으며, repeated tab switching 뒤 홈 tap CTA가 유지된다. 내부 P0/P1 device-readiness blocker는 없음.
+- RC-12 추가 layout 확인: `layout-regression.spec.ts`가 4 viewport에서 critical text clipping, horizontal overflow, bottom dock/CTA overlap, modal action clickability, save textarea 16px 이상을 검증한다. `visual-regression.spec.ts`는 실제 viewport screenshot으로 전환해 fixed bottom nav fullPage artifact를 제거했다. 내부 P1 layout defect는 현재 발견되지 않는다.
 
 ## Source Budget Gate
 
@@ -240,4 +271,5 @@ Fix:
 - 실제 Apple/Google 개발자 계정, 인증서, 프로비저닝, 스토어 업로드는 수행하지 않았다.
 - commissioned art 소유권/법무 확정, platform icon/adaptive icon/splash export, 실제 device store screenshot 재촬영은 제출 전 P1 external art readiness로 남는다.
 - Vite JS chunk warning은 `BUNDLE_ASSET_AUDIT.md` 기준 P2 performance optimization으로 남긴다.
-- RC-11 independent rescore 기준 scoped product-quality P1은 해소됐다: upgrade quick-buy/shelf 8.1, store screenshot framing 8.1, combined 8.1. 실제 App Store/Google Play 제출 완료로는 보고하지 않으며 외부 제출 준비 항목은 `RELEASE_BLOCKERS.md`에 분리한다.
+- RC-11 independent rescore 기준 scoped product-quality P1은 해소됐다: upgrade quick-buy/shelf 8.1, store screenshot framing 8.1, combined 8.1.
+- RC-12 layout regression 기준 주요 모바일 viewport에서 글자 잘림, CTA/탭 겹침, modal 조작 불가 P1은 발견되지 않았다. 실제 App Store/Google Play 제출 완료로는 보고하지 않으며 외부 제출 준비 항목은 `RELEASE_BLOCKERS.md`와 `RC12_SUBMISSION_READINESS_AUDIT.md`에 분리한다.

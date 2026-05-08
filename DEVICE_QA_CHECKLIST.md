@@ -1,12 +1,14 @@
 # Device QA Checklist
 
-기준일: 2026-05-07
+기준일: 2026-05-08
 
 실제 물리 기기 또는 시뮬레이터에서 제출 전 확인해야 할 항목이다. 현재 환경에서는 Playwright 브라우저와 Capacitor sync까지만 자동 검증했다.
 
-## Automated RC-8 Coverage Before Device QA
+## Automated Browser Coverage Before Device QA
 
 - [x] 360x740 / 390x844 / 430x932 / desktop screenshot and overflow checks
+- [x] RC-12 layout regression: critical text clipping, CTA/bottom dock overlap, modal action clickability, save textarea 16px zoom guard
+- [x] Store screenshot pack public copy forbidden terms, heading/subtitle clipping, generated file size guard
 - [x] 360x740 save modal bounds check after settings toggles
 - [x] daily reward + offline reward same return session E2E
 - [x] first prestige goal claim + reload E2E
@@ -14,6 +16,8 @@
 - [x] repeated tab switching clickability E2E
 - [x] 2 hour simulation, 8 hour offline cap, 500 rapid taps, quick-buy stress, save/load 20x unit tests
 - [x] `npm run cap:sync` web asset sync
+
+자동화는 Chromium/Playwright와 Capacitor sync 기준이다. 실제 iOS Safari, Android Chrome, native WebView의 keyboard, notch, gesture navigation, storage persistence는 아래 physical QA가 필요하다.
 
 ## iPhone Safari / iOS WebView
 
@@ -42,5 +46,6 @@
 - [ ] 실제 IAP 추가 시 sandbox purchase와 restore purchase QA
 - [ ] privacy policy URL과 support URL이 유효
 - [ ] store screenshot이 현재 UI와 일치
+- [ ] store screenshot이 플랫폼별 요구 해상도와 파일 정책에 맞게 최종 export됨
 - [ ] 앱 아이콘과 splash가 플랫폼 규격에서 흐릿하지 않음
 - [ ] 10분 idle 상태에서 메모리 증가/발열 문제가 없음

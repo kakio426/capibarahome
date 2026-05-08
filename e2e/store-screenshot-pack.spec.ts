@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
-import { mkdirSync, readFileSync } from "node:fs";
+import { mkdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { BigNumberLite } from "../src/core/BigNumberLite";
-import { expectNoHorizontalOverflow, seedSave, setOrange } from "./helpers";
+import { expectNoCriticalTextClipping, expectNoHorizontalOverflow, seedSave, setOrange } from "./helpers";
 
 test.describe.configure({ timeout: 180_000 });
 
@@ -48,9 +48,13 @@ const shots = [
 ];
 
 const storeKeyVisualDataUrl = `data:image/png;base64,${readFileSync(join(process.cwd(), "src/assets/raster/release/store-key-visual.png")).toString("base64")}`;
+const forbiddenPublicCopy = /mock|sandbox|internal|dev|test|debug|provider|모의|샌드박스|내부|개발|테스트|디버그|프로바이더/i;
 
 test.beforeAll(() => {
   mkdirSync("store-screenshots", { recursive: true });
+  for (const shot of shots) {
+    expect(`${shot.title} ${shot.subtitle}`).not.toMatch(forbiddenPublicCopy);
+  }
 });
 
 async function seedShowcaseSave(page: Parameters<typeof seedSave>[0]) {
@@ -278,11 +282,15 @@ for (const device of devices) {
       }
       await applyStoreComposition(page, device, shot.title, shot.subtitle, shot.id);
       await expectNoHorizontalOverflow(page);
+      await expectNoCriticalTextClipping(page, [".store-shot-copy strong", ".store-shot-copy span"]);
       await page.waitForTimeout(180);
+      const screenshotPath = `store-screenshots/${device.name}-${shot.id}.png`;
       await page.screenshot({
-        path: `store-screenshots/${device.name}-${shot.id}.png`,
+        path: screenshotPath,
         fullPage: false,
+        scale: "css",
       });
+      expect(statSync(screenshotPath).size).toBeGreaterThan(500_000);
     }
   });
 }

@@ -1,6 +1,6 @@
 # Release Blockers
 
-기준일: 2026-05-07
+기준일: 2026-05-08
 
 ## Internal RC Blockers
 
@@ -8,9 +8,9 @@
 | --- | --- | --- |
 | TypeScript/build 실패 | 없음 | `npm run build` 통과 |
 | unit/simulation test 실패 | 없음 | `npm test` 23 files / 502 tests passed |
-| E2E 실패 | 없음 | `npm run test:e2e` 32 passed |
+| E2E 실패 | 없음 | `npm run test:e2e` 36 passed |
 | 실제 유저 플로우 debug 의존 | 없음 | debug는 `e2e/debug-cheat-flow.spec.ts`에 격리 |
-| 모바일 overflow/주요 화면 깨짐 | 없음 | `visual-regression.spec.ts` screenshot/overflow 검증 통과 |
+| 모바일 overflow/주요 화면 깨짐 | 없음 | `visual-regression.spec.ts` viewport screenshot/overflow 검증 및 `layout-regression.spec.ts` critical clipping/CTA overlap 검증 통과 |
 | 저장/환생/오프라인 보상 blocking issue | 없음 | unit + E2E coverage |
 | 문서 불일치 | 없음 | RC-10 integrity pass에서 previous 8.2 self-score를 보정했고, RC-11에서 scoped P1 해소 후 `RC11_INDEPENDENT_RESCORE.md`, `SPEC_COVERAGE.md`, `QA_REPORT.md`, `VISUAL_QA.md`, `RELEASE_CHECKLIST.md`, `RELEASE_BLOCKERS.md`를 최신 기준으로 재정렬 |
 | content inflation P1 | 없음 | `CONTENT_INTEGRATION_AUDIT.md`, 누락 decoration hero visual 11개 수정 |
@@ -26,6 +26,7 @@
 | RC-9 product-quality P1 | 해결 | RC-9 `PRODUCT_QUALITY_RED_TEAM.md`와 `SCREEN_SCORECARD.md`는 before audit로 보존. RC-10 no-go 보정 이후 RC-11에서 남은 upgrade/store P1을 좁게 수정했고 `RC11_INDEPENDENT_RESCORE.md` 기준 combined 8.1 |
 | RC-10 product-quality score gate | no-go 보존 | `RC10_INDEPENDENT_RESCORE.md` 기준 combined 7.7 no-go 기록은 삭제하지 않는다. 이는 RC-11 전 상태의 before evidence다 |
 | RC-11 scoped product-quality score gate | 없음 | upgrade quick-buy/shelf 8.1, store screenshots 8.1, combined 8.1. daily/milestone은 8.0 near gate로 P2 polish 후보 |
+| RC-12 layout/submission readiness P1 | 없음 | `UI_LAYOUT_DEFECT_AUDIT.md`, `RC12_SUBMISSION_READINESS_AUDIT.md`, `e2e/layout-regression.spec.ts` 4 passed, store screenshot public copy/file/clipping guards |
 
 ## Source Budget Audit Gate
 
@@ -45,7 +46,7 @@
 - iOS signing certificate / provisioning profile
 - Android signing key
 - commissioned/final art ownership and legal approval
-- platform-exported app icon / splash / final store screenshot selection. 현재 raster app icon candidate, raster store key visual, store 후보 pack은 있음
+- platform-exported app icon / splash / final store screenshot selection. 현재 raster app icon candidate, splash SVG candidate, raster store key visual, store 후보 pack은 있음
 - privacy policy URL
 - support URL
 - age rating answers
@@ -57,4 +58,4 @@
 
 ## Decision
 
-기술/검증 기준의 내부 P0/P1 blocker는 현재 발견되지 않았다. RC-10 integrity pass에서 previous `8.2 / 10` self-score를 `7.7 / 10` no-go로 보정한 기록은 before evidence로 보존한다. RC-11에서는 남은 product-quality P1인 upgrade quick-buy/shelf와 store screenshot framing을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 `8.1 / 10`이다. 따라서 내부 scoped product-quality P1은 현재 발견되지 않는다. 실제 스토어 제출 완료로 주장하지 않으며, commissioned/final art ownership, real audio files, SDK, signing, platform icon/splash export, 물리 기기 QA, 서버 검증 calendar/push notification은 external readiness blocker로 남긴다.
+기술/검증 기준의 내부 P0/P1 blocker는 현재 발견되지 않았다. RC-10 integrity pass에서 previous `8.2 / 10` self-score를 `7.7 / 10` no-go로 보정한 기록은 before evidence로 보존한다. RC-11에서는 남은 product-quality P1인 upgrade quick-buy/shelf와 store screenshot framing을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 `8.1 / 10`이다. RC-12에서는 layout regression과 store screenshot public-copy guard를 추가했고 주요 viewport의 글자 잘림, CTA/tab 겹침, modal 조작 불가 P1을 발견하지 않았다. 실제 스토어 제출 완료로 주장하지 않으며, commissioned/final art ownership, real audio files, SDK, signing, platform icon/splash export, 물리 기기 QA, 서버 검증 calendar/push notification은 external readiness blocker로 남긴다.

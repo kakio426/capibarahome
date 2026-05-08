@@ -1,6 +1,6 @@
 # Native Build Guide
 
-기준일: 2026-05-07
+기준일: 2026-05-08
 
 ## 현재 준비 상태
 
@@ -14,11 +14,13 @@ Capacitor 설정과 npm scripts는 준비되어 있다.
 
 현재 iOS/Android native platform folders는 생성하지 않았다. 실제 signing/provisioning, bundle id 확정, Xcode/Android Studio 제출 설정 없이 native folders를 커밋하면 이후 수정 비용이 커질 수 있어 현재 RC에서는 readiness 문서화와 `cap sync` 검증까지만 수행한다.
 
-## RC-8 WebView Readiness
+## RC-8/RC-12 WebView Readiness
 
 - `index.html` viewport는 `viewport-fit=cover`를 사용한다.
 - CSS는 `--safe-top`, `--safe-bottom`, `100dvh`, `touch-action: manipulation`, `overscroll-behavior`를 적용한다.
 - input/textarea는 iOS 자동 zoom 방지를 위해 16px 이상으로 유지한다.
+- RC-12 layout regression은 save export/import textarea font-size가 16px 이상인지 자동 확인한다.
+- RC-12 content shell은 하단 safe-area/tab dock을 고려한 bottom padding과 scroll-padding을 사용한다.
 - 저장은 interval/action 외에 `beforeunload`, `pagehide`, hidden `visibilitychange`에서 silent save를 수행한다.
 - localStorage 접근이 실패하면 앱 crash 대신 volatile session fallback 또는 safe failure로 처리한다.
 - WebAudio/vibration은 unsupported/permission failure에서 safe no-op으로 유지한다.
@@ -62,6 +64,8 @@ RC-8부터 app icon/store key visual/main capybara crop 후보는 runtime `dist`
 - Android round icon 확인
 - Splash screen 이미지와 배경색 확정
 - App Store / Play Console screenshot 규격별 PNG export
+
+세부 export gap과 공식 문서 링크는 `APP_ICON_SPLASH_EXPORT.md`와 `RC12_SUBMISSION_READINESS_AUDIT.md`에 분리했다.
 
 ## Store 제출 전 사용자가 제공해야 하는 항목
 

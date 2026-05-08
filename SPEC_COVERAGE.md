@@ -1,8 +1,8 @@
 # Spec Coverage
 
-기준일: 2026-05-07
+기준일: 2026-05-08
 
-상태 기준: `완료`는 실제 구현 파일과 테스트, E2E, screenshot, build 산출물 중 하나 이상의 근거가 있을 때만 사용한다. RC-9 독립 감사에서는 product-quality P1이 존재해 release candidate no-go였고, RC-10 integrity pass에서 previous 8.2 self-score를 7.7 no-go로 보정했다. RC-11에서 남은 upgrade quick-buy/shelf와 store screenshot framing P1을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 8.1이다. 실제 App Store/Google Play 제출 완료는 외부 계정/서명/법무/실기기 QA가 없어 완료로 판단하지 않는다.
+상태 기준: `완료`는 실제 구현 파일과 테스트, E2E, screenshot, build 산출물 중 하나 이상의 근거가 있을 때만 사용한다. RC-9 독립 감사에서는 product-quality P1이 존재해 release candidate no-go였고, RC-10 integrity pass에서 previous 8.2 self-score를 7.7 no-go로 보정했다. RC-11에서 남은 upgrade quick-buy/shelf와 store screenshot framing P1을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 8.1이다. RC-12에서는 새 self-score 없이 DOM layout regression과 viewport screenshot으로 글자 잘림/CTA 겹침/modal 조작 불가/store public copy P1을 검증했다. 실제 App Store/Google Play 제출 완료는 외부 계정/서명/법무/실기기 QA가 없어 완료로 판단하지 않는다.
 
 ## Release Gate
 
@@ -11,11 +11,11 @@
 | `AGENTS.md`, `PROJECT_SPEC.md` 선확인 | 완료 | 구현 전 확인 및 `PROJECT_SPEC.md` RC spec으로 교체 |
 | 원본 0-26 요구사항 누락 방지 | 완료 | `REQUIREMENTS_TRACE.md` |
 | 경쟁작 벤치마크 | 완료 | `COMPETITOR_BENCHMARK.md` |
-| gap backlog와 P0/P1 해결 | 완료 | RC-10 no-go 보정 후 RC-11 independent rescore 기준 product-quality P1 해소: upgrade 8.1, store screenshots 8.1, combined 8.1 |
+| gap backlog와 P0/P1 해결 | 완료 | RC-10 no-go 보정 후 RC-11 independent rescore 기준 product-quality P1 해소: upgrade 8.1, store screenshots 8.1, combined 8.1. RC-12 layout regression 기준 주요 viewport P1 없음 |
 | release blocker 분리 | 완료 | `RELEASE_BLOCKERS.md` |
 | `npm run build` | 완료 | `tsc -b && vite build`, success |
 | `npm test` | 완료 | Vitest 23 files, 502 tests passed |
-| `npm run test:e2e` | 완료 | Playwright 32 tests passed |
+| `npm run test:e2e` | 완료 | Playwright 36 tests passed |
 | Capacitor packaging prep | 완료 | `capacitor.config.ts`, scripts, `npm run cap:sync` success |
 | 실제 스토어 업로드 미수행 | 완료 | 계정/인증서/프로비저닝 미제공. `RELEASE_CHECKLIST.md`와 `RELEASE_BLOCKERS.md`에 사용자 작업으로 분리 |
 
@@ -67,7 +67,7 @@
 | --- | --- | --- |
 | 첫 화면부터 실제 게임처럼 보임 | 완료 | v2 raster orchard/capybara integrated scene, carved header, wood currency plaques, next goal, 장기 목표, prestige mini progress, collection shelf, screenshots |
 | 임시 개발자 UI 숨김 | 완료 | Debug panel hidden by default, only `?debug=1` in dev |
-| 360x740 / 390x844 / 430x932 / desktop 중앙 패널 | 완료 | `visual-regression.spec.ts`, 88 current screenshots including quick-buy/reward/retention states |
+| 360x740 / 390x844 / 430x932 / desktop 중앙 패널 | 완료 | `visual-regression.spec.ts` viewport screenshots, `layout-regression.spec.ts` critical clipping/CTA/modal checks |
 | 버튼/탭/모달/카드/상점/설정/튜토리얼 polish | 완료 | split CSS system in `layout.css`, `shell.css`, `hud.css`, `screens.css`, `effects.css`; `.ui-*` skin classes, custom `Toggle`, upgrade shelf/workbench, RC-6 quick-buy, RC-7 retention panels, settings ledger, save vault modal, save export copy action, reward/prestige/album reveal screenshots, visual QA |
 | 직접 제작 visual asset | 완료 | 253 generated SVG auxiliary icon/quest/badge/decor/tier assets, 15 raster PNG core/release assets, v2 game HUD skin, `ART_FAILURE_REVIEW.md`, `ASSET_PRODUCTION_BRIEF.md`, `FINAL_ASSET_BRIEF.md` |
 | Playwright screenshots | 완료 | `qa-screenshots/` 88 current PNG files, `store-screenshots/` 10 store 후보 PNG files, `qa-screenshots/rc1-before/` archive |
@@ -91,6 +91,7 @@
 | RC-2 store screenshot pack | 완료: `e2e/store-screenshot-pack.spec.ts` | 사용 안 함, store용 seed save fixture 사용 |
 | RC-3/RC-6 first five-minute playtest | 완료: `e2e/first-five-minute-playtest.spec.ts`, claim reveal 포함 | 사용 안 함, 실제 유저 플로우와 저장/오프라인 복귀 분리 |
 | RC-8 release bug bash | 완료: `e2e/rc8-release-bug-bash.spec.ts` | 사용 안 함, daily+offline, prestige goal reload, quick-buy reload, 360px modal, tab switching |
+| RC-12 layout regression | 완료: `e2e/layout-regression.spec.ts` | 사용 안 함, critical text clipping, bottom nav/CTA overlap, modal clickability, textarea zoom risk |
 
 ## Store Submission Artifacts
 
@@ -128,9 +129,13 @@
 | `RC10_INDEPENDENT_RESCORE.md` | 완료 | RC-10 previous 8.2 self-score를 independent corrected 7.7로 보정, 남은 P1 기록 |
 | `RC11_P1_KILL_SCOPE.md` | 완료 | RC-10에서 남은 upgrade/store P1만 좁게 수정하는 범위 기록 |
 | `RC11_INDEPENDENT_RESCORE.md` | 완료 | RC-11 upgrade/store 재점수, combined 8.1, scoped product P1 해소 기록 |
+| `UI_LAYOUT_DEFECT_AUDIT.md` | 완료 | RC-12 viewport별 글자 잘림, CTA/tab 겹침, modal 조작성, store screenshot copy 검사와 수정 기록 |
+| `RC12_SUBMISSION_READINESS_AUDIT.md` | 완료 | 실제 제출 완료가 아닌 제출 준비 패키지 상태, 공식 규격 링크, 외부 blocker 분리 |
+| `APP_ICON_SPLASH_EXPORT.md` | 완료 | icon/splash/source candidate와 platform export 필요 항목 기록 |
+| `STORE_METADATA_PACKAGE.md` | 완료 | 공개 listing copy, screenshot order, URL/age rating/user-provided metadata gap 기록 |
 | `RETENTION_PLAN.md` | 완료 | D0/D1/D3/D7 goals, daily/milestone/post-prestige rewards, remaining P2/P3 follow-ups |
 | 기존 문서 최신화 | 완료 | README/DEVELOPER/BALANCE/SAVE/QA/PLAYTEST updated |
 
 ## P0/P1 Blockers
 
-기술/기능 기준의 내부 P0/P1 `미완료`, `검증 불가`, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue는 현재 발견되지 않았다. RC-9 독립 감사와 RC-10 no-go 보정은 before evidence로 보존한다. RC-11에서 upgrade quick-buy/shelf 8.1, store screenshot framing 8.1, combined 8.1로 scoped product-quality P1을 해소했다. 실제 스토어 제출 완료를 막는 외부 계정/서명/commissioned art 소유권/platform icon export/실기기 QA, 서버 검증 calendar/push notification 항목은 `RELEASE_BLOCKERS.md`에 external readiness로 별도 분리했다.
+기술/기능 기준의 내부 P0/P1 `미완료`, `검증 불가`, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue는 현재 발견되지 않았다. RC-9 독립 감사와 RC-10 no-go 보정은 before evidence로 보존한다. RC-11에서 upgrade quick-buy/shelf 8.1, store screenshot framing 8.1, combined 8.1로 scoped product-quality P1을 해소했다. RC-12에서 layout regression과 store screenshot guard를 추가해 주요 viewport의 critical text clipping, CTA/tab overlap, modal action clickability, store public copy 금지어를 검증했다. 실제 스토어 제출 완료를 막는 외부 계정/서명/commissioned art 소유권/platform icon export/실기기 QA, 서버 검증 calendar/push notification 항목은 `RELEASE_BLOCKERS.md`에 external readiness로 별도 분리했다.

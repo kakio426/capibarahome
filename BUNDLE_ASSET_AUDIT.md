@@ -1,20 +1,20 @@
 # Bundle Asset Audit
 
-기준일: 2026-05-07
+기준일: 2026-05-08
 
 ## Build Output Snapshot
 
-RC-8 build 기준:
+RC-12 build 기준:
 
 ```txt
 dist: 15M
 dist/assets: 15M
 dist PNG assets: 12 files / 14M
-dist JS assets: 1.1M
-dist CSS assets: 68K
+dist JS asset: index-DvH7_6MF.js 1.165M
+dist CSS asset: index-pmQvQBpk.css 77.69K
 src/assets/raster: 15 PNG files / 19M
-store-screenshots: 195M
-qa-screenshots: 192M
+store-screenshots: 32M
+qa-screenshots: 188M
 ```
 
 Largest runtime assets:
@@ -54,12 +54,13 @@ Result: runtime `dist/assets` no longer emits `store-key-visual`, `app-icon-cand
 Some chunks are larger than 500 kB after minification
 ```
 
-RC-8 does not treat this as an internal P0/P1 blocker because:
+RC-12 does not treat this as an internal P0/P1 blocker because:
 
 - TypeScript build passes.
 - Visual and store screenshots render.
 - Runtime PNG payload was reduced without quality loss.
 - The remaining JS chunk is mainly app/config/generated registry code and can be split later with route-level code splitting.
+- RC-12 scope prioritized layout regression/device readiness over route-level code splitting because splitting screens would require another full visual/E2E revalidation cycle.
 
 Current classification: P2 performance optimization.
 

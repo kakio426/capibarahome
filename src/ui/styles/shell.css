@@ -130,7 +130,8 @@
   height: calc(100% - 166px);
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 13px 13px 98px;
+  padding: 13px 13px calc(112px + var(--safe-bottom));
+  scroll-padding: 13px 13px calc(124px + var(--safe-bottom));
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0)),
     repeating-linear-gradient(118deg, rgba(123, 79, 47, 0.035) 0 1px, transparent 1px 18px);
@@ -317,7 +318,8 @@
 }
 
 .content-shell {
-  padding: 12px 12px 102px;
+  padding: 12px 12px calc(116px + var(--safe-bottom));
+  scroll-padding: 12px 12px calc(128px + var(--safe-bottom));
   background:
     radial-gradient(circle at 50% 0, rgba(255, 231, 143, 0.22), transparent 15rem),
     linear-gradient(180deg, rgba(36, 73, 54, 0.18), rgba(77, 51, 27, 0.12)),

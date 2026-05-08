@@ -35,11 +35,14 @@
 - [x] RC-10 Product UI & Reward Moment Fix implementation completed and evidence generated
 - [x] RC-10 Product UI score gate no-go preserved. Integrity pass corrected the previous 8.2 self-score to combined 7.7 in `RC10_INDEPENDENT_RESCORE.md`
 - [x] RC-11 Narrow P1 Kill pass completed: upgrade quick-buy/shelf 8.1, store screenshots 8.1, combined 8.1 in `RC11_INDEPENDENT_RESCORE.md`
+- [x] RC-12 Layout Defect Kill pass completed: `UI_LAYOUT_DEFECT_AUDIT.md`, viewport visual screenshots, critical clipping/CTA/tab/modal Playwright checks, save textarea 16px guard
+- [x] RC-12 store submission readiness package completed as prep docs: `RC12_SUBMISSION_READINESS_AUDIT.md`, `APP_ICON_SPLASH_EXPORT.md`, `STORE_METADATA_PACKAGE.md`
 - [x] Visual asset integrity tests added for SVG count, raster PNG integrity, coverage, external-reference bans, runtime visual styling audit
 - [x] Art production docs added: `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`
 - [x] RC-2 audio readiness completed: file-ready audio slots and synthetic WebAudio fallback
 - [x] RC-10 store screenshot pack generated: home, upgrade, milestone, prestige ceremony, reward moments for iPhone/Android in `store-screenshots/`
 - [x] Store screenshot pack product-quality gate passed for RC-11. Public/internal wording is clean and gameplay panel framing is 8.1 on independent rescore
+- [x] Store screenshot pack RC-12 automated guard added: public screenshot copy forbidden terms, heading/subtitle clipping, generated file size
 - [x] Native/store compliance docs added: asset credits, audio plan, native guide, device QA checklist
 - [x] RC-3 playtest/balance pass completed: first prestige 33m target, 1/5/15/30/120 minute checkpoint report
 - [x] RC-3 bug bash completed: save migration, corrupt import, rapid tap, duplicate rewards, prestige save/load, mute persistence
@@ -51,6 +54,7 @@
 - [x] RC-6 screenshots captured for quick-buy mode, album claim-ready state, prestige result, and offline reward reveal
 - [x] RC-7 screenshots captured for daily reward available/cooldown/claim, D1/D3/D7 milestone ledger/claim, and post-prestige goal state
 - [x] RC-8 visual/device readiness flow confirms 360px save modal bounds, toast click safety, and repeated tab clickability
+- [x] RC-12 layout regression confirms 360/390/430/desktop critical text, CTA/bottom dock clearance, modal action clickability, save textarea zoom safety
 
 ## Capacitor Prep
 

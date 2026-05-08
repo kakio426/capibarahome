@@ -1,25 +1,28 @@
 # Visual QA
 
-기준일: 2026-05-07
+기준일: 2026-05-08
 
 ## Summary
 
-이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면과 정보형 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체했고, RC-4 hardening pass에서는 성장/설정/세이브/앨범 하단 정보 UI까지 wood/parchment/orange game HUD skin으로 묶었다. RC-5에서는 이 방향을 유지하면서 `layout.css` 후반 override 의존을 분리하고 reusable `.ui-*` game skin system으로 안정화했다. RC-6에서는 quick-buy, reward reveal, prestige result, album claim reveal을 추가했고, RC-7에서는 daily reward, D1/D3/D7 badge ledger, post-prestige goal chain을 같은 HUD skin 안에 넣었다. RC-8에서는 safe-area/360px modal/device-readiness regression을 추가 점검했다. RC-9 독립 감사에서는 product-quality P1이 남아 release candidate no-go로 재분류했고, RC-10 구현 후 integrity pass에서 기존 8.2 self-score를 독립 재검토해 combined 7.7로 보정했다. RC-11에서는 남은 P1 두 개만 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined 8.1로 scoped product-quality P1을 해소했다.
+이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면과 정보형 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체했고, RC-4 hardening pass에서는 성장/설정/세이브/앨범 하단 정보 UI까지 wood/parchment/orange game HUD skin으로 묶었다. RC-5에서는 이 방향을 유지하면서 `layout.css` 후반 override 의존을 분리하고 reusable `.ui-*` game skin system으로 안정화했다. RC-6에서는 quick-buy, reward reveal, prestige result, album claim reveal을 추가했고, RC-7에서는 daily reward, D1/D3/D7 badge ledger, post-prestige goal chain을 같은 HUD skin 안에 넣었다. RC-8에서는 safe-area/360px modal/device-readiness regression을 추가 점검했다. RC-9 독립 감사에서는 product-quality P1이 남아 release candidate no-go로 재분류했고, RC-10 구현 후 integrity pass에서 기존 8.2 self-score를 독립 재검토해 combined 7.7로 보정했다. RC-11에서는 남은 P1 두 개만 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined 8.1로 scoped product-quality P1을 해소했다. RC-12에서는 self-score를 추가하지 않고 DOM layout regression과 viewport screenshot으로 글자 잘림, CTA/tab overlap, modal 조작 불가, store copy 금지어를 검증했다.
 
 Current evidence:
 
 ```txt
 npx playwright test e2e/visual-regression.spec.ts --reporter=line
-4 passed, 88 QA screenshots regenerated
+4 passed, viewport QA screenshots regenerated
 
 npx playwright test e2e/store-screenshot-pack.spec.ts --reporter=line
-2 passed, 10 store screenshots regenerated
+2 passed, 10 store screenshots regenerated with public copy/file guards
 
 npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
-6 passed, RC-11 visual/store evidence regenerated
+6 passed, RC-12 visual/store evidence regenerated
 
 npm run test:e2e
-32 passed, includes visual/store screenshot regeneration and RC-8 release bug bash flow
+36 passed, includes visual/store screenshot regeneration and RC-12 layout regression
+
+npx playwright test e2e/layout-regression.spec.ts --reporter=line
+4 passed, critical clipping/CTA/tab/modal/textarea checks
 ```
 
 Current asset baseline:
@@ -133,6 +136,20 @@ RC-11은 RC-10 no-go 기록을 삭제하지 않고, 남은 P1 두 개만 좁게 
 
 RC-11 combined score: 8.1. Scoped product-quality P1은 해소됐고 남은 항목은 P2/P3 또는 외부 제출 준비다.
 
+## RC-12 Layout Defect Kill Pass
+
+RC-12는 새 visual self-score를 만들지 않고 실제 layout defect만 점검했다.
+
+| 대상 | RC-12 발견 | 조치 | Evidence |
+| --- | --- | --- | --- |
+| D1/D3/D7 milestone board | desktop centered panel에서 `황금 숲 단골` CTA가 bottom dock과 약 3px 겹침 | content shell bottom padding/scroll-padding 증대 | `e2e/layout-regression.spec.ts` 4 passed, `qa-screenshots/desktop-1280x900-collection-milestones.png` |
+| Save export/import modal | textarea font-size가 16px 미만이라 iOS focus zoom risk | save/import textarea 16px, line-height/wrap 유지 | `qa-screenshots/390x844-save-modal.png`, layout textarea assertion |
+| Visual screenshot evidence | fullPage screenshot이 fixed dock artifact를 만들 수 있음 | viewport screenshot으로 전환 | regenerated `qa-screenshots/360x740-*.png`, `390x844`, `430x932`, `desktop` |
+| Quick-buy evidence | viewport 전환 후 screenshot 상단 crop이 quick-buy board를 잘라 보일 수 있음 | max-buy shelf/CTA 중심으로 scroll framing 조정 | `qa-screenshots/360x740-upgrades-quick-buy.png`, `qa-screenshots/390x844-upgrades-quick-buy.png` |
+| Store screenshot public copy | 금지어/파일 크기/heading clipping 자동 guard 없음 | `store-screenshot-pack.spec.ts`에 forbidden copy, clipping, file-size guard 추가 | `store-screenshots/iphone-*.png`, `store-screenshots/android-*.png` |
+
+RC-12 기준 내부 P1 layout defect는 발견되지 않는다. 남은 것은 home 하단 stats panel composition, milestone 설명 ellipsis, Vite chunk warning, physical device QA 같은 P2/P3 또는 외부 제출 준비 항목이다.
+
 ## Manual Spot Check
 
 - `qa-screenshots/390x844-home.png`: 첫인상은 웹 대시보드가 아니라 모바일 게임 home scene이다. 큰 흰 카드가 주인공이 되지 않는다.
@@ -150,10 +167,10 @@ RC-11 combined score: 8.1. Scoped product-quality P1은 해소됐고 남은 항�
 
 | Viewport | Status | Evidence |
 | --- | --- | --- |
-| 360x740 | 완료 | `qa-screenshots/360x740-*.png` |
-| 390x844 | 완료 | `qa-screenshots/390x844-*.png` |
-| 430x932 | 완료 | `qa-screenshots/430x932-*.png` |
-| Desktop 1280x900 central panel | 완료 | `qa-screenshots/desktop-1280x900-*.png` |
+| 360x740 | 완료 | viewport screenshots in `qa-screenshots/360x740-*.png`, layout regression checks |
+| 390x844 | 완료 | viewport screenshots in `qa-screenshots/390x844-*.png`, layout regression checks |
+| 430x932 | 완료 | viewport screenshots in `qa-screenshots/430x932-*.png`, layout regression checks |
+| Desktop 1280x900 central panel | 완료 | viewport screenshots in `qa-screenshots/desktop-1280x900-*.png`, layout regression checks |
 
 ## Screenshot Evidence
 
@@ -196,4 +213,4 @@ RC-11 combined score: 8.1. Scoped product-quality P1은 해소됐고 남은 항�
 
 ## Remaining Visual Risk
 
-RC-11 기준 기술적 visual overflow P0/P1과 scoped product-quality P1은 발견되지 않았다. `RC11_INDEPENDENT_RESCORE.md`가 upgrade quick-buy 8.1, store screenshots 8.1, combined 8.1로 보정했다. 남은 P2/P3는 daily reward sheet polish, milestone sticker-board polish, server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, 실제 app icon/adaptive icon/splash export, 물리 기기 store screenshot 재촬영이다.
+RC-12 기준 기술적 visual overflow P0/P1, CTA/tab occlusion P1, modal clickability P1, store public copy P1은 발견되지 않았다. `RC11_INDEPENDENT_RESCORE.md`가 upgrade quick-buy 8.1, store screenshots 8.1, combined 8.1로 보정한 product-quality gate는 유지한다. 남은 P2/P3는 home 하단 stats panel composition, milestone 설명 ellipsis, daily reward sheet polish, milestone sticker-board polish, server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, 실제 app icon/adaptive icon/splash export, 물리 기기 store screenshot 재촬영이다.

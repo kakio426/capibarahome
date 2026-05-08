@@ -2177,7 +2177,8 @@
 
   .content-shell {
     height: calc(100% - 158px);
-    padding: 11px 11px 96px;
+    padding: 11px 11px calc(108px + var(--safe-bottom));
+    scroll-padding: 11px 11px calc(120px + var(--safe-bottom));
   }
 
   .bottom-tabs {
