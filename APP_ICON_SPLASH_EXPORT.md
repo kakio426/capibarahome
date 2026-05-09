@@ -1,55 +1,71 @@
 # App Icon / Splash Export Notes
 
-기준일: 2026-05-08
+기준일: 2026-05-09
 
 ## 현재 후보 파일
 
 | 용도 | 후보 |
 | --- | --- |
-| Raster app icon candidate | `src/assets/raster/release/app-icon-candidate.png` |
-| SVG app icon candidate | `src/assets/generated/release/app-icon-final.svg` |
-| SVG splash candidate | `src/assets/generated/release/splash-final.svg` |
-| Store key visual candidate | `src/assets/raster/release/store-key-visual.png` |
-| Store screenshot frame candidate | `src/assets/generated/release/store-screenshot-frame-final.svg` |
+| Raster app icon source | `src/assets/raster/release/app-icon-candidate.png` |
+| SVG app icon support source | `src/assets/generated/release/app-icon-final.svg` |
+| SVG splash source | `src/assets/generated/release/splash-final.svg` |
+| Store key visual source | `src/assets/raster/release/store-key-visual.png` |
+| Store screenshot frame support source | `src/assets/generated/release/store-screenshot-frame-final.svg` |
+| Platform export output | `platform-assets/` |
 
-이 파일들은 제출용 원본 후보이지, Apple/Google 업로드가 완료된 asset set이 아니다.
+이 파일들은 제출용 후보이지, Apple/Google 업로드가 완료된 asset set이 아니다.
 
 ## 공식 문서 기준
 
+2026-05-09 확인:
+
 - Apple app icon workflow: https://developer.apple.com/help/app-store-connect/manage-app-information/add-an-app-icon
 - Apple screenshot specifications: https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/
-- Google Play preview assets: https://support.google.com/googleplay/android-developer/answer/9866151
+- Google Play preview assets: https://support.google.com/googleplay/android-developer/answer/9866151?hl=en-EN
+- Capacitor splash/icon guide: https://capacitorjs.com/docs/guides/splash-screens-and-icons
 
 제출 직전에는 위 문서와 현재 Play Console/App Store Connect UI를 다시 확인한다.
 
-## iOS 제출 전 필요한 작업
+## RC-13 Export Output
 
-- Xcode asset catalog용 app icon set export
-- App Store Connect marketing icon 포함 여부 확인
-- icon alpha/rounded-corner 처리 정책 확인
-- splash/launch screen 구성 결정
-- notch/safe-area에서 launch screen crop 확인
-- 실제 device 또는 simulator에서 icon/splash 흐림 여부 확인
+`npm run export:assets`가 생성한다.
 
-현재 수행하지 않은 이유:
+| 범위 | 출력 |
+| --- | --- |
+| Source copies | `platform-assets/source/app-icon-1024.png`, `store-key-visual.png`, `splash-final.svg` |
+| iOS app icon set | `platform-assets/ios/AppIcon.appiconset/` |
+| iOS marketing icon | `platform-assets/ios/AppIcon.appiconset/AppIcon-1024x1024@1x-ios-marketing.png` |
+| Android launcher icons | `platform-assets/android/res/mipmap-*/ic_launcher.png` |
+| Android round icons | `platform-assets/android/res/mipmap-*/ic_launcher_round.png` |
+| Android foreground candidates | `platform-assets/android/res/mipmap-*/ic_launcher_foreground.png` |
+| Android launcher background | `platform-assets/android/res/values/ic_launcher_background.xml` |
+| Splash candidates | `platform-assets/splash/portrait-*.png` |
+| Android native res update | `android/app/src/main/res/mipmap-*` |
 
-- Apple Developer account와 signing/provisioning이 없다.
-- 최종 bundle id와 platform asset ownership 승인이 없다.
+검증한 파일:
 
-## Android 제출 전 필요한 작업
+| 파일 | 상태 |
+| --- | --- |
+| `platform-assets/source/app-icon-1024.png` | 1024 x 1024, no alpha |
+| `platform-assets/ios/AppIcon.appiconset/AppIcon-1024x1024@1x-ios-marketing.png` | 1024 x 1024, no alpha |
+| `platform-assets/android/res/mipmap-xxxhdpi/ic_launcher.png` | 192 x 192, no alpha |
+| `platform-assets/android/res/mipmap-xxxhdpi/ic_launcher_foreground.png` | 432 x 432, no alpha |
+| `platform-assets/splash/portrait-xxhdpi.png` | 1080 x 1920, no alpha |
+| `android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png` | 192 x 192, no alpha |
 
-- Play Store app icon export. Google Play는 512 x 512 32-bit PNG with alpha, max 1024KB 기준을 요구한다.
-- Android adaptive icon foreground/background export
-- Android round icon 확인
-- Splash screen background color와 foreground crop 확정
-- Play Console feature graphic 필요 여부와 1024 x 500 export 준비
-- 실제 Android device/WebView에서 gesture navigation과 bottom safe-area 확인
+## Tooling Note
 
-현재 수행하지 않은 이유:
+Capacitor 공식 guide는 `@capacitor/assets` 사용을 권장한다. 이번 환경에서는 `npm install -D @capacitor/assets`가 `sharp`/libvips 다운로드 timeout으로 실패했고 package 파일은 변경되지 않았다. RC-13은 macOS `/usr/bin/sips` 기반 fallback script를 사용한다.
 
-- Google Play Console 계정과 package name, signing key가 없다.
-- final art/legal approval이 없다.
+## 남은 제출 전 작업
 
-## 현재 판정
+- iOS `ios/` project 생성 후 Xcode asset catalog 반영 확인
+- Android adaptive icon foreground/background를 final art로 분리
+- Play Console feature graphic `1024 x 500` 후보 생성
+- Splash screen safe-area crop을 iPhone/Android device 또는 simulator에서 확인
+- 최종 commissioned art / 권리 확인
+- 플랫폼별 icon/splash가 흐릿하거나 잘리지 않는지 실기기 확인
 
-아이콘/스플래시 source 후보는 있으나 platform export는 미완료다. 이는 내부 앱 기능 P1이 아니라 외부 제출 준비 blocker다.
+## 판정
+
+RC-13에서 platform export 후보는 생성됐다. 다만 final art/legal approval, iOS project, official asset tool verification, physical device QA가 남아 있으므로 실제 제출 완료 asset set으로 주장하지 않는다.

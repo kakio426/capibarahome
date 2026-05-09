@@ -1,6 +1,6 @@
 # Final Asset Brief
 
-기준일: 2026-05-05
+기준일: 2026-05-09
 
 ## 제작 결정
 
@@ -23,6 +23,9 @@
 | 퀘스트/업적 badge set | quest/achievement keys | `src/assets/generated/items/*.svg` | 앨범/업적 shelf |
 | 앱 아이콘 후보 | source/release candidate | `src/assets/raster/release/app-icon-candidate.png` | release asset 후보. RC-8부터 runtime registry 제외 |
 | Store screenshot key visual | source/store screenshot candidate | `src/assets/raster/release/store-key-visual.png` | Playwright store screenshot key art. RC-8부터 runtime registry 제외 |
+| iOS AppIcon 후보 | platform export candidate | `platform-assets/ios/AppIcon.appiconset/` | RC-13 `npm run export:assets` 산출물. Xcode project 생성 후 반영 확인 필요 |
+| Android launcher 후보 | platform export candidate | `platform-assets/android/res/mipmap-*`, `android/app/src/main/res/mipmap-*` | RC-13 Android shell에 반영된 launcher 후보 |
+| Splash PNG 후보 | platform export candidate | `platform-assets/splash/portrait-*.png` | RC-13 제출 준비 후보. 기기 safe-area/crop 확인 필요 |
 
 ## Asset 제작 원칙
 
@@ -40,4 +43,4 @@
 
 ## 남은 External Art
 
-이번 pass는 generated v2 raster release candidate asset과 custom game HUD skin이다. 실제 스토어 제출 전 commissioned art 소유권/법무 확정, platform icon/splash export, 실제 store device frame polish는 P1 external art readiness로 남긴다.
+이번 pass는 generated v2 raster release candidate asset, custom game HUD skin, RC-13 platform export 후보까지 포함한다. 실제 스토어 제출 전 commissioned art 소유권/법무 확정, final adaptive icon foreground/background, feature graphic, 실제 store device frame polish는 external art readiness로 남긴다.

@@ -1,6 +1,6 @@
 # Store Metadata Package
 
-기준일: 2026-05-08
+기준일: 2026-05-09
 
 ## Public Listing Copy
 
@@ -26,13 +26,7 @@ Screenshot order:
 
 Public copy lint:
 
-- mock: 없음
-- sandbox: 없음
-- internal: 없음
-- debug: 없음
-- test: 없음
-- provider: 없음
-- 개발자용 구현 설명: 없음
+`e2e/store-screenshot-pack.spec.ts`에서 공개 screenshot copy 금지어, heading/subtitle clipping, PNG dimension을 자동 검사한다. RC-13 기준 공개 카피는 통과했다.
 
 ## Store Screenshot Files
 
@@ -48,6 +42,11 @@ Public copy lint:
 | `store-screenshots/android-03-milestone.png` | Android milestone badge | 후보 생성 |
 | `store-screenshots/android-04-prestige.png` | Android prestige ceremony | 후보 생성 |
 | `store-screenshots/android-05-reward.png` | Android return reward | 후보 생성 |
+
+Dimensions:
+
+- iPhone 후보: 1290 x 2796
+- Android 후보: 1080 x 1920
 
 ## Metadata Draft Inputs
 
@@ -81,4 +80,4 @@ URLs:
 
 ## 판정
 
-Public copy와 screenshot 후보는 준비됐지만, 실제 store upload metadata package는 사용자 계정/URL/법적 답변을 받은 뒤 확정해야 한다.
+Public copy와 screenshot 후보는 준비됐지만, 실제 store upload metadata package는 사용자 계정/URL/법적 답변을 받은 뒤 확정해야 한다. RC-13은 제출 준비 패키지 정리 상태이며 실제 업로드 완료가 아니다.

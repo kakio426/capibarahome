@@ -1,6 +1,6 @@
 # Store Listing Draft
 
-기준일: 2026-05-08
+기준일: 2026-05-09
 
 ## App Name
 
@@ -58,7 +58,7 @@
 
 ## Screenshot Pack
 
-스토어용 후보는 `store-screenshots/`에 생성한다. 상세 목록은 `STORE_SCREENSHOT_PLAN.md`를 기준으로 관리한다. RC-11 기준 공개 문구의 비공개 구현 표현은 제거되어 있고, screenshot framing은 `RC11_INDEPENDENT_RESCORE.md`에서 8.1로 보정됐다. RC-12에서는 `STORE_METADATA_PACKAGE.md`로 공개 카피와 사용자 제공 metadata gap을 분리했고, screenshot pack에 public copy 금지어/문구 잘림/file-size guard를 추가했다. 최종 제출 전에는 실제 기기/시뮬레이터 frame, 최종 icon/splash, 법무 승인 기준으로 다시 확정한다.
+스토어용 후보는 `store-screenshots/`에 생성한다. 상세 목록은 `STORE_SCREENSHOT_PLAN.md`를 기준으로 관리한다. RC-11 기준 공개 문구의 비공개 구현 표현은 제거되어 있고, screenshot framing은 `RC11_INDEPENDENT_RESCORE.md`에서 8.1로 보정됐다. RC-13에서는 `STORE_METADATA_PACKAGE.md`로 공개 카피와 사용자 제공 metadata gap을 분리했고, screenshot pack에 public copy 금지어/문구 잘림/file-size/dimension guard를 추가했다. 최종 제출 전에는 실제 기기/시뮬레이터 frame, 최종 icon/splash, 법무 승인 기준으로 다시 확정한다.
 
 추천 공개 순서:
 

@@ -118,16 +118,16 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
         </div>
       </div>
 
-      <section className="stats-panel">
-        <div>
+      <section className="stats-panel home-ledger-panel" aria-label="정원 장부 요약">
+        <div data-ui-critical="home-stat">
           <span className="metric-label">누적 귤</span>
           <strong>{state.lifetime.totalOrangesEarned.format(format)}</strong>
         </div>
-        <div>
+        <div data-ui-critical="home-stat">
           <span className="metric-label">터치</span>
           <strong>{state.lifetime.totalTaps.toLocaleString("ko-KR")}</strong>
         </div>
-        <div>
+        <div data-ui-critical="home-stat">
           <span className="metric-label">환생</span>
           <strong>{state.lifetime.totalPrestiges.toLocaleString("ko-KR")}</strong>
         </div>

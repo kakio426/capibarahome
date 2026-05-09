@@ -107,6 +107,7 @@ RC-6부터 업그레이드 구매 UI는 `1개 / 10개 / 최대` 모드를 지원
 - asset 무결성은 `src/tests/visualAssetIntegrity.test.ts`, `src/tests/rasterAssetIntegrity.test.ts`, generated matrix test가 함께 검증합니다.
 - final art를 받으면 같은 registry key와 aspect ratio를 유지한 채 SVG/PNG 파일만 교체하면 UI와 테스트 연결을 유지할 수 있습니다.
 - Raster release candidate assets는 `src/assets/raster/home/main-hero-background.png`, `main-capybara-character.png`, `src/assets/raster/companions/capybara-*.png`, `src/assets/raster/release/prestige-ritual.png`, `shop-reward-banner.png`, `offline-reward.png`, `store-key-visual.png`, `app-icon-candidate.png`에 있습니다. Runtime registry에는 실제 게임 화면에서 쓰는 home/companion/prestige/shop/offline PNG만 포함합니다. SVG release draft files도 보조/비교용으로 유지합니다.
+- RC-13 platform 후보는 `npm run export:assets`로 생성합니다. 출력은 `platform-assets/`이며 Android launcher icon 후보는 `android/app/src/main/res/mipmap-*`에도 갱신됩니다. 현재 script는 macOS `sips`를 사용하므로, 최종 제출 전 공식 Capacitor asset tooling 또는 designer export로 다시 검증합니다.
 
 ## Audio Pipeline
 
@@ -120,6 +121,7 @@ RC-6부터 업그레이드 구매 UI는 `1개 / 10개 / 최대` 모드를 지원
 `e2e/store-screenshot-pack.spec.ts`는 QA screenshot과 별도로 `store-screenshots/`에 iPhone/Android 후보 PNG를 생성합니다. 일반 유저 플로우와 동일하게 debug shortcut을 사용하지 않고, deterministic save fixture만 사용합니다.
 
 현재 store 후보 10장은 raster store key visual + gameplay composition pass 이후 다시 생성했으며 `VISUAL_QA.md`, `FINAL_ART_AUDIT.md`, `STORE_SCREENSHOT_PLAN.md`에 기록한다.
+RC-13부터 store screenshot pack은 PNG magic byte, file size, iPhone/Android dimensions도 검증합니다.
 
 ## Balance Playtest Pipeline
 
@@ -138,16 +140,15 @@ RC-6부터 업그레이드 구매 UI는 `1개 / 10개 / 최대` 모드를 지원
 
 ## Capacitor 연결
 
-`capacitor.config.ts`는 `dist`를 `webDir`로 사용합니다.
+`capacitor.config.ts`는 `dist`를 `webDir`로 사용합니다. RC-13 기준 Android shell은 생성됐고 iOS shell은 CocoaPods 미설치로 생성하지 못했습니다.
 
 ```bash
 npm run build
-npx cap add ios
-npx cap add android
+npm run export:assets
 npm run cap:sync
 ```
 
-네이티브 폴더 생성 이후에는 iOS/Android별 서명, icon/splash, privacy manifest, store product 연결을 각 플랫폼 프로젝트에서 마무리해야 합니다.
+새 환경에서 Android shell을 다시 만들 때만 `npx cap add android`를 사용합니다. iOS는 CocoaPods/Xcode 준비 후 `npx cap add ios`를 실행합니다. 네이티브 폴더 생성 이후에는 iOS/Android별 서명, icon/splash, privacy manifest, store product 연결을 각 플랫폼 프로젝트에서 마무리해야 합니다.
 
 ## 디버그 패널
 

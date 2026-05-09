@@ -34,6 +34,7 @@ npm run cap:sync
 - RC-7 retention systems pass: 20시간 daily reward, D1/D3/D7 복귀 배지, 첫 환생 이후 goal chain, save version 5 migration
 - RC-8 release bug bash: save v5/WebView/pagehide/localStorage fallback, daily+offline same-session regression, quick-buy/prestige reload regression, long-session stress, bundle asset audit
 - RC-12 submission readiness/layout pass: critical text clipping, CTA/tab overlap, modal action clickability, store screenshot public copy guard, icon/splash/metadata readiness docs
+- RC-13 native shell/submission prep pass: Android Capacitor shell, platform icon/splash candidates, strengthened layout/store dimension guards, final UI defect sweep
 - RC-3 playtest pass: 첫 환생 33분 목표, 1/5/15/30/120분 밸런스 checkpoint, 실제 5분권 E2E
 - `STORY_BIBLE.md`와 연결된 8마리 카피바라 캐릭터/짧은 인게임 대사
 - 환생과 황금 나뭇잎 영구 배율
@@ -48,7 +49,7 @@ npm run cap:sync
 - Capacitor iOS/Android 패키징 준비 config
 - `NATIVE_BUILD_GUIDE.md`, `DEVICE_QA_CHECKLIST.md`, `APP_ICON_SPLASH_EXPORT.md`, `STORE_METADATA_PACKAGE.md`, `ASSET_CREDITS.md`, `AUDIO_ASSET_PLAN.md`
 - `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`, `VISUAL_QA.md`
-- balance simulation, `RETENTION_PLAN.md`, `RC7_RETENTION_SYSTEM_AUDIT.md`, `RC8_RELEASE_CANDIDATE_AUDIT.md`, `RC12_SUBMISSION_READINESS_AUDIT.md`, `UI_LAYOUT_DEFECT_AUDIT.md`, `BUNDLE_ASSET_AUDIT.md`, source budget report
+- balance simulation, `RETENTION_PLAN.md`, `RC7_RETENTION_SYSTEM_AUDIT.md`, `RC8_RELEASE_CANDIDATE_AUDIT.md`, `RC12_SUBMISSION_READINESS_AUDIT.md`, `RC13_SUBMISSION_AUDIT.md`, `RC13_NATIVE_READINESS_AUDIT.md`, `RC13_VISUAL_REGRESSION_AUDIT.md`, `UI_LAYOUT_DEFECT_AUDIT.md`, `BUNDLE_ASSET_AUDIT.md`, source budget report
 - `PLAYTEST_REPORT.md` 기반 RC-3 bug bash와 store screenshot 재점검
 - expanded completion audit
 
@@ -69,12 +70,13 @@ npm run cap:sync
 
 ## Capacitor
 
-`capacitor.config.ts`와 scripts는 준비되어 있습니다. 네이티브 프로젝트를 실제로 만들려면 사용자가 개발자 계정, 서명 정보, 로컬 Xcode/Android Studio 환경을 준비한 뒤 아래를 실행합니다.
+`capacitor.config.ts`와 scripts는 준비되어 있습니다. RC-13 기준 Android shell은 생성되어 있고 iOS shell은 CocoaPods/Xcode 환경이 없어 미생성입니다. 플랫폼 asset 후보는 `npm run export:assets`로 `platform-assets/`에 생성합니다.
 
 ```bash
-npx cap add ios
-npx cap add android
+npm run export:assets
 npm run cap:sync
 ```
+
+새 환경에서 iOS project를 만들려면 CocoaPods 설치 후 `npx cap add ios`를 실행해야 합니다.
 
 제출 전 체크리스트는 `RELEASE_CHECKLIST.md`를 기준으로 확인합니다.

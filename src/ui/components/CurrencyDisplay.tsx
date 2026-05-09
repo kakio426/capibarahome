@@ -11,7 +11,7 @@ type CurrencyDisplayProps = {
 
 export function CurrencyDisplay({ label, value, assetKey, format }: CurrencyDisplayProps) {
   return (
-    <div className="currency-display ui-plaque ui-plaque--currency">
+    <div className="currency-display ui-plaque ui-plaque--currency" data-ui-critical="currency">
       <span className="currency-icon ui-plaque__icon" aria-hidden="true">
         <VisualAssetIcon assetKey={assetKey} />
       </span>

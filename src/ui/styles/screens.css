@@ -1066,6 +1066,59 @@
     repeating-linear-gradient(90deg, rgba(95, 55, 27, 0.08) 0 8px, transparent 8px 28px);
 }
 
+.home-ledger-panel {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  padding: 10px;
+  border-radius: 18px 18px 12px 12px;
+  background:
+    linear-gradient(180deg, rgba(98, 56, 28, 0.94), rgba(54, 31, 18, 0.96)),
+    repeating-linear-gradient(90deg, rgba(255, 238, 184, 0.08) 0 8px, transparent 8px 30px);
+  box-shadow:
+    0 8px 0 rgba(47, 27, 18, 0.42),
+    0 16px 24px rgba(18, 35, 27, 0.18),
+    inset 0 2px 0 rgba(255, 246, 212, 0.18);
+}
+
+.home-ledger-panel::before {
+  content: "정원 장부";
+  position: absolute;
+  top: -1px;
+  left: 12px;
+  min-height: 22px;
+  display: grid;
+  place-items: center;
+  border: 3px solid rgba(47, 27, 18, 0.72);
+  border-radius: 0 0 10px 10px;
+  padding: 0 10px;
+  color: #5b2a10;
+  background: linear-gradient(180deg, #ffd568, #e4932b);
+  box-shadow: 0 3px 0 rgba(47, 27, 18, 0.2);
+  font-size: 0.62rem;
+  font-weight: 950;
+}
+
+.home-ledger-panel > div {
+  min-height: 62px;
+  padding: 18px 7px 8px;
+  border-color: rgba(255, 230, 164, 0.34);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 50% 0, rgba(255, 213, 104, 0.28), transparent 42px),
+    linear-gradient(180deg, rgba(255, 246, 207, 0.9), rgba(219, 164, 83, 0.82));
+  box-shadow: inset 0 2px 0 rgba(255, 250, 224, 0.48), 0 4px 0 rgba(30, 17, 10, 0.2);
+}
+
+.home-ledger-panel .metric-label {
+  color: #5f5138;
+  font-size: 0.66rem;
+}
+
+.home-ledger-panel strong {
+  color: #1f4c3a;
+  font-size: clamp(0.92rem, 3.3vw, 1.12rem);
+}
+
 .upgrade-card,
 .quest-card,
 .product-card,
@@ -2242,6 +2295,24 @@
   .currency-icon {
     width: 38px;
     height: 38px;
+  }
+
+  .home-ledger-panel {
+    gap: 5px;
+    padding: 9px 7px 8px;
+  }
+
+  .home-ledger-panel > div {
+    min-height: 56px;
+    padding: 17px 5px 7px;
+  }
+
+  .home-ledger-panel .metric-label {
+    font-size: 0.6rem;
+  }
+
+  .home-ledger-panel strong {
+    font-size: 0.9rem;
   }
 
   .upgrade-summary {

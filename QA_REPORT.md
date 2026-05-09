@@ -1,6 +1,6 @@
 # QA Report
 
-기준일: 2026-05-08
+기준일: 2026-05-09
 
 ## Final Command Results
 
@@ -27,9 +27,29 @@ npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec
 ```
 
 ```txt
+npx playwright test e2e/layout-regression.spec.ts --reporter=line
+4 passed
+```
+
+```txt
+npm run export:assets
+exported platform asset candidates to platform-assets/
+```
+
+```txt
 npm run cap:sync
 npm run build && cap sync
-built successfully; Sync finished
+built successfully; Android sync finished
+```
+
+```txt
+npx cap doctor
+Android looking great; installed Capacitor 7.6.2, latest 8.3.3
+```
+
+```txt
+npx cap sync ios
+failed as expected because ios platform has not been added; CocoaPods/Xcode setup is external blocker
 ```
 
 ```txt
@@ -199,6 +219,26 @@ Fix:
   - `STORE_METADATA_PACKAGE.md`: 공개 listing copy, screenshot order, URL/age rating/user-provided 항목 정리
   - `RC12_SUBMISSION_READINESS_AUDIT.md`: 실제 제출 완료가 아니라 제출 준비 패키지 정리 완료로 판정
 
+## RC-13 Native Shell, Store Submission Prep, Final UI Defect Sweep
+
+- 새 게임 기능, save schema, 대형 raster asset은 추가하지 않았다.
+- 공식 문서 확인 결과는 `RC13_SUBMISSION_AUDIT.md`에 2026-05-09 기준 링크와 함께 기록했다.
+- `npx cap add android`로 Android native shell을 생성했고 `android/app/build.gradle`, `AndroidManifest.xml`, `strings.xml`, `MainActivity.java`가 준비됐다.
+- `npx cap add ios`는 CocoaPods 미설치로 실패했다. iOS shell 미생성은 내부 앱 결함이 아니라 Xcode/CocoaPods 환경 external blocker로 분류한다.
+- `npm run export:assets`를 추가해 `platform-assets/`에 iOS AppIcon.appiconset, Android icon candidates, splash PNG candidates를 생성하고 Android native res launcher icons를 갱신했다.
+- `@capacitor/assets` 설치는 `sharp`/libvips 다운로드 timeout으로 실패했고 package 파일은 변경되지 않았다. macOS `sips` 기반 fallback script를 사용했다.
+- Layout regression을 강화해 `data-ui-critical` clipping, home tap CTA visibility, toast non-blocking, store screenshot PNG dimensions를 검사한다.
+- Home lower stats panel을 wood ledger skin으로 보강했고, D1/D3/D7 milestone visible description을 짧게 줄여 360/390px ellipsis 부담을 낮췄다.
+- RC-13 targeted verification:
+  - `npm run build`: success, Vite large chunk warning remains for `index-DZPMoALW.js`
+  - `npx playwright test e2e/layout-regression.spec.ts --reporter=line`: 4 passed
+  - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: 6 passed
+  - `npm run export:assets`: success
+  - `npx cap sync android`: success
+  - `npx cap doctor`: success, Android looking great; installed Capacitor 7.6.2 vs latest 8.3.3 noted as P3
+  - `npx cap sync ios`: failed as expected because iOS platform is not added after CocoaPods-blocked `cap add ios`
+- 내부 UI P1은 `RC13_VISUAL_REGRESSION_AUDIT.md`와 `RC13_INDEPENDENT_RESCORE.md` 기준 발견되지 않았다. Native/submission readiness는 external blocker 때문에 실제 제출 완료로 보지 않는다.
+
 ## 자동 테스트 커버리지
 
 - 밸런스 계산: 비용 증가, 터치 수익, EPS, BigNumber, format.
@@ -248,6 +288,7 @@ Fix:
 - RC-7 추가 산출물 확인: `390x844-home-daily-available.png`, `390x844-home-daily-cooldown.png`, `390x844-daily-reward-claim.png`, `390x844-home-post-prestige-goal.png`, `390x844-collection-milestones.png`, `390x844-milestone-claim.png`가 생성됐고 360/390/430/desktop overflow assertion을 통과했다. 내부 P0/P1 retention blocker는 없음.
 - RC-8 추가 회귀 확인: 360x740 save modal bounding box가 viewport 안에 남고, toast는 pointer event를 막지 않으며, repeated tab switching 뒤 홈 tap CTA가 유지된다. 내부 P0/P1 device-readiness blocker는 없음.
 - RC-12 추가 layout 확인: `layout-regression.spec.ts`가 4 viewport에서 critical text clipping, horizontal overflow, bottom dock/CTA overlap, modal action clickability, save textarea 16px 이상을 검증한다. `visual-regression.spec.ts`는 실제 viewport screenshot으로 전환해 fixed bottom nav fullPage artifact를 제거했다. 내부 P1 layout defect는 현재 발견되지 않는다.
+- RC-13 추가 layout/native 확인: `layout-regression.spec.ts`에 `[data-ui-critical]` clipping, toast non-blocking, home tap CTA visibility를 추가했고 4 passed. Store screenshot pack은 PNG magic/dimension guard를 추가해 iPhone 1290x2796, Android 1080x1920을 검증한다. Android native shell은 생성/동기화됐고, iOS는 CocoaPods 미설치로 external blocker다.
 
 ## Source Budget Gate
 
@@ -269,7 +310,7 @@ Fix:
 - 서버 검증 daily calendar, push notification, 날짜 조작 완전 방어는 RC-7 범위가 아니다.
 - 실제 commissioned/final art ownership, 라이선스 확정 사운드, 광고 SDK/IAP SDK는 연결하지 않았다.
 - 실제 Apple/Google 개발자 계정, 인증서, 프로비저닝, 스토어 업로드는 수행하지 않았다.
-- commissioned art 소유권/법무 확정, platform icon/adaptive icon/splash export, 실제 device store screenshot 재촬영은 제출 전 P1 external art readiness로 남는다.
+- commissioned art 소유권/법무 확정, final adaptive icon foreground/background art, 실제 device store screenshot 재촬영은 제출 전 external art readiness로 남는다.
 - Vite JS chunk warning은 `BUNDLE_ASSET_AUDIT.md` 기준 P2 performance optimization으로 남긴다.
 - RC-11 independent rescore 기준 scoped product-quality P1은 해소됐다: upgrade quick-buy/shelf 8.1, store screenshot framing 8.1, combined 8.1.
-- RC-12 layout regression 기준 주요 모바일 viewport에서 글자 잘림, CTA/탭 겹침, modal 조작 불가 P1은 발견되지 않았다. 실제 App Store/Google Play 제출 완료로는 보고하지 않으며 외부 제출 준비 항목은 `RELEASE_BLOCKERS.md`와 `RC12_SUBMISSION_READINESS_AUDIT.md`에 분리한다.
+- RC-13 layout regression 기준 주요 모바일 viewport에서 글자 잘림, CTA/탭 겹침, modal 조작 불가 P1은 발견되지 않았다. 실제 App Store/Google Play 제출 완료로는 보고하지 않으며 외부 제출 준비 항목은 `RELEASE_BLOCKERS.md`, `RC13_SUBMISSION_AUDIT.md`, `RC13_NATIVE_READINESS_AUDIT.md`에 분리한다.

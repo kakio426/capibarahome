@@ -50,6 +50,15 @@ const shots = [
 const storeKeyVisualDataUrl = `data:image/png;base64,${readFileSync(join(process.cwd(), "src/assets/raster/release/store-key-visual.png")).toString("base64")}`;
 const forbiddenPublicCopy = /mock|sandbox|internal|dev|test|debug|provider|모의|샌드박스|내부|개발|테스트|디버그|프로바이더/i;
 
+function readPngSize(path: string) {
+  const png = readFileSync(path);
+  expect(png.subarray(0, 8).toString("hex")).toBe("89504e470d0a1a0a");
+  return {
+    width: png.readUInt32BE(16),
+    height: png.readUInt32BE(20),
+  };
+}
+
 test.beforeAll(() => {
   mkdirSync("store-screenshots", { recursive: true });
   for (const shot of shots) {
@@ -291,6 +300,7 @@ for (const device of devices) {
         scale: "css",
       });
       expect(statSync(screenshotPath).size).toBeGreaterThan(500_000);
+      expect(readPngSize(screenshotPath)).toEqual({ width: device.width, height: device.height });
     }
   });
 }

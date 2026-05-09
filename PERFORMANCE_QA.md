@@ -1,5 +1,7 @@
 # Performance QA
 
+기준일: 2026-05-09
+
 ## Implemented Performance Protections
 
 - RAF-based game loop instead of `setInterval`
@@ -16,6 +18,7 @@
 - RC-8 page lifecycle save uses `pagehide` and hidden `visibilitychange`
 - RC-8 WebView CSS readiness uses safe-area variables, `100dvh`, `touch-action: manipulation`, and 16px input/textarea controls to avoid iOS zoom
 - RC-8 runtime raster registry excludes store-only PNG candidates so they do not ship in `dist`
+- RC-13 Android shell keeps QA/store artifacts out of runtime web imports; platform candidates live in `platform-assets/` and Android launcher res
 
 ## Automated Checks
 
@@ -36,19 +39,23 @@
 | save/load repeated 20 times | 완료 | `src/tests/rc8ReleaseBugBash.test.ts` |
 | RAF visibility listener cleanup | 완료 | `src/tests/rc8ReleaseBugBash.test.ts` |
 | 360px save modal bounds after settings toggles | 완료 | `e2e/rc8-release-bug-bash.spec.ts` |
+| RC-13 critical text/data marker clipping | 완료 | `e2e/layout-regression.spec.ts` |
+| RC-13 store screenshot PNG dimension guard | 완료 | `e2e/store-screenshot-pack.spec.ts` |
 
 ## Bundle / Asset Audit
 
-| 항목 | RC-8 결과 |
+| 항목 | RC-13 결과 |
 | --- | --- |
 | `dist` total | 15M |
 | `dist/assets` total | 15M |
 | runtime PNG payload | 12 files / 14M |
-| runtime JS chunk | 1.1M |
-| runtime CSS | 68K |
+| runtime JS chunk | 1.165M |
+| runtime CSS | 78.98K |
 | source raster pack | 15 PNG / 19M |
+| platform asset candidates | 19M |
+| Android web asset copy | 16M |
 
-RC-8 removed release-only `store-key-visual.png`, `app-icon-candidate.png`, and `main-capybara-character.png` from the runtime raster registry. Vite's JS large chunk warning remains and is classified as P2 because build/E2E/screenshot verification passes and the remaining optimization needs route-level code splitting or deeper registry splitting.
+RC-8 removed release-only `store-key-visual.png`, `app-icon-candidate.png`, and `main-capybara-character.png` from the runtime raster registry. RC-13 generated platform assets outside runtime web imports. Vite's JS large chunk warning remains and is classified as P2 because build/E2E/screenshot verification passes and the remaining optimization needs route-level code splitting or deeper registry splitting.
 
 ## Command Results
 
@@ -59,12 +66,17 @@ npm test
 
 ```txt
 npm run test:e2e
-32 passed
+36 passed
 ```
 
 ```txt
 npm run cap:sync
-build passed, Capacitor sync finished
+build passed, Capacitor sync finished for Android shell
+```
+
+```txt
+npx playwright test e2e/layout-regression.spec.ts --reporter=line
+4 passed
 ```
 
 ## Manual/Physical Device Gap

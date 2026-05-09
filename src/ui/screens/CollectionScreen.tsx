@@ -127,8 +127,8 @@ export function CollectionScreen() {
                 {milestone.claimed ? <em className="milestone-claimed-seal">완료</em> : null}
               </div>
               <div className="milestone-copy">
-                <h4>{milestone.title}</h4>
-                <p>{milestone.description}</p>
+                <h4 data-ui-critical="milestone-title">{milestone.title}</h4>
+                <p aria-label={milestone.description}>{milestone.description}</p>
                 <ProgressBar value={milestone.progress} label={milestone.claimed ? "장부 도장 완료" : milestone.canClaim ? `보상 ${milestone.reward.label}` : "복귀 일수 진행률"} />
               </div>
               <Button

@@ -4,7 +4,9 @@ import {
   expectClearOfBottomDock,
   expectModalActionUsable,
   expectNoCriticalTextClipping,
+  expectNoDataCriticalTextClipping,
   expectNoHorizontalOverflow,
+  expectToastDoesNotBlockActions,
   expectVisibleWithinViewport,
   seedSave,
   setOrange,
@@ -30,6 +32,7 @@ async function assertBaseShell(page: Parameters<typeof expectNoHorizontalOverflo
     ".save-dot",
     ".bottom-tabs strong",
   ]);
+  await expectNoDataCriticalTextClipping(page);
 }
 
 async function scrollCardIntoSafeView(page: Parameters<typeof expectNoHorizontalOverflow>[0], cardIndex: number) {
@@ -63,10 +66,12 @@ for (const viewport of viewports) {
       setOrange(state, "125000");
     });
     await assertBaseShell(page);
+    await expectVisibleWithinViewport(page.getByRole("button", { name: /귤 주기/ }), 0.98);
     await expectVisibleWithinViewport(page.locator(".home-daily-badge"), 0.95);
     await expectClearOfBottomDock(page, page.locator(".home-daily-badge"));
     await expectNoCriticalTextClipping(page, [
       ".currency-display strong",
+      ".home-ledger-panel strong",
       ".home-daily-badge span",
       ".home-daily-badge strong",
       ".metric-tile strong",
@@ -152,6 +157,8 @@ for (const viewport of viewports) {
     });
     await page.getByRole("button", { name: "설정" }).click();
     await assertBaseShell(page);
+    await page.getByRole("checkbox", { name: "이펙트 켜기" }).click();
+    await expectToastDoesNotBlockActions(page);
     await expectNoCriticalTextClipping(page, [
       ".settings-panel .toggle-label",
       ".settings-actions .btn",

@@ -20,6 +20,7 @@ export function Button({ children, className = "", variant = "primary", fullWidt
   return (
     <button
       className={classes}
+      data-ui-critical="button"
       {...props}
     >
       {children}

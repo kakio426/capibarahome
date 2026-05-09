@@ -1,6 +1,6 @@
 # UI Layout Defect Audit
 
-기준일: 2026-05-08
+기준일: 2026-05-09
 
 ## 기준
 
@@ -40,6 +40,13 @@ Store screenshot pack 강화:
 - public screenshot copy 금지어 검사
 - screenshot heading/subtitle clipping 검사
 - screenshot 파일 존재/크기 검사
+- RC-13 PNG magic byte와 width/height dimension 검사
+
+RC-13 helper 강화:
+
+- `expectNoDataCriticalTextClipping`
+- `expectToastDoesNotBlockActions`
+- `data-ui-critical` markers on Button, CurrencyDisplay, Modal title/actions
 
 ## 발견 및 수정
 
@@ -50,6 +57,8 @@ Store screenshot pack 강화:
 | visual screenshot evidence | 기존 `fullPage` screenshot이 fixed bottom nav를 긴 페이지 하단 콘텐츠 위에 합성해 실제 viewport보다 더 나쁜 occlusion artifact를 만들 수 있음 | P2 | `visual-regression.spec.ts`를 viewport screenshot 기준으로 전환 | regenerated `qa-screenshots/*` |
 | upgrades quick-buy evidence | viewport screenshot 전환 후 이전 scroll offset 때문에 quick-buy board 상단이 잘린 상태로 캡처됨 | P2 | `upgrades-quick-buy` 캡처를 max-buy shelf/CTA 중심으로 재프레이밍 | `qa-screenshots/360x740-upgrades-quick-buy.png`, `qa-screenshots/390x844-upgrades-quick-buy.png` |
 | store screenshots | public copy lint와 file/crop existence 자동 검사가 없었음 | P2 | `store-screenshot-pack.spec.ts`에 forbidden copy, text clipping, file size guard 추가 | `npx playwright test e2e/store-screenshot-pack.spec.ts --reporter=line`: 2 passed |
+| 홈 하단 stats panel | 다음 section이 generic stats card처럼 보일 수 있음 | P2 | `home-ledger-panel` wood ledger skin으로 변경 | `qa-screenshots/360x740-home.png`, `qa-screenshots/390x844-home.png` |
+| D1/D3/D7 milestone board | compact 설명이 ellipsis로 보여 polish가 약함 | P2 | visible description을 짧은 기록 문구로 축약 | `qa-screenshots/390x844-collection-milestones.png` |
 
 ## 화면별 판정
 
@@ -64,7 +73,7 @@ Store screenshot pack 강화:
 | 저장 export/import modal | 통과 | 16px textarea, code scroll/wrap, copy button, confirm CTA viewport 안에 있음 |
 | 오프라인 보상 modal | 통과 | reward art, amount, CTA viewport 안에 있음 |
 | daily reward sheet | 통과 | Day/streak/reward/next preview와 CTA viewport 안에 있음 |
-| D1/D3/D7 milestone board | 통과 | badge title/reward/CTA critical text clipping 없음. 긴 설명은 의도적 compact ellipsis로 P2 허용 |
+| D1/D3/D7 milestone board | 통과 | badge title/reward/CTA critical text clipping 없음. RC-13에서 visible 설명 ellipsis 부담을 줄임 |
 | 앨범 / 컬렉션 | 통과 | sticker ledger/card surfaces overflow 없음. 하단 dock과 critical CTA overlap 없음 |
 | store screenshot 10장 | 통과 | iPhone/Android candidate 10장 생성, public copy 금지어 0개, heading/subtitle clipping 없음 |
 
@@ -84,10 +93,10 @@ Store screenshot pack 강화:
 
 ## 남은 P2/P3
 
-- Home first viewport에서 다음 stats panel 일부가 dock 뒤로 보일 수 있다. 주요 CTA/텍스트는 아니므로 P2 visual composition observation으로 남긴다.
-- Milestone badge 설명은 360/390에서 compact ellipsis를 사용한다. title/reward/CTA는 유지되어 P2 copy density로 분류한다.
+- Home first viewport에서 다음 stats panel 일부가 dock 근처에 보일 수 있다. 주요 CTA/텍스트는 아니므로 P2 visual composition observation으로 남긴다.
+- Milestone board는 RC-13에서 visible copy를 줄였지만 더 풍부한 sticker animation은 P2 polish로 남긴다.
 - 물리 iPhone/Android safe-area, keyboard, WebView storage persistence는 실제 device QA 전까지 외부 검증 항목이다.
 
 ## 판정
 
-RC-12 자동 layout regression과 수동 screenshot 확인 기준으로 내부 P1 layout defect는 현재 발견되지 않는다. 실제 App Store/Google Play 제출 완료는 아니며, 물리 기기 QA와 계정/서명/정책 URL은 외부 제출 준비 항목이다.
+RC-13 자동 layout regression과 수동 screenshot 확인 기준으로 내부 P1 layout defect는 현재 발견되지 않는다. 실제 App Store/Google Play 제출 완료는 아니며, 물리 기기 QA와 계정/서명/정책 URL은 외부 제출 준비 항목이다.

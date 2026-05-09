@@ -6,7 +6,7 @@
 
 ## Assumptions
 
-- 실제 Apple/Google 개발자 계정, 인증서, 프로비저닝, privacy policy URL, 실제 광고/IAP SDK가 없으므로 네이티브 제출 완료가 아니라 제출 준비 산출물까지만 완료로 본다.
+- 실제 Apple/Google 개발자 계정, 인증서, 프로비저닝, privacy policy URL, 실제 광고/IAP SDK가 없으므로 네이티브 제출 완료가 아니라 제출 준비 산출물까지만 완료로 본다. RC-13에서는 Android native shell과 platform asset 후보까지 준비했고 iOS shell은 CocoaPods/Xcode 환경 blocker로 남겼다.
 - final store art와 사운드 파일은 아직 제공되지 않았으므로 프로젝트 내부 수제 SVG/CSS RC visual assets, WebAudio 효과음, 교체 가능한 manager/component 구조를 완료 근거로 본다.
 - 긴 진행 시간이 필요한 오프라인/환생 E2E는 checksum save fixture로 시작하지만, 실제 유저 플로우에서는 debug shortcut을 사용하지 않는다.
 - Base64 export/import는 이동 가능한 저장 코드 형식이며 암호화로 설명하지 않는다.
@@ -72,4 +72,4 @@
 
 ## Trace Gate
 
-매핑되지 않은 원본 요구사항 없음. 원본 기능/검증 요구사항의 P0/P1 `미완료`, `검증 불가` 항목은 현재 발견되지 않았다. RC-10 product-quality gate는 독립 재점수 결과 no-go였지만, RC-11에서 upgrade quick-buy/shelf와 store screenshot framing P1을 해소했다. 실제 제출 완료를 막는 외부 계정/서명/실기기/법무 항목은 `RELEASE_BLOCKERS.md`에 분리했다.
+매핑되지 않은 원본 요구사항 없음. 원본 기능/검증 요구사항의 P0/P1 `미완료`, `검증 불가` 항목은 현재 발견되지 않았다. RC-10 product-quality gate는 독립 재점수 결과 no-go였지만, RC-11에서 upgrade quick-buy/shelf와 store screenshot framing P1을 해소했다. RC-13에서 Android native shell, platform asset 후보, 강화 layout/store guard를 추가했다. 실제 제출 완료를 막는 외부 계정/서명/실기기/법무 항목은 `RELEASE_BLOCKERS.md`에 분리했다.

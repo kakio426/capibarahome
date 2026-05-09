@@ -100,6 +100,17 @@ export async function expectNoCriticalTextClipping(page: Page, selectors: string
   expect(failures).toEqual([]);
 }
 
+export async function expectNoDataCriticalTextClipping(page: Page) {
+  await expectNoCriticalTextClipping(page, ["[data-ui-critical]"]);
+}
+
+export async function expectToastDoesNotBlockActions(page: Page) {
+  const pointerEvents = await page.locator(".toast").evaluateAll((nodes) => nodes.map((node) => window.getComputedStyle(node).pointerEvents));
+  for (const value of pointerEvents) {
+    expect(value).toBe("none");
+  }
+}
+
 export async function expectVisibleWithinViewport(locator: Locator, minVisibleRatio = 0.92) {
   await expect(locator).toBeVisible();
   const box = await locator.boundingBox();

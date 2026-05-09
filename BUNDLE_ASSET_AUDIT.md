@@ -1,20 +1,23 @@
 # Bundle Asset Audit
 
-기준일: 2026-05-08
+기준일: 2026-05-09
 
 ## Build Output Snapshot
 
-RC-12 build 기준:
+RC-13 build 기준:
 
 ```txt
 dist: 15M
 dist/assets: 15M
 dist PNG assets: 12 files / 14M
-dist JS asset: index-DvH7_6MF.js 1.165M
-dist CSS asset: index-pmQvQBpk.css 77.69K
+dist JS asset: index-DZPMoALW.js 1.165M
+dist CSS asset: index-BhnYB42g.css 78.98K
 src/assets/raster: 15 PNG files / 19M
 store-screenshots: 32M
 qa-screenshots: 188M
+platform-assets: 19M
+android/app/src/main/assets/public: 16M
+android/app/src/main/res: 1.3M
 ```
 
 Largest runtime assets:
@@ -54,13 +57,13 @@ Result: runtime `dist/assets` no longer emits `store-key-visual`, `app-icon-cand
 Some chunks are larger than 500 kB after minification
 ```
 
-RC-12 does not treat this as an internal P0/P1 blocker because:
+RC-13 does not treat this as an internal P0/P1 blocker because:
 
 - TypeScript build passes.
 - Visual and store screenshots render.
 - Runtime PNG payload was reduced without quality loss.
 - The remaining JS chunk is mainly app/config/generated registry code and can be split later with route-level code splitting.
-- RC-12 scope prioritized layout regression/device readiness over route-level code splitting because splitting screens would require another full visual/E2E revalidation cycle.
+- RC-13 scope prioritized native shell readiness and final layout regression over route-level code splitting because splitting screens would require another full visual/E2E revalidation cycle.
 
 Current classification: P2 performance optimization.
 
@@ -76,3 +79,11 @@ Current classification: P2 performance optimization.
 ## Store/QA Artifacts
 
 `qa-screenshots/` and `store-screenshots/` are committed QA artifacts, not runtime bundle assets. Their large folder size does not affect web/native app bundle size.
+
+## RC-13 Platform Assets
+
+`platform-assets/` is a submission-prep output folder, not a runtime web import. Android launcher icon candidates are copied into `android/app/src/main/res/mipmap-*` so Android Studio can inspect them.
+
+`@capacitor/assets` could not be installed in this environment because the `sharp`/libvips download timed out. RC-13 therefore uses `scripts/exportPlatformAssets.mjs` and macOS `sips` for candidate exports. This is acceptable as prep evidence, but final icon/splash export should be rechecked with the official Capacitor tool or designer-provided platform exports.
+
+No route-level dynamic import or WebP/AVIF conversion was applied in RC-13. Those remain P2 because they can affect startup visuals and require a full screenshot/device QA rerun.
