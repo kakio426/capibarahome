@@ -16,7 +16,7 @@ test("save, reload, export, reset, and import without debug shortcuts", async ({
   await expect(page.locator(".upgrade-card", { hasText: "말랑 앞발" }).getByText("Lv.1")).toBeVisible();
 
   await page.getByRole("button", { name: "설정" }).click();
-  await page.getByRole("button", { name: "세이브 Export/Import" }).click();
+  await page.getByRole("button", { name: "저장 코드 보관함" }).click();
   const exportCode = await page.locator("textarea[readonly]").inputValue();
   expect(exportCode.length).toBeGreaterThan(50);
   await page.getByLabel("닫기").click();
@@ -27,7 +27,7 @@ test("save, reload, export, reset, and import without debug shortcuts", async ({
   await page.getByRole("button", { name: "건너뛰기" }).click();
 
   await page.getByRole("button", { name: "설정" }).click();
-  await page.getByRole("button", { name: "세이브 Export/Import" }).click();
+  await page.getByRole("button", { name: "저장 코드 보관함" }).click();
   await page.locator("textarea:not([readonly])").fill(exportCode);
   await page.getByRole("button", { name: "저장 데이터 불러오기" }).click();
   await expect(page.getByText("불러오기가 완료되었습니다.")).toBeVisible();

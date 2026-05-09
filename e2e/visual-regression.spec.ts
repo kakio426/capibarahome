@@ -161,8 +161,8 @@ for (const viewport of viewports) {
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-settings.png`, fullPage: false });
     await expectNoHorizontalOverflow(page);
 
-    await page.getByRole("button", { name: "세이브 Export/Import" }).click();
-    await expect(page.getByRole("dialog", { name: "저장 내보내기/가져오기" })).toBeVisible();
+    await page.getByRole("button", { name: "저장 코드 보관함" }).click();
+    await expect(page.getByRole("dialog", { name: "저장 코드 보관함" })).toBeVisible();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-save-modal.png`, fullPage: false });
     await expectNoHorizontalOverflow(page);
   });

@@ -24,7 +24,7 @@ export function SettingsModal() {
     <main className="screen stack-screen">
       <header className="screen-header">
         <h2>설정</h2>
-        <p>연출, 소리, 저장 데이터를 즉시 조정합니다.</p>
+        <p>연출과 소리를 바로 조정해요.</p>
       </header>
 
       <Panel className="settings-panel ui-panel--ledger">
@@ -67,7 +67,7 @@ export function SettingsModal() {
         </div>
         <div className="settings-action-grid">
           <Button className="ledger-action-button" variant="secondary" onClick={() => updateState((current) => restartTutorial(current))}>튜토리얼 다시 보기</Button>
-          <Button className="ledger-action-button" variant="secondary" onClick={() => setSaveOpen(true)}>세이브 Export/Import</Button>
+          <Button className="ledger-action-button" variant="secondary" onClick={() => setSaveOpen(true)}>저장 코드 보관함</Button>
           <Button className="ledger-action-button" variant="secondary" onClick={() => GameActions.save()}>강제 저장</Button>
           <Button className="ledger-action-button is-danger" variant="danger" onClick={() => setResetOpen(true)}>저장 데이터 초기화</Button>
         </div>

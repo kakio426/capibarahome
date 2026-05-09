@@ -53,7 +53,7 @@
 | --- | --- |
 | `qa-screenshots/320x740-home.png` | 핵심 tap CTA와 currency HUD는 보이고 조작 가능. RC20 scroll dock polish로 하단 경계가 fade 처리되어 잘린 텍스트처럼 보이지 않게 보강 |
 | `qa-screenshots/320x740-upgrades.png` | RC19 이후 quick-buy 세로 스택/빈 레일 P1 해소. 첫 card의 cost/CTA는 분리됨 |
-| `qa-screenshots/390x844-save-modal.png` | Export/import textarea와 CTA가 modal 안에 유지됨. iOS zoom risk guard는 textarea 16px 이상으로 커버 |
+| `qa-screenshots/390x844-save-modal.png` | RC21 후 `Export/Import` visible copy를 제거한 저장 코드 보관함 UI. 내보내기/가져오기 textarea와 CTA가 modal 안에 유지됨. iOS zoom risk guard는 textarea 16px 이상으로 커버 |
 | `qa-screenshots/390x844-daily-reward-claim.png` | Reward moment와 CTA가 modal 안에서 명확함 |
 | `qa-screenshots/390x844-collection-milestones.png` | D1/D3/D7 badge board와 claim CTA visible. RC20 scroll dock polish 후 아래 quest card는 bottom fade 뒤로 이어져 의도적인 scroll continuation으로 보임 |
 | `qa-screenshots/390x844-prestige-result.png` | RC19 이후 reward summary/ribbon/next goal/CTA가 partial clip 없이 보임 |
@@ -72,6 +72,10 @@
 3. 일부 긴 scroll 화면은 현재 조작 대상이 아닌 다음 card가 bottom dock 근처로 이어진다.
    - RC20에서 content-shell과 bottom dock overlap guard를 추가하고, bottom dock 위 scroll fade를 적용했다.
    - CTA occlusion은 아니며, 더 정교한 per-screen section ending treatment는 P3 polish다.
+
+4. player-facing copy polish는 내부 screenshot 기준으로 추가 보정했다.
+   - RC21에서 설정 subtitle 한 글자 줄바꿈, save modal `Export/Import` visible labels, 초반 upgrade description wrap을 수정했다.
+   - 이는 physical proof를 대체하지 않으며, 실제 Android 기기 캡처가 여전히 필요하다.
 
 ## Completion Decision
 

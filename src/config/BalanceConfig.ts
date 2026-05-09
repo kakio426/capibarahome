@@ -35,7 +35,7 @@ export const BalanceConfig = {
     {
       id: "soft_paw",
       name: "말랑 앞발",
-      description: "카피바라가 귤을 더 조심스럽고 정확하게 받아요.",
+      description: "카피바라가 귤을 더 정확히 받아요.",
       tier: "yard",
       icon: "paw",
       baseCost: "15",
@@ -49,7 +49,7 @@ export const BalanceConfig = {
     {
       id: "butler_gloves",
       name: "집사 장갑",
-      description: "폭신한 장갑으로 연타 피로를 줄이고 귤 전달량을 키웁니다.",
+      description: "폭신한 장갑으로 전달량을 키워요.",
       tier: "yard",
       icon: "glove",
       baseCost: "120",

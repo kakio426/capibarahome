@@ -423,10 +423,10 @@ for (const viewport of viewports) {
       ".settings-actions .btn",
       ".segmented button",
     ]);
-    await page.getByRole("button", { name: "세이브 Export/Import" }).click();
-    const saveDialog = page.getByRole("dialog", { name: "저장 내보내기/가져오기" });
+    await page.getByRole("button", { name: "저장 코드 보관함" }).click();
+    const saveDialog = page.getByRole("dialog", { name: "저장 코드 보관함" });
     await expectVisibleWithinViewport(saveDialog, 0.96);
-    await expectVisibleWithinViewport(saveDialog.getByRole("button", { name: "Export 코드 복사" }));
+    await expectVisibleWithinViewport(saveDialog.getByRole("button", { name: "보관 코드 복사" }));
     await expectTextareasAvoidMobileZoom(page);
     await expectNoCriticalTextClipping(page, [
       ".vault-seal-row span",
@@ -479,8 +479,8 @@ for (const scale of [1.1, 1.2]) {
     await expectClearOfBottomDock(page, page.locator(".upgrade-card").first().locator(".upgrade-buy-button"));
 
     await page.getByRole("button", { name: "설정" }).click();
-    await page.getByRole("button", { name: "세이브 Export/Import" }).click();
-    await expectModalActionUsable(page, "저장 내보내기/가져오기", "Export 코드 복사");
+    await page.getByRole("button", { name: "저장 코드 보관함" }).click();
+    await expectModalActionUsable(page, "저장 코드 보관함", "보관 코드 복사");
     await expectTextareasAvoidMobileZoom(page);
     await expectAndroidTextRenderingGuards(page);
   });

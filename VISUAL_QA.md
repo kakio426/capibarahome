@@ -246,6 +246,12 @@ RC-20 scroll dock polish:
 - `npx playwright test e2e/layout-regression.spec.ts --reporter=line`: 10 passed
 - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: 10 passed
 
+RC-21 copy and micro-layout polish:
+
+- `qa-screenshots/320x740-settings.png`: 설정 subtitle을 짧게 줄여 320px에서 마지막 글자만 떨어지는 줄바꿈을 제거했다.
+- `qa-screenshots/390x844-save-modal.png`: visible copy의 `Export/Import`를 제거하고 `저장 코드 보관함`, `내보내기 코드`, `가져오기 코드`, `보관 코드 복사`로 교체했다. save vault의 게임 UI tone은 유지하면서 개발자용 라벨을 줄였다.
+- `qa-screenshots/320x740-upgrades-quick-buy.png`: 첫 업그레이드 설명 두 개를 짧게 다듬어 카드 설명이 좁은 폭에서 덜 답답하게 읽힌다.
+
 ## Manual Spot Check
 
 - `qa-screenshots/390x844-home.png`: 첫인상은 웹 대시보드가 아니라 모바일 게임 home scene이다. 큰 흰 카드가 주인공이 되지 않는다.
@@ -255,7 +261,7 @@ RC-20 scroll dock polish:
 - `qa-screenshots/390x844-prestige.png`: golden leaf ritual art가 화면 성격을 결정한다.
 - `qa-screenshots/390x844-shop.png`: reward banner와 상품 shelf가 개발자용 제어판이 아니라 게임 상점 화면으로 보이게 한다.
 - `qa-screenshots/390x844-settings.png`: browser checkbox가 사라지고 custom ON/OFF switch가 적용됐으며 toast가 제목을 가리지 않는다.
-- `qa-screenshots/390x844-save-modal.png`: export code copy action, sealed code row, vault frame이 적용되어 util dialog 냄새가 줄었고 실제 복구 사용성도 유지된다.
+- `qa-screenshots/390x844-save-modal.png`: 저장 코드 보관함 copy action, sealed code row, vault frame이 적용되어 util dialog 냄새가 줄었고 실제 복구 사용성도 유지된다.
 - `store-screenshots/iphone-01-home.png`: store-facing key art와 gameplay panel이 함께 보여 단순 앱 캡처 수준에서는 벗어났다.
 - `store-screenshots/iphone-02-upgrade.png`: RC-17 upgrade shelf 장면이 가까이 보이고 first shelf CTA가 도크나 장식에 묻히지 않는다.
 
@@ -316,4 +322,4 @@ RC-20 scroll dock polish:
 
 ## Remaining Visual Risk
 
-RC-20 기준 기술적 visual overflow P0/P1, CTA/tab occlusion P1, modal clickability P1, store public copy P1은 발견되지 않았다. `RC14_INDEPENDENT_RESCORE.md`는 internal product UI average를 8.1로 기록한다. 남은 P2/P3는 daily reward sheet polish, milestone sticker-board polish, server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, final adaptive icon foreground/background, feature graphic final approval, 물리 기기 store screenshot 재촬영이다.
+RC-21 기준 기술적 visual overflow P0/P1, CTA/tab occlusion P1, modal clickability P1, store public copy P1은 발견되지 않았다. `RC14_INDEPENDENT_RESCORE.md`는 internal product UI average를 8.1로 기록한다. 남은 P2/P3는 daily reward sheet polish, milestone sticker-board polish, server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, 저장 코드의 본질적 밀도, final commissioned art ownership/legal approval, final adaptive icon foreground/background, feature graphic final approval, 물리 기기 store screenshot 재촬영이다.

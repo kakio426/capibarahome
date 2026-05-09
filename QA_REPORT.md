@@ -583,3 +583,19 @@ Fix:
   - `qa-screenshots/320x740-settings.png`: 하단 `숫자 표기` section이 tab dock에 날카롭게 잘려 보이던 느낌을 scroll fade로 완화.
   - `qa-screenshots/320x740-home.png`: home ledger lower section이 bottom dock 아래로 직접 깔리는 느낌을 fade 처리.
   - `qa-screenshots/390x844-collection-milestones.png`: milestone board 아래 quest card continuation이 tab dock과 직접 충돌하지 않음.
+
+## RC-21 Copy And Micro-Layout Polish
+
+- RC-20 후 320/390 screenshot을 다시 사람 눈으로 확인해 자동 clipping guard가 잡지 않는 player-facing copy 품질을 보정했다.
+- 수정한 P2/P3:
+  - `qa-screenshots/320x740-settings.png`: 설정 hero subtitle이 `다.` 한 글자만 다음 줄로 떨어지던 어색한 줄바꿈을 짧은 문구로 교체했다.
+  - `qa-screenshots/390x844-save-modal.png`: `Export/Import` 라벨과 버튼 문구를 `저장 코드 보관함`, `내보내기 코드`, `가져오기 코드`, `보관 코드 복사`로 교체해 개발자용 영어 UI 느낌을 줄였다.
+  - `qa-screenshots/320x740-upgrades-quick-buy.png`: 초반 업그레이드 설명이 좁은 카드에서 마지막 음절만 떨어지지 않도록 첫 두 설명 문구를 짧게 다듬었다.
+- Regression notes:
+  - `save-import-export.spec.ts`, `layout-regression.spec.ts`, `rc8-release-bug-bash.spec.ts`, `visual-regression.spec.ts`의 role/name selector를 새 player-facing copy에 맞춰 갱신했다.
+- Verification:
+  - `npm run build`: success
+  - `npx playwright test e2e/save-import-export.spec.ts e2e/layout-regression.spec.ts --reporter=line`: success, 11 passed
+  - `npm run test:e2e`: success, 46 passed
+  - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: success, 10 passed
+  - `npm test -- --run`: initial parallel run with E2E/visual timed out in two balance simulation tests; isolated rerun succeeded, 23 files / 502 tests

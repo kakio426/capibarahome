@@ -85,8 +85,8 @@ test("settings toggles keep touch, purchase, and modal flows usable at 360px", a
   await expect(page.locator(".toast")).toBeVisible();
 
   await page.getByRole("button", { name: "설정" }).click();
-  await page.getByRole("button", { name: "세이브 Export/Import" }).click();
-  await expect(page.getByRole("dialog", { name: "저장 내보내기/가져오기" })).toBeVisible();
+  await page.getByRole("button", { name: "저장 코드 보관함" }).click();
+  await expect(page.getByRole("dialog", { name: "저장 코드 보관함" })).toBeVisible();
   await expectNoHorizontalOverflow(page);
   const modalBox = await page.locator(".modal").boundingBox();
   expect(modalBox?.y ?? 0).toBeGreaterThanOrEqual(0);
