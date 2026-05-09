@@ -207,14 +207,68 @@ adb devices
 adb install -r android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
-Release readiness check after JDK/keystore:
+Local release rehearsal after RC-16:
 
 ```bash
+cp android/keystore.properties.example android/keystore.properties
+# Fill android/keystore.properties locally. Do not commit it.
 cd android && ./gradlew assembleRelease
 cd android && ./gradlew bundleRelease
 ```
 
-Play Console upload에는 signed AAB와 Android keystore가 필요하다.
+RC-16 verified a local-only signed release APK and AAB:
+
+- `android/app/build/outputs/apk/release/app-release.apk`
+- `android/app/build/outputs/bundle/release/app-release.aab`
+
+The RC-16 local key is a rehearsal upload key only. Play Console upload should use a production upload key chosen and backed up by the user.
+
+Production Android upload key runbook:
+
+```bash
+mkdir -p android/keystores
+keytool -genkeypair \
+  -storetype PKCS12 \
+  -keyalg RSA \
+  -keysize 4096 \
+  -validity 10000 \
+  -alias YOUR_PRODUCTION_UPLOAD_ALIAS \
+  -keystore android/keystores/YOUR_PRODUCTION_UPLOAD_KEY.jks
+cp android/keystore.properties.example android/keystore.properties
+```
+
+Then edit ignored `android/keystore.properties`:
+
+```properties
+storeFile=keystores/YOUR_PRODUCTION_UPLOAD_KEY.jks
+storePassword=YOUR_SECRET
+keyAlias=YOUR_PRODUCTION_UPLOAD_ALIAS
+keyPassword=YOUR_SECRET
+```
+
+Build:
+
+```bash
+npm run build
+npm run cap:sync
+npx cap sync android
+cd android
+./gradlew clean
+./gradlew bundleRelease
+```
+
+Upload candidate:
+
+```txt
+android/app/build/outputs/bundle/release/app-release.aab
+```
+
+Warnings:
+
+- Never commit `android/keystore.properties`, `.jks`, `.keystore`, `*.storepass`, or `*.keypass`.
+- Losing the production upload key can block future updates unless Play App Signing upload key reset is available and approved.
+- Enroll/use Google Play App Signing in Play Console and keep the app signing key/upload key distinction clear.
+- Start with an internal testing track before any public rollout.
 
 iOS:
 
@@ -233,10 +287,11 @@ iOS shell generation is complete in RC-15. Next native run/build steps need matc
 
 - JDK 21 or compatible Java runtime for current Capacitor Android compile target. RC-15 uses Homebrew `openjdk@21`.
 - Android Studio optional for IDE/device workflow; command-line SDK tools are installed at `/opt/homebrew/share/android-commandlinetools`.
+- `bundletool 1.18.3` installed in RC-16 for AAB validation.
 - CocoaPods installed as Homebrew `cocoapods 1.16.2`.
 - Xcode command line tools installed, but Xcode iOS platform/CoreSimulator component update is still required for simulator build.
 - Apple Developer signing identity
-- Android release keystore
+- Production Android upload keystore
 
 ## Store 제출 전 사용자가 제공해야 하는 항목
 
@@ -244,7 +299,8 @@ iOS shell generation is complete in RC-15. Next native run/build steps need matc
 - Google Play Console 계정
 - 최종 bundle id/package name
 - iOS signing certificate와 provisioning profile
-- Android signing key/keystore
+- Production Android upload signing key/keystore
+- Google Play App Signing enrollment
 - privacy policy URL
 - support URL
 - 실제 IAP product id, 가격, 국가별 판매 설정
@@ -252,4 +308,4 @@ iOS shell generation is complete in RC-15. Next native run/build steps need matc
 
 ## 현재 release blocker
 
-Android native debug build와 iOS native shell/sync는 RC-15에서 확인됐다. 실제 스토어 제출 자체는 계정, 서명, 정책 URL, 실제 SDK/상품 설정, matching Xcode iOS platform, 물리 기기 QA가 없어 수행하지 않았다. 이는 `RELEASE_BLOCKERS.md`에 외부 blocker로 기록한다.
+Android native debug build와 iOS native shell/sync는 RC-15에서 확인됐다. RC-16에서는 local rehearsal signed release APK/AAB 생성과 검증까지 확인했다. 실제 스토어 제출 자체는 계정, production signing, Play App Signing, 정책 URL, 실제 SDK/상품 설정, matching Xcode iOS platform, 물리 기기 QA가 없어 수행하지 않았다. 이는 `RELEASE_BLOCKERS.md`에 외부 blocker로 기록한다.

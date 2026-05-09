@@ -43,6 +43,8 @@
 - [x] RC-14 audits completed: `RC14_RELEASE_READINESS_AUDIT.md`, `RC14_NATIVE_BUILD_AUDIT.md`, `RC14_BUNDLE_OPTIMIZATION_AUDIT.md`, `RC14_DEVICE_QA_PACKET.md`, `RC14_INDEPENDENT_RESCORE.md`
 - [x] RC-15 native toolchain/build verification completed: Homebrew JDK 21, Android command-line tools/SDK 35, CocoaPods installed; Android `assembleDebug`/`lint` passed; iOS `cap add`/`sync` passed
 - [x] RC-15 audits completed: `RC15_TOOLCHAIN_AUDIT.md`, `RC15_ANDROID_BUILD_AUDIT.md`, `RC15_IOS_READINESS_AUDIT.md`, `RC15_NATIVE_BUILD_RESULTS.md`, `RC15_INDEPENDENT_RESCORE.md`
+- [x] RC-16 Android signed release rehearsal completed: secret-safe Gradle signing structure, local-only rehearsal keystore, signed release APK/AAB, `apksigner`, `jarsigner`, and `bundletool validate`
+- [x] RC-16 audits completed: `RC16_ANDROID_RELEASE_AUDIT.md`, `RC16_RELEASE_ARTIFACT_REPORT.md`, `RC16_SIGNING_SECURITY_AUDIT.md`, `GOOGLE_PLAY_RELEASE_CHECKLIST.md`, `RC16_INDEPENDENT_RESCORE.md`
 - [x] Visual asset integrity tests added for SVG count, raster PNG integrity, coverage, external-reference bans, runtime visual styling audit
 - [x] Art production docs added: `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`
 - [x] RC-2 audio readiness completed: file-ready audio slots and synthetic WebAudio fallback
@@ -79,17 +81,22 @@
 - [x] iOS native platform folder generated with `npx cap add ios`
 - [x] iOS native dependencies synced with CocoaPods via `npx cap sync ios`
 - [x] Android JDK/SDK installed for this machine and `./gradlew assembleDebug` / `./gradlew lint` completed with JDK 21
+- [x] Local rehearsal Android release signing configured without committing secrets
+- [x] Local signed release APK generated at `android/app/build/outputs/apk/release/app-release.apk`
+- [x] Local signed release AAB generated at `android/app/build/outputs/bundle/release/app-release.aab`
 - [ ] iOS project opened and signed in Xcode
 - [ ] Android project opened and signed in Android Studio
-- [ ] Android release keystore configured and signed AAB generated
+- [ ] Production Android upload keystore configured by user and production signed AAB generated
 
-Android native shell is generated and synced. Android debug APK build now passes at `android/app/build/outputs/apk/debug/app-debug.apk`. iOS native shell is generated and synced, but simulator/native iOS build is blocked by local Xcode CoreSimulator/iOS platform component mismatch before signing. Apple/Google developer account details, signing certificates, provisioning profiles, keystore, and final store submission choices are still user-provided.
+Android native shell is generated and synced. Android debug APK build now passes at `android/app/build/outputs/apk/debug/app-debug.apk`, and RC-16 local signed release APK/AAB generation is verified. iOS native shell is generated and synced, but simulator/native iOS build is blocked by local Xcode CoreSimulator/iOS platform component mismatch before signing. Apple/Google developer account details, production signing certificates/profiles/keystores, Play App Signing registration, and final store submission choices are still user-provided.
 
 ## User Must Provide Before Store Upload
 
 - Apple Developer Program account
 - Google Play Console account
 - Bundle ID/package name confirmation
+- Production Android upload keystore generated, backed up, and configured outside Git
+- Google Play App Signing enrolled and upload key registered
 - Optional persistent shell config for Homebrew JDK 21, or user-managed macOS Java symlink if desired
 - Xcode iOS platform/CoreSimulator component update before simulator/native iOS build
 - App icon final art approval and adaptive foreground/background if replacing current candidates

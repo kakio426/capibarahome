@@ -66,18 +66,18 @@ Lint passes with warnings only. Remaining items are not RC-15 code blockers:
 
 ## Release Readiness
 
-Debug build is verified. Release upload is not ready because signing is intentionally not configured.
+RC-15 기준 debug build만 verified였고 release signing은 intentionally not configured 상태였다. RC-16에서 이 항목은 local signed release rehearsal로 갱신됐다.
 
 External requirements before Google Play upload:
 
 - Google Play Console account
 - final package name approval
-- Android release keystore
-- signingConfig / signed AAB
+- production Android upload keystore
+- Play App Signing enrollment / upload key registration
 - final icon/adaptive/monochrome/splash approval
 - privacy/support URL
 - physical Android QA
 
 ## Decision
 
-Android native debug build readiness is verified by a real Gradle `assembleDebug` artifact. Remaining Android release blockers are signing/account/final asset/physical device QA items, not current app code blockers.
+Android native debug build readiness is verified by a real Gradle `assembleDebug` artifact. RC-16 added local rehearsal release signing and verified signed release APK/AAB generation. Remaining Android production release blockers are Play Console account, production upload key, Play App Signing enrollment, final asset approval, privacy/support URL, and physical device QA.

@@ -86,7 +86,9 @@ URLs:
 | Feature graphic | `google-play-feature-graphic.png` 후보 | final art approval 필요 |
 | App icon/splash | `platform-assets/` 후보 | final art/legal approval 필요 |
 | Final art rights | 자체 제작 후보 기준 | 권리/소유권 확인 필요 |
-| Android debug APK | `android/app/build/outputs/apk/debug/app-debug.apk` | release keystore/signed AAB 필요 |
+| Android debug APK | `android/app/build/outputs/apk/debug/app-debug.apk` | physical device QA 필요 |
+| Android local signed release APK | `android/app/build/outputs/apk/release/app-release.apk` | local rehearsal only, production key 필요 |
+| Android local signed release AAB | `android/app/build/outputs/bundle/release/app-release.aab` | Google Play upload에는 production upload key / Play Console setup 필요 |
 | iOS shell | `ios/App/App.xcworkspace` | Xcode platform component, signing, provisioning 필요 |
 
 ## Not Included Yet
@@ -101,10 +103,11 @@ URLs:
 - Export compliance answers
 - Legal owner name and contact data
 - Physical device QA results
-- Android keystore / iOS signing data
+- Production Android upload keystore / iOS signing data
+- Google Play App Signing enrollment
 - Physical device QA results
 - Matching Xcode iOS platform/CoreSimulator component for simulator/native iOS build
 
 ## 판정
 
-Public copy와 screenshot/feature graphic 후보는 준비됐고, RC-15에서 Android debug APK와 iOS shell/sync까지 확인됐다. 실제 store upload metadata package는 사용자 계정/URL/법적 답변/서명/실기기 QA를 받은 뒤 확정해야 한다. RC-15는 제출 준비 패키지 정리 상태이며 실제 업로드 완료가 아니다.
+Public copy와 screenshot/feature graphic 후보는 준비됐고, RC-16에서 Android local signed release APK/AAB 생성까지 확인됐다. 실제 store upload metadata package는 사용자 계정/URL/법적 답변/production signing/Play App Signing/실기기 QA를 받은 뒤 확정해야 한다. RC-16은 제출 준비 패키지 정리와 local release signing rehearsal 상태이며 실제 업로드 완료가 아니다.

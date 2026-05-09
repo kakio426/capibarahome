@@ -69,6 +69,23 @@ passed with warnings; manifest order warning fixed, remaining warnings are depen
 ```
 
 ```txt
+./gradlew assembleRelease
+BUILD SUCCESSFUL
+artifact: android/app/build/outputs/apk/release/app-release.apk (18M)
+```
+
+```txt
+./gradlew bundleRelease
+BUILD SUCCESSFUL
+artifact: android/app/build/outputs/bundle/release/app-release.aab (18M)
+```
+
+```txt
+apksigner verify / jarsigner -verify / bundletool validate
+release APK verifies with v1/v2 signing; release AAB jar verified and bundletool validation exits 0
+```
+
+```txt
 git diff --check
 passed
 ```
@@ -390,3 +407,44 @@ Fix:
 - Vite JS chunk warning은 RC-14에서 제거됐다. 남은 bundle P2는 runtime raster PNG payload의 WebP/AVIF 전환 가능성이다.
 - RC-11 independent rescore 기준 scoped product-quality P1은 해소됐다: upgrade quick-buy/shelf 8.1, store screenshot framing 8.1, combined 8.1.
 - RC-15 기준 Android debug APK는 생성됐고 iOS shell/sync도 완료됐다. 다만 Xcode simulator platform mismatch, iOS/Android signing, store 계정/URL, final asset approval, 실제 SDK, 물리 기기 QA는 여전히 제출 전 external blocker다. 실제 App Store/Google Play 제출 완료로는 보고하지 않는다.
+
+## RC-16 Android Signed Release Rehearsal
+
+- 새 게임 기능, save schema, gameplay UI는 변경하지 않았다.
+- 공식 Android app signing, Google Play App Signing, Android command-line build, Android App Bundle 문서를 확인했고 `RC16_ANDROID_RELEASE_AUDIT.md`에 링크와 날짜를 기록했다.
+- Release signing 구조:
+  - `android/keystore.properties.example` 추가, placeholder만 포함.
+  - `android/app/build.gradle`은 ignored `android/keystore.properties`가 있을 때만 release signing config를 로드한다.
+  - release task에서 secret file이 없거나 필수 key가 빠지면 명확한 Gradle error를 낸다.
+  - `android/.gitignore`에 `.jks`, `.keystore`, `keystore.properties`, signing property/password files, `keystores/`, APK/AAB output ignore를 강화했다.
+- Local rehearsal keystore:
+  - alias `local-upload-test`
+  - PKCS12 / RSA 4096 / 10000 days
+  - 파일: `android/keystores/local-upload-test.jks`
+  - 실제 password는 `android/keystore.properties`에만 있으며 문서/커밋에 기록하지 않았다.
+- RC-16 Android build results:
+  - `npm run build`: success
+  - `npm run cap:sync`: success
+  - `npx cap sync android`: success
+  - `cd android && ./gradlew clean`: success
+  - `cd android && ./gradlew assembleDebug`: success
+  - `cd android && ./gradlew lint`: success
+  - `cd android && ./gradlew assembleRelease`: success
+  - `cd android && ./gradlew bundleRelease`: success
+- Release artifacts:
+  - Debug APK: `android/app/build/outputs/apk/debug/app-debug.apk` (`19M`)
+  - Signed release APK: `android/app/build/outputs/apk/release/app-release.apk` (`18M`)
+  - Signed release AAB: `android/app/build/outputs/bundle/release/app-release.aab` (`18M`)
+- Verification:
+  - `apksigner verify --verbose --print-certs app-release.apk`: verifies, v1/v2 true, RSA 4096 local rehearsal cert.
+  - `jarsigner -verify app-release.aab`: `jar verified`; self-signed local cert warning is expected for rehearsal.
+  - `bundletool validate --bundle=app-release.aab`: exit code 0 with Java/protobuf deprecation warnings only.
+  - `bundletool dump manifest`: package/version/permission/icon values readable.
+  - Release manifest has no `android:debuggable`; Gradle release build sets `debuggable false`.
+- Git hygiene:
+  - `git ls-files | grep -E '\.jks|\.keystore|keystore.properties|release-signing.properties|storepass|keypass'`: only `android/keystore.properties.example`, the placeholder template.
+  - `android/keystore.properties`, `android/keystores/`, and Android build outputs are ignored.
+- Installed during RC-16:
+  - `bundletool 1.18.3` via Homebrew.
+  - Homebrew also installed `openjdk 25.0.2` as a `bundletool` dependency; Gradle build verification still uses `openjdk@21`.
+- RC-16 does not mean Google Play upload completion. Production upload key, Play App Signing setup, Play Console account, privacy/support URL, Data Safety, age rating, final asset approval, and physical device QA remain external blockers.

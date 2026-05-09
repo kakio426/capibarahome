@@ -1,5 +1,28 @@
 apply plugin: 'com.android.application'
 
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+def keystoreProperties = new Properties()
+def hasReleaseKeystore = keystorePropertiesFile.exists()
+def isReleaseBuildTask = gradle.startParameter.taskNames.any { taskName ->
+    taskName.toLowerCase().contains('release')
+}
+
+if (hasReleaseKeystore) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+if (isReleaseBuildTask) {
+    if (!hasReleaseKeystore) {
+        throw new GradleException("Missing android/keystore.properties. Copy android/keystore.properties.example, fill local secrets, and keep the real file out of git.")
+    }
+    def missingSigningKeys = ['storeFile', 'storePassword', 'keyAlias', 'keyPassword'].findAll {
+        !keystoreProperties[it]
+    }
+    if (!missingSigningKeys.isEmpty()) {
+        throw new GradleException("android/keystore.properties is missing required release signing keys: ${missingSigningKeys.join(', ')}")
+    }
+}
+
 android {
     namespace "com.capybarabutler.game"
     compileSdk rootProject.ext.compileSdkVersion
@@ -16,8 +39,20 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            if (hasReleaseKeystore) {
+                storeFile rootProject.file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

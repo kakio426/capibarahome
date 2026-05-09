@@ -30,6 +30,7 @@
 | RC-13 final UI/native prep P1 | 없음 | `RC13_VISUAL_REGRESSION_AUDIT.md`, `RC13_INDEPENDENT_RESCORE.md`, strengthened `layout-regression.spec.ts` 4 passed, store screenshot dimension guard, Android shell/sync evidence |
 | RC-14 native build/layout/bundle P1 | 없음 | `RC14_RELEASE_READINESS_AUDIT.md`, `RC14_NATIVE_BUILD_AUDIT.md`, `RC14_BUNDLE_OPTIMIZATION_AUDIT.md`; Vite large chunk warning removed, layout regression 4 passed, visual/store screenshot 7 passed, feature graphic guard added. Android Gradle/iOS shell blockers are environment/external |
 | RC-15 native toolchain/build P1 | 없음 | JDK 21, Android command-line tools, Android SDK 35, CocoaPods installed; Android `assembleDebug` and `lint` passed; iOS `cap add/sync` passed. Remaining iOS simulator/platform and signing/account items are environment/external blockers |
+| RC-16 Android signed release rehearsal P1 | 없음 | Local rehearsal signing config, ignored `android/keystore.properties`, ignored `local-upload-test.jks`, `assembleRelease`, `bundleRelease`, `apksigner`, `jarsigner`, and `bundletool validate` passed. Production upload key/Play Console remain external |
 
 ## Source Budget Audit Gate
 
@@ -49,7 +50,8 @@
 - macOS `java_home` optional symlink or persistent shell export for Homebrew JDK 21 if the user wants Java available outside this terminal
 - Xcode iOS platform/CoreSimulator component update. RC-15 `xcodebuild` failed because CoreSimulator was out of date and iOS 26.4 platform was not installed
 - iOS signing certificate / provisioning profile
-- Android signing key
+- Android production upload signing key. RC-16 generated only a local rehearsal key; it is not a final production key
+- Google Play App Signing enrollment / upload key registration
 - commissioned/final art ownership and legal approval
 - final adaptive icon foreground/background art and final splash approval. 현재 `platform-assets/` 후보와 Android launcher res 후보는 있음
 - Google Play feature graphic final approval. 현재 `store-screenshots/google-play-feature-graphic.png` 후보는 있음
@@ -64,4 +66,4 @@
 
 ## Decision
 
-기술/검증 기준의 내부 P0/P1 blocker는 현재 발견되지 않았다. RC-10 integrity pass에서 previous `8.2 / 10` self-score를 `7.7 / 10` no-go로 보정한 기록은 before evidence로 보존한다. RC-11에서는 남은 product-quality P1인 upgrade quick-buy/shelf와 store screenshot framing을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 `8.1 / 10`이다. RC-14에서는 Vite large chunk warning을 제거하고, layout regression과 store screenshot/feature graphic guard를 통과했다. RC-15에서는 Android debug APK build와 lint, iOS shell add/sync까지 검증했다. 실제 스토어 제출 완료로 주장하지 않는다. Xcode simulator platform mismatch, signing, keystore, privacy/support URL, commissioned/final art ownership, real audio files, SDK, 물리 기기 QA, 서버 검증 calendar/push notification은 external readiness blocker로 남긴다.
+기술/검증 기준의 내부 P0/P1 blocker는 현재 발견되지 않았다. RC-10 integrity pass에서 previous `8.2 / 10` self-score를 `7.7 / 10` no-go로 보정한 기록은 before evidence로 보존한다. RC-11에서는 남은 product-quality P1인 upgrade quick-buy/shelf와 store screenshot framing을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 `8.1 / 10`이다. RC-14에서는 Vite large chunk warning을 제거하고, layout regression과 store screenshot/feature graphic guard를 통과했다. RC-15에서는 Android debug APK build와 lint, iOS shell add/sync까지 검증했다. RC-16에서는 local rehearsal key로 signed release APK/AAB 생성을 검증했다. 실제 스토어 제출 완료로 주장하지 않는다. Xcode simulator platform mismatch, production signing, Play App Signing enrollment, store 계정, privacy/support URL, commissioned/final art ownership, real audio files, SDK, 물리 기기 QA, 서버 검증 calendar/push notification은 external readiness blocker로 남긴다.
