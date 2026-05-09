@@ -140,12 +140,13 @@ RC-13부터 store screenshot pack은 PNG magic byte, file size, iPhone/Android d
 
 ## Capacitor 연결
 
-`capacitor.config.ts`는 `dist`를 `webDir`로 사용합니다. RC-13 기준 Android shell은 생성됐고 iOS shell은 CocoaPods 미설치로 생성하지 못했습니다.
+`capacitor.config.ts`는 `dist`를 `webDir`로 사용합니다. RC-14 기준 Android shell은 생성됐고 iOS shell은 CocoaPods 미설치로 생성하지 못했습니다. Android Gradle build는 현재 머신의 Java runtime 부재로 막혀 있으므로 JDK 설치 후 `./gradlew assembleDebug`와 `./gradlew lint`를 다시 실행해야 합니다.
 
 ```bash
 npm run build
 npm run export:assets
 npm run cap:sync
+npx cap sync android
 ```
 
 새 환경에서 Android shell을 다시 만들 때만 `npx cap add android`를 사용합니다. iOS는 CocoaPods/Xcode 준비 후 `npx cap add ios`를 실행합니다. 네이티브 폴더 생성 이후에는 iOS/Android별 서명, icon/splash, privacy manifest, store product 연결을 각 플랫폼 프로젝트에서 마무리해야 합니다.

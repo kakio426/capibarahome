@@ -304,3 +304,9 @@ for (const device of devices) {
     }
   });
 }
+
+test("google play feature graphic candidate", async () => {
+  const screenshotPath = "store-screenshots/google-play-feature-graphic.png";
+  expect(statSync(screenshotPath).size).toBeGreaterThan(250_000);
+  expect(readPngSize(screenshotPath)).toEqual({ width: 1024, height: 500 });
+});

@@ -2,7 +2,7 @@
 
 기준일: 2026-05-09
 
-상태 기준: `완료`는 실제 구현 파일과 테스트, E2E, screenshot, build 산출물 중 하나 이상의 근거가 있을 때만 사용한다. RC-9 독립 감사에서는 product-quality P1이 존재해 release candidate no-go였고, RC-10 integrity pass에서 previous 8.2 self-score를 7.7 no-go로 보정했다. RC-11에서 남은 upgrade quick-buy/shelf와 store screenshot framing P1을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 8.1이다. RC-12에서는 새 self-score 없이 DOM layout regression과 viewport screenshot으로 글자 잘림/CTA 겹침/modal 조작 불가/store public copy P1을 검증했다. RC-13에서는 Android native shell, platform asset export 후보, 공식 문서 확인, 강화된 layout/store dimension guard를 추가했다. 실제 App Store/Google Play 제출 완료는 외부 계정/서명/법무/실기기 QA가 없어 완료로 판단하지 않는다.
+상태 기준: `완료`는 실제 구현 파일과 테스트, E2E, screenshot, build 산출물 중 하나 이상의 근거가 있을 때만 사용한다. RC-9 독립 감사에서는 product-quality P1이 존재해 release candidate no-go였고, RC-10 integrity pass에서 previous 8.2 self-score를 7.7 no-go로 보정했다. RC-11에서 남은 upgrade quick-buy/shelf와 store screenshot framing P1을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 8.1이다. RC-12에서는 새 self-score 없이 DOM layout regression과 viewport screenshot으로 글자 잘림/CTA 겹침/modal 조작 불가/store public copy P1을 검증했다. RC-13에서는 Android native shell, platform asset export 후보, 공식 문서 확인, 강화된 layout/store dimension guard를 추가했다. RC-14에서는 Vite large chunk warning 제거, Google Play feature graphic 후보, Android/iOS native environment audit, physical QA packet을 추가했다. 실제 App Store/Google Play 제출 완료는 외부 계정/서명/법무/실기기 QA가 없어 완료로 판단하지 않는다.
 
 ## Release Gate
 
@@ -16,7 +16,7 @@
 | `npm run build` | 완료 | `tsc -b && vite build`, success |
 | `npm test` | 완료 | Vitest 23 files, 502 tests passed |
 | `npm run test:e2e` | 완료 | Playwright 36 tests passed |
-| Capacitor packaging prep | 완료 | `capacitor.config.ts`, scripts, Android native shell, `npm run cap:sync` success. iOS shell은 CocoaPods 환경 external blocker |
+| Capacitor packaging prep | 완료 | `capacitor.config.ts`, scripts, Android native shell, `npm run cap:sync` success. Android Gradle build는 Java runtime external blocker, iOS shell은 CocoaPods 환경 external blocker |
 | 실제 스토어 업로드 미수행 | 완료 | 계정/인증서/프로비저닝 미제공. `RELEASE_CHECKLIST.md`와 `RELEASE_BLOCKERS.md`에 사용자 작업으로 분리 |
 
 ## Core Scope
@@ -56,7 +56,7 @@
 | story bible | 완료 | `STORY_BIBLE.md`, `StoryConfig.ts` |
 | 카피바라 8마리 | 완료 | `StoryConfig.ts`, `STORY_BIBLE.md`, 8 unique passive abilities |
 | mascot visual 5상태 | 완료 | `MainGameScreen.tsx`, split CSS skin files, `AssetConfig.ts`, `src/assets/generated/mascots/` |
-| app icon/splash/store art 후보 | 완료 | `src/assets/raster/release/app-icon-candidate.png`, `store-key-visual.png`; `platform-assets/ios/AppIcon.appiconset`, Android icon candidates, splash PNG candidates |
+| app icon/splash/store art 후보 | 완료 | `src/assets/raster/release/app-icon-candidate.png`, `store-key-visual.png`; `platform-assets/ios/AppIcon.appiconset`, Android icon candidates, splash PNG candidates, Google Play feature graphic candidate |
 | balance simulation | 완료 | `BalanceSimulator.ts`, `balanceSimulation.test.ts`, `BALANCE_SIMULATION.md`, `RETENTION_PLAN.md` |
 | source budget report | 완료 | `SOURCE_BUDGET_REPORT.md` |
 | source budget 재검증 | 완료 | handwritten runtime 9,388 LOC, handwritten tests/E2E 3,235 LOC, generated/config/docs 제외 기준 `SOURCE_BUDGET_REPORT.md` |
@@ -92,7 +92,7 @@
 | RC-3/RC-6 first five-minute playtest | 완료: `e2e/first-five-minute-playtest.spec.ts`, claim reveal 포함 | 사용 안 함, 실제 유저 플로우와 저장/오프라인 복귀 분리 |
 | RC-8 release bug bash | 완료: `e2e/rc8-release-bug-bash.spec.ts` | 사용 안 함, daily+offline, prestige goal reload, quick-buy reload, 360px modal, tab switching |
 | RC-12 layout regression | 완료: `e2e/layout-regression.spec.ts` | 사용 안 함, critical text clipping, bottom nav/CTA overlap, modal clickability, textarea zoom risk |
-| RC-13 strengthened layout/store guard | 완료: `e2e/layout-regression.spec.ts`, `e2e/store-screenshot-pack.spec.ts` | 사용 안 함, `data-ui-critical` clipping, toast non-blocking, store PNG dimensions |
+| RC-13/RC-14 strengthened layout/store guard | 완료: `e2e/layout-regression.spec.ts`, `e2e/store-screenshot-pack.spec.ts` | 사용 안 함, `data-ui-critical` clipping, toast non-blocking, store PNG dimensions, Google Play feature graphic dimensions |
 
 ## Store Submission Artifacts
 
@@ -121,7 +121,7 @@
 | `RC6_PRODUCT_FEEL_AUDIT.md` | 완료 | product feel severity audit, quick-buy P1 identification, reward/reveal/retention action plan |
 | `RC7_RETENTION_SYSTEM_AUDIT.md` | 완료 | retention baseline, save v5 risk, implemented/excluded scope, P0/P1 mitigation |
 | `RC8_RELEASE_CANDIDATE_AUDIT.md` | 완료 | release regression severity audit, WebView/storage/bundle/device readiness scope |
-| `BUNDLE_ASSET_AUDIT.md` | 완료 | dist/runtime asset size, release-only raster exclusion, remaining chunk warning classification |
+| `BUNDLE_ASSET_AUDIT.md` | 완료 | dist/runtime asset size, release-only raster exclusion, RC-14 large chunk warning removal, remaining raster payload P2 |
 | `PRODUCT_QUALITY_RED_TEAM.md` | 완료 | RC-9 before audit, no-go 판정, P1 product-quality blocker 기록 |
 | `SCREEN_SCORECARD.md` | 완료 | RC-9 screen scores, average 5.8, P1 target 근거 |
 | `RC10_FIX_SCOPE.md` | 완료 | RC-10에서 고칠 P1과 제외할 P2/P3 범위 |
@@ -138,9 +138,15 @@
 | `RC13_NATIVE_READINESS_AUDIT.md` | 완료 | Android add/sync/doctor, iOS CocoaPods blocker, platform asset export evidence |
 | `RC13_VISUAL_REGRESSION_AUDIT.md` | 완료 | final UI defect sweep, strengthened DOM/screenshot checks, remaining P2/P3 |
 | `RC13_INDEPENDENT_RESCORE.md` | 완료 | internal UI average 8.1, native/submission external blockers 분리 |
+| `RC14_RELEASE_READINESS_AUDIT.md` | 완료 | official docs, Android/iOS/build/store readiness, external blockers 분리 |
+| `RC14_NATIVE_BUILD_AUDIT.md` | 완료 | Android config/build readiness, Java blocker, iOS CocoaPods blocker |
+| `RC14_BUNDLE_OPTIMIZATION_AUDIT.md` | 완료 | Vite large chunk warning removal, JS chunk measurements, feature graphic export |
+| `RC14_DEVICE_QA_PACKET.md` | 완료 | physical device QA matrix and execution packet |
+| `DEVICE_QA_RESULTS_TEMPLATE.md` | 완료 | physical QA result 기록용 template |
+| `RC14_INDEPENDENT_RESCORE.md` | 완료 | internal UI average 8.1, native/submission readiness external blockers 재분류 |
 | `RETENTION_PLAN.md` | 완료 | D0/D1/D3/D7 goals, daily/milestone/post-prestige rewards, remaining P2/P3 follow-ups |
 | 기존 문서 최신화 | 완료 | README/DEVELOPER/BALANCE/SAVE/QA/PLAYTEST updated |
 
 ## P0/P1 Blockers
 
-기술/기능 기준의 내부 P0/P1 `미완료`, `검증 불가`, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue는 현재 발견되지 않았다. RC-9 독립 감사와 RC-10 no-go 보정은 before evidence로 보존한다. RC-11에서 upgrade quick-buy/shelf 8.1, store screenshot framing 8.1, combined 8.1로 scoped product-quality P1을 해소했다. RC-13에서 layout regression과 store screenshot guard를 강화해 주요 viewport의 critical text clipping, CTA/tab overlap, modal action clickability, store public copy/dimension을 검증했다. Android native shell과 platform asset 후보는 준비됐지만 실제 스토어 제출 완료를 막는 외부 계정/서명/CocoaPods-Xcode/iOS project/commissioned art 소유권/final adaptive icon/실기기 QA, 서버 검증 calendar/push notification 항목은 `RELEASE_BLOCKERS.md`에 external readiness로 별도 분리했다.
+기술/기능 기준의 내부 P0/P1 `미완료`, `검증 불가`, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue는 현재 발견되지 않았다. RC-9 독립 감사와 RC-10 no-go 보정은 before evidence로 보존한다. RC-11에서 upgrade quick-buy/shelf 8.1, store screenshot framing 8.1, combined 8.1로 scoped product-quality P1을 해소했다. RC-14에서 layout regression과 store screenshot/feature graphic guard를 강화해 주요 viewport의 critical text clipping, CTA/tab overlap, modal action clickability, store public copy/dimension을 검증했다. Android native shell과 platform asset 후보는 준비됐지만 실제 스토어 제출 완료를 막는 외부 계정/서명/Java runtime/CocoaPods-Xcode/iOS project/commissioned art 소유권/final adaptive icon/실기기 QA, 서버 검증 calendar/push notification 항목은 `RELEASE_BLOCKERS.md`에 external readiness로 별도 분리했다.

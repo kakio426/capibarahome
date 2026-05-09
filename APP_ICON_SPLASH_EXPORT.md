@@ -12,6 +12,7 @@
 | Store key visual source | `src/assets/raster/release/store-key-visual.png` |
 | Store screenshot frame support source | `src/assets/generated/release/store-screenshot-frame-final.svg` |
 | Platform export output | `platform-assets/` |
+| Google Play feature graphic candidate | `store-screenshots/google-play-feature-graphic.png`, `platform-assets/google-play/feature-graphic.png` |
 
 이 파일들은 제출용 후보이지, Apple/Google 업로드가 완료된 asset set이 아니다.
 
@@ -28,7 +29,7 @@
 
 ## RC-13 Export Output
 
-`npm run export:assets`가 생성한다.
+`npm run export:assets`가 생성한다. RC-14에서 Google Play feature graphic 후보도 같은 script에 추가했다.
 
 | 범위 | 출력 |
 | --- | --- |
@@ -41,6 +42,7 @@
 | Android launcher background | `platform-assets/android/res/values/ic_launcher_background.xml` |
 | Splash candidates | `platform-assets/splash/portrait-*.png` |
 | Android native res update | `android/app/src/main/res/mipmap-*` |
+| Google Play feature graphic | `platform-assets/google-play/feature-graphic.png`, `store-screenshots/google-play-feature-graphic.png` |
 
 검증한 파일:
 
@@ -52,6 +54,15 @@
 | `platform-assets/android/res/mipmap-xxxhdpi/ic_launcher_foreground.png` | 432 x 432, no alpha |
 | `platform-assets/splash/portrait-xxhdpi.png` | 1080 x 1920, no alpha |
 | `android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png` | 192 x 192, no alpha |
+| `platform-assets/google-play/feature-graphic.png` | 1024 x 500, PNG |
+| `store-screenshots/google-play-feature-graphic.png` | 1024 x 500, PNG |
+
+## RC-14 Export Delta
+
+- Google Play feature graphic 후보를 `1024 x 500`으로 생성한다.
+- feature graphic은 `store-key-visual.png`의 landscape crop candidate다.
+- `e2e/store-screenshot-pack.spec.ts`가 feature graphic file size와 dimension을 검사한다.
+- 이 이미지는 제출 후보이지 final marketing approval이 끝난 asset은 아니다.
 
 ## Tooling Note
 
@@ -61,7 +72,7 @@ Capacitor 공식 guide는 `@capacitor/assets` 사용을 권장한다. 이번 환
 
 - iOS `ios/` project 생성 후 Xcode asset catalog 반영 확인
 - Android adaptive icon foreground/background를 final art로 분리
-- Play Console feature graphic `1024 x 500` 후보 생성
+- Play Console feature graphic final art approval
 - Splash screen safe-area crop을 iPhone/Android device 또는 simulator에서 확인
 - 최종 commissioned art / 권리 확인
 - 플랫폼별 icon/splash가 흐릿하거나 잘리지 않는지 실기기 확인

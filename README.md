@@ -70,7 +70,7 @@ npm run cap:sync
 
 ## Capacitor
 
-`capacitor.config.ts`와 scripts는 준비되어 있습니다. RC-13 기준 Android shell은 생성되어 있고 iOS shell은 CocoaPods/Xcode 환경이 없어 미생성입니다. 플랫폼 asset 후보는 `npm run export:assets`로 `platform-assets/`에 생성합니다.
+`capacitor.config.ts`와 scripts는 준비되어 있습니다. RC-14 기준 Android shell은 생성되어 있고, Gradle build는 이 머신의 Java runtime 부재로 미실행입니다. iOS shell은 CocoaPods/Xcode 환경 준비 전까지 미생성입니다. 플랫폼 asset 후보와 Google Play feature graphic 후보는 `npm run export:assets`로 `platform-assets/`와 `store-screenshots/`에 생성합니다.
 
 ```bash
 npm run export:assets

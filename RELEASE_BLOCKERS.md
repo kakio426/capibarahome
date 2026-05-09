@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | TypeScript/build 실패 | 없음 | `npm run build` 통과 |
 | unit/simulation test 실패 | 없음 | `npm test` 23 files / 502 tests passed |
-| E2E 실패 | 없음 | `npm run test:e2e` 36 passed |
+| E2E 실패 | 없음 | `npm run test:e2e` 37 passed |
 | 실제 유저 플로우 debug 의존 | 없음 | debug는 `e2e/debug-cheat-flow.spec.ts`에 격리 |
 | 모바일 overflow/주요 화면 깨짐 | 없음 | `visual-regression.spec.ts` viewport screenshot/overflow 검증 및 `layout-regression.spec.ts` critical clipping/CTA overlap 검증 통과 |
 | 저장/환생/오프라인 보상 blocking issue | 없음 | unit + E2E coverage |
@@ -28,6 +28,7 @@
 | RC-11 scoped product-quality score gate | 없음 | upgrade quick-buy/shelf 8.1, store screenshots 8.1, combined 8.1. daily/milestone은 8.0 near gate로 P2 polish 후보 |
 | RC-12 layout/submission readiness P1 | 없음 | `UI_LAYOUT_DEFECT_AUDIT.md`, `RC12_SUBMISSION_READINESS_AUDIT.md`, `e2e/layout-regression.spec.ts` 4 passed, store screenshot public copy/file/clipping guards |
 | RC-13 final UI/native prep P1 | 없음 | `RC13_VISUAL_REGRESSION_AUDIT.md`, `RC13_INDEPENDENT_RESCORE.md`, strengthened `layout-regression.spec.ts` 4 passed, store screenshot dimension guard, Android shell/sync evidence |
+| RC-14 native build/layout/bundle P1 | 없음 | `RC14_RELEASE_READINESS_AUDIT.md`, `RC14_NATIVE_BUILD_AUDIT.md`, `RC14_BUNDLE_OPTIMIZATION_AUDIT.md`; Vite large chunk warning removed, layout regression 4 passed, visual/store screenshot 7 passed, feature graphic guard added. Android Gradle/iOS shell blockers are environment/external |
 
 ## Source Budget Audit Gate
 
@@ -44,11 +45,13 @@
 - Apple Developer Program 계정
 - Google Play Console 계정
 - Bundle ID / package name 최종 확정
+- Android JDK / Java runtime 설치
 - iOS signing certificate / provisioning profile
 - CocoaPods/Xcode 환경 구성 및 iOS native project 생성
 - Android signing key
 - commissioned/final art ownership and legal approval
 - final adaptive icon foreground/background art and final splash approval. 현재 `platform-assets/` 후보와 Android launcher res 후보는 있음
+- Google Play feature graphic final approval. 현재 `store-screenshots/google-play-feature-graphic.png` 후보는 있음
 - privacy policy URL
 - support URL
 - age rating answers
@@ -60,4 +63,4 @@
 
 ## Decision
 
-기술/검증 기준의 내부 P0/P1 blocker는 현재 발견되지 않았다. RC-10 integrity pass에서 previous `8.2 / 10` self-score를 `7.7 / 10` no-go로 보정한 기록은 before evidence로 보존한다. RC-11에서는 남은 product-quality P1인 upgrade quick-buy/shelf와 store screenshot framing을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 `8.1 / 10`이다. RC-13에서는 layout regression과 store screenshot dimension guard를 강화했고 주요 viewport의 글자 잘림, CTA/tab 겹침, modal 조작 불가 P1을 발견하지 않았다. Android shell과 platform asset 후보는 준비됐지만 실제 스토어 제출 완료로 주장하지 않는다. CocoaPods/Xcode/iOS project, signing, keystore, privacy/support URL, commissioned/final art ownership, real audio files, SDK, 물리 기기 QA, 서버 검증 calendar/push notification은 external readiness blocker로 남긴다.
+기술/검증 기준의 내부 P0/P1 blocker는 현재 발견되지 않았다. RC-10 integrity pass에서 previous `8.2 / 10` self-score를 `7.7 / 10` no-go로 보정한 기록은 before evidence로 보존한다. RC-11에서는 남은 product-quality P1인 upgrade quick-buy/shelf와 store screenshot framing을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 `8.1 / 10`이다. RC-14에서는 Vite large chunk warning을 제거하고, layout regression과 store screenshot/feature graphic guard를 통과했다. Android shell과 platform asset 후보는 준비됐지만 실제 스토어 제출 완료로 주장하지 않는다. Java runtime, CocoaPods/Xcode/iOS project, signing, keystore, privacy/support URL, commissioned/final art ownership, real audio files, SDK, 물리 기기 QA, 서버 검증 calendar/push notification은 external readiness blocker로 남긴다.

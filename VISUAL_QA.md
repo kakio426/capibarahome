@@ -4,7 +4,7 @@
 
 ## Summary
 
-이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면과 정보형 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체했고, RC-4 hardening pass에서는 성장/설정/세이브/앨범 하단 정보 UI까지 wood/parchment/orange game HUD skin으로 묶었다. RC-5에서는 이 방향을 유지하면서 `layout.css` 후반 override 의존을 분리하고 reusable `.ui-*` game skin system으로 안정화했다. RC-6에서는 quick-buy, reward reveal, prestige result, album claim reveal을 추가했고, RC-7에서는 daily reward, D1/D3/D7 badge ledger, post-prestige goal chain을 같은 HUD skin 안에 넣었다. RC-8에서는 safe-area/360px modal/device-readiness regression을 추가 점검했다. RC-9 독립 감사에서는 product-quality P1이 남아 release candidate no-go로 재분류했고, RC-10 구현 후 integrity pass에서 기존 8.2 self-score를 독립 재검토해 combined 7.7로 보정했다. RC-11에서는 남은 P1 두 개만 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined 8.1로 scoped product-quality P1을 해소했다. RC-12에서는 self-score를 추가하지 않고 DOM layout regression과 viewport screenshot으로 글자 잘림, CTA/tab overlap, modal 조작 불가, store copy 금지어를 검증했다. RC-13에서는 Android native shell 준비와 함께 `[data-ui-critical]` clipping, toast non-blocking, store screenshot dimension guard를 추가했고, home stats와 milestone board의 남은 P2 composition을 좁게 보강했다.
+이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면과 정보형 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체했고, RC-4 hardening pass에서는 성장/설정/세이브/앨범 하단 정보 UI까지 wood/parchment/orange game HUD skin으로 묶었다. RC-5에서는 이 방향을 유지하면서 `layout.css` 후반 override 의존을 분리하고 reusable `.ui-*` game skin system으로 안정화했다. RC-6에서는 quick-buy, reward reveal, prestige result, album claim reveal을 추가했고, RC-7에서는 daily reward, D1/D3/D7 badge ledger, post-prestige goal chain을 같은 HUD skin 안에 넣었다. RC-8에서는 safe-area/360px modal/device-readiness regression을 추가 점검했다. RC-9 독립 감사에서는 product-quality P1이 남아 release candidate no-go로 재분류했고, RC-10 구현 후 integrity pass에서 기존 8.2 self-score를 독립 재검토해 combined 7.7로 보정했다. RC-11에서는 남은 P1 두 개만 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined 8.1로 scoped product-quality P1을 해소했다. RC-12에서는 self-score를 추가하지 않고 DOM layout regression과 viewport screenshot으로 글자 잘림, CTA/tab overlap, modal 조작 불가, store copy 금지어를 검증했다. RC-13에서는 Android native shell 준비와 함께 `[data-ui-critical]` clipping, toast non-blocking, store screenshot dimension guard를 추가했고, home stats와 milestone board의 남은 P2 composition을 좁게 보강했다. RC-14에서는 동일한 layout/store guard를 재실행했고 Google Play feature graphic 1024x500 guard를 추가했다.
 
 Current evidence:
 
@@ -19,13 +19,16 @@ npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec
 6 passed, RC-12 visual/store evidence regenerated
 
 npm run test:e2e
-36 passed, includes visual/store screenshot regeneration and RC-12 layout regression
+36 passed, RC-12 당시 visual/store screenshot regeneration and layout regression 포함
 
 npx playwright test e2e/layout-regression.spec.ts --reporter=line
 4 passed, critical clipping/CTA/tab/modal/textarea checks
 
 npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
 6 passed, RC-13 screenshot/store evidence regenerated after copy/layout polish
+
+npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
+7 passed, RC-14 screenshot/store evidence regenerated with feature graphic guard
 ```
 
 Current asset baseline:
@@ -35,7 +38,7 @@ src/assets/raster: 15 PNG files / 19M
 runtime dist PNG assets: 12 files / 14M
 src/assets/generated: 253 SVG auxiliary files
 qa-screenshots: 88 current PNG files plus archived before shots
-store-screenshots: 10 PNG candidates
+store-screenshots: 10 PNG candidates plus Google Play feature graphic candidate
 ```
 
 ## Before/After Judgment
@@ -151,7 +154,7 @@ RC-12는 새 visual self-score를 만들지 않고 실제 layout defect만 점�
 | Quick-buy evidence | viewport 전환 후 screenshot 상단 crop이 quick-buy board를 잘라 보일 수 있음 | max-buy shelf/CTA 중심으로 scroll framing 조정 | `qa-screenshots/360x740-upgrades-quick-buy.png`, `qa-screenshots/390x844-upgrades-quick-buy.png` |
 | Store screenshot public copy | 금지어/파일 크기/heading clipping 자동 guard 없음 | `store-screenshot-pack.spec.ts`에 forbidden copy, clipping, file-size guard 추가 | `store-screenshots/iphone-*.png`, `store-screenshots/android-*.png` |
 
-RC-12 기준 내부 P1 layout defect는 발견되지 않는다. 남은 것은 home 하단 stats panel composition, milestone 설명 ellipsis, Vite chunk warning, physical device QA 같은 P2/P3 또는 외부 제출 준비 항목이다.
+RC-12 기준 내부 P1 layout defect는 발견되지 않는다. 남은 것은 home 하단 stats panel composition, milestone 설명 ellipsis, runtime raster payload, physical device QA 같은 P2/P3 또는 외부 제출 준비 항목이다.
 
 ## RC-13 Final UI Defect Sweep
 
@@ -164,6 +167,20 @@ RC-12 기준 내부 P1 layout defect는 발견되지 않는다. 남은 것은 ho
 | Store crop/dimension | file size만으로는 crop dimension 회귀를 놓칠 수 있음 | PNG magic/width/height guard 추가 | `e2e/store-screenshot-pack.spec.ts`, store iPhone 1290x2796 / Android 1080x1920 |
 
 RC-13 기준 내부 UI P1은 발견되지 않는다. Native/submission readiness는 `RC13_NATIVE_READINESS_AUDIT.md`와 `RC13_SUBMISSION_AUDIT.md`에 별도 분리한다.
+
+## RC-14 Final Layout / Store Sweep
+
+| 대상 | RC-14 확인 | Evidence |
+| --- | --- | --- |
+| 360px home | CTA, currency HUD, bottom tab collision 없음 | `qa-screenshots/360x740-home.png` 수동 확인 |
+| 360px quick-buy | first/second shelf cost/CTA가 tab dock에 가려지지 않음 | `qa-screenshots/360x740-upgrades-quick-buy.png` 수동 확인 |
+| Save modal | textarea 16px, code wrap, confirm CTA visible | `qa-screenshots/390x844-save-modal.png`, layout regression |
+| Daily reward sheet | reward amount/next preview/CTA visible | `qa-screenshots/390x844-daily-reward-claim.png` |
+| Milestone board | D1/D3/D7 badge board와 CTA visible | `qa-screenshots/390x844-collection-milestones.png` |
+| Store screenshots | iPhone/Android 10장, public copy/dimensions guarded | `store-screenshots/iphone-*.png`, `store-screenshots/android-*.png` |
+| Google Play feature graphic | 1024x500 PNG candidate 생성/검증 | `store-screenshots/google-play-feature-graphic.png` |
+
+RC-14 기준 내부 UI P1은 발견되지 않는다. Native/device readiness는 `RC14_NATIVE_BUILD_AUDIT.md`와 `RC14_DEVICE_QA_PACKET.md`에 별도 분리한다.
 
 ## Manual Spot Check
 
@@ -225,7 +242,8 @@ RC-13 기준 내부 UI P1은 발견되지 않는다. Native/submission readiness
 | Android milestone | 완료 | `store-screenshots/android-03-milestone.png` |
 | Android prestige ceremony | 완료 | `store-screenshots/android-04-prestige.png` |
 | Android reward | 완료 | `store-screenshots/android-05-reward.png` |
+| Google Play feature graphic | 완료 후보 | `store-screenshots/google-play-feature-graphic.png` |
 
 ## Remaining Visual Risk
 
-RC-13 기준 기술적 visual overflow P0/P1, CTA/tab occlusion P1, modal clickability P1, store public copy P1은 발견되지 않았다. `RC13_INDEPENDENT_RESCORE.md`는 internal product UI average를 8.1로 기록한다. 남은 P2/P3는 daily reward sheet polish, milestone sticker-board polish, server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, final adaptive icon foreground/background, 물리 기기 store screenshot 재촬영이다.
+RC-14 기준 기술적 visual overflow P0/P1, CTA/tab occlusion P1, modal clickability P1, store public copy P1은 발견되지 않았다. `RC14_INDEPENDENT_RESCORE.md`는 internal product UI average를 8.1로 기록한다. 남은 P2/P3는 daily reward sheet polish, milestone sticker-board polish, server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, final adaptive icon foreground/background, feature graphic final approval, 물리 기기 store screenshot 재촬영이다.

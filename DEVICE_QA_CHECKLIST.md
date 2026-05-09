@@ -2,58 +2,51 @@
 
 기준일: 2026-05-09
 
-실제 물리 기기 또는 시뮬레이터에서 제출 전 확인해야 할 항목이다. 현재 환경에서는 Playwright 브라우저, Android Capacitor shell/sync, platform asset 후보 export까지만 자동 검증했다.
+이 문서는 제출 전 실제 물리 기기에서 실행할 QA 체크리스트다. RC-14 환경에서는 Playwright, Capacitor sync, Android shell/config inspection까지만 자동 검증했고, 물리 기기 QA는 수행하지 않았다. 실제 결과는 `DEVICE_QA_RESULTS_TEMPLATE.md`에 기록한다.
 
-## Automated Browser Coverage Before Device QA
+## Automated Coverage Before Physical QA
 
-- [x] 360x740 / 390x844 / 430x932 / desktop screenshot and overflow checks
-- [x] RC-12 layout regression: critical text clipping, CTA/bottom dock overlap, modal action clickability, save textarea 16px zoom guard
-- [x] Store screenshot pack public copy forbidden terms, heading/subtitle clipping, generated file size guard
-- [x] RC-13 store screenshot PNG dimension guard: iPhone 1290x2796, Android 1080x1920
-- [x] RC-13 `data-ui-critical` clipping and toast non-blocking checks
-- [x] 360x740 save modal bounds check after settings toggles
-- [x] daily reward + offline reward same return session E2E
-- [x] first prestige goal claim + reload E2E
-- [x] quick-buy max + save/reload E2E
-- [x] repeated tab switching clickability E2E
-- [x] 2 hour simulation, 8 hour offline cap, 500 rapid taps, quick-buy stress, save/load 20x unit tests
-- [x] `npm run cap:sync` web asset sync
-- [x] Android native shell generated and synced
-- [x] Platform icon/splash candidates exported to `platform-assets/`
+| 범위 | 상태 | 근거 |
+| --- | --- | --- |
+| 360/390/430/desktop layout regression | 완료 | `npx playwright test e2e/layout-regression.spec.ts --reporter=line` 4 passed |
+| Visual screenshot regeneration | 완료 | `npx playwright test e2e/visual-regression.spec.ts ...` |
+| Store screenshot pack guard | 완료 | public forbidden copy, heading/subtitle clipping, iPhone/Android dimensions |
+| Google Play feature graphic guard | 완료 | `store-screenshots/google-play-feature-graphic.png` 1024x500 |
+| Web build | 완료 | `npm run build`, Vite large chunk warning removed |
+| Android Capacitor shell | 완료 후보 | `android/` exists, `npx cap doctor` Android OK |
+| Android Gradle build | 환경 차단 | Java runtime 미설치 |
+| iOS native shell | 환경 차단 | CocoaPods 미설치 |
 
-자동화는 Chromium/Playwright와 Android Capacitor sync 기준이다. 실제 iOS Safari, iOS native WebView, Android Chrome, Android native WebView의 keyboard, notch, gesture navigation, storage persistence는 아래 physical QA가 필요하다.
+## Physical QA Matrix
 
-## iPhone Safari / iOS WebView
+| Device | OS version | Browser/WebView | Build source | Test scenario | Expected result | Actual result | Pass/Fail | Screenshot/video path | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| TBD | TBD | Android WebView | Debug APK | 첫 실행 | 홈/튜토리얼이 잘리고 겹치지 않음 | 미실행 | 미실행 | TBD | JDK 설치 후 APK 필요 |
+| TBD | TBD | Android WebView | Debug APK | 터치 100회 | 귤 증가, particle cap, UI 멈춤 없음 | 미실행 | 미실행 | TBD | low-end device 포함 |
+| TBD | TBD | Android WebView | Debug APK | quick-buy 1/10/max | 비용/레벨/CTA 정상, 음수 재화 없음 | 미실행 | 미실행 | TBD | 성장 탭 |
+| TBD | TBD | Android WebView | Debug APK | 저장/새로고침 | 진행도 유지 | 미실행 | 미실행 | TBD | app restart 포함 |
+| TBD | TBD | Android WebView | Debug APK | 앱 백그라운드/복귀 | 오프라인 보상 1회 표시, 중복 없음 | 미실행 | 미실행 | TBD | 2분 이상 대기 |
+| TBD | TBD | Android/iOS WebView | Native build | 오프라인 보상 | 수령 후 reload에도 중복 지급 없음 | 미실행 | 미실행 | TBD | localStorage persistence |
+| TBD | TBD | Android/iOS WebView | Native build | daily reward | claim/cooldown/streak 저장 | 미실행 | 미실행 | TBD | date spoofing 방어는 범위 외 |
+| TBD | TBD | Android/iOS WebView | Native build | milestone claim | D1/D3/D7 중복 지급 없음 | 미실행 | 미실행 | TBD | reload 후 상태 유지 |
+| TBD | TBD | Android/iOS WebView | Native build | 환생 | result panel/배율/저장 일관성 | 미실행 | 미실행 | TBD | first prestige flow |
+| TBD | TBD | Android/iOS WebView | Native build | export/import | code 복사/붙여넣기, 실패 안내 crash 없음 | 미실행 | 미실행 | TBD | keyboard/textarea |
+| TBD | TBD | Android/iOS WebView | Native build | 설정 토글 | effects/sound/music/vibration 즉시 반영 | 미실행 | 미실행 | TBD | toast non-blocking |
+| TBD | TBD | Android/iOS WebView | Native build | 사운드 mute | muted 상태에서 no-op, crash 없음 | 미실행 | 미실행 | TBD | WebAudio gesture |
+| TBD | TBD | Android/iOS WebView | Native build | safe-area/notch | 헤더/탭/CTA가 시스템 영역에 가려지지 않음 | 미실행 | 미실행 | TBD | notch/gesture nav |
+| TBD | TBD | Android WebView | Debug APK | Android back button | 정책대로 모달 닫기/앱 종료 동작 | 미실행 | 미실행 | TBD | 정책 확정 필요 |
+| TBD | TBD | iOS Safari/WebView | Web/native build | input focus | textarea focus에서 iOS zoom/가림 없음 | 미실행 | 미실행 | TBD | 16px guard 확인 |
+| TBD | TBD | Android WebView | Debug APK | 저사양 Android 스크롤/터치 지연 | 10분 사용 후 조작 가능 | 미실행 | 미실행 | TBD | perf observation |
+| TBD | TBD | Android/iOS WebView | Native build | 10분 방치 발열/배터리 관찰 | 과열/과도한 배터리 소모 없음 | 미실행 | 미실행 | TBD | device temperature note |
 
-- [ ] 360-430px급 폭에서 홈/성장/앨범/환생/상점/설정이 잘리지 않음
-- [ ] notch/safe-area에서 헤더와 하단 탭이 가려지지 않음
-- [ ] 터치 연타 시 floating text/particle이 과도하게 누적되지 않음
-- [ ] background 후 foreground 복귀 시 오프라인 보상 모달 표시
-- [ ] 앱 강제 종료 후 WebView storage 저장 유지
-- [ ] 효과음 mute, 배경음 mute가 즉시 반영
-- [ ] 세로 고정 또는 회전 정책 확정
-- [ ] CocoaPods/Xcode 설치 후 `npx cap add ios`, `npm run cap:sync`, Xcode open 확인
+## 제출 전 최소 조합
 
-## Android Chrome / Android WebView
+- iPhone notch 기기 1대
+- Android 360px급 저해상도 기기 1대
+- Android 중급/저사양 기기 1대
+- 가능하면 iOS Safari와 iOS native WebView 모두 확인
+- 가능하면 Android Chrome과 Android native WebView 모두 확인
 
-- [ ] Android Studio에서 `android/` project 열기
-- [ ] release variant signing key/keystore 연결
-- [ ] 360x740 저해상도에서 텍스트 clipping 없음
-- [ ] 저사양 Android에서 터치 spam 후 UI 응답성 유지
-- [ ] background/foreground 후 EPS와 오프라인 보상 중복 지급 없음
-- [ ] localStorage/WebView storage가 앱 재시작 후 유지
-- [ ] back button 정책 확인: 앱 종료, 모달 닫기, 탭 이동 중 택일
-- [ ] Android safe-area/gesture navigation bar와 하단 탭 충돌 없음
-- [ ] 효과음 mute, 배경음 mute가 WebView에서도 동작
+## 판정
 
-## 공통 제출 전 체크
-
-- [ ] release build에서 `?debug=1` 없이는 debug panel이 보이지 않음
-- [ ] 실제 광고 SDK 추가 시 네트워크/권한/ATT disclosure 재확인
-- [ ] 실제 IAP 추가 시 sandbox purchase와 restore purchase QA
-- [ ] privacy policy URL과 support URL이 유효
-- [ ] store screenshot이 현재 UI와 일치
-- [ ] store screenshot이 플랫폼별 요구 해상도와 파일 정책에 맞게 최종 export됨
-- [ ] 앱 아이콘과 splash가 플랫폼 규격에서 흐릿하지 않음
-- [ ] Android adaptive icon foreground/background가 final art 기준으로 자연스럽게 보임
-- [ ] 10분 idle 상태에서 메모리 증가/발열 문제가 없음
+RC-14는 physical QA를 실행할 수 있는 checklist/result template까지 준비했다. 실제 물리 기기 실행은 아직 없으므로 제출 전 external QA blocker로 남긴다.

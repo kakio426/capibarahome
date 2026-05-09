@@ -19,6 +19,7 @@
 - RC-8 WebView CSS readiness uses safe-area variables, `100dvh`, `touch-action: manipulation`, and 16px input/textarea controls to avoid iOS zoom
 - RC-8 runtime raster registry excludes store-only PNG candidates so they do not ship in `dist`
 - RC-13 Android shell keeps QA/store artifacts out of runtime web imports; platform candidates live in `platform-assets/` and Android launcher res
+- RC-14 Vite build uses `assetsInlineLimit: 0` and manual chunks so generated SVG registry URLs no longer create a large JS chunk
 
 ## Automated Checks
 
@@ -39,23 +40,24 @@
 | save/load repeated 20 times | 완료 | `src/tests/rc8ReleaseBugBash.test.ts` |
 | RAF visibility listener cleanup | 완료 | `src/tests/rc8ReleaseBugBash.test.ts` |
 | 360px save modal bounds after settings toggles | 완료 | `e2e/rc8-release-bug-bash.spec.ts` |
-| RC-13 critical text/data marker clipping | 완료 | `e2e/layout-regression.spec.ts` |
-| RC-13 store screenshot PNG dimension guard | 완료 | `e2e/store-screenshot-pack.spec.ts` |
+| RC-13/RC-14 critical text/data marker clipping | 완료 | `e2e/layout-regression.spec.ts` |
+| RC-13/RC-14 store screenshot PNG dimension guard | 완료 | `e2e/store-screenshot-pack.spec.ts` |
+| RC-14 Google Play feature graphic dimension guard | 완료 | `e2e/store-screenshot-pack.spec.ts` |
 
 ## Bundle / Asset Audit
 
-| 항목 | RC-13 결과 |
+| 항목 | RC-14 결과 |
 | --- | --- |
-| `dist` total | 15M |
-| `dist/assets` total | 15M |
+| `dist` total | 16M |
+| `dist/assets` total | 16M |
 | runtime PNG payload | 12 files / 14M |
-| runtime JS chunk | 1.165M |
+| largest runtime JS chunk | 188.60K |
 | runtime CSS | 78.98K |
 | source raster pack | 15 PNG / 19M |
-| platform asset candidates | 19M |
+| platform asset candidates | 20M |
 | Android web asset copy | 16M |
 
-RC-8 removed release-only `store-key-visual.png`, `app-icon-candidate.png`, and `main-capybara-character.png` from the runtime raster registry. RC-13 generated platform assets outside runtime web imports. Vite's JS large chunk warning remains and is classified as P2 because build/E2E/screenshot verification passes and the remaining optimization needs route-level code splitting or deeper registry splitting.
+RC-8 removed release-only `store-key-visual.png`, `app-icon-candidate.png`, and `main-capybara-character.png` from the runtime raster registry. RC-13 generated platform assets outside runtime web imports. RC-14 removed Vite's JS large chunk warning by externalizing SVG assets and splitting vendor/config/runtime/UI chunks. Remaining P2 performance work is runtime PNG payload reduction, which requires visual/device QA before conversion.
 
 ## Command Results
 
@@ -66,7 +68,7 @@ npm test
 
 ```txt
 npm run test:e2e
-36 passed
+37 passed
 ```
 
 ```txt

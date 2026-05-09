@@ -7,7 +7,7 @@
 ```txt
 npm run build
 tsc -b && vite build
-built successfully; Vite large chunk warning remains for index-DvH7_6MF.js
+built successfully; Vite large chunk warning removed
 ```
 
 ```txt
@@ -18,12 +18,12 @@ Tests       502 passed (502)
 
 ```txt
 npm run test:e2e
-36 passed
+37 passed
 ```
 
 ```txt
 npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
-6 passed
+7 passed
 ```
 
 ```txt
@@ -50,6 +50,21 @@ Android looking great; installed Capacitor 7.6.2, latest 8.3.3
 ```txt
 npx cap sync ios
 failed as expected because ios platform has not been added; CocoaPods/Xcode setup is external blocker
+```
+
+```txt
+npx cap add ios
+failed because CocoaPods is not installed
+```
+
+```txt
+./gradlew assembleDebug
+failed before Gradle execution because Java Runtime is not installed
+```
+
+```txt
+./gradlew lint
+failed before Gradle execution because Java Runtime is not installed
 ```
 
 ```txt
@@ -162,7 +177,7 @@ Fix:
 - WebView viewport를 위해 safe-area top/bottom CSS 변수, `100dvh`, iOS input zoom 방지, touch-action 보강을 적용했다.
 - `RasterAssetRegistry`에서 runtime UI가 쓰지 않는 `store-key-visual.png`, `app-icon-candidate.png`, `main-capybara-character.png`를 제외했다. 파일은 release/source candidate로 유지하고 integrity test에서 별도 검증한다.
 - `RC8_RELEASE_CANDIDATE_AUDIT.md`와 `BUNDLE_ASSET_AUDIT.md`를 추가했다.
-- Full E2E 중 desktop visual screenshot set이 30초 기본 timeout을 초과해 한 번 실패했다. 기능 결함은 아니며, visual screenshot spec은 의도적으로 많은 화면을 저장하므로 timeout을 60초로 조정했다. RC-8 당시 `visual-regression.spec.ts` 단독 4 passed 및 전체 `npm run test:e2e` 32 passed로 재검증했다. 현재 RC-12 전체 결과는 상단 Final Command Results의 36 passed가 기준이다.
+- Full E2E 중 desktop visual screenshot set이 30초 기본 timeout을 초과해 한 번 실패했다. 기능 결함은 아니며, visual screenshot spec은 의도적으로 많은 화면을 저장하므로 timeout을 60초로 조정했다. RC-8 당시 `visual-regression.spec.ts` 단독 4 passed 및 전체 `npm run test:e2e` 32 passed로 재검증했다. 현재 RC-14 전체 결과는 상단 Final Command Results의 37 passed가 기준이다.
 - Unit/stress coverage 추가: v1/v2/v3/v4 -> v5 migration, corrupted v5 retention recovery, offline+daily 같은 복귀 세션, daily/milestone export/import, post-prestige goal save/load, max-buy safety cap, large retention reward formatting, localStorage unavailable fallback, 2시간 simulation, 8시간 offline cap, rapid tap 500회, quick-buy 반복, save/load 20회, RAF listener cleanup.
 - E2E coverage 추가: D1 daily+offline 같은 세션, first prestige goal claim/reload, quick-buy max save/reload, 360px settings/save modal overflow, 반복 탭 전환.
 
@@ -238,6 +253,31 @@ Fix:
   - `npx cap doctor`: success, Android looking great; installed Capacitor 7.6.2 vs latest 8.3.3 noted as P3
   - `npx cap sync ios`: failed as expected because iOS platform is not added after CocoaPods-blocked `cap add ios`
 - 내부 UI P1은 `RC13_VISUAL_REGRESSION_AUDIT.md`와 `RC13_INDEPENDENT_RESCORE.md` 기준 발견되지 않았다. Native/submission readiness는 external blocker 때문에 실제 제출 완료로 보지 않는다.
+
+## RC-14 Native Release Build Readiness, Bundle Optimization, Physical QA Package
+
+- 새 게임 기능, save schema, 대형 gameplay asset은 추가하지 않았다.
+- 공식 문서 확인 결과는 `RC14_RELEASE_READINESS_AUDIT.md`에 2026-05-09 기준 링크와 함께 기록했다.
+- `vite.config.ts`에 `assetsInlineLimit: 0`과 manual chunk split을 추가해 Vite large chunk warning을 제거했다.
+- JS output은 single `1.165M` chunk에서 largest `react-vendor 188.60K`, `game-config 70.20K`, `game-runtime 53.36K`, `ui 40.46K`, `generated-assets 19.45K` 구조로 분리됐다.
+- `scripts/exportPlatformAssets.mjs`가 Google Play feature graphic 후보 `1024 x 500`을 `platform-assets/google-play/feature-graphic.png`와 `store-screenshots/google-play-feature-graphic.png`에 생성한다.
+- `e2e/store-screenshot-pack.spec.ts`에 feature graphic dimension/file-size guard를 추가했다.
+- Android native config 점검 결과 `applicationId`, namespace, label, min/target/compile SDK, version, INTERNET permission만 사용하는 상태를 확인했다.
+- `npx cap doctor`는 Android ready를 보고했다.
+- `./gradlew assembleDebug`와 `./gradlew lint`는 Java Runtime 미설치로 Gradle 시작 전에 실패했다. 앱 코드 blocker가 아니라 환경 blocker로 분류한다.
+- Xcode는 설치돼 있지만 CocoaPods가 없어 `npx cap add ios`가 실패했고, `npx cap sync ios`는 iOS platform 미생성으로 실패했다.
+- `DEVICE_QA_CHECKLIST.md`를 표 형태로 재작성하고 `DEVICE_QA_RESULTS_TEMPLATE.md`, `RC14_DEVICE_QA_PACKET.md`를 추가했다. 실제 물리 기기 QA는 미실행이다.
+- RC-14 targeted verification:
+  - `npm run build`: success, Vite large chunk warning removed
+  - `npm test`: 23 files / 502 tests passed
+  - `npm run test:e2e`: 37 passed
+  - `npx playwright test e2e/layout-regression.spec.ts --reporter=line`: 4 passed
+  - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: 7 passed
+  - `npm run export:assets`: success
+  - `npm run cap:sync`: success, Android sync finished
+  - `npx cap sync android`: success
+  - `git diff --check`: passed
+- 내부 UI/layout P1은 `RC14_INDEPENDENT_RESCORE.md` 기준 발견되지 않았다. Android Gradle, iOS shell, signing, store URLs, physical QA는 external blocker로 남긴다.
 
 ## 자동 테스트 커버리지
 

@@ -4,19 +4,21 @@
 
 ## Build Output Snapshot
 
-RC-13 build 기준:
+RC-14 build 기준:
 
 ```txt
-dist: 15M
-dist/assets: 15M
+dist: 16M
+dist/assets: 16M
 dist PNG assets: 12 files / 14M
-dist JS asset: index-DZPMoALW.js 1.165M
-dist CSS asset: index-BhnYB42g.css 78.98K
+dist SVG assets: 242 files
+largest JS chunk: react-vendor-CJ7CSe-k.js 188.60K
+largest app chunk: game-config-CPeLDAHW.js 70.20K
+CSS asset: ui-BhnYB42g.css 78.98K
+Vite large chunk warning: 없음
 src/assets/raster: 15 PNG files / 19M
 store-screenshots: 32M
-qa-screenshots: 188M
-platform-assets: 19M
-android/app/src/main/assets/public: 16M
+qa-screenshots: 184M
+platform-assets: 20M
 android/app/src/main/res: 1.3M
 ```
 
@@ -29,9 +31,20 @@ Largest runtime assets:
 | `main-hero-background-*.png` | 2.2M | Home and album scene |
 | `prestige-ritual-*.png` | 2.1M | Prestige screen key art |
 | companion portraits | 611K-706K each | Album companion sticker/ability UI |
-| `index-*.js` | 1.1M | Current single app chunk with generated config/asset URL registries |
 
-## RC-8 Optimization
+JS chunks:
+
+| Chunk | Size |
+| --- | ---: |
+| `react-vendor-CJ7CSe-k.js` | 188.60K |
+| `game-config-CPeLDAHW.js` | 70.20K |
+| `game-runtime-CY62HQiz.js` | 53.36K |
+| `ui-DU0edwza.js` | 40.46K |
+| `generated-assets-C4GgzOaS.js` | 19.45K |
+| `index-CH54AEzr.js` | 6.81K |
+| `vendor-7OC5HNn7.js` | 3.61K |
+
+## RC-8 Runtime Raster Optimization
 
 Before RC-8, `RasterAssetRegistry` forced three release-only PNG candidates into `dist`:
 
@@ -49,41 +62,61 @@ RC-8 removed those keys from the runtime registry and updated `rasterAssetIntegr
 
 Result: runtime `dist/assets` no longer emits `store-key-visual`, `app-icon-candidate`, or `main-capybara-character` PNGs.
 
-## Remaining Warning
+## RC-14 Chunk Optimization
 
-`npm run build` still reports Vite's large chunk warning for `index-*.js`:
+RC-13 still reported:
 
 ```txt
 Some chunks are larger than 500 kB after minification
+index-DZPMoALW.js 1.165M
 ```
 
-RC-13 does not treat this as an internal P0/P1 blocker because:
+RC-14 root cause:
 
-- TypeScript build passes.
-- Visual and store screenshots render.
-- Runtime PNG payload was reduced without quality loss.
-- The remaining JS chunk is mainly app/config/generated registry code and can be split later with route-level code splitting.
-- RC-13 scope prioritized native shell readiness and final layout regression over route-level code splitting because splitting screens would require another full visual/E2E revalidation cycle.
+- generated SVG registry entries were being inlined as JS data URLs.
+- first manual chunk attempt split the app but left `generated-assets` at `803K`.
 
-Current classification: P2 performance optimization.
+RC-14 fix:
 
-## Deferred Optimizations
+- `vite.config.ts` sets `build.assetsInlineLimit = 0`.
+- Rollup manual chunks split vendor, config, runtime, UI, and generated asset registry URL code.
+- `game-core` and `game-systems` are grouped as `game-runtime` to avoid circular manual chunk warnings.
+
+Measured result:
+
+- Vite large chunk warning removed.
+- largest JS chunk reduced from `1.165M` to `188.60K`.
+- `generated-assets` reduced from `803K` to `19.45K`.
+- SVGs now emit as 242 hashed files instead of being embedded in JS.
+
+Tradeoff:
+
+- `dist` increases from `15M` to `16M` and file count grows because SVGs are external files.
+- This is acceptable for RC-14 because it reduces JS parse/transfer pressure without degrading visual quality.
+
+## RC-14 Store Asset Export
+
+`npm run export:assets` now also generates:
+
+- `platform-assets/google-play/feature-graphic.png`
+- `store-screenshots/google-play-feature-graphic.png`
+
+Both are `1024 x 500` PNG candidates. `e2e/store-screenshot-pack.spec.ts` validates file size and dimensions.
+
+## Remaining P2/P3 Optimizations
 
 | Item | Priority | Reason |
 | --- | --- | --- |
-| Route-level dynamic imports | P2 | Could split album/shop/prestige/settings screens, but needs full screenshot/E2E revalidation |
-| WebP/AVIF conversion | P2 | Needs browser/Capacitor/device compatibility and visual QA before replacing PNG |
-| Companion portrait lazy module split | P3 | Images already load lazily; JS registry split would add complexity |
-| Generated SVG registry split | P3 | SVG files are small individually; not a release blocker |
+| Runtime PNG WebP/AVIF conversion | P2 | Could reduce 14M PNG payload, but requires iOS/Android WebView compatibility and visual QA |
+| Lossless PNG compression | P2 | Safe candidate, but should be done with screenshot diff/device QA |
+| Route-level dynamic imports | P3 | JS warning is solved; remaining largest payload is raster imagery |
+| Companion portrait lazy module split | P3 | Images already load lazily as `<img loading="lazy">`; registry JS is now small |
+| Final Google Play feature graphic design | P2/external | Current feature graphic is key-art crop candidate, final store approval remains user/art/legal item |
 
 ## Store/QA Artifacts
 
-`qa-screenshots/` and `store-screenshots/` are committed QA artifacts, not runtime bundle assets. Their large folder size does not affect web/native app bundle size.
+`qa-screenshots/`, `store-screenshots/`, and `platform-assets/` are committed QA/submission-prep artifacts, not runtime web imports. Their large folder size does not affect the shipped web/native runtime bundle.
 
-## RC-13 Platform Assets
+## 판정
 
-`platform-assets/` is a submission-prep output folder, not a runtime web import. Android launcher icon candidates are copied into `android/app/src/main/res/mipmap-*` so Android Studio can inspect them.
-
-`@capacitor/assets` could not be installed in this environment because the `sharp`/libvips download timed out. RC-13 therefore uses `scripts/exportPlatformAssets.mjs` and macOS `sips` for candidate exports. This is acceptable as prep evidence, but final icon/splash export should be rechecked with the official Capacitor tool or designer-provided platform exports.
-
-No route-level dynamic import or WebP/AVIF conversion was applied in RC-13. Those remain P2 because they can affect startup visuals and require a full screenshot/device QA rerun.
+RC-14 resolved the Vite large chunk warning with measured output. Remaining bundle work is visual raster payload optimization and final store graphic approval, which are P2/P3 because they can affect quality and require physical-device verification.

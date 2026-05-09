@@ -39,6 +39,8 @@
 - [x] RC-12 store submission readiness package completed as prep docs: `RC12_SUBMISSION_READINESS_AUDIT.md`, `APP_ICON_SPLASH_EXPORT.md`, `STORE_METADATA_PACKAGE.md`
 - [x] RC-13 native/store prep completed: Android Capacitor shell generated, `platform-assets/` icon/splash candidates exported, official submission docs checked, strengthened layout/store screenshot guards
 - [x] RC-13 audits completed: `RC13_SUBMISSION_AUDIT.md`, `RC13_NATIVE_READINESS_AUDIT.md`, `RC13_VISUAL_REGRESSION_AUDIT.md`, `RC13_INDEPENDENT_RESCORE.md`
+- [x] RC-14 native release build readiness and bundle pass completed: Android/iOS environment blockers separated, Vite large chunk warning removed, Google Play feature graphic candidate generated, physical QA packet prepared
+- [x] RC-14 audits completed: `RC14_RELEASE_READINESS_AUDIT.md`, `RC14_NATIVE_BUILD_AUDIT.md`, `RC14_BUNDLE_OPTIMIZATION_AUDIT.md`, `RC14_DEVICE_QA_PACKET.md`, `RC14_INDEPENDENT_RESCORE.md`
 - [x] Visual asset integrity tests added for SVG count, raster PNG integrity, coverage, external-reference bans, runtime visual styling audit
 - [x] Art production docs added: `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`
 - [x] RC-2 audio readiness completed: file-ready audio slots and synthetic WebAudio fallback
@@ -58,6 +60,7 @@
 - [x] RC-8 visual/device readiness flow confirms 360px save modal bounds, toast click safety, and repeated tab clickability
 - [x] RC-12 layout regression confirms 360/390/430/desktop critical text, CTA/bottom dock clearance, modal action clickability, save textarea zoom safety
 - [x] RC-13 layout regression adds `data-ui-critical` clipping, toast non-blocking, home tap CTA guard, and store screenshot PNG dimension guard
+- [x] RC-14 store guard validates Google Play feature graphic `1024 x 500`
 
 ## Capacitor Prep
 
@@ -70,20 +73,25 @@
 - [x] Android native platform folder generated with `npx cap add android`
 - [x] Android native resources updated with launcher icon candidates
 - [x] Platform asset candidates exported with `npm run export:assets`
+- [x] Google Play feature graphic candidate exported with `npm run export:assets`
 - [ ] iOS native platform folder generated with `npx cap add ios` after CocoaPods/Xcode environment is ready
 - [ ] iOS project opened and signed in Xcode
 - [ ] Android project opened and signed in Android Studio
+- [ ] Android JDK installed and `./gradlew assembleDebug` / `./gradlew lint` completed
+- [ ] Android release keystore configured and signed AAB generated
 
-Android native shell is generated and synced. iOS native shell is not generated because `npx cap add ios` failed without CocoaPods. Apple/Google developer account details, signing certificates, provisioning profiles, keystore, and final store submission choices are still user-provided.
+Android native shell is generated and synced. Android Gradle build is blocked on this machine by missing Java runtime. iOS native shell is not generated because `npx cap add ios` failed without CocoaPods. Apple/Google developer account details, signing certificates, provisioning profiles, keystore, and final store submission choices are still user-provided.
 
 ## User Must Provide Before Store Upload
 
 - Apple Developer Program account
 - Google Play Console account
 - Bundle ID/package name confirmation
+- Android JDK / Java runtime
 - App icon final art approval and adaptive foreground/background if replacing current candidates
 - Splash screen final art approval
 - Store screenshots selected from real device/simulator frames, using `store-screenshots/` as current candidates
+- Google Play feature graphic selected or replaced from `store-screenshots/google-play-feature-graphic.png`
 - Commissioned/final art ownership and legal approval for production store submission
 - Privacy policy URL
 - Support URL

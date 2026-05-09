@@ -8,6 +8,7 @@ These are submission-prep candidates, not proof of App Store / Google Play uploa
 - Android icon candidates: `android/res/mipmap-*/`
 - Android launcher background: `android/res/values/ic_launcher_background.xml`
 - Splash candidates: `splash/portrait-*.png`
+- Google Play feature graphic candidate: `google-play/feature-graphic.png`
 - Source copies: `source/`
 
 The Android shell under `android/app/src/main/res` is updated with the launcher icon candidates. iOS still requires CocoaPods/Xcode environment before native project generation.

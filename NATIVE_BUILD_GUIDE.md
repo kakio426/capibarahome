@@ -4,7 +4,7 @@
 
 ## 현재 준비 상태
 
-Capacitor web/native 준비는 RC-13 기준 아래 상태다.
+Capacitor web/native 준비는 RC-14 기준 아래 상태다.
 
 | 항목 | 상태 |
 | --- | --- |
@@ -16,6 +16,8 @@ Capacitor web/native 준비는 RC-13 기준 아래 상태다.
 | iOS shell | CocoaPods 미설치로 미생성 |
 | Web/native sync | `npm run cap:sync`, `npx cap sync android` |
 | Platform assets | `platform-assets/`, Android launcher res candidates |
+| Android Gradle build | Java runtime 미설치로 미실행 |
+| Google Play feature graphic | `store-screenshots/google-play-feature-graphic.png` |
 
 현재 값은 제출 후보 placeholder다. 실제 App Store / Google Play 제출 전 사용자가 bundle id, package name, signing, developer account를 확정해야 한다.
 
@@ -44,6 +46,34 @@ npx cap doctor
 ```
 
 결과: Android ready. 현재 설치된 Capacitor는 7.6.2이고 최신 8.3.3이 표시되므로, major upgrade는 별도 P3 검토로 남긴다.
+
+## RC-14 Native Build Readiness 결과
+
+```bash
+./gradlew assembleDebug
+```
+
+결과: 실패. 현재 머신에 Java Runtime이 없어 Gradle을 시작하지 못했다.
+
+```bash
+./gradlew lint
+```
+
+결과: 실패. 동일하게 Java Runtime 미설치가 원인이다.
+
+```bash
+npx cap sync ios
+```
+
+결과: 실패. `ios/` platform이 아직 추가되지 않았다.
+
+```bash
+npx cap add ios
+```
+
+결과: 실패. CocoaPods 미설치가 원인이다.
+
+위 실패는 현재 환경 blocker다. 코드 blocker로 단정하지 않는다.
 
 ## Android Shell Evidence
 
@@ -82,6 +112,8 @@ npm run export:assets
 - `platform-assets/android/res/mipmap-*`
 - `platform-assets/android/res/values/ic_launcher_background.xml`
 - `platform-assets/splash/portrait-*.png`
+- `platform-assets/google-play/feature-graphic.png`
+- `store-screenshots/google-play-feature-graphic.png`
 - `android/app/src/main/res/mipmap-*` launcher icon 후보 갱신
 
 `@capacitor/assets` 설치는 `sharp`/libvips 다운로드 timeout으로 실패했다. RC-13은 macOS `sips` fallback script를 사용한다. 최종 제출 전 공식 asset tool 또는 designer export를 다시 확인한다.
@@ -92,11 +124,23 @@ Android:
 
 ```bash
 npm install
-npm run build
 npm run export:assets
+npm run build
 npm run cap:sync
+npx cap sync android
+cd android && ./gradlew assembleDebug
+cd android && ./gradlew lint
 npm run cap:open:android
 ```
+
+Release readiness check after JDK/keystore:
+
+```bash
+cd android && ./gradlew assembleRelease
+cd android && ./gradlew bundleRelease
+```
+
+Play Console upload에는 signed AAB와 Android keystore가 필요하다.
 
 iOS:
 
@@ -109,6 +153,15 @@ npm run cap:open:ios
 ```
 
 iOS 단계는 Xcode, CocoaPods, Apple Developer Program, signing certificate, provisioning profile이 필요하다.
+
+## Required Native Tooling To Install
+
+- JDK 17 또는 Android Gradle Plugin과 호환되는 Java runtime
+- Android Studio / Android SDK command line tools
+- CocoaPods
+- Xcode command line tools
+- Apple Developer signing identity
+- Android release keystore
 
 ## Store 제출 전 사용자가 제공해야 하는 항목
 

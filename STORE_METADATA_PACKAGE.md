@@ -26,7 +26,7 @@ Screenshot order:
 
 Public copy lint:
 
-`e2e/store-screenshot-pack.spec.ts`에서 공개 screenshot copy 금지어, heading/subtitle clipping, PNG dimension을 자동 검사한다. RC-13 기준 공개 카피는 통과했다.
+`e2e/store-screenshot-pack.spec.ts`에서 공개 screenshot copy 금지어, heading/subtitle clipping, PNG dimension, feature graphic dimension을 자동 검사한다. RC-14 기준 공개 카피는 통과했다.
 
 ## Store Screenshot Files
 
@@ -42,11 +42,13 @@ Public copy lint:
 | `store-screenshots/android-03-milestone.png` | Android milestone badge | 후보 생성 |
 | `store-screenshots/android-04-prestige.png` | Android prestige ceremony | 후보 생성 |
 | `store-screenshots/android-05-reward.png` | Android return reward | 후보 생성 |
+| `store-screenshots/google-play-feature-graphic.png` | Google Play feature graphic | 후보 생성 |
 
 Dimensions:
 
 - iPhone 후보: 1290 x 2796
 - Android 후보: 1080 x 1920
+- Google Play feature graphic 후보: 1024 x 500
 
 ## Metadata Draft Inputs
 
@@ -66,6 +68,25 @@ URLs:
 - Support URL: 사용자가 제공 필요
 - Marketing URL: 선택
 
+## Store Submission Metadata Checklist
+
+| 항목 | 현재 후보 | 제출 전 필요 |
+| --- | --- | --- |
+| App name | 카피바라 집사기 | 최종 승인 |
+| Subtitle / short description | 귤 정원을 키우는 방치형 클리커 | 플랫폼별 글자 수 최종 확인 |
+| Full description | 위 public copy 기반 | App Store Connect / Play Console 입력 전 최종 교정 |
+| Keywords | 카피바라, 방치형, 클리커, 귤 등 | Apple keyword length 최종 조정 |
+| Category | Games / Casual 또는 Simulation 후보 | 사용자가 플랫폼별 확정 |
+| Age rating | 폭력/공포/선정성 없음 후보 | 실제 questionnaire 답변 필요 |
+| Privacy data collection | local save 중심, 실제 SDK 미연결 | 실제 SDK 추가 시 재작성 |
+| Support URL | 없음 | 사용자가 제공 |
+| Privacy policy URL | 없음 | 사용자가 제공 |
+| Ads/IAP | 현재 실제 SDK 미연결 | 실제 SDK/상품 ID 결정 시 metadata 갱신 |
+| Screenshot set | iPhone 5장, Android 5장 후보 | 실제 store upload 전 simulator/device 재확인 |
+| Feature graphic | `google-play-feature-graphic.png` 후보 | final art approval 필요 |
+| App icon/splash | `platform-assets/` 후보 | final art/legal approval 필요 |
+| Final art rights | 자체 제작 후보 기준 | 권리/소유권 확인 필요 |
+
 ## Not Included Yet
 
 - Apple/Google developer account data
@@ -77,7 +98,9 @@ URLs:
 - Age rating questionnaire final answers
 - Export compliance answers
 - Legal owner name and contact data
+- Physical device QA results
+- Android keystore / iOS signing data
 
 ## 판정
 
-Public copy와 screenshot 후보는 준비됐지만, 실제 store upload metadata package는 사용자 계정/URL/법적 답변을 받은 뒤 확정해야 한다. RC-13은 제출 준비 패키지 정리 상태이며 실제 업로드 완료가 아니다.
+Public copy와 screenshot/feature graphic 후보는 준비됐지만, 실제 store upload metadata package는 사용자 계정/URL/법적 답변을 받은 뒤 확정해야 한다. RC-14는 제출 준비 패키지 정리 상태이며 실제 업로드 완료가 아니다.
