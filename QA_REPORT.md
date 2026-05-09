@@ -551,3 +551,14 @@ Fix:
   - Release rehearsal APK: `android/app/build/outputs/apk/release/app-release.apk` (`18M`, generated 2026-05-09 21:10 KST)
 - 남은 리스크:
   - 실제 Android phone screenshot/video는 여전히 미제공이다. RC-19는 physical evidence pass가 아니라 최신 screenshot/WebView-like viewport 기반 추가 UI bug bash다.
+
+## Active Goal Completion Audit
+
+- `GOAL_COMPLETION_AUDIT.md`를 추가해 현재 thread objective인 "실제 실행 화면에서 깨진 UI/UX를 모든 화면 비율과 완성도 기준으로 끝까지 검증"을 success gate와 evidence checklist로 재정리했다.
+- 감사 결론:
+  - Playwright/DOM/screenshot/Android build 기준 내부 P1 layout defect는 현재 발견되지 않는다.
+  - `qa-screenshots/320x740-home.png`, `qa-screenshots/320x740-upgrades.png`, `qa-screenshots/390x844-save-modal.png`, `qa-screenshots/390x844-daily-reward-claim.png`, `qa-screenshots/390x844-collection-milestones.png`, `qa-screenshots/390x844-prestige-result.png`, `store-screenshots/iphone-02-upgrade.png`, `store-screenshots/android-05-reward.png`를 manual spot check했다.
+  - 실제 Android physical device screenshot/video는 아직 없으므로 goal complete로 처리하지 않는다.
+- 미완료 gate:
+  - 새 APK를 실제 Android 기기에 설치한 뒤 home, upgrades, save modal, daily reward, milestone board, prestige result, offline reward, settings, bottom nav/safe-area를 `DEVICE_QA_CHECKLIST.md` 기준으로 재촬영해야 한다.
+  - 캡처는 `device-qa/incoming/` 또는 `device-qa/fixed/`에 추가해야 한다.
