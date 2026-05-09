@@ -83,7 +83,7 @@
 
 다음 완료 조건:
 
-1. 새 APK를 실제 Android 폰에 설치한다.
+1. 최신 APK(`android/app/build/outputs/apk/debug/app-debug.apk`, 2026-05-09 22:33 KST 생성)를 실제 Android 폰에 설치한다.
 2. `DEVICE_QA_CHECKLIST.md` 기준으로 최소 홈, 업그레이드, 저장 modal, daily reward, milestone, prestige result, offline reward, 설정, 하단 탭/safe-area를 캡처한다.
 3. 캡처 파일을 `device-qa/incoming/` 또는 `device-qa/fixed/`에 넣는다.
 4. 발견된 P1/P2를 `RC18_DEVICE_UI_BUG_AUDIT.md` 또는 후속 audit에 기록하고 수정/재검증한다.

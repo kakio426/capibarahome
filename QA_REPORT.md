@@ -599,3 +599,9 @@ Fix:
   - `npm run test:e2e`: success, 46 passed
   - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: success, 10 passed
   - `npm test -- --run`: initial parallel run with E2E/visual timed out in two balance simulation tests; isolated rerun succeeded, 23 files / 502 tests
+  - `npm run export:assets`: success
+  - `npm run cap:sync && npx cap sync android`: success
+  - `cd android && JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home ANDROID_HOME=/opt/homebrew/share/android-commandlinetools ANDROID_SDK_ROOT=/opt/homebrew/share/android-commandlinetools ./gradlew assembleDebug assembleRelease`: success
+- RC-21 Android APK:
+  - Debug APK: `android/app/build/outputs/apk/debug/app-debug.apk` (`19M`, generated 2026-05-09 22:33 KST)
+  - Release rehearsal APK: `android/app/build/outputs/apk/release/app-release.apk` (`18M`, generated 2026-05-09 22:33 KST)
