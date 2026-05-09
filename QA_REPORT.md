@@ -562,3 +562,24 @@ Fix:
 - 미완료 gate:
   - 새 APK를 실제 Android 기기에 설치한 뒤 home, upgrades, save modal, daily reward, milestone board, prestige result, offline reward, settings, bottom nav/safe-area를 `DEVICE_QA_CHECKLIST.md` 기준으로 재촬영해야 한다.
   - 캡처는 `device-qa/incoming/` 또는 `device-qa/fixed/`에 추가해야 한다.
+
+## RC-20 Scroll Dock Polish
+
+- `GOAL_COMPLETION_AUDIT.md`에서 P2로 남긴 긴 scroll 화면의 bottom dock 경계 완성도를 보강했다.
+- 코드 변경:
+  - `shell.css`: base/mobile `.content-shell` 높이를 bottom dock 위에서 끝나도록 재계산해 content scroll viewport와 tab dock의 실제 box overlap을 제거했다.
+  - `shell.css`: bottom dock 위에 game-shell scroll fade mask를 추가해 다음 카드 상단이 잘린 텍스트처럼 보이지 않고 의도적인 scroll continuation처럼 보이게 했다.
+  - `e2e/layout-regression.spec.ts`: `.content-shell` bottom이 `.bottom-tabs` top을 침범하지 않는 guard를 `assertBaseShell`에 추가했다.
+- Verification:
+  - `npx playwright test e2e/layout-regression.spec.ts --reporter=line`: success, 10 passed
+  - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: success, 10 passed
+  - `npm run build`: success
+  - `npm test -- --run`: success, 23 files / 502 tests
+  - `npm run test:e2e`: success, 46 passed
+  - `npm run export:assets`: success
+  - `npm run cap:sync`: success
+  - `npx cap sync android`: success
+- Manual spot check:
+  - `qa-screenshots/320x740-settings.png`: 하단 `숫자 표기` section이 tab dock에 날카롭게 잘려 보이던 느낌을 scroll fade로 완화.
+  - `qa-screenshots/320x740-home.png`: home ledger lower section이 bottom dock 아래로 직접 깔리는 느낌을 fade 처리.
+  - `qa-screenshots/390x844-collection-milestones.png`: milestone board 아래 quest card continuation이 tab dock과 직접 충돌하지 않음.

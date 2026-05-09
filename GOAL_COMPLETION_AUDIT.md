@@ -51,11 +51,11 @@
 
 | Screenshot | Result |
 | --- | --- |
-| `qa-screenshots/320x740-home.png` | 핵심 tap CTA와 currency HUD는 보이고 조작 가능. 하단 장부 일부가 bottom dock 뒤에 이어지는 것은 P2 scroll composition 후보 |
+| `qa-screenshots/320x740-home.png` | 핵심 tap CTA와 currency HUD는 보이고 조작 가능. RC20 scroll dock polish로 하단 경계가 fade 처리되어 잘린 텍스트처럼 보이지 않게 보강 |
 | `qa-screenshots/320x740-upgrades.png` | RC19 이후 quick-buy 세로 스택/빈 레일 P1 해소. 첫 card의 cost/CTA는 분리됨 |
 | `qa-screenshots/390x844-save-modal.png` | Export/import textarea와 CTA가 modal 안에 유지됨. iOS zoom risk guard는 textarea 16px 이상으로 커버 |
 | `qa-screenshots/390x844-daily-reward-claim.png` | Reward moment와 CTA가 modal 안에서 명확함 |
-| `qa-screenshots/390x844-collection-milestones.png` | D1/D3/D7 badge board와 claim CTA visible. 아래 quest card가 bottom dock 근처로 이어지는 것은 P2 scroll composition 후보 |
+| `qa-screenshots/390x844-collection-milestones.png` | D1/D3/D7 badge board와 claim CTA visible. RC20 scroll dock polish 후 아래 quest card는 bottom fade 뒤로 이어져 의도적인 scroll continuation으로 보임 |
 | `qa-screenshots/390x844-prestige-result.png` | RC19 이후 reward summary/ribbon/next goal/CTA가 partial clip 없이 보임 |
 | `store-screenshots/iphone-02-upgrade.png` | RC19 이후 upgrade shelf와 quick-buy workbench가 store shot에서 세로 스택 없이 보임 |
 | `store-screenshots/android-05-reward.png` | Public copy와 reward modal framing이 store-facing 상태 |
@@ -69,8 +69,9 @@
 2. Android vendor WebView, system font scale, gesture navigation bar, display cutout은 자동 emulation만으로 완전 검증할 수 없다.
    - 현재 320/360/393/412 viewport와 110/120% root font scaling guard는 방어층이지만 physical proof가 아니다.
 
-3. 일부 긴 scroll 화면은 현재 조작 대상이 아닌 다음 card가 bottom dock 아래로 이어져 보인다.
-   - CTA occlusion은 아니므로 P1은 아니지만, 더 고급스러운 scroll fade/section ending treatment는 P2 polish다.
+3. 일부 긴 scroll 화면은 현재 조작 대상이 아닌 다음 card가 bottom dock 근처로 이어진다.
+   - RC20에서 content-shell과 bottom dock overlap guard를 추가하고, bottom dock 위 scroll fade를 적용했다.
+   - CTA occlusion은 아니며, 더 정교한 per-screen section ending treatment는 P3 polish다.
 
 ## Completion Decision
 

@@ -31,12 +31,32 @@ const viewports = [
 async function assertBaseShell(page: Parameters<typeof expectNoHorizontalOverflow>[0]) {
   await expectNoHorizontalOverflow(page);
   await expectVisibleWithinViewport(page.locator(".bottom-tabs"), 0.98);
+  await expectContentShellClearOfBottomDock(page);
   await expectNoCriticalTextClipping(page, [
     ".top-bar h1",
     ".save-dot",
     ".bottom-tabs strong",
   ]);
   await expectNoDataCriticalTextClipping(page);
+}
+
+async function expectContentShellClearOfBottomDock(page: Parameters<typeof expectNoHorizontalOverflow>[0]) {
+  const metrics = await page.evaluate(() => {
+    const shell = document.querySelector(".content-shell");
+    const dock = document.querySelector(".bottom-tabs");
+    if (!(shell instanceof HTMLElement) || !(dock instanceof HTMLElement)) return null;
+    const shellRect = shell.getBoundingClientRect();
+    const dockRect = dock.getBoundingClientRect();
+    return {
+      shellBottom: shellRect.bottom,
+      dockTop: dockRect.top,
+      overlap: shellRect.bottom - dockRect.top,
+    };
+  });
+
+  expect(metrics).not.toBeNull();
+  if (!metrics) return;
+  expect(metrics.overlap).toBeLessThanOrEqual(1);
 }
 
 async function expectAndroidTextRenderingGuards(page: Parameters<typeof expectNoHorizontalOverflow>[0]) {

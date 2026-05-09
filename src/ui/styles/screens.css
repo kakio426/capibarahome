@@ -2332,7 +2332,7 @@
   }
 
   .content-shell {
-    height: calc(100% - 158px);
+    height: calc(100% - 168px - var(--safe-bottom));
     padding: 11px 11px calc(124px + var(--safe-bottom));
     scroll-padding: 11px 11px calc(136px + var(--safe-bottom));
   }

@@ -237,6 +237,15 @@ RC-19 targeted verification:
 - `npx playwright test e2e/visual-regression.spec.ts --reporter=line`: 7 passed
 - `npx playwright test e2e/store-screenshot-pack.spec.ts --reporter=line`: 3 passed
 
+RC-20 scroll dock polish:
+
+- `qa-screenshots/320x740-settings.png`: 긴 설정 화면 하단에서 다음 section label이 bottom dock과 날카롭게 충돌해 보이는 P2 scroll composition을 fade mask로 완화했다.
+- `qa-screenshots/320x740-home.png`: home ledger section이 dock 아래로 직접 깔리는 느낌을 줄이고, scroll continuation이 의도된 화면 경계처럼 보이도록 조정했다.
+- `qa-screenshots/390x844-collection-milestones.png`: milestone board 아래 quest card가 tab dock과 직접 충돌하지 않도록 content shell/dock geometry guard와 fade mask를 적용했다.
+- `e2e/layout-regression.spec.ts`는 content shell bottom이 bottom tab top을 침범하지 않는지 모든 viewport에서 검사한다.
+- `npx playwright test e2e/layout-regression.spec.ts --reporter=line`: 10 passed
+- `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: 10 passed
+
 ## Manual Spot Check
 
 - `qa-screenshots/390x844-home.png`: 첫인상은 웹 대시보드가 아니라 모바일 게임 home scene이다. 큰 흰 카드가 주인공이 되지 않는다.
@@ -307,4 +316,4 @@ RC-19 targeted verification:
 
 ## Remaining Visual Risk
 
-RC-14 기준 기술적 visual overflow P0/P1, CTA/tab occlusion P1, modal clickability P1, store public copy P1은 발견되지 않았다. `RC14_INDEPENDENT_RESCORE.md`는 internal product UI average를 8.1로 기록한다. 남은 P2/P3는 daily reward sheet polish, milestone sticker-board polish, server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, final adaptive icon foreground/background, feature graphic final approval, 물리 기기 store screenshot 재촬영이다.
+RC-20 기준 기술적 visual overflow P0/P1, CTA/tab occlusion P1, modal clickability P1, store public copy P1은 발견되지 않았다. `RC14_INDEPENDENT_RESCORE.md`는 internal product UI average를 8.1로 기록한다. 남은 P2/P3는 daily reward sheet polish, milestone sticker-board polish, server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, export/import code의 본질적 밀도, final commissioned art ownership/legal approval, final adaptive icon foreground/background, feature graphic final approval, 물리 기기 store screenshot 재촬영이다.

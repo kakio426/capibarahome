@@ -56,6 +56,20 @@
     inset 0 -16px 0 rgba(39, 136, 102, 0.06);
 }
 
+.ui-game-shell::after,
+.game-shell::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(86px + var(--safe-bottom));
+  z-index: 3;
+  height: 34px;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(216, 181, 106, 0), rgba(216, 181, 106, 0.98) 42%, rgba(216, 181, 106, 1));
+}
+
 .ui-carved-header,
 .top-bar {
   position: relative;
@@ -127,7 +141,7 @@
 }
 
 .content-shell {
-  height: calc(100% - 166px);
+  height: calc(100% - 210px - var(--safe-bottom));
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 13px 13px calc(124px + var(--safe-bottom));
