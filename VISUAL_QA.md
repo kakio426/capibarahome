@@ -202,6 +202,27 @@ RC-17은 새 기능이나 save schema 변경 없이 업그레이드 카드 내�
 
 RC-17 기준 업그레이드 카드 시각 P1은 발견되지 않는다. 남은 항목은 richer purchase ceremony와 optional workbench animation 같은 P2/P3 polish다.
 
+## RC-18 Android WebView Font / Safe-Area Sweep
+
+RC-18은 실제 phone screenshot이 아직 없는 상태에서 Android WebView에서 흔히 발생하는 한글 줄높이/폰트 fallback/bottom navigation 충돌을 선제적으로 보강했다. 완료 근거는 self-score가 아니라 CSS 변경, layout regression, regenerated screenshots다.
+
+| 대상 | RC-18 위험 | RC-18 조치 | Evidence |
+| --- | --- | --- | --- |
+| Korean font fallback | Android WebView에서 remote font 없이 weight/line-height가 뭉개지거나 세로 잘림 가능 | system-safe Korean stack, number stack, global line-height, critical UI line-height/min-height 보강 | `src/ui/styles/tokens.css`, `src/ui/styles/global.css`, layout font-scale guard |
+| Bottom tab / gesture nav | 320/360px에서 CTA와 bottom dock이 가까워질 위험 | content bottom padding/scroll-padding 확대, safe-area `max()` guard, 320px media rule | `qa-screenshots/320x740-home.png`, `qa-screenshots/320x740-upgrades-quick-buy.png` |
+| Upgrade card chips/cost/CTA | 작은 칩과 max-buy CTA가 Android font scaling에서 눌릴 위험 | upgrade chip/stat/cost/button line-height and min-height hardening, `data-ui-critical` 추가 | `qa-screenshots/android-webview-360x800-upgrades-quick-buy.png` |
+| Save modal | dense export code / input focus risk | textarea 16px guard 유지, modal action clipping 검사 유지 | `qa-screenshots/390x844-save-modal.png` |
+| Device diagnostics | 실제 폰에서 viewport/DPR/font stack 확인 어려움 | `?deviceQa=1` overlay 추가 | `src/app/AppShell.tsx` |
+
+RC-18 manual spot check:
+
+- `qa-screenshots/320x740-home.png`: home CTA는 bottom dock에 가려지지 않고, currency HUD와 daily badge text가 세로로 잘리지 않는다.
+- `qa-screenshots/320x740-upgrades-quick-buy.png`: first/second card의 cost와 CTA가 명확히 분리되고, 하단 탭과 실제 조작 대상 CTA 충돌이 없다.
+- `qa-screenshots/android-webview-360x800-upgrades-quick-buy.png`: Android-ish viewport에서 chip/title/stat/description/purchase tray가 읽히며, 버튼 text가 눌려 보이지 않는다.
+- `qa-screenshots/390x844-save-modal.png`: export/import modal의 close/copy/import/confirm action이 화면 안에 있고 textarea font-size 16px guard가 유지된다.
+
+RC-18 기준 Playwright/DOM 기반 P1 layout defect는 발견되지 않는다. 단, 실제 Android phone screenshot/video는 아직 없으므로 physical QA는 external verification으로 남는다.
+
 ## Manual Spot Check
 
 - `qa-screenshots/390x844-home.png`: 첫인상은 웹 대시보드가 아니라 모바일 게임 home scene이다. 큰 흰 카드가 주인공이 되지 않는다.
@@ -219,7 +240,11 @@ RC-17 기준 업그레이드 카드 시각 P1은 발견되지 않는다. 남은 
 
 | Viewport | Status | Evidence |
 | --- | --- | --- |
+| 320x740 | 완료 후보 | viewport screenshots in `qa-screenshots/320x740-*.png`, Android font/layout regression checks |
 | 360x740 | 완료 | viewport screenshots in `qa-screenshots/360x740-*.png`, layout regression checks |
+| Android WebView 360x800 | 완료 후보 | viewport screenshots in `qa-screenshots/android-webview-360x800-*.png`, layout regression checks |
+| Android WebView 393x873 | 완료 후보 | layout regression checks |
+| Android WebView 412x915 | 완료 후보 | viewport screenshots in `qa-screenshots/android-webview-412x915-*.png`, layout regression checks |
 | 390x844 | 완료 | viewport screenshots in `qa-screenshots/390x844-*.png`, layout regression checks |
 | 430x932 | 완료 | viewport screenshots in `qa-screenshots/430x932-*.png`, layout regression checks |
 | Desktop 1280x900 central panel | 완료 | viewport screenshots in `qa-screenshots/desktop-1280x900-*.png`, layout regression checks |
@@ -230,12 +255,14 @@ RC-17 기준 업그레이드 카드 시각 P1은 발견되지 않는다. 남은 
 | --- | --- |
 | Home + tutorial | `qa-screenshots/390x844-home-tutorial.png` |
 | Home after tutorial | `qa-screenshots/390x844-home.png`, `qa-screenshots/360x740-home.png` |
+| 320px home | `qa-screenshots/320x740-home.png` |
 | Home progression/collection | `qa-screenshots/390x844-home-progression.png` |
 | Home daily reward available/cooldown | `qa-screenshots/390x844-home-daily-available.png`, `qa-screenshots/390x844-home-daily-cooldown.png` |
 | Daily reward claim | `qa-screenshots/390x844-daily-reward-claim.png` |
 | Home post-prestige goal | `qa-screenshots/390x844-home-post-prestige-goal.png` |
 | Upgrade cards | `qa-screenshots/390x844-upgrades.png` |
 | Quick-buy mode | `qa-screenshots/390x844-upgrades-quick-buy.png` |
+| 320px / Android WebView quick-buy | `qa-screenshots/320x740-upgrades-quick-buy.png`, `qa-screenshots/android-webview-360x800-upgrades-quick-buy.png` |
 | Album / quest / collection | `qa-screenshots/390x844-collection.png` |
 | Album companion abilities | `qa-screenshots/390x844-collection-abilities.png` |
 | Album achievement rewards | `qa-screenshots/390x844-collection-rewards.png` |

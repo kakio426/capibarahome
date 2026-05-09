@@ -482,3 +482,43 @@ Fix:
   - `store-screenshots/iphone-02-upgrade.png`
   - `store-screenshots/android-02-upgrade.png`
 - RC-17 기준 업그레이드 카드 하단 장식/cost/CTA 겹침 P1은 발견되지 않는다. 남은 업그레이드 UI 항목은 richer purchase ceremony, optional workbench animation 같은 P2/P3 polish다.
+
+## RC-18 Android Device Font / Layout Hardening
+
+- 실제 기기 evidence:
+  - `device-qa/incoming/`를 확인했지만 실제 Android phone screenshot/video는 아직 없다.
+  - 따라서 RC-18은 physical screenshot 기반 defect fix가 아니라 Android WebView에서 흔한 한글 fallback/line-height/safe-area 위험을 선제적으로 줄이는 pass로 기록한다.
+- 코드 보강:
+  - `tokens.css`, `global.css`: Korean-safe system font stack, number-safe stack, global line-height, input/button baseline hardening.
+  - `shell.css`: content bottom safe-area reserve 확대, tab label line-height/min-height 보강, `?deviceQa=1` diagnostic overlay style.
+  - `hud.css`, `screens.css`: button/chip/modal/cost/currency/quick-buy/upgrade-card line-height and min-height hardening, 320px viewport media rule.
+  - `AppShell.tsx`: `?deviceQa=1`에서 viewport, visualViewport, DPR, safe-bottom, font-family, userAgent 표시. 일반 사용자 화면에는 노출되지 않는다.
+  - `UpgradePanel.tsx`: upgrade status/title/stat/cost에 `data-ui-critical` 추가.
+- 자동 회귀:
+  - `e2e/layout-regression.spec.ts`에 320x740, Android WebView-like 360x800/393x873/412x915 viewport와 110%/120% font scaling guard를 추가했다.
+  - 주요 버튼/탭/칩/모달/currency/cost clipping, nowrap label single-line, bottom dock/CTA overlap, modal action clickability를 검사한다.
+  - `e2e/visual-regression.spec.ts`는 320px 및 Android WebView screenshot set을 생성한다.
+- Regenerated evidence:
+  - `qa-screenshots/320x740-home.png`
+  - `qa-screenshots/320x740-upgrades-quick-buy.png`
+  - `qa-screenshots/android-webview-360x800-home.png`
+  - `qa-screenshots/android-webview-360x800-upgrades.png`
+  - `qa-screenshots/android-webview-360x800-upgrades-quick-buy.png`
+  - `qa-screenshots/android-webview-412x915-settings.png`
+- RC-18 targeted verification:
+  - `npm run build`: success
+  - `npm test -- --run`: success, 23 files / 502 tests
+  - `npm run test:e2e`: success, 46 passed
+  - `npx playwright test e2e/layout-regression.spec.ts --reporter=line`: success, 10 passed
+  - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: success, 10 passed
+  - `npm run export:assets`: success
+  - `npm run cap:sync`: success
+  - `npx cap sync android`: success
+  - initial `cd android && ./gradlew assembleDebug && ./gradlew assembleRelease` failed because the shell had no `JAVA_HOME`/`ANDROID_HOME`; rerun with `JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home` and `ANDROID_HOME=/opt/homebrew/share/android-commandlinetools`: success
+  - `git diff --check`: success
+- RC-18 Android APK:
+  - Debug APK: `android/app/build/outputs/apk/debug/app-debug.apk` (`19M`, generated 2026-05-09 20:03 KST)
+  - Release rehearsal APK: `android/app/build/outputs/apk/release/app-release.apk` (`18M`, generated 2026-05-09 20:03 KST)
+- 남은 리스크:
+  - 실제 Android physical device QA는 아직 미실행이다.
+  - 새 APK 설치 후 `DEVICE_QA_CHECKLIST.md`와 `DEVICE_QA_RESULTS_TEMPLATE.md` 기준으로 Android font scaling, gesture navigation, safe-area, WebView storage/audio/vibration을 재촬영해야 한다.

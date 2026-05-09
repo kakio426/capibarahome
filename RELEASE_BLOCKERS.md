@@ -32,6 +32,7 @@
 | RC-15 native toolchain/build P1 | 없음 | JDK 21, Android command-line tools, Android SDK 35, CocoaPods installed; Android `assembleDebug` and `lint` passed; iOS `cap add/sync` passed. Remaining iOS simulator/platform and signing/account items are environment/external blockers |
 | RC-16 Android signed release rehearsal P1 | 없음 | Local rehearsal signing config, ignored `android/keystore.properties`, ignored `local-upload-test.jks`, `assembleRelease`, `bundleRelease`, `apksigner`, `jarsigner`, and `bundletool validate` passed. Production upload key/Play Console remain external |
 | RC-17 upgrade card visual overlap P1 | 없음 | `RC17_UPGRADE_CARD_UI_AUDIT.md`; upgrade card body/purchase tray split, bottom rail removed from CTA area, tool tile compacted, upgrade-card geometry guard added to `layout-regression.spec.ts`; regenerated 360/390/430/store upgrade screenshots |
+| RC-18 Android device font/layout P1 | 없음 후보 | 실제 phone screenshot/video는 아직 없으므로 physical 판정은 미완료. 코드 기준으로 Korean-safe font stack, line-height/min-height, safe-area reserve, 320px media, `?deviceQa=1` overlay, Android-ish viewport/font-scale layout guards를 추가했고 Playwright layout/visual guard는 통과 |
 
 ## Source Budget Audit Gate
 
@@ -63,8 +64,9 @@
 - 실제 광고 SDK 선택 및 privacy disclosure
 - 실제 IAP product IDs, pricing, store metadata
 - 물리 iPhone/Android 기기 QA
+- RC-18 후 새 APK를 Android physical device에 설치해 `device-qa/incoming/` 또는 `device-qa/fixed/`에 font/layout/safe-area screenshot/video evidence 추가
 - 서버 검증 daily calendar, push notification, 계정 기반 복귀 보상 동기화
 
 ## Decision
 
-기술/검증 기준의 내부 P0/P1 blocker는 현재 발견되지 않았다. RC-10 integrity pass에서 previous `8.2 / 10` self-score를 `7.7 / 10` no-go로 보정한 기록은 before evidence로 보존한다. RC-11에서는 남은 product-quality P1인 upgrade quick-buy/shelf와 store screenshot framing을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 `8.1 / 10`이다. RC-14에서는 Vite large chunk warning을 제거하고, layout regression과 store screenshot/feature graphic guard를 통과했다. RC-15에서는 Android debug APK build와 lint, iOS shell add/sync까지 검증했다. RC-16에서는 local rehearsal key로 signed release APK/AAB 생성을 검증했다. RC-17에서는 업그레이드 카드 하단 장식이 cost/CTA를 덮어 보이는 시각 P1을 좁게 수정하고 layout geometry guard와 regenerated screenshots로 확인했다. 실제 스토어 제출 완료로 주장하지 않는다. Xcode simulator platform mismatch, production signing, Play App Signing enrollment, store 계정, privacy/support URL, commissioned/final art ownership, real audio files, SDK, 물리 기기 QA, 서버 검증 calendar/push notification은 external readiness blocker로 남긴다.
+기술/검증 기준의 내부 P0/P1 blocker는 현재 발견되지 않았다. RC-10 integrity pass에서 previous `8.2 / 10` self-score를 `7.7 / 10` no-go로 보정한 기록은 before evidence로 보존한다. RC-11에서는 남은 product-quality P1인 upgrade quick-buy/shelf와 store screenshot framing을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 `8.1 / 10`이다. RC-14에서는 Vite large chunk warning을 제거하고, layout regression과 store screenshot/feature graphic guard를 통과했다. RC-15에서는 Android debug APK build와 lint, iOS shell add/sync까지 검증했다. RC-16에서는 local rehearsal key로 signed release APK/AAB 생성을 검증했다. RC-17에서는 업그레이드 카드 하단 장식이 cost/CTA를 덮어 보이는 시각 P1을 좁게 수정하고 layout geometry guard와 regenerated screenshots로 확인했다. RC-18에서는 실제 phone screenshot 미제공 상태에서 Android WebView font/layout risk를 선제 보강했다. 실제 스토어 제출 완료로 주장하지 않는다. Xcode simulator platform mismatch, production signing, Play App Signing enrollment, store 계정, privacy/support URL, commissioned/final art ownership, real audio files, SDK, 물리 기기 QA, 서버 검증 calendar/push notification은 external readiness blocker로 남긴다.

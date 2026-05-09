@@ -130,8 +130,8 @@
   height: calc(100% - 166px);
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 13px 13px calc(112px + var(--safe-bottom));
-  scroll-padding: 13px 13px calc(124px + var(--safe-bottom));
+  padding: 13px 13px calc(124px + var(--safe-bottom));
+  scroll-padding: 13px 13px calc(138px + var(--safe-bottom));
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0)),
     repeating-linear-gradient(118deg, rgba(123, 79, 47, 0.035) 0 1px, transparent 1px 18px);
@@ -229,6 +229,7 @@
   font-size: 0.66rem;
   font-weight: 900;
   letter-spacing: 0;
+  line-height: 1.14;
 }
 
 .ui-tab-dock__item.is-active,
@@ -243,7 +244,10 @@
 .ui-tab-dock__item strong,
 .bottom-tabs strong {
   max-width: 100%;
+  min-height: 1.18em;
+  display: block;
   overflow: hidden;
+  line-height: 1.16;
   text-overflow: ellipsis;
   white-space: nowrap;
   letter-spacing: 0;
@@ -318,8 +322,8 @@
 }
 
 .content-shell {
-  padding: 12px 12px calc(116px + var(--safe-bottom));
-  scroll-padding: 12px 12px calc(128px + var(--safe-bottom));
+  padding: 12px 12px calc(128px + var(--safe-bottom));
+  scroll-padding: 12px 12px calc(142px + var(--safe-bottom));
   background:
     radial-gradient(circle at 50% 0, rgba(255, 231, 143, 0.22), transparent 15rem),
     linear-gradient(180deg, rgba(36, 73, 54, 0.18), rgba(77, 51, 27, 0.12)),
@@ -402,6 +406,18 @@
   background: rgba(47, 27, 18, 0.24);
 }
 
+@supports (bottom: max(0px, 1px)) {
+  .ui-tab-dock,
+  .bottom-tabs {
+    bottom: max(10px, calc(8px + var(--safe-bottom)));
+  }
+
+  .content-shell {
+    padding-bottom: max(128px, calc(128px + var(--safe-bottom)));
+    scroll-padding-bottom: max(142px, calc(142px + var(--safe-bottom)));
+  }
+}
+
 .ui-tab-dock__item.is-active,
 .bottom-tabs button.is-active {
   color: #2c1c12;
@@ -416,4 +432,37 @@
 .upgrade-icon,
 .product-icon {
   filter: drop-shadow(0 3px 0 rgba(47, 27, 18, 0.34));
+}
+
+.device-qa-overlay {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: calc(92px + var(--safe-bottom));
+  z-index: 9;
+  max-height: 138px;
+  overflow: auto;
+  display: grid;
+  gap: 2px;
+  border: 2px solid rgba(255, 225, 142, 0.34);
+  border-radius: 10px;
+  padding: 8px 10px;
+  color: #fff4cc;
+  background: rgba(24, 36, 29, 0.92);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+  font-size: 12px;
+  line-height: 1.28;
+  pointer-events: none;
+}
+
+.device-qa-overlay strong {
+  color: #ffd875;
+  font-size: 13px;
+}
+
+.device-qa-overlay span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

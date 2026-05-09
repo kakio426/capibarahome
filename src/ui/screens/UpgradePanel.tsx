@@ -102,15 +102,15 @@ export function UpgradePanel() {
                   <span>{categoryLabel}</span>
                 </div>
                 <div className="upgrade-copy">
-                  <div className="upgrade-status-row">
+                  <div className="upgrade-status-row" data-ui-critical="upgrade-status">
                     <span className="upgrade-tier-chip">{tierNameById.get(item.tier) ?? item.tier}</span>
                     {item.canBuy ? <span className="upgrade-ready-chip">구매 가능</span> : null}
                   </div>
                   <div className="upgrade-title-row">
-                    <h3>{item.name}</h3>
+                    <h3 data-ui-critical="upgrade-title">{item.name}</h3>
                   </div>
                   {!item.unlocked ? <ProgressBar value={item.unlockProgress} label={item.unlockLabel} /> : null}
-                  <div className="upgrade-meta" data-qa="upgrade-stat-row">
+                  <div className="upgrade-meta" data-qa="upgrade-stat-row" data-ui-critical="upgrade-stat-row">
                     <span>
                       <small>현재</small>
                       Lv.{item.level}
@@ -127,7 +127,7 @@ export function UpgradePanel() {
                 </div>
               </div>
               <div className="upgrade-buy-slot ui-shelf-card__buy" data-qa="upgrade-purchase-tray">
-                <span className="cost-plaque ui-plaque ui-cost-plaque" data-qa="upgrade-cost">{purchaseLabel}</span>
+                <span className="cost-plaque ui-plaque ui-cost-plaque" data-qa="upgrade-cost" data-ui-critical="upgrade-cost">{purchaseLabel}</span>
                 <Button
                   className="upgrade-buy-button"
                   variant={preview.canBuy ? "primary" : "secondary"}

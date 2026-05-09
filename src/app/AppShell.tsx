@@ -50,6 +50,58 @@ function formatTapBurst(value: BigNumberLite, format: "short" | "scientific") {
   return value.format(format);
 }
 
+function DeviceQaOverlay({ enabled }: { enabled: boolean }) {
+  const [metrics, setMetrics] = useState(() => ({
+    viewport: "0x0",
+    visualViewport: "n/a",
+    dpr: "1",
+    safeBottom: "0px",
+    fontFamily: "",
+    userAgent: "",
+  }));
+
+  useEffect(() => {
+    if (!enabled) return;
+
+    function collect() {
+      const rootStyles = window.getComputedStyle(document.documentElement);
+      const bodyStyles = window.getComputedStyle(document.body);
+      setMetrics({
+        viewport: `${window.innerWidth}x${window.innerHeight}`,
+        visualViewport: window.visualViewport
+          ? `${Math.round(window.visualViewport.width)}x${Math.round(window.visualViewport.height)}`
+          : "n/a",
+        dpr: window.devicePixelRatio.toFixed(2),
+        safeBottom: rootStyles.getPropertyValue("--safe-bottom").trim() || "0px",
+        fontFamily: bodyStyles.fontFamily,
+        userAgent: window.navigator.userAgent,
+      });
+    }
+
+    collect();
+    window.addEventListener("resize", collect);
+    window.visualViewport?.addEventListener("resize", collect);
+    return () => {
+      window.removeEventListener("resize", collect);
+      window.visualViewport?.removeEventListener("resize", collect);
+    };
+  }, [enabled]);
+
+  if (!enabled) return null;
+
+  return (
+    <aside className="device-qa-overlay" aria-label="Device QA diagnostics">
+      <strong>Device QA</strong>
+      <span>viewport {metrics.viewport}</span>
+      <span>visual {metrics.visualViewport}</span>
+      <span>dpr {metrics.dpr}</span>
+      <span>safe-bottom {metrics.safeBottom}</span>
+      <span>font {metrics.fontFamily}</span>
+      <span>ua {metrics.userAgent}</span>
+    </aside>
+  );
+}
+
 function renderTab(activeTab: AppTab, onTap: (event: PointerEvent<HTMLButtonElement>) => void) {
   if (activeTab === "home") return <MainGameScreen onTap={onTap} />;
   if (activeTab === "upgrades") return <UpgradePanel />;
@@ -69,6 +121,8 @@ export function AppShell() {
   const debugEnabled = import.meta.env.DEV
     && typeof window !== "undefined"
     && new URLSearchParams(window.location.search).get("debug") === "1";
+  const deviceQaEnabled = typeof window !== "undefined"
+    && ["1", "true"].includes(new URLSearchParams(window.location.search).get("deviceQa") ?? "");
   const tutorialTarget = !state.tutorial.completed && state.tutorial.visible
     ? TutorialConfig.steps[state.tutorial.step]?.target
     : undefined;
@@ -257,6 +311,7 @@ export function AppShell() {
         <FloatingTextLayer items={visibleFloatingTexts} />
         <ParticleLayer items={visibleParticles} />
         <TutorialOverlay />
+        <DeviceQaOverlay enabled={deviceQaEnabled || debugEnabled} />
         {debugEnabled ? (
           <details className="debug-panel">
             <summary>Debug</summary>

@@ -13,6 +13,7 @@ body,
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  font-family: var(--font-korean-safe);
 }
 
 body {
@@ -22,18 +23,24 @@ body {
     radial-gradient(circle at 16% 88%, rgba(40, 124, 154, 0.22), transparent 24rem),
     linear-gradient(145deg, #dff3e9 0%, #fff7dc 46%, #f8d78c 100%);
   color: var(--ink);
+  font-family: var(--font-korean-safe);
+  line-height: 1.35;
+  -webkit-font-smoothing: antialiased;
   overscroll-behavior: none;
+  text-rendering: optimizeLegibility;
 }
 
 button,
 textarea,
 input {
-  font: inherit;
+  font-family: inherit;
   font-size: 16px;
+  line-height: 1.25;
 }
 
 button {
   -webkit-tap-highlight-color: transparent;
+  text-align: center;
   touch-action: manipulation;
 }
 
@@ -74,5 +81,6 @@ p {
 }
 
 strong {
+  font-variant-numeric: tabular-nums;
   letter-spacing: 0;
 }

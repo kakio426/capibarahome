@@ -18,7 +18,11 @@ const hour = 60 * 60 * 1000;
 const day = 24 * hour;
 
 const viewports = [
+  { name: "320x740", width: 320, height: 740 },
   { name: "360x740", width: 360, height: 740 },
+  { name: "android-webview-360x800", width: 360, height: 800 },
+  { name: "android-webview-393x873", width: 393, height: 873 },
+  { name: "android-webview-412x915", width: 412, height: 915 },
   { name: "390x844", width: 390, height: 844 },
   { name: "430x932", width: 430, height: 932 },
   { name: "desktop-1280x900", width: 1280, height: 900 },
@@ -33,6 +37,63 @@ async function assertBaseShell(page: Parameters<typeof expectNoHorizontalOverflo
     ".bottom-tabs strong",
   ]);
   await expectNoDataCriticalTextClipping(page);
+}
+
+async function expectAndroidTextRenderingGuards(page: Parameters<typeof expectNoHorizontalOverflow>[0]) {
+  await expectNoCriticalTextClipping(page, [
+    ".ui-button",
+    ".btn",
+    ".bottom-tabs strong",
+    ".currency-display strong",
+    ".home-daily-badge span",
+    ".home-daily-badge strong",
+    ".goal-chip",
+    ".owned-chip",
+    ".reward-chip",
+    ".upgrade-tier-chip",
+    ".upgrade-ready-chip",
+    ".upgrade-meta span",
+    ".cost-plaque",
+    ".modal-header h2",
+    ".modal-actions .btn",
+  ]);
+
+  const failures = await page.evaluate((selectors) => {
+    function isVisible(element: Element) {
+      const rect = element.getBoundingClientRect();
+      const style = window.getComputedStyle(element);
+      return rect.width > 0
+        && rect.height > 0
+        && style.visibility !== "hidden"
+        && style.display !== "none";
+    }
+
+    return selectors.flatMap((selector) => Array.from(document.querySelectorAll(selector)).map((element, index) => {
+      if (!(element instanceof HTMLElement) || !isVisible(element)) return null;
+      const style = window.getComputedStyle(element);
+      const lineHeight = Number.parseFloat(style.lineHeight);
+      const paddingY = Number.parseFloat(style.paddingTop) + Number.parseFloat(style.paddingBottom);
+      const contentHeight = Math.max(0, element.clientHeight - paddingY);
+      if (!Number.isFinite(lineHeight) || lineHeight <= 0 || contentHeight <= lineHeight * 1.65) return null;
+      return {
+        selector,
+        index,
+        text: (element.textContent ?? "").replace(/\s+/g, " ").trim().slice(0, 80),
+        contentHeight,
+        lineHeight,
+      };
+    }).filter(Boolean));
+  }, [
+    ".bottom-tabs strong",
+    ".quick-buy-mode button span",
+    ".quick-buy-mode button small",
+    ".upgrade-tier-chip",
+    ".upgrade-ready-chip",
+    ".upgrade-meta span small",
+    ".currency-display strong",
+  ]);
+
+  expect(failures).toEqual([]);
 }
 
 async function scrollCardIntoSafeView(page: Parameters<typeof expectNoHorizontalOverflow>[0], cardIndex: number) {
@@ -152,6 +213,7 @@ for (const viewport of viewports) {
       setOrange(state, "125000");
     });
     await assertBaseShell(page);
+    await expectAndroidTextRenderingGuards(page);
     await expectVisibleWithinViewport(page.getByRole("button", { name: /귤 주기/ }), 0.98);
     await expectVisibleWithinViewport(page.locator(".home-daily-badge"), 0.95);
     await expectClearOfBottomDock(page, page.locator(".home-daily-badge"));
@@ -181,6 +243,7 @@ for (const viewport of viewports) {
     await page.getByRole("button", { name: "업그레이드" }).click();
     await page.getByRole("button", { name: "최대", exact: true }).click();
     await assertBaseShell(page);
+    await expectAndroidTextRenderingGuards(page);
     await expectNoCriticalTextClipping(page, [
       ".upgrade-summary strong",
       ".quick-buy-head strong",
@@ -207,6 +270,7 @@ for (const viewport of viewports) {
     });
     await page.getByRole("button", { name: "환생" }).click();
     await assertBaseShell(page);
+    await expectAndroidTextRenderingGuards(page);
     await page.getByRole("button", { name: "환생하기" }).click();
     await expectModalActionUsable(page, "환생 확인", "황금 나뭇잎 받기");
     await page.getByRole("dialog", { name: "환생 확인" }).getByRole("button", { name: "황금 나뭇잎 받기" }).click();
@@ -227,6 +291,7 @@ for (const viewport of viewports) {
     await page.getByRole("button", { name: "앨범" }).click();
     await page.locator(".retention-milestone-board").scrollIntoViewIfNeeded();
     await assertBaseShell(page);
+    await expectAndroidTextRenderingGuards(page);
     await expectNoCriticalTextClipping(page, [
       ".retention-milestone-card h4",
       ".retention-milestone-card .btn",
@@ -244,6 +309,7 @@ for (const viewport of viewports) {
     });
     await page.getByRole("button", { name: "설정" }).click();
     await assertBaseShell(page);
+    await expectAndroidTextRenderingGuards(page);
     await page.getByRole("checkbox", { name: "이펙트 켜기" }).click();
     await expectToastDoesNotBlockActions(page);
     await expectNoCriticalTextClipping(page, [
@@ -271,10 +337,45 @@ for (const viewport of viewports) {
       state.lastSavedAt = nowMs - 2 * hour;
     });
     await expectModalActionUsable(page, "오프라인 보상", "보상 받기");
+    await expectAndroidTextRenderingGuards(page);
     await expectNoCriticalTextClipping(page, [
       ".reward-step-chip",
       ".offline-reward",
       ".modal-actions .btn",
     ]);
+  });
+}
+
+for (const scale of [1.1, 1.2]) {
+  test(`Android font scaling guard ${Math.round(scale * 100)}%`, async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 800 });
+    await seedSave(page, (state, nowMs) => {
+      state.retention.firstPlayedAt = nowMs - 21 * hour;
+      state.retention.lastDailyClaimAt = null;
+      setOrange(state, "2500000");
+      state.upgrades.soft_paw = 12;
+      state.generators.orange_basket = 16;
+    });
+    await page.addStyleTag({ content: `:root { font-size: ${scale * 100}% !important; }` });
+    await assertBaseShell(page);
+    await expectAndroidTextRenderingGuards(page);
+    await expectNoCriticalTextClipping(page, [
+      ".currency-display strong",
+      ".home-ledger-panel strong",
+      ".home-daily-badge strong",
+    ]);
+
+    await page.getByRole("button", { name: "업그레이드" }).click();
+    await page.getByRole("button", { name: "최대", exact: true }).click();
+    await scrollCardIntoSafeView(page, 0);
+    await expectUpgradeCardSurgeryLayout(page, 0);
+    await expectAndroidTextRenderingGuards(page);
+    await expectClearOfBottomDock(page, page.locator(".upgrade-card").first().locator(".upgrade-buy-button"));
+
+    await page.getByRole("button", { name: "설정" }).click();
+    await page.getByRole("button", { name: "세이브 Export/Import" }).click();
+    await expectModalActionUsable(page, "저장 내보내기/가져오기", "Export 코드 복사");
+    await expectTextareasAvoidMobileZoom(page);
+    await expectAndroidTextRenderingGuards(page);
   });
 }

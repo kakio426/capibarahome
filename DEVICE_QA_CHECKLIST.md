@@ -2,13 +2,13 @@
 
 기준일: 2026-05-09
 
-이 문서는 제출 전 실제 물리 기기에서 실행할 QA 체크리스트다. RC-15 환경에서는 Playwright, Capacitor sync, Android debug APK build/lint, iOS shell add/sync까지 자동 검증했고, 물리 기기 QA는 수행하지 않았다. 실제 결과는 `DEVICE_QA_RESULTS_TEMPLATE.md`에 기록한다.
+이 문서는 제출 전 실제 물리 기기에서 실행할 QA 체크리스트다. RC-18 환경에서는 Playwright, Capacitor sync, Android debug/release rehearsal build, Android WebView-like 320/360/393/412 layout regression, 110/120% font scaling guard까지 자동 검증했고, 물리 기기 QA는 수행하지 않았다. 실제 결과는 `DEVICE_QA_RESULTS_TEMPLATE.md`에 기록한다.
 
 ## Automated Coverage Before Physical QA
 
 | 범위 | 상태 | 근거 |
 | --- | --- | --- |
-| 360/390/430/desktop layout regression | 완료 | `npx playwright test e2e/layout-regression.spec.ts --reporter=line` 4 passed |
+| 320/360/390/430/Android-ish/desktop layout regression | 완료 후보 | `npx playwright test e2e/layout-regression.spec.ts --reporter=line` 10 passed |
 | Visual screenshot regeneration | 완료 | `npx playwright test e2e/visual-regression.spec.ts ...` |
 | Store screenshot pack guard | 완료 | public forbidden copy, heading/subtitle clipping, iPhone/Android dimensions |
 | Google Play feature graphic guard | 완료 | `store-screenshots/google-play-feature-graphic.png` 1024x500 |
@@ -18,12 +18,16 @@
 | Android debug APK | 완료 후보 | `android/app/build/outputs/apk/debug/app-debug.apk` |
 | iOS native shell | 완료 후보 | `npx cap add ios`, `npx cap sync ios`, `npx cap doctor` 통과 |
 | iOS simulator/native build | 환경 차단 | CoreSimulator out-of-date, iOS 26.4 platform missing |
+| Device QA diagnostics overlay | 완료 | 앱 URL에 `?deviceQa=1` 추가 시 viewport/DPR/visualViewport/safe-bottom/font stack/userAgent 표시 |
 
 ## Physical QA Matrix
 
 | Device | OS version | Browser/WebView | Build source | Test scenario | Expected result | Actual result | Pass/Fail | Screenshot/video path | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | TBD | TBD | Android WebView | Debug APK | 첫 실행 | 홈/튜토리얼이 잘리고 겹치지 않음 | 미실행 | 미실행 | TBD | APK: `android/app/build/outputs/apk/debug/app-debug.apk` |
+| TBD | TBD | Android WebView | Debug APK | 폰트 확대 110%/120% | 버튼/탭/칩/가격/모달 글자가 위아래로 잘리지 않음 | 미실행 | 미실행 | TBD | Android 설정 글자 크기 변경 후 확인 |
+| TBD | TBD | Android WebView | Debug APK | 320~360px급 좁은 화면 | home CTA, upgrade first/second CTA, save modal action이 하단 탭/gesture area에 가려지지 않음 | 미실행 | 미실행 | TBD | 작은 화면 또는 display size 확대 |
+| TBD | TBD | Android WebView | Debug APK | `?deviceQa=1` 진단 overlay | viewport/DPR/visualViewport/safe-bottom/font stack/userAgent가 표시되고 일반 실행에서는 표시되지 않음 | 미실행 | 미실행 | TBD | screenshot을 `device-qa/incoming/`에 저장 |
 | TBD | TBD | Android WebView | Debug APK | 터치 100회 | 귤 증가, particle cap, UI 멈춤 없음 | 미실행 | 미실행 | TBD | low-end device 포함 |
 | TBD | TBD | Android WebView | Debug APK | quick-buy 1/10/max | 비용/레벨/CTA 정상, 음수 재화 없음 | 미실행 | 미실행 | TBD | 성장 탭 |
 | TBD | TBD | Android WebView | Debug APK | 저장/새로고침 | 진행도 유지 | 미실행 | 미실행 | TBD | app restart 포함 |
@@ -51,4 +55,4 @@
 
 ## 판정
 
-RC-14는 physical QA를 실행할 수 있는 checklist/result template까지 준비했다. 실제 물리 기기 실행은 아직 없으므로 제출 전 external QA blocker로 남긴다.
+RC-18은 Android physical QA를 실행할 수 있는 checklist/result template과 device evidence folder까지 준비했다. 실제 물리 기기 실행은 아직 없으므로 제출 전 external QA blocker로 남긴다.

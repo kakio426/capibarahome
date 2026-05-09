@@ -3,7 +3,10 @@ import { BigNumberLite } from "../src/core/BigNumberLite";
 import { ensureScreenshotDir, expectNoHorizontalOverflow, openFresh, seedSave, setOrange, skipTutorial } from "./helpers";
 
 const viewports = [
+  { name: "320x740", width: 320, height: 740 },
   { name: "360x740", width: 360, height: 740 },
+  { name: "android-webview-360x800", width: 360, height: 800 },
+  { name: "android-webview-412x915", width: 412, height: 915 },
   { name: "390x844", width: 390, height: 844 },
   { name: "430x932", width: 430, height: 932 },
   { name: "desktop-1280x900", width: 1280, height: 900 },

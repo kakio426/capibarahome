@@ -1,6 +1,8 @@
 :root {
   color-scheme: light;
-  font-family: Pretendard, "Apple SD Gothic Neo", "Noto Sans KR", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-korean-safe: system-ui, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Noto Sans CJK KR", "Malgun Gothic", "맑은 고딕", "Segoe UI", sans-serif;
+  --font-number-safe: "Roboto", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  font-family: var(--font-korean-safe);
   --bg: #dff3e9;
   --bg-strong: #fff7dc;
   --surface: #fffdf2;
