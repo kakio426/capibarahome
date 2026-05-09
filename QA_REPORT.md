@@ -626,3 +626,8 @@ Fix:
   - `node scripts/androidDeviceQa.mjs devices`: success, no connected device listed
 - 남은 blocker:
   - 실제 device가 연결되지 않았으므로 install/capture command는 아직 실행하지 않았다.
+
+## RC-23 Device Evidence Intake README
+
+- `device-qa/README.md`를 추가해 사용자가 실제 기기 screenshot/video를 어디에 넣고 어떤 화면을 최소 캡처해야 하는지 폴더 안에서 바로 확인할 수 있게 했다.
+- README는 `incoming/`, `annotated/`, `fixed/` 역할, ADB helper 명령, 최소 evidence set, P1 판정 기준을 기록한다.

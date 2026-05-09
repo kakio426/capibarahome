@@ -86,5 +86,5 @@
 1. 최신 APK(`android/app/build/outputs/apk/debug/app-debug.apk`, 2026-05-09 22:33 KST 생성)를 실제 Android 폰에 설치한다.
 2. `npm run device:qa:devices`, `npm run device:qa:install`, `npm run device:qa:launch`, `npm run device:qa:info`로 연결/설치/기기 정보를 기록한다.
 3. `DEVICE_QA_CHECKLIST.md` 기준으로 최소 홈, 업그레이드, 저장 modal, daily reward, milestone, prestige result, offline reward, 설정, 하단 탭/safe-area를 캡처한다.
-4. `npm run device:qa:capture -- <screen-name>`로 캡처 파일을 `device-qa/incoming/`에 저장하거나, 사용자가 직접 캡처한 파일을 `device-qa/incoming/` 또는 `device-qa/fixed/`에 넣는다.
+4. `device-qa/README.md`의 minimum evidence set을 따라 `npm run device:qa:capture -- <screen-name>` 또는 `npm run device:qa:record -- <screen-name> [seconds]`로 캡처 파일을 `device-qa/incoming/`에 저장한다. 사용자가 직접 캡처한 파일도 `device-qa/incoming/` 또는 `device-qa/fixed/`에 넣는다.
 5. 발견된 P1/P2를 `RC18_DEVICE_UI_BUG_AUDIT.md` 또는 후속 audit에 기록하고 수정/재검증한다.
