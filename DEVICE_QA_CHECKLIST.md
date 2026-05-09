@@ -19,7 +19,7 @@
 | iOS native shell | 완료 후보 | `npx cap add ios`, `npx cap sync ios`, `npx cap doctor` 통과 |
 | iOS simulator/native build | 환경 차단 | CoreSimulator out-of-date, iOS 26.4 platform missing |
 | Device QA diagnostics overlay | 완료 | 앱 URL에 `?deviceQa=1` 추가 시 viewport/DPR/visualViewport/safe-bottom/font stack/userAgent 표시 |
-| ADB capture helper | 완료 | `npm run device:qa:devices`, `device:qa:install`, `device:qa:launch`, `device:qa:info`, `device:qa:capture -- <screen>` |
+| ADB capture helper | 완료 | `npm run device:qa:devices`, `device:qa:install`, `device:qa:launch`, `device:qa:info`, `device:qa:capture -- <screen>`, `device:qa:record -- <screen> [seconds]` |
 
 ## ADB Capture Helper
 
@@ -36,14 +36,17 @@ npm run device:qa:capture -- save-modal
 npm run device:qa:capture -- daily-reward
 npm run device:qa:capture -- milestone-board
 npm run device:qa:capture -- prestige-result
+npm run device:qa:record -- upgrades-scroll 12
+npm run device:qa:record -- tap-and-modal-flow 15
 ```
 
 생성 파일:
 
 - `device-qa/incoming/<timestamp>-device-info.txt`
 - `device-qa/incoming/<timestamp>-<screen>.png`
+- `device-qa/incoming/<timestamp>-<screen>.mp4`
 
-캡처 전 앱 화면을 직접 해당 화면으로 이동한 뒤 `device:qa:capture`를 실행한다.
+캡처/녹화 전 앱 화면을 직접 해당 화면으로 이동한 뒤 `device:qa:capture` 또는 `device:qa:record`를 실행한다.
 
 ## Physical QA Matrix
 

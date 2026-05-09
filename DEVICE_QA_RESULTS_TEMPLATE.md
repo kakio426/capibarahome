@@ -51,6 +51,8 @@ npm run device:qa:capture -- save-modal
 npm run device:qa:capture -- daily-reward
 npm run device:qa:capture -- milestone-board
 npm run device:qa:capture -- prestige-result
+npm run device:qa:record -- upgrades-scroll 12
+npm run device:qa:record -- tap-and-modal-flow 15
 ```
 
 ## Summary

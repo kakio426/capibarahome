@@ -51,9 +51,11 @@ Usage:
   npm run device:qa:launch
   npm run device:qa:info
   npm run device:qa:capture -- <screen-name>
+  npm run device:qa:record -- <screen-name> [seconds]
 
 Outputs:
   device-qa/incoming/<timestamp>-<screen-name>.png
+  device-qa/incoming/<timestamp>-<screen-name>.mp4
   device-qa/incoming/<timestamp>-device-info.txt
 
 Notes:
@@ -118,6 +120,24 @@ function capture(name = "screen") {
   console.log(file);
 }
 
+function record(name = "screen", secondsInput = "12") {
+  ensureDir();
+  const seconds = Math.max(1, Math.min(180, Number.parseInt(secondsInput, 10) || 12));
+  const safeName = name.replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/^-+|-+$/g, "") || "screen";
+  const remote = `/sdcard/capybara-qa-${safeName}.mp4`;
+  const file = join(incomingDir, `${stamp()}-${safeName}.mp4`);
+
+  console.log(`Recording ${seconds}s from device...`);
+  runAdb(["shell", "screenrecord", "--time-limit", String(seconds), remote]);
+  runAdb(["pull", remote, file]);
+  try {
+    runAdb(["shell", "rm", remote]);
+  } catch {
+    // Non-fatal cleanup failure. The pulled file is the evidence we need.
+  }
+  console.log(file);
+}
+
 const [command, ...args] = process.argv.slice(2);
 
 try {
@@ -142,6 +162,9 @@ try {
       break;
     case "capture":
       capture(args[0] ?? "screen");
+      break;
+    case "record":
+      record(args[0] ?? "screen", args[1] ?? "12");
       break;
     default:
       throw new Error(`알 수 없는 명령: ${command}`);

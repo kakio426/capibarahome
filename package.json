@@ -17,7 +17,8 @@
     "device:qa:install": "node scripts/androidDeviceQa.mjs install",
     "device:qa:launch": "node scripts/androidDeviceQa.mjs launch",
     "device:qa:info": "node scripts/androidDeviceQa.mjs info",
-    "device:qa:capture": "node scripts/androidDeviceQa.mjs capture"
+    "device:qa:capture": "node scripts/androidDeviceQa.mjs capture",
+    "device:qa:record": "node scripts/androidDeviceQa.mjs record"
   },
   "dependencies": {
     "@capacitor/core": "^7.0.0",

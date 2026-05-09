@@ -215,6 +215,7 @@ npm run device:qa:install
 npm run device:qa:launch
 npm run device:qa:info
 npm run device:qa:capture -- home
+npm run device:qa:record -- tap-and-modal-flow 15
 ```
 
 The helper writes device info and screenshots to `device-qa/incoming/`. If `adb` is not on PATH, it automatically checks the RC-15 command-line tools path `/opt/homebrew/share/android-commandlinetools/platform-tools/adb`, or you can run with `ADB=/path/to/adb`.

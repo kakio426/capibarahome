@@ -616,9 +616,11 @@ Fix:
   - `npm run device:qa:launch`
   - `npm run device:qa:info`
   - `npm run device:qa:capture -- <screen-name>`
+  - `npm run device:qa:record -- <screen-name> [seconds]`
 - Helper output:
   - `device-qa/incoming/<timestamp>-device-info.txt`
   - `device-qa/incoming/<timestamp>-<screen-name>.png`
+  - `device-qa/incoming/<timestamp>-<screen-name>.mp4`
 - Local verification:
   - `node scripts/androidDeviceQa.mjs --help`: success
   - `node scripts/androidDeviceQa.mjs devices`: success, no connected device listed
