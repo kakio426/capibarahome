@@ -19,6 +19,31 @@
 | iOS native shell | 완료 후보 | `npx cap add ios`, `npx cap sync ios`, `npx cap doctor` 통과 |
 | iOS simulator/native build | 환경 차단 | CoreSimulator out-of-date, iOS 26.4 platform missing |
 | Device QA diagnostics overlay | 완료 | 앱 URL에 `?deviceQa=1` 추가 시 viewport/DPR/visualViewport/safe-bottom/font stack/userAgent 표시 |
+| ADB capture helper | 완료 | `npm run device:qa:devices`, `device:qa:install`, `device:qa:launch`, `device:qa:info`, `device:qa:capture -- <screen>` |
+
+## ADB Capture Helper
+
+Android 물리 기기를 USB debugging으로 연결한 뒤 아래 순서로 실행한다. `adb`가 PATH에 없어도 RC-15에서 설치한 `/opt/homebrew/share/android-commandlinetools/platform-tools/adb`를 자동 탐색한다.
+
+```bash
+npm run device:qa:devices
+npm run device:qa:install
+npm run device:qa:launch
+npm run device:qa:info
+npm run device:qa:capture -- home
+npm run device:qa:capture -- upgrades-quick-buy
+npm run device:qa:capture -- save-modal
+npm run device:qa:capture -- daily-reward
+npm run device:qa:capture -- milestone-board
+npm run device:qa:capture -- prestige-result
+```
+
+생성 파일:
+
+- `device-qa/incoming/<timestamp>-device-info.txt`
+- `device-qa/incoming/<timestamp>-<screen>.png`
+
+캡처 전 앱 화면을 직접 해당 화면으로 이동한 뒤 `device:qa:capture`를 실행한다.
 
 ## Physical QA Matrix
 

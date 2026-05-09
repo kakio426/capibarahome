@@ -207,6 +207,18 @@ adb devices
 adb install -r android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
+ADB helper workflow:
+
+```bash
+npm run device:qa:devices
+npm run device:qa:install
+npm run device:qa:launch
+npm run device:qa:info
+npm run device:qa:capture -- home
+```
+
+The helper writes device info and screenshots to `device-qa/incoming/`. If `adb` is not on PATH, it automatically checks the RC-15 command-line tools path `/opt/homebrew/share/android-commandlinetools/platform-tools/adb`, or you can run with `ADB=/path/to/adb`.
+
 Local release rehearsal after RC-16:
 
 ```bash

@@ -605,3 +605,22 @@ Fix:
 - RC-21 Android APK:
   - Debug APK: `android/app/build/outputs/apk/debug/app-debug.apk` (`19M`, generated 2026-05-09 22:33 KST)
   - Release rehearsal APK: `android/app/build/outputs/apk/release/app-release.apk` (`18M`, generated 2026-05-09 22:33 KST)
+
+## RC-22 Physical QA Capture Helper
+
+- 실제 Android screenshot/video가 없는 상태가 active goal completion blocker이므로, 사용자가 연결된 Android 기기에서 바로 설치/캡처할 수 있는 ADB helper를 추가했다.
+- 추가 파일/명령:
+  - `scripts/androidDeviceQa.mjs`
+  - `npm run device:qa:devices`
+  - `npm run device:qa:install`
+  - `npm run device:qa:launch`
+  - `npm run device:qa:info`
+  - `npm run device:qa:capture -- <screen-name>`
+- Helper output:
+  - `device-qa/incoming/<timestamp>-device-info.txt`
+  - `device-qa/incoming/<timestamp>-<screen-name>.png`
+- Local verification:
+  - `node scripts/androidDeviceQa.mjs --help`: success
+  - `node scripts/androidDeviceQa.mjs devices`: success, no connected device listed
+- 남은 blocker:
+  - 실제 device가 연결되지 않았으므로 install/capture command는 아직 실행하지 않았다.

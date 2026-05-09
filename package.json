@@ -12,7 +12,12 @@
     "export:assets": "node scripts/exportPlatformAssets.mjs",
     "cap:sync": "npm run build && cap sync",
     "cap:open:ios": "cap open ios",
-    "cap:open:android": "cap open android"
+    "cap:open:android": "cap open android",
+    "device:qa:devices": "node scripts/androidDeviceQa.mjs devices",
+    "device:qa:install": "node scripts/androidDeviceQa.mjs install",
+    "device:qa:launch": "node scripts/androidDeviceQa.mjs launch",
+    "device:qa:info": "node scripts/androidDeviceQa.mjs info",
+    "device:qa:capture": "node scripts/androidDeviceQa.mjs capture"
   },
   "dependencies": {
     "@capacitor/core": "^7.0.0",

@@ -38,6 +38,21 @@
 - Annotated issue screenshots/videos: `device-qa/annotated/`
 - Fixed/retest screenshots/videos: `device-qa/fixed/`
 
+## ADB Capture Commands
+
+```bash
+npm run device:qa:devices
+npm run device:qa:install
+npm run device:qa:launch
+npm run device:qa:info
+npm run device:qa:capture -- home
+npm run device:qa:capture -- upgrades-quick-buy
+npm run device:qa:capture -- save-modal
+npm run device:qa:capture -- daily-reward
+npm run device:qa:capture -- milestone-board
+npm run device:qa:capture -- prestige-result
+```
+
 ## Summary
 
 - Pass:

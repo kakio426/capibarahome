@@ -36,6 +36,7 @@
 | RC-19 full-screen UI/UX visual P1 | 없음 후보 | `RC19_FULL_SCREEN_UI_UX_AUDIT.md`; quick-buy panel vertical-stack/empty-rail visual P1과 prestige result modal ribbon partial-clip P1을 수정. quick-buy dial geometry guard, modal body partial-clip guard, refreshed visual/store screenshots 통과. 실제 physical screenshot은 external verification으로 남음 |
 | RC-20 scroll dock composition P1 | 없음 | content shell과 bottom tab dock의 실제 box overlap guard를 추가했고, 긴 scroll 화면 하단 경계는 fade mask로 처리했다. `layout-regression.spec.ts` 10 passed, refreshed visual/store screenshots 10 passed |
 | RC-21 player-facing copy/layout polish P1 | 없음 | 설정 subtitle의 320px orphan line, save modal `Export/Import` visible labels, 초반 upgrade description wrap을 수정. save/layout/visual/E2E 재검증 통과 |
+| RC-22 physical QA capture helper P1 | 없음 | `scripts/androidDeviceQa.mjs`와 `npm run device:qa:*` 명령으로 Android install/launch/info/screenshot capture 경로를 준비. 실제 device capture는 아직 external verification |
 | Active thread UI/UX completion gate | 미완료 | `GOAL_COMPLETION_AUDIT.md`; internal screenshot/DOM/build 기준 완료 후보이나 `device-qa/incoming/`에 실제 Android phone screenshot/video가 없어 physical-device proof가 없다. 따라서 goal complete 처리 금지 |
 
 ## Source Budget Audit Gate

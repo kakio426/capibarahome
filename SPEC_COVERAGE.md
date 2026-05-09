@@ -158,7 +158,7 @@
 | `RC17_UPGRADE_CARD_UI_AUDIT.md` | 완료 | upgrade card DOM/CSS audit, P1/P2 visual overlap classification, implementation notes, layout guard, regenerated screenshot evidence |
 | `RC18_DEVICE_UI_BUG_AUDIT.md` | 완료 | device-qa evidence folder, no incoming physical screenshot note, Android WebView font/layout proactive fixes, 320/Android-ish screenshot evidence, physical retest checklist |
 | `RC19_FULL_SCREEN_UI_UX_AUDIT.md` | 완료 | post-RC18 manual screenshot bug bash, quick-buy visual break fix, prestige result partial clipping fix, store upgrade framing refresh, targeted layout/visual/store verification |
-| `GOAL_COMPLETION_AUDIT.md` | 완료 | active thread objective를 success criteria, prompt-to-artifact checklist, current evidence, missing physical-device gates로 매핑. RC20 scroll dock polish와 RC21 player-facing copy polish 반영. 실제 Android phone screenshot/video 부재로 goal complete 금지 결론 |
+| `GOAL_COMPLETION_AUDIT.md` | 완료 | active thread objective를 success criteria, prompt-to-artifact checklist, current evidence, missing physical-device gates로 매핑. RC20 scroll dock polish, RC21 player-facing copy polish, RC22 ADB capture helper 반영. 실제 Android phone screenshot/video 부재로 goal complete 금지 결론 |
 | `RETENTION_PLAN.md` | 완료 | D0/D1/D3/D7 goals, daily/milestone/post-prestige rewards, remaining P2/P3 follow-ups |
 | 기존 문서 최신화 | 완료 | README/DEVELOPER/BALANCE/SAVE/QA/PLAYTEST updated |
 
