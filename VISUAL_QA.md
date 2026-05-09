@@ -223,6 +223,20 @@ RC-18 manual spot check:
 
 RC-18 기준 Playwright/DOM 기반 P1 layout defect는 발견되지 않는다. 단, 실제 Android phone screenshot/video는 아직 없으므로 physical QA는 external verification으로 남는다.
 
+RC-19 manual spot check:
+
+- `qa-screenshots/320x740-upgrades.png`: quick-buy `1개/10개/최대`가 세로로 쌓이던 visual P1을 수정했다. 현재는 3분할 작업대 레버로 보이고 큰 빈 목재 레일이 화면을 차지하지 않는다.
+- `qa-screenshots/android-webview-360x800-upgrades.png`: Android-ish viewport에서 quick-buy panel과 first upgrade shelf가 분리되어 보이며, 버튼/칩/비용/CTA가 눌리거나 겹쳐 보이지 않는다.
+- `qa-screenshots/390x844-prestige-result.png`: 환생 결과 modal의 before/after multiplier ribbon이 하단 action에 반쯤 잘려 보이지 않는다. reward summary는 result modal 안에서 compact 3-column layout을 유지한다.
+- `qa-screenshots/320x740-prestige-result.png`: 320px에서도 reward summary, before/after ribbon, next goal copy, CTA가 한 화면 안에서 조작 가능하게 보인다.
+- `store-screenshots/iphone-02-upgrade.png`, `store-screenshots/android-02-upgrade.png`: store upgrade shot의 quick-buy workbench가 최신 UI를 반영하고, public-facing 이미지에 vertical button stack이나 mock/internal/debug/test/provider/sandbox 문구가 없다.
+
+RC-19 targeted verification:
+
+- `npx playwright test e2e/layout-regression.spec.ts --reporter=line`: 10 passed
+- `npx playwright test e2e/visual-regression.spec.ts --reporter=line`: 7 passed
+- `npx playwright test e2e/store-screenshot-pack.spec.ts --reporter=line`: 3 passed
+
 ## Manual Spot Check
 
 - `qa-screenshots/390x844-home.png`: 첫인상은 웹 대시보드가 아니라 모바일 게임 home scene이다. 큰 흰 카드가 주인공이 되지 않는다.

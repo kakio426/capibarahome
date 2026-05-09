@@ -522,3 +522,32 @@ Fix:
 - 남은 리스크:
   - 실제 Android physical device QA는 아직 미실행이다.
   - 새 APK 설치 후 `DEVICE_QA_CHECKLIST.md`와 `DEVICE_QA_RESULTS_TEMPLATE.md` 기준으로 Android font scaling, gesture navigation, safe-area, WebView storage/audio/vibration을 재촬영해야 한다.
+
+## RC-19 Full-Screen UI/UX Bug Bash
+
+- RC-18 후 최신 screenshot을 다시 사람 눈으로 확인해 자동 clipping guard가 놓친 시각 결함을 추가 수정했다.
+- 수정한 P1 visual defect:
+  - `qa-screenshots/320x740-upgrades.png`, `qa-screenshots/android-webview-360x800-upgrades.png` 기준 quick-buy panel이 세로 버튼 스택과 큰 빈 목재 레일로 보이던 문제를 수정했다. 원인은 `.quick-buy-mode`가 `grid-template-columns`는 있으나 `display: grid`를 직접 보장하지 않은 CSS 계약 누락이었다.
+  - `qa-screenshots/390x844-prestige-result.png` 기준 환생 결과 modal의 multiplier ribbon이 하단 action 영역에 반쯤 잘려 보이던 문제를 수정했다. result modal 전용 compact body와 3-column reward summary를 유지하도록 보정했다.
+- Store screenshot 보정:
+  - `store-screenshots/iphone-02-upgrade.png`, `store-screenshots/android-02-upgrade.png`의 upgrade shot scroll anchor를 quick-buy workbench 기준으로 바꿔 상단 gameplay crop이 덜 어색하게 보이도록 했다.
+- 추가 자동 회귀:
+  - `e2e/layout-regression.spec.ts`에 quick-buy dial geometry guard와 modal body partial-clip guard를 추가했다.
+- Targeted verification:
+  - `npm run build`: success
+  - `npm test -- --run`: success, 23 files / 502 tests
+  - `npm run test:e2e`: success, 46 passed
+  - `npx playwright test e2e/layout-regression.spec.ts --reporter=line`: success, 10 passed
+  - `npx playwright test e2e/visual-regression.spec.ts --reporter=line`: success, 7 passed
+  - `npx playwright test e2e/store-screenshot-pack.spec.ts --reporter=line`: success, 3 passed
+  - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: success, 10 passed
+  - `npm run export:assets`: success
+  - `npm run cap:sync`: success
+  - `npx cap sync android`: success
+  - `cd android && JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home ANDROID_HOME=/opt/homebrew/share/android-commandlinetools ANDROID_SDK_ROOT=/opt/homebrew/share/android-commandlinetools ./gradlew assembleDebug assembleRelease`: success
+  - `git diff --check`: success
+- RC-19 Android APK:
+  - Debug APK: `android/app/build/outputs/apk/debug/app-debug.apk` (`19M`, generated 2026-05-09 21:10 KST)
+  - Release rehearsal APK: `android/app/build/outputs/apk/release/app-release.apk` (`18M`, generated 2026-05-09 21:10 KST)
+- 남은 리스크:
+  - 실제 Android phone screenshot/video는 여전히 미제공이다. RC-19는 physical evidence pass가 아니라 최신 screenshot/WebView-like viewport 기반 추가 UI bug bash다.

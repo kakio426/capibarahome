@@ -103,6 +103,7 @@ export function PrestigePanel() {
         open={Boolean(prestigeResult)}
         title="새 계절 시작"
         className="prestige-result-modal ui-modal--reward"
+        bodyClassName="prestige-result-body"
         onClose={() => setPrestigeResult(null)}
         actions={<Button onClick={() => setPrestigeResult(null)}>정원으로 돌아가기</Button>}
       >

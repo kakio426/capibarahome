@@ -2,19 +2,19 @@
 
 기준일: 2026-05-09
 
-스토어용 후보 스크린샷은 QA screenshot과 분리해 `store-screenshots/`에 생성한다. Playwright spec은 `e2e/store-screenshot-pack.spec.ts`이며, 별도 치트 UI 없이 seed save만 사용한다. v2 raster/HUD pass에서 `src/assets/raster/release/store-key-visual.png`를 full-screen key art background로 연결하고, 그 위에 gameplay panel과 store copy를 얹어 단순 앱 캡처가 아니라 store-facing 구성으로 재생성했다. RC-10에서는 public copy에서 비공개 구현/검증 표현을 제거하고, home/upgrade/milestone/prestige/reward 순간 중심으로 재구성했다. RC-11에서는 phone panel scale/crop, upgrade shelf scroll framing, milestone/prestige/reward close framing을 보정했고 `RC11_INDEPENDENT_RESCORE.md` 기준 store screenshot pack은 8.1이다. RC-12에서는 public copy 금지어, heading/subtitle clipping, generated file size guard를 Playwright에 추가했다. RC-13에서는 PNG magic byte와 dimension guard를 추가해 iPhone 1290x2796, Android 1080x1920 crop 회귀를 막았다. RC-14에서는 Google Play feature graphic 후보 1024x500도 생성/검증한다.
+스토어용 후보 스크린샷은 QA screenshot과 분리해 `store-screenshots/`에 생성한다. Playwright spec은 `e2e/store-screenshot-pack.spec.ts`이며, 별도 치트 UI 없이 seed save만 사용한다. v2 raster/HUD pass에서 `src/assets/raster/release/store-key-visual.png`를 full-screen key art background로 연결하고, 그 위에 gameplay panel과 store copy를 얹어 단순 앱 캡처가 아니라 store-facing 구성으로 재생성했다. RC-10에서는 public copy에서 비공개 구현/검증 표현을 제거하고, home/upgrade/milestone/prestige/reward 순간 중심으로 재구성했다. RC-11에서는 phone panel scale/crop, upgrade shelf scroll framing, milestone/prestige/reward close framing을 보정했고 `RC11_INDEPENDENT_RESCORE.md` 기준 store screenshot pack은 8.1이다. RC-12에서는 public copy 금지어, heading/subtitle clipping, generated file size guard를 Playwright에 추가했다. RC-13에서는 PNG magic byte와 dimension guard를 추가해 iPhone 1290x2796, Android 1080x1920 crop 회귀를 막았다. RC-14에서는 Google Play feature graphic 후보 1024x500도 생성/검증한다. RC-19에서는 upgrade screenshot scroll anchor를 quick-buy workbench 기준으로 조정해 세로 버튼/빈 레일 오류와 어색한 top crop이 public-facing 이미지에 남지 않게 했다.
 
 ## 후보 목록
 
 | 파일 | 기기 계열 | 화면 | 카피 | 상태 |
 | --- | --- | --- | --- | --- |
 | `store-screenshots/iphone-01-home.png` | iPhone 6.7형 후보 | 홈 | 귤 정원에서 시작하는 포근한 성장 | RC-13 검증 완료 |
-| `store-screenshots/iphone-02-upgrade.png` | iPhone 6.7형 후보 | 업그레이드 | 한 번에 쑥쑥 키우는 업그레이드 작업대 | RC-13 검증 완료 |
+| `store-screenshots/iphone-02-upgrade.png` | iPhone 6.7형 후보 | 업그레이드 | 한 번에 쑥쑥 키우는 업그레이드 작업대 | RC-19 framing 갱신 |
 | `store-screenshots/iphone-03-milestone.png` | iPhone 6.7형 후보 | 복귀 배지 | 복귀할수록 채워지는 정원 배지 | RC-13 검증 완료 |
 | `store-screenshots/iphone-04-prestige.png` | iPhone 6.7형 후보 | 환생 ceremony | 황금 나뭇잎으로 새 계절을 여세요 | RC-13 검증 완료 |
 | `store-screenshots/iphone-05-reward.png` | iPhone 6.7형 후보 | 복귀 보상 | 돌아오면 기다리는 귤 보상 | RC-13 검증 완료 |
 | `store-screenshots/android-01-home.png` | Android phone 후보 | 홈 | 귤 정원에서 시작하는 포근한 성장 | RC-13 검증 완료 |
-| `store-screenshots/android-02-upgrade.png` | Android phone 후보 | 업그레이드 | 한 번에 쑥쑥 키우는 업그레이드 작업대 | RC-13 검증 완료 |
+| `store-screenshots/android-02-upgrade.png` | Android phone 후보 | 업그레이드 | 한 번에 쑥쑥 키우는 업그레이드 작업대 | RC-19 framing 갱신 |
 | `store-screenshots/android-03-milestone.png` | Android phone 후보 | 복귀 배지 | 복귀할수록 채워지는 정원 배지 | RC-13 검증 완료 |
 | `store-screenshots/android-04-prestige.png` | Android phone 후보 | 환생 ceremony | 황금 나뭇잎으로 새 계절을 여세요 | RC-13 검증 완료 |
 | `store-screenshots/android-05-reward.png` | Android phone 후보 | 복귀 보상 | 돌아오면 기다리는 귤 보상 | RC-13 검증 완료 |

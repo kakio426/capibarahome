@@ -65,6 +65,7 @@
 - [x] RC-12 layout regression confirms 360/390/430/desktop critical text, CTA/bottom dock clearance, modal action clickability, save textarea zoom safety
 - [x] RC-13 layout regression adds `data-ui-critical` clipping, toast non-blocking, home tap CTA guard, and store screenshot PNG dimension guard
 - [x] RC-14 store guard validates Google Play feature graphic `1024 x 500`
+- [x] RC-19 layout/store guard catches quick-buy vertical-stack regression and prestige result modal partial clipping
 
 ## Capacitor Prep
 

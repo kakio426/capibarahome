@@ -192,6 +192,85 @@ async function expectUpgradeCardSurgeryLayout(page: Parameters<typeof expectNoHo
   }
 }
 
+async function expectQuickBuyModeDialLayout(page: Parameters<typeof expectNoHorizontalOverflow>[0]) {
+  const metrics = await page.locator(".quick-buy-mode").evaluate((element) => {
+    const mode = element.getBoundingClientRect();
+    const buttons = Array.from(element.querySelectorAll("button")).map((button) => {
+      const rect = button.getBoundingClientRect();
+      return {
+        left: rect.left,
+        top: rect.top,
+        right: rect.right,
+        bottom: rect.bottom,
+        width: rect.width,
+        height: rect.height,
+        text: (button.textContent ?? "").replace(/\s+/g, " ").trim(),
+        pressed: button.getAttribute("aria-pressed") === "true",
+      };
+    });
+    const tops = buttons.map((button) => button.top);
+    return {
+      mode: { width: mode.width, height: mode.height },
+      buttons,
+      activeCount: buttons.filter((button) => button.pressed).length,
+      topSpread: tops.length > 0 ? Math.max(...tops) - Math.min(...tops) : 999,
+    };
+  });
+
+  expect(metrics.buttons).toHaveLength(3);
+  expect(metrics.activeCount).toBe(1);
+  expect(metrics.mode.height).toBeLessThanOrEqual(96);
+  expect(metrics.topSpread).toBeLessThanOrEqual(16);
+
+  for (let index = 0; index < metrics.buttons.length; index += 1) {
+    const button = metrics.buttons[index];
+    expect(button.width).toBeGreaterThanOrEqual(44);
+    expect(button.height).toBeGreaterThanOrEqual(44);
+    if (index > 0) {
+      expect(button.left).toBeGreaterThan(metrics.buttons[index - 1].left);
+      expect(button.left).toBeGreaterThanOrEqual(metrics.buttons[index - 1].right - 4);
+    }
+  }
+}
+
+async function expectNoModalBodyPartialClip(page: Parameters<typeof expectNoHorizontalOverflow>[0], selectors: string[]) {
+  const failures = await page.evaluate((targetSelectors) => {
+    function isVisible(element: Element) {
+      const rect = element.getBoundingClientRect();
+      const style = window.getComputedStyle(element);
+      return rect.width > 0
+        && rect.height > 0
+        && style.visibility !== "hidden"
+        && style.display !== "none";
+    }
+
+    return targetSelectors.flatMap((selector) => Array.from(document.querySelectorAll(selector)).map((element, index) => {
+      if (!(element instanceof HTMLElement) || !isVisible(element)) return null;
+      const body = element.closest(".modal-body");
+      if (!(body instanceof HTMLElement)) return null;
+      const elementRect = element.getBoundingClientRect();
+      const bodyRect = body.getBoundingClientRect();
+      const left = Math.max(elementRect.left, bodyRect.left);
+      const top = Math.max(elementRect.top, bodyRect.top);
+      const right = Math.min(elementRect.right, bodyRect.right);
+      const bottom = Math.min(elementRect.bottom, bodyRect.bottom);
+      const visibleArea = Math.max(0, right - left) * Math.max(0, bottom - top);
+      const totalArea = elementRect.width * elementRect.height;
+      if (visibleArea === 0 || totalArea <= 0) return null;
+      const ratio = visibleArea / totalArea;
+      if (ratio >= 0.98) return null;
+      return {
+        selector,
+        index,
+        text: (element.textContent ?? "").replace(/\s+/g, " ").trim().slice(0, 80),
+        ratio,
+      };
+    }).filter(Boolean));
+  }, selectors);
+
+  expect(failures).toEqual([]);
+}
+
 async function expectTextareasAvoidMobileZoom(page: Parameters<typeof expectNoHorizontalOverflow>[0]) {
   const sizes = await page.locator("textarea").evaluateAll((nodes) => nodes.map((node) => Number.parseFloat(window.getComputedStyle(node).fontSize)));
   expect(sizes.length).toBeGreaterThan(0);
@@ -241,7 +320,9 @@ for (const viewport of viewports) {
       state.generators.storehouse = 5;
     });
     await page.getByRole("button", { name: "업그레이드" }).click();
+    await expectQuickBuyModeDialLayout(page);
     await page.getByRole("button", { name: "최대", exact: true }).click();
+    await expectQuickBuyModeDialLayout(page);
     await assertBaseShell(page);
     await expectAndroidTextRenderingGuards(page);
     await expectNoCriticalTextClipping(page, [
@@ -275,6 +356,11 @@ for (const viewport of viewports) {
     await expectModalActionUsable(page, "환생 확인", "황금 나뭇잎 받기");
     await page.getByRole("dialog", { name: "환생 확인" }).getByRole("button", { name: "황금 나뭇잎 받기" }).click();
     await expectModalActionUsable(page, "새 계절 시작", "정원으로 돌아가기");
+    await expectNoModalBodyPartialClip(page, [
+      ".prestige-multiplier-ribbon",
+      ".prestige-result-grid",
+      ".prestige-ceremony-lead",
+    ]);
     await expectNoCriticalTextClipping(page, [
       ".prestige-result-stamp",
       ".prestige-result-grid strong",

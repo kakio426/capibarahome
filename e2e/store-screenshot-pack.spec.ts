@@ -264,12 +264,10 @@ for (const device of devices) {
       }
       if (shot.id === "02-upgrade") {
         await page.getByRole("button", { name: "최대" }).click();
-        await page.locator(".upgrade-card").first().evaluate((element) => {
+        await page.locator(".quick-buy-panel").evaluate((element) => {
           const shell = document.querySelector(".content-shell");
           if (!(shell instanceof HTMLElement) || !(element instanceof HTMLElement)) return;
-          const shellRect = shell.getBoundingClientRect();
-          const cardRect = element.getBoundingClientRect();
-          shell.scrollTop = Math.max(0, shell.scrollTop + cardRect.top - shellRect.top - 176);
+          shell.scrollTop = Math.max(0, element.offsetTop - 72);
         });
       }
       if (shot.modal === "milestone") {

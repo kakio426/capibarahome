@@ -666,6 +666,11 @@
   color: #2f1d12;
 }
 
+.prestige-result-body {
+  gap: 10px;
+  padding: 14px 16px 12px;
+}
+
 .prestige-ceremony-visual {
   position: relative;
   min-height: 176px;
@@ -775,6 +780,54 @@
   padding: 9px;
   background: rgba(255, 250, 224, 0.52);
   font-weight: 850;
+}
+
+@media (max-height: 860px) {
+  .prestige-result-body {
+    gap: 8px;
+    padding: 12px 14px 10px;
+  }
+
+  .prestige-ceremony-visual {
+    min-height: 144px;
+  }
+
+  .prestige-ceremony-art {
+    height: 144px;
+  }
+
+  .prestige-result-stamp {
+    min-height: 40px;
+    padding-inline: 14px;
+    font-size: 0.8rem;
+  }
+
+  .prestige-ceremony-lead {
+    padding: 7px 8px;
+    font-size: 0.82rem;
+    line-height: 1.28;
+  }
+
+  .prestige-result-grid {
+    gap: 6px;
+  }
+
+  .prestige-result-grid > div {
+    gap: 2px;
+    padding: 7px 6px;
+  }
+
+  .prestige-multiplier-ribbon {
+    gap: 6px;
+    padding: 6px 10px;
+    font-size: 0.74rem;
+  }
+
+  .prestige-next-copy {
+    padding: 7px 8px;
+    font-size: 0.74rem;
+    line-height: 1.3;
+  }
 }
 
 .shop-feature-card {
@@ -1271,6 +1324,7 @@
 .quick-buy-mode {
   position: relative;
   z-index: 1;
+  display: grid;
   grid-template-columns: repeat(3, minmax(50px, 1fr));
   min-width: 0;
   gap: 7px;
@@ -2497,6 +2551,10 @@
 
   .prestige-result-grid {
     grid-template-columns: 1fr;
+  }
+
+  .prestige-result-modal .prestige-result-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .album-score-grid {

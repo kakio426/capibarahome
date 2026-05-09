@@ -2,7 +2,7 @@
 
 기준일: 2026-05-09
 
-이 문서는 제출 전 실제 물리 기기에서 실행할 QA 체크리스트다. RC-18 환경에서는 Playwright, Capacitor sync, Android debug/release rehearsal build, Android WebView-like 320/360/393/412 layout regression, 110/120% font scaling guard까지 자동 검증했고, 물리 기기 QA는 수행하지 않았다. 실제 결과는 `DEVICE_QA_RESULTS_TEMPLATE.md`에 기록한다.
+이 문서는 제출 전 실제 물리 기기에서 실행할 QA 체크리스트다. RC-18/RC-19 환경에서는 Playwright, Capacitor sync, Android debug/release rehearsal build, Android WebView-like 320/360/393/412 layout regression, 110/120% font scaling guard, quick-buy dial geometry guard, prestige result modal partial-clip guard까지 자동 검증했고, 물리 기기 QA는 수행하지 않았다. 실제 결과는 `DEVICE_QA_RESULTS_TEMPLATE.md`에 기록한다.
 
 ## Automated Coverage Before Physical QA
 
@@ -30,12 +30,14 @@
 | TBD | TBD | Android WebView | Debug APK | `?deviceQa=1` 진단 overlay | viewport/DPR/visualViewport/safe-bottom/font stack/userAgent가 표시되고 일반 실행에서는 표시되지 않음 | 미실행 | 미실행 | TBD | screenshot을 `device-qa/incoming/`에 저장 |
 | TBD | TBD | Android WebView | Debug APK | 터치 100회 | 귤 증가, particle cap, UI 멈춤 없음 | 미실행 | 미실행 | TBD | low-end device 포함 |
 | TBD | TBD | Android WebView | Debug APK | quick-buy 1/10/max | 비용/레벨/CTA 정상, 음수 재화 없음 | 미실행 | 미실행 | TBD | 성장 탭 |
+| TBD | TBD | Android WebView | Debug APK | quick-buy panel rendering | `1개/10개/최대`가 한 행의 작업대 레버로 보이고 세로 스택/큰 빈 레일이 없음 | 미실행 | 미실행 | TBD | RC-19 visual fix 확인 |
 | TBD | TBD | Android WebView | Debug APK | 저장/새로고침 | 진행도 유지 | 미실행 | 미실행 | TBD | app restart 포함 |
 | TBD | TBD | Android WebView | Debug APK | 앱 백그라운드/복귀 | 오프라인 보상 1회 표시, 중복 없음 | 미실행 | 미실행 | TBD | 2분 이상 대기 |
 | TBD | TBD | Android/iOS WebView | Native build | 오프라인 보상 | 수령 후 reload에도 중복 지급 없음 | 미실행 | 미실행 | TBD | localStorage persistence |
 | TBD | TBD | Android/iOS WebView | Native build | daily reward | claim/cooldown/streak 저장 | 미실행 | 미실행 | TBD | date spoofing 방어는 범위 외 |
 | TBD | TBD | Android/iOS WebView | Native build | milestone claim | D1/D3/D7 중복 지급 없음 | 미실행 | 미실행 | TBD | reload 후 상태 유지 |
 | TBD | TBD | Android/iOS WebView | Native build | 환생 | result panel/배율/저장 일관성 | 미실행 | 미실행 | TBD | first prestige flow |
+| TBD | TBD | Android/iOS WebView | Native build | 환생 결과 modal | 획득/보유/새 배율/이전→새 계절 리본/CTA가 서로 가리지 않음 | 미실행 | 미실행 | TBD | RC-19 partial-clip fix 확인 |
 | TBD | TBD | Android/iOS WebView | Native build | export/import | code 복사/붙여넣기, 실패 안내 crash 없음 | 미실행 | 미실행 | TBD | keyboard/textarea |
 | TBD | TBD | Android/iOS WebView | Native build | 설정 토글 | effects/sound/music/vibration 즉시 반영 | 미실행 | 미실행 | TBD | toast non-blocking |
 | TBD | TBD | Android/iOS WebView | Native build | 사운드 mute | muted 상태에서 no-op, crash 없음 | 미실행 | 미실행 | TBD | WebAudio gesture |
@@ -55,4 +57,4 @@
 
 ## 판정
 
-RC-18은 Android physical QA를 실행할 수 있는 checklist/result template과 device evidence folder까지 준비했다. 실제 물리 기기 실행은 아직 없으므로 제출 전 external QA blocker로 남긴다.
+RC-18/RC-19는 Android physical QA를 실행할 수 있는 checklist/result template과 device evidence folder까지 준비했다. 실제 물리 기기 실행은 아직 없으므로 제출 전 external QA blocker로 남긴다.
