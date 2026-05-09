@@ -2,7 +2,7 @@
 
 기준일: 2026-05-09
 
-이 문서는 제출 전 실제 물리 기기에서 실행할 QA 체크리스트다. RC-14 환경에서는 Playwright, Capacitor sync, Android shell/config inspection까지만 자동 검증했고, 물리 기기 QA는 수행하지 않았다. 실제 결과는 `DEVICE_QA_RESULTS_TEMPLATE.md`에 기록한다.
+이 문서는 제출 전 실제 물리 기기에서 실행할 QA 체크리스트다. RC-15 환경에서는 Playwright, Capacitor sync, Android debug APK build/lint, iOS shell add/sync까지 자동 검증했고, 물리 기기 QA는 수행하지 않았다. 실제 결과는 `DEVICE_QA_RESULTS_TEMPLATE.md`에 기록한다.
 
 ## Automated Coverage Before Physical QA
 
@@ -14,14 +14,16 @@
 | Google Play feature graphic guard | 완료 | `store-screenshots/google-play-feature-graphic.png` 1024x500 |
 | Web build | 완료 | `npm run build`, Vite large chunk warning removed |
 | Android Capacitor shell | 완료 후보 | `android/` exists, `npx cap doctor` Android OK |
-| Android Gradle build | 환경 차단 | Java runtime 미설치 |
-| iOS native shell | 환경 차단 | CocoaPods 미설치 |
+| Android Gradle build | 완료 후보 | JDK 21, `./gradlew assembleDebug`, `./gradlew lint` 통과 |
+| Android debug APK | 완료 후보 | `android/app/build/outputs/apk/debug/app-debug.apk` |
+| iOS native shell | 완료 후보 | `npx cap add ios`, `npx cap sync ios`, `npx cap doctor` 통과 |
+| iOS simulator/native build | 환경 차단 | CoreSimulator out-of-date, iOS 26.4 platform missing |
 
 ## Physical QA Matrix
 
 | Device | OS version | Browser/WebView | Build source | Test scenario | Expected result | Actual result | Pass/Fail | Screenshot/video path | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| TBD | TBD | Android WebView | Debug APK | 첫 실행 | 홈/튜토리얼이 잘리고 겹치지 않음 | 미실행 | 미실행 | TBD | JDK 설치 후 APK 필요 |
+| TBD | TBD | Android WebView | Debug APK | 첫 실행 | 홈/튜토리얼이 잘리고 겹치지 않음 | 미실행 | 미실행 | TBD | APK: `android/app/build/outputs/apk/debug/app-debug.apk` |
 | TBD | TBD | Android WebView | Debug APK | 터치 100회 | 귤 증가, particle cap, UI 멈춤 없음 | 미실행 | 미실행 | TBD | low-end device 포함 |
 | TBD | TBD | Android WebView | Debug APK | quick-buy 1/10/max | 비용/레벨/CTA 정상, 음수 재화 없음 | 미실행 | 미실행 | TBD | 성장 탭 |
 | TBD | TBD | Android WebView | Debug APK | 저장/새로고침 | 진행도 유지 | 미실행 | 미실행 | TBD | app restart 포함 |

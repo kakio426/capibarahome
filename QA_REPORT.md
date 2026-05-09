@@ -39,32 +39,33 @@ exported platform asset candidates to platform-assets/
 ```txt
 npm run cap:sync
 npm run build && cap sync
-built successfully; Android sync finished
+built successfully; Android and iOS sync finished
 ```
 
 ```txt
 npx cap doctor
-Android looking great; installed Capacitor 7.6.2, latest 8.3.3
+Android looking great; iOS looking great; installed Capacitor 7.6.2, latest 8.3.3
 ```
 
 ```txt
 npx cap sync ios
-failed as expected because ios platform has not been added; CocoaPods/Xcode setup is external blocker
+sync finished
 ```
 
 ```txt
 npx cap add ios
-failed because CocoaPods is not installed
+ios platform added; pod install completed
 ```
 
 ```txt
 ./gradlew assembleDebug
-failed before Gradle execution because Java Runtime is not installed
+first JDK 17 attempt failed with invalid source release 21; JDK 21 retry passed
+APK: android/app/build/outputs/apk/debug/app-debug.apk (19M)
 ```
 
 ```txt
 ./gradlew lint
-failed before Gradle execution because Java Runtime is not installed
+passed with warnings; manifest order warning fixed, remaining warnings are dependency freshness/generated resource/final icon-splash polish
 ```
 
 ```txt
@@ -239,7 +240,7 @@ Fix:
 - 새 게임 기능, save schema, 대형 raster asset은 추가하지 않았다.
 - 공식 문서 확인 결과는 `RC13_SUBMISSION_AUDIT.md`에 2026-05-09 기준 링크와 함께 기록했다.
 - `npx cap add android`로 Android native shell을 생성했고 `android/app/build.gradle`, `AndroidManifest.xml`, `strings.xml`, `MainActivity.java`가 준비됐다.
-- `npx cap add ios`는 CocoaPods 미설치로 실패했다. iOS shell 미생성은 내부 앱 결함이 아니라 Xcode/CocoaPods 환경 external blocker로 분류한다.
+- RC-13 당시 `npx cap add ios`는 CocoaPods 미설치로 실패했다. 이는 before evidence이며, RC-15에서 CocoaPods 설치 후 iOS shell add/sync는 통과했다.
 - `npm run export:assets`를 추가해 `platform-assets/`에 iOS AppIcon.appiconset, Android icon candidates, splash PNG candidates를 생성하고 Android native res launcher icons를 갱신했다.
 - `@capacitor/assets` 설치는 `sharp`/libvips 다운로드 timeout으로 실패했고 package 파일은 변경되지 않았다. macOS `sips` 기반 fallback script를 사용했다.
 - Layout regression을 강화해 `data-ui-critical` clipping, home tap CTA visibility, toast non-blocking, store screenshot PNG dimensions를 검사한다.
@@ -278,6 +279,41 @@ Fix:
   - `npx cap sync android`: success
   - `git diff --check`: passed
 - 내부 UI/layout P1은 `RC14_INDEPENDENT_RESCORE.md` 기준 발견되지 않았다. Android Gradle, iOS shell, signing, store URLs, physical QA는 external blocker로 남긴다.
+
+## RC-15 Native Toolchain Install, Android Debug Build, iOS Readiness Verification
+
+- 새 게임 기능, save schema, gameplay UI는 변경하지 않았다.
+- 공식 Android/Gradle/Capacitor/iOS/CocoaPods/Apple 문서 확인 결과는 `RC15_TOOLCHAIN_AUDIT.md`에 2026-05-09 기준 링크와 함께 기록했다.
+- RC-14에서 막혔던 Java/CocoaPods/Android SDK 환경 blocker를 Homebrew 범위에서 해결했다.
+- 설치/검증:
+  - `openjdk@17` 설치 후 Android build에서 `invalid source release: 21` 발생
+  - `openjdk@21` 설치 후 `JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home`으로 Gradle 검증
+  - `android-commandlinetools`, Android SDK `platforms;android-35`, `build-tools;35.0.0`, `platform-tools 37.0.0`
+  - `cocoapods 1.16.2`
+- Android:
+  - `cd android && ./gradlew assembleDebug`: `BUILD SUCCESSFUL`
+  - APK 생성: `android/app/build/outputs/apk/debug/app-debug.apk` (`19M`)
+  - `cd android && ./gradlew lint`: `BUILD SUCCESSFUL`
+  - lint의 manifest permission order warning은 `AndroidManifest.xml`에서 수정했다.
+  - 남은 lint warning은 AndroidX newer version, Capacitor generated unused resources, candidate launcher icon/monochrome/splash density polish이며 P2/P3 또는 external final asset readiness로 분류한다.
+- iOS:
+  - `npx cap add ios`: 성공, `ios/` shell 생성
+  - `npx cap sync ios`: 성공, CocoaPods install 완료
+  - `npx cap doctor`: Android/iOS 모두 looking great
+  - `xcodebuild -list -workspace ios/App/App.xcworkspace`: schemes 인식
+  - `xcodebuild ... iphonesimulator ... CODE_SIGNING_ALLOWED=NO`: CoreSimulator out-of-date 및 iOS 26.4 platform missing으로 실패. 환경 blocker이며 signing/account 단계까지 도달하지 않았다.
+- RC-15 verification:
+  - `npm run build`: success
+  - `npm test`: 23 files / 502 tests passed
+  - `npm run test:e2e`: 37 passed
+  - `npx playwright test e2e/layout-regression.spec.ts --reporter=line`: 4 passed
+  - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: 7 passed
+  - `npm run export:assets`: success
+  - `npm run cap:sync`: success, Android/iOS sync
+  - `npx cap sync android`: success
+  - `npx cap sync ios`: success
+- 대표 screenshot spot check: `360x740-home`, `390x844-upgrades-quick-buy`, `390x844-save-modal`, `390x844-collection-milestones`, `390x844-prestige-result`, `390x844-daily-reward-claim`, `iphone-02-upgrade`, `android-05-reward`, `google-play-feature-graphic`에서 P1 clipping/occlusion/internal wording 회귀 없음.
+- 실제 물리 기기 QA는 아직 미실행이므로 통과로 기록하지 않는다.
 
 ## 자동 테스트 커버리지
 
@@ -351,6 +387,6 @@ Fix:
 - 실제 commissioned/final art ownership, 라이선스 확정 사운드, 광고 SDK/IAP SDK는 연결하지 않았다.
 - 실제 Apple/Google 개발자 계정, 인증서, 프로비저닝, 스토어 업로드는 수행하지 않았다.
 - commissioned art 소유권/법무 확정, final adaptive icon foreground/background art, 실제 device store screenshot 재촬영은 제출 전 external art readiness로 남는다.
-- Vite JS chunk warning은 `BUNDLE_ASSET_AUDIT.md` 기준 P2 performance optimization으로 남긴다.
+- Vite JS chunk warning은 RC-14에서 제거됐다. 남은 bundle P2는 runtime raster PNG payload의 WebP/AVIF 전환 가능성이다.
 - RC-11 independent rescore 기준 scoped product-quality P1은 해소됐다: upgrade quick-buy/shelf 8.1, store screenshot framing 8.1, combined 8.1.
-- RC-13 layout regression 기준 주요 모바일 viewport에서 글자 잘림, CTA/탭 겹침, modal 조작 불가 P1은 발견되지 않았다. 실제 App Store/Google Play 제출 완료로는 보고하지 않으며 외부 제출 준비 항목은 `RELEASE_BLOCKERS.md`, `RC13_SUBMISSION_AUDIT.md`, `RC13_NATIVE_READINESS_AUDIT.md`에 분리한다.
+- RC-15 기준 Android debug APK는 생성됐고 iOS shell/sync도 완료됐다. 다만 Xcode simulator platform mismatch, iOS/Android signing, store 계정/URL, final asset approval, 실제 SDK, 물리 기기 QA는 여전히 제출 전 external blocker다. 실제 App Store/Google Play 제출 완료로는 보고하지 않는다.

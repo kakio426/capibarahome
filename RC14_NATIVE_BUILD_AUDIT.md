@@ -2,6 +2,10 @@
 
 기준일: 2026-05-09
 
+## RC-15 Superseding Note
+
+RC-14 당시 Java Runtime과 CocoaPods 부재로 Android Gradle/iOS shell이 환경 차단 상태였다. RC-15에서 Homebrew `openjdk@21`, Android command-line tools/SDK 35, CocoaPods를 설치했고, Android `assembleDebug`/`lint` 및 iOS `cap add`/`sync`를 통과했다. 아래 RC-14 기록은 before state로 보존한다. 최신 상태는 `RC15_TOOLCHAIN_AUDIT.md`, `RC15_ANDROID_BUILD_AUDIT.md`, `RC15_IOS_READINESS_AUDIT.md`를 기준으로 한다.
+
 ## Environment
 
 | 항목 | 결과 | 판정 |

@@ -41,6 +41,8 @@
 - [x] RC-13 audits completed: `RC13_SUBMISSION_AUDIT.md`, `RC13_NATIVE_READINESS_AUDIT.md`, `RC13_VISUAL_REGRESSION_AUDIT.md`, `RC13_INDEPENDENT_RESCORE.md`
 - [x] RC-14 native release build readiness and bundle pass completed: Android/iOS environment blockers separated, Vite large chunk warning removed, Google Play feature graphic candidate generated, physical QA packet prepared
 - [x] RC-14 audits completed: `RC14_RELEASE_READINESS_AUDIT.md`, `RC14_NATIVE_BUILD_AUDIT.md`, `RC14_BUNDLE_OPTIMIZATION_AUDIT.md`, `RC14_DEVICE_QA_PACKET.md`, `RC14_INDEPENDENT_RESCORE.md`
+- [x] RC-15 native toolchain/build verification completed: Homebrew JDK 21, Android command-line tools/SDK 35, CocoaPods installed; Android `assembleDebug`/`lint` passed; iOS `cap add`/`sync` passed
+- [x] RC-15 audits completed: `RC15_TOOLCHAIN_AUDIT.md`, `RC15_ANDROID_BUILD_AUDIT.md`, `RC15_IOS_READINESS_AUDIT.md`, `RC15_NATIVE_BUILD_RESULTS.md`, `RC15_INDEPENDENT_RESCORE.md`
 - [x] Visual asset integrity tests added for SVG count, raster PNG integrity, coverage, external-reference bans, runtime visual styling audit
 - [x] Art production docs added: `ART_DIRECTION.md`, `ASSET_PRODUCTION_BRIEF.md`
 - [x] RC-2 audio readiness completed: file-ready audio slots and synthetic WebAudio fallback
@@ -74,20 +76,22 @@
 - [x] Android native resources updated with launcher icon candidates
 - [x] Platform asset candidates exported with `npm run export:assets`
 - [x] Google Play feature graphic candidate exported with `npm run export:assets`
-- [ ] iOS native platform folder generated with `npx cap add ios` after CocoaPods/Xcode environment is ready
+- [x] iOS native platform folder generated with `npx cap add ios`
+- [x] iOS native dependencies synced with CocoaPods via `npx cap sync ios`
+- [x] Android JDK/SDK installed for this machine and `./gradlew assembleDebug` / `./gradlew lint` completed with JDK 21
 - [ ] iOS project opened and signed in Xcode
 - [ ] Android project opened and signed in Android Studio
-- [ ] Android JDK installed and `./gradlew assembleDebug` / `./gradlew lint` completed
 - [ ] Android release keystore configured and signed AAB generated
 
-Android native shell is generated and synced. Android Gradle build is blocked on this machine by missing Java runtime. iOS native shell is not generated because `npx cap add ios` failed without CocoaPods. Apple/Google developer account details, signing certificates, provisioning profiles, keystore, and final store submission choices are still user-provided.
+Android native shell is generated and synced. Android debug APK build now passes at `android/app/build/outputs/apk/debug/app-debug.apk`. iOS native shell is generated and synced, but simulator/native iOS build is blocked by local Xcode CoreSimulator/iOS platform component mismatch before signing. Apple/Google developer account details, signing certificates, provisioning profiles, keystore, and final store submission choices are still user-provided.
 
 ## User Must Provide Before Store Upload
 
 - Apple Developer Program account
 - Google Play Console account
 - Bundle ID/package name confirmation
-- Android JDK / Java runtime
+- Optional persistent shell config for Homebrew JDK 21, or user-managed macOS Java symlink if desired
+- Xcode iOS platform/CoreSimulator component update before simulator/native iOS build
 - App icon final art approval and adaptive foreground/background if replacing current candidates
 - Splash screen final art approval
 - Store screenshots selected from real device/simulator frames, using `store-screenshots/` as current candidates

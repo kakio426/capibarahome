@@ -2,7 +2,7 @@
 
 기준일: 2026-05-09
 
-아래 표를 복사하지 말고 이 파일 안에 실제 결과를 직접 채운다. RC-14 작업 환경에서는 물리 기기 QA를 수행하지 않았다.
+아래 표를 복사하지 말고 이 파일 안에 실제 결과를 직접 채운다. RC-15 작업 환경에서는 Android debug APK 생성과 iOS shell/sync까지 검증했지만, 물리 기기 QA는 수행하지 않았다.
 
 | Device | OS version | Browser/WebView | Build source | Test scenario | Expected result | Actual result | Pass/Fail | Screenshot/video path | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -35,3 +35,9 @@
 - Fail:
 - Blocked:
 - Retest needed:
+
+## Current Build Inputs
+
+- Android debug APK: `android/app/build/outputs/apk/debug/app-debug.apk`
+- iOS workspace: `ios/App/App.xcworkspace`
+- iOS simulator/native build note: matching iOS platform/CoreSimulator component must be installed in Xcode before simulator run.

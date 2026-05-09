@@ -4,7 +4,7 @@
 
 ## 현재 준비 상태
 
-Capacitor web/native 준비는 RC-14 기준 아래 상태다.
+Capacitor web/native 준비는 RC-15 기준 아래 상태다.
 
 | 항목 | 상태 |
 | --- | --- |
@@ -13,10 +13,12 @@ Capacitor web/native 준비는 RC-14 기준 아래 상태다.
 | App name candidate | `카피바라 집사기` |
 | Bundle/package id candidate | `com.capybarabutler.game` |
 | Android shell | `android/` 생성됨 |
-| iOS shell | CocoaPods 미설치로 미생성 |
-| Web/native sync | `npm run cap:sync`, `npx cap sync android` |
+| iOS shell | `ios/` 생성됨 |
+| Web/native sync | `npm run cap:sync`, `npx cap sync android`, `npx cap sync ios` |
 | Platform assets | `platform-assets/`, Android launcher res candidates |
-| Android Gradle build | Java runtime 미설치로 미실행 |
+| Android Gradle build | JDK 21로 `assembleDebug` / `lint` 통과 |
+| Android debug APK | `android/app/build/outputs/apk/debug/app-debug.apk` |
+| iOS simulator/native build | Xcode CoreSimulator/iOS platform component mismatch로 차단 |
 | Google Play feature graphic | `store-screenshots/google-play-feature-graphic.png` |
 
 현재 값은 제출 후보 placeholder다. 실제 App Store / Google Play 제출 전 사용자가 bundle id, package name, signing, developer account를 확정해야 한다.
@@ -75,6 +77,67 @@ npx cap add ios
 
 위 실패는 현재 환경 blocker다. 코드 blocker로 단정하지 않는다.
 
+## RC-15 Native Toolchain 결과
+
+Homebrew로 설치/확인한 도구:
+
+```bash
+brew install openjdk@17 android-commandlinetools cocoapods
+brew install openjdk@21
+```
+
+`openjdk@17`은 설치됐지만 Android build가 `invalid source release: 21`로 실패했다. 실제 Gradle 검증은 JDK 21로 진행한다.
+
+현재 셸에서 사용하는 환경:
+
+```bash
+export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
+export ANDROID_HOME="/opt/homebrew/share/android-commandlinetools"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+export PATH="$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
+```
+
+Android SDK 설치:
+
+```bash
+yes | sdkmanager --sdk_root="$ANDROID_HOME" --licenses
+sdkmanager --sdk_root="$ANDROID_HOME" "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+```
+
+검증 결과:
+
+```bash
+npm run build
+npm run cap:sync
+npx cap sync android
+cd android && ./gradlew assembleDebug
+cd android && ./gradlew lint
+```
+
+결과:
+
+- `assembleDebug`: 통과
+- APK: `android/app/build/outputs/apk/debug/app-debug.apk` (`19M`)
+- `lint`: 통과, warning only
+- manifest permission order warning은 RC-15에서 수정
+- 남은 warning은 dependency freshness, generated resource, launcher icon/splash final asset polish로 분류
+
+iOS:
+
+```bash
+npx cap add ios
+npx cap sync ios
+npx cap doctor
+```
+
+결과:
+
+- `ios/` 생성 성공
+- CocoaPods install/sync 성공
+- Capacitor doctor: Android/iOS looking great
+- `xcodebuild -list -workspace ios/App/App.xcworkspace`는 schemes를 인식
+- simulator build는 CoreSimulator out-of-date 및 iOS 26.4 platform missing으로 실패. Xcode Settings > Components에서 matching iOS platform 설치/업데이트 필요
+
 ## Android Shell Evidence
 
 - `android/app/build.gradle`
@@ -126,11 +189,22 @@ Android:
 npm install
 npm run export:assets
 npm run build
+export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
+export ANDROID_HOME="/opt/homebrew/share/android-commandlinetools"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+export PATH="$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
 npm run cap:sync
 npx cap sync android
 cd android && ./gradlew assembleDebug
 cd android && ./gradlew lint
 npm run cap:open:android
+```
+
+Debug APK install example after connecting a device:
+
+```bash
+adb devices
+adb install -r android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
 Release readiness check after JDK/keystore:
@@ -149,17 +223,18 @@ brew install cocoapods
 npm run build
 npx cap add ios
 npm run cap:sync
+npx cap sync ios
 npm run cap:open:ios
 ```
 
-iOS 단계는 Xcode, CocoaPods, Apple Developer Program, signing certificate, provisioning profile이 필요하다.
+iOS shell generation is complete in RC-15. Next native run/build steps need matching Xcode iOS platform components, Apple Developer Program, signing certificate, and provisioning profile.
 
 ## Required Native Tooling To Install
 
-- JDK 17 또는 Android Gradle Plugin과 호환되는 Java runtime
-- Android Studio / Android SDK command line tools
-- CocoaPods
-- Xcode command line tools
+- JDK 21 or compatible Java runtime for current Capacitor Android compile target. RC-15 uses Homebrew `openjdk@21`.
+- Android Studio optional for IDE/device workflow; command-line SDK tools are installed at `/opt/homebrew/share/android-commandlinetools`.
+- CocoaPods installed as Homebrew `cocoapods 1.16.2`.
+- Xcode command line tools installed, but Xcode iOS platform/CoreSimulator component update is still required for simulator build.
 - Apple Developer signing identity
 - Android release keystore
 
@@ -177,4 +252,4 @@ iOS 단계는 Xcode, CocoaPods, Apple Developer Program, signing certificate, pr
 
 ## 현재 release blocker
 
-Android native shell은 준비됐지만 실제 스토어 제출 자체는 계정, 서명, 정책 URL, 실제 SDK/상품 설정이 없어 수행하지 않았다. iOS native shell은 CocoaPods/Xcode 환경이 없어 미생성이다. 이는 `RELEASE_BLOCKERS.md`에 외부 blocker로 기록한다.
+Android native debug build와 iOS native shell/sync는 RC-15에서 확인됐다. 실제 스토어 제출 자체는 계정, 서명, 정책 URL, 실제 SDK/상품 설정, matching Xcode iOS platform, 물리 기기 QA가 없어 수행하지 않았다. 이는 `RELEASE_BLOCKERS.md`에 외부 blocker로 기록한다.

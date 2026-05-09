@@ -29,6 +29,7 @@
 | RC-12 layout/submission readiness P1 | 없음 | `UI_LAYOUT_DEFECT_AUDIT.md`, `RC12_SUBMISSION_READINESS_AUDIT.md`, `e2e/layout-regression.spec.ts` 4 passed, store screenshot public copy/file/clipping guards |
 | RC-13 final UI/native prep P1 | 없음 | `RC13_VISUAL_REGRESSION_AUDIT.md`, `RC13_INDEPENDENT_RESCORE.md`, strengthened `layout-regression.spec.ts` 4 passed, store screenshot dimension guard, Android shell/sync evidence |
 | RC-14 native build/layout/bundle P1 | 없음 | `RC14_RELEASE_READINESS_AUDIT.md`, `RC14_NATIVE_BUILD_AUDIT.md`, `RC14_BUNDLE_OPTIMIZATION_AUDIT.md`; Vite large chunk warning removed, layout regression 4 passed, visual/store screenshot 7 passed, feature graphic guard added. Android Gradle/iOS shell blockers are environment/external |
+| RC-15 native toolchain/build P1 | 없음 | JDK 21, Android command-line tools, Android SDK 35, CocoaPods installed; Android `assembleDebug` and `lint` passed; iOS `cap add/sync` passed. Remaining iOS simulator/platform and signing/account items are environment/external blockers |
 
 ## Source Budget Audit Gate
 
@@ -45,9 +46,9 @@
 - Apple Developer Program 계정
 - Google Play Console 계정
 - Bundle ID / package name 최종 확정
-- Android JDK / Java runtime 설치
+- macOS `java_home` optional symlink or persistent shell export for Homebrew JDK 21 if the user wants Java available outside this terminal
+- Xcode iOS platform/CoreSimulator component update. RC-15 `xcodebuild` failed because CoreSimulator was out of date and iOS 26.4 platform was not installed
 - iOS signing certificate / provisioning profile
-- CocoaPods/Xcode 환경 구성 및 iOS native project 생성
 - Android signing key
 - commissioned/final art ownership and legal approval
 - final adaptive icon foreground/background art and final splash approval. 현재 `platform-assets/` 후보와 Android launcher res 후보는 있음
@@ -63,4 +64,4 @@
 
 ## Decision
 
-기술/검증 기준의 내부 P0/P1 blocker는 현재 발견되지 않았다. RC-10 integrity pass에서 previous `8.2 / 10` self-score를 `7.7 / 10` no-go로 보정한 기록은 before evidence로 보존한다. RC-11에서는 남은 product-quality P1인 upgrade quick-buy/shelf와 store screenshot framing을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 `8.1 / 10`이다. RC-14에서는 Vite large chunk warning을 제거하고, layout regression과 store screenshot/feature graphic guard를 통과했다. Android shell과 platform asset 후보는 준비됐지만 실제 스토어 제출 완료로 주장하지 않는다. Java runtime, CocoaPods/Xcode/iOS project, signing, keystore, privacy/support URL, commissioned/final art ownership, real audio files, SDK, 물리 기기 QA, 서버 검증 calendar/push notification은 external readiness blocker로 남긴다.
+기술/검증 기준의 내부 P0/P1 blocker는 현재 발견되지 않았다. RC-10 integrity pass에서 previous `8.2 / 10` self-score를 `7.7 / 10` no-go로 보정한 기록은 before evidence로 보존한다. RC-11에서는 남은 product-quality P1인 upgrade quick-buy/shelf와 store screenshot framing을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 `8.1 / 10`이다. RC-14에서는 Vite large chunk warning을 제거하고, layout regression과 store screenshot/feature graphic guard를 통과했다. RC-15에서는 Android debug APK build와 lint, iOS shell add/sync까지 검증했다. 실제 스토어 제출 완료로 주장하지 않는다. Xcode simulator platform mismatch, signing, keystore, privacy/support URL, commissioned/final art ownership, real audio files, SDK, 물리 기기 QA, 서버 검증 calendar/push notification은 external readiness blocker로 남긴다.
