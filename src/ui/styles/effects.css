@@ -18,7 +18,13 @@
 .floating-text {
   position: fixed;
   color: #d95618;
-  text-shadow: 0 2px 0 #fff7dc, 0 7px 16px rgba(79, 49, 31, 0.2);
+  border: 2px solid rgba(255, 247, 220, 0.82);
+  border-radius: 999px;
+  padding: 3px 8px;
+  background: rgba(255, 247, 220, 0.82);
+  box-shadow: 0 8px 18px rgba(79, 49, 31, 0.18);
+  text-shadow: 0 1px 0 #fff7dc, 0 7px 16px rgba(79, 49, 31, 0.2);
+  font-size: 1.04rem;
   font-weight: 950;
   animation: floating-rise 0.82s ease-out forwards;
 }
@@ -325,9 +331,14 @@
 
   .game-shell[data-effects-enabled="true"] .collection-badge.can-claim,
   .game-shell[data-effects-enabled="true"] .quest-card.is-ready,
+  .game-shell[data-effects-enabled="true"] .next-action-panel.is-ready,
   .game-shell[data-effects-enabled="true"] .retention-panel.is-ready,
   .game-shell[data-effects-enabled="true"] .retention-milestone-card.can-claim {
     animation: claim-ready-glow 2.2s ease-in-out infinite;
+  }
+
+  .game-shell[data-effects-enabled="true"] .upgrade-shelf-card.has-purchase-feedback {
+    animation: shelf-purchase-pulse 520ms ease-out;
   }
 }
 
@@ -341,6 +352,7 @@
 .game-shell[data-effects-enabled="false"] .album-reveal-banner,
 .game-shell[data-effects-enabled="false"] .collection-badge.can-claim,
 .game-shell[data-effects-enabled="false"] .quest-card.is-ready,
+.game-shell[data-effects-enabled="false"] .next-action-panel.is-ready,
 .game-shell[data-effects-enabled="false"] .retention-reveal-banner,
 .game-shell[data-effects-enabled="false"] .retention-panel.is-ready,
 .game-shell[data-effects-enabled="false"] .retention-milestone-card.can-claim,

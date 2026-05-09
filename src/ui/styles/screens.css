@@ -1099,11 +1099,12 @@
 }
 
 .hero-card .income-grid {
-  bottom: 74px;
+  bottom: 122px;
   gap: 8px;
 }
 
 .stats-panel,
+.next-action-panel,
 .today-quest-panel,
 .tier-story-panel,
 .long-term-panel,
@@ -1119,6 +1120,135 @@
   background:
     linear-gradient(180deg, rgba(255, 238, 186, 0.94), rgba(222, 179, 102, 0.86)),
     repeating-linear-gradient(90deg, rgba(95, 55, 27, 0.08) 0 8px, transparent 8px 28px);
+}
+
+.next-action-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(78px, 0.34fr);
+  align-items: center;
+  gap: 9px;
+  border: 4px solid rgba(47, 27, 18, 0.68);
+  border-radius: 14px;
+  padding: 11px;
+  background:
+    radial-gradient(circle at 11% 20%, rgba(255, 213, 104, 0.38), transparent 88px),
+    linear-gradient(180deg, rgba(255, 238, 184, 0.96), rgba(196, 124, 55, 0.58)),
+    repeating-linear-gradient(90deg, rgba(92, 53, 27, 0.08) 0 7px, transparent 7px 26px);
+  box-shadow: 0 8px 0 rgba(55, 32, 17, 0.22), inset 0 2px 0 rgba(255, 250, 224, 0.52);
+}
+
+.next-action-panel.is-ready {
+  border-color: #8b3c15;
+  box-shadow:
+    0 8px 0 rgba(55, 32, 17, 0.22),
+    0 0 22px rgba(255, 184, 72, 0.25),
+    inset 0 2px 0 rgba(255, 250, 224, 0.56);
+}
+
+.next-action-copy {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.next-action-copy h2 {
+  margin: 0;
+  color: #2f1d12;
+  font-size: 0.98rem;
+  line-height: 1.18;
+}
+
+.next-action-copy p {
+  margin: 0;
+  color: #5b3f25;
+  font-size: 0.72rem;
+  font-weight: 850;
+  line-height: 1.3;
+}
+
+.next-action-prize {
+  min-width: 0;
+  min-height: 54px;
+  display: grid;
+  align-content: center;
+  gap: 2px;
+  border: 3px solid rgba(57, 33, 17, 0.48);
+  border-radius: 11px;
+  padding: 6px 7px;
+  color: #fff4cc;
+  background:
+    linear-gradient(180deg, rgba(255, 222, 120, 0.18), transparent),
+    linear-gradient(180deg, #244936, #5b341c);
+  box-shadow: inset 0 2px 0 rgba(255, 234, 165, 0.18), 0 4px 0 rgba(47, 27, 18, 0.22);
+}
+
+.next-action-prize span {
+  color: rgba(255, 242, 194, 0.74);
+  font-size: 0.58rem;
+  font-weight: 950;
+}
+
+.next-action-prize strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #fff4cc;
+  font-size: 0.74rem;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.next-action-panel .btn {
+  grid-column: 1 / -1;
+  min-height: 44px;
+}
+
+.hero-card > .next-action-panel {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 14px;
+  z-index: 4;
+  grid-template-columns: minmax(0, 1fr) minmax(76px, 0.28fr) minmax(84px, 0.3fr);
+  gap: 7px;
+  padding: 8px;
+  border-width: 3px;
+  border-radius: 13px;
+  backdrop-filter: blur(8px);
+}
+
+.hero-card > .next-action-panel .next-action-copy {
+  gap: 1px;
+}
+
+.hero-card > .next-action-panel .next-action-copy h2 {
+  font-size: 0.83rem;
+}
+
+.hero-card > .next-action-panel .next-action-copy p {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 0.64rem;
+  line-height: 1.2;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.hero-card > .next-action-panel .next-action-prize {
+  min-height: 44px;
+  padding: 5px 6px;
+}
+
+.hero-card > .next-action-panel .next-action-prize strong {
+  font-size: 0.66rem;
+}
+
+.hero-card > .next-action-panel .btn {
+  grid-column: auto;
+  min-height: 44px;
+  padding-inline: 6px;
+  font-size: 0.68rem;
+  line-height: 1.15;
 }
 
 .home-ledger-panel {
@@ -1695,7 +1825,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(108px, 122px);
   gap: 8px;
   align-items: center;
-  min-height: 58px;
+  min-height: 92px;
   border: 3px solid rgba(47, 27, 18, 0.32);
   border-radius: 12px;
   padding: 7px;
@@ -1703,6 +1833,46 @@
     radial-gradient(circle at 12% 20%, rgba(255, 232, 151, 0.34), transparent 80px),
     linear-gradient(180deg, rgba(71, 42, 22, 0.18), rgba(255, 236, 174, 0.48));
   box-shadow: inset 0 2px 0 rgba(255, 250, 224, 0.42), 0 3px 0 rgba(55, 32, 17, 0.15);
+}
+
+.upgrade-buy-delta {
+  grid-column: 1 / -1;
+  min-width: 0;
+  min-height: 32px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  border: 2px solid rgba(47, 27, 18, 0.22);
+  border-radius: 9px;
+  padding: 5px 7px;
+  color: #244936;
+  background: rgba(255, 250, 224, 0.44);
+  box-shadow: inset 0 1px 0 rgba(255, 250, 224, 0.54);
+  font-size: 0.65rem;
+  font-weight: 900;
+  line-height: 1.18;
+}
+
+.upgrade-buy-delta.is-ready {
+  color: #4d2a13;
+  background:
+    radial-gradient(circle at 8% 50%, rgba(255, 213, 104, 0.42), transparent 54px),
+    rgba(255, 244, 191, 0.7);
+}
+
+.upgrade-buy-delta strong,
+.upgrade-buy-delta em {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upgrade-buy-delta em {
+  font-style: normal;
+  color: inherit;
+  opacity: 0.82;
 }
 
 .upgrade-buy-slot .cost-plaque {
@@ -1716,6 +1886,35 @@
 
 .upgrade-buy-slot .upgrade-buy-button {
   min-height: 44px;
+}
+
+.upgrade-purchase-feedback {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 2px;
+  border: 2px solid rgba(255, 213, 104, 0.7);
+  border-radius: 9px;
+  padding: 6px 8px;
+  color: #fff4cc;
+  background:
+    linear-gradient(180deg, rgba(255, 222, 120, 0.16), transparent),
+    linear-gradient(135deg, #244936, #7b4018);
+  box-shadow: 0 4px 0 rgba(47, 27, 18, 0.24);
+  font-size: 0.68rem;
+  line-height: 1.18;
+}
+
+.upgrade-purchase-feedback strong,
+.upgrade-purchase-feedback em {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upgrade-purchase-feedback em {
+  color: rgba(255, 244, 204, 0.82);
+  font-style: normal;
 }
 
 .upgrade-shelf-card.is-buyable {
@@ -2305,7 +2504,7 @@
 
 .retention-milestone-card .btn {
   width: 100%;
-  min-height: 38px;
+  min-height: 44px;
   padding-inline: 6px;
   font-size: 0.69rem;
 }
@@ -2390,6 +2589,32 @@
     font-size: 0.72rem;
   }
 
+  .hero-card .income-grid {
+    bottom: 116px;
+  }
+
+  .hero-card > .next-action-panel {
+    left: 9px;
+    right: 9px;
+    bottom: 10px;
+    grid-template-columns: minmax(0, 1fr) minmax(70px, 0.26fr) minmax(78px, 0.28fr);
+    gap: 5px;
+    padding: 7px;
+  }
+
+  .hero-card > .next-action-panel .next-action-copy h2 {
+    font-size: 0.76rem;
+  }
+
+  .hero-card > .next-action-panel .next-action-copy p,
+  .hero-card > .next-action-panel .app-kicker {
+    font-size: 0.58rem;
+  }
+
+  .hero-card > .next-action-panel .btn {
+    font-size: 0.62rem;
+  }
+
   .currency-display {
     grid-template-columns: 38px minmax(0, 1fr);
     min-height: 58px;
@@ -2425,7 +2650,7 @@
   }
 
   .upgrade-summary > div {
-    min-height: 58px;
+    min-height: 52px;
     padding: 7px 6px;
   }
 
@@ -2440,7 +2665,7 @@
   }
 
   .quick-buy-head {
-    min-height: 44px;
+    min-height: 40px;
     grid-template-columns: auto minmax(0, 1fr);
     align-items: center;
     gap: 7px;
@@ -2481,18 +2706,18 @@
   }
 
   .upgrade-card-body {
-    grid-template-columns: 78px minmax(0, 1fr);
+    grid-template-columns: 72px minmax(0, 1fr);
     gap: 8px;
   }
 
   .upgrade-tool-slot {
-    min-height: 104px;
-    padding: 26px 6px 16px;
+    min-height: 90px;
+    padding: 23px 6px 13px;
   }
 
   .upgrade-tool-slot .upgrade-icon {
-    width: 58px;
-    height: 58px;
+    width: 50px;
+    height: 50px;
   }
 
   .upgrade-shelf-card .upgrade-tier-chip,
@@ -2509,7 +2734,7 @@
 
   .upgrade-description {
     font-size: 0.66rem;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
   }
 
   .upgrade-shelf-card .upgrade-ui-copy {
@@ -2537,8 +2762,14 @@
 
   .upgrade-buy-slot {
     grid-template-columns: minmax(0, 1fr) minmax(96px, 108px);
-    min-height: 60px;
+    min-height: 84px;
     padding: 6px;
+  }
+
+  .upgrade-buy-delta {
+    min-height: 28px;
+    padding: 4px 6px;
+    font-size: 0.61rem;
   }
 
   .upgrade-buy-button {
@@ -2626,7 +2857,7 @@
   }
 
   .retention-milestone-card .btn {
-    min-height: 36px;
+    min-height: 44px;
     font-size: 0.62rem;
   }
 
@@ -2687,6 +2918,32 @@
     font-size: 0.84rem;
   }
 
+  .hero-card .income-grid {
+    bottom: 108px;
+  }
+
+  .hero-card > .next-action-panel {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    grid-template-columns: minmax(0, 1fr) minmax(68px, 0.26fr) minmax(72px, 0.27fr);
+    gap: 4px;
+    padding: 6px;
+  }
+
+  .hero-card > .next-action-panel .next-action-copy p {
+    -webkit-line-clamp: 1;
+  }
+
+  .hero-card > .next-action-panel .next-action-prize span {
+    display: none;
+  }
+
+  .hero-card > .next-action-panel .btn {
+    padding-inline: 4px;
+    font-size: 0.58rem;
+  }
+
   .quick-buy-mode {
     gap: 3px;
     padding: 5px;
@@ -2703,23 +2960,24 @@
   }
 
   .upgrade-card-body {
-    grid-template-columns: 72px minmax(0, 1fr);
+    grid-template-columns: 68px minmax(0, 1fr);
     gap: 7px;
   }
 
   .upgrade-tool-slot {
-    min-height: 100px;
+    min-height: 86px;
     padding-inline: 5px;
   }
 
   .upgrade-tool-slot .upgrade-icon {
-    width: 54px;
-    height: 54px;
+    width: 48px;
+    height: 48px;
   }
 
   .upgrade-buy-slot {
     grid-template-columns: minmax(0, 1fr) minmax(90px, 100px);
     gap: 6px;
+    min-height: 84px;
   }
 
   .upgrade-buy-button {

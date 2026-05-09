@@ -32,6 +32,7 @@ async function assertBaseShell(page: Parameters<typeof expectNoHorizontalOverflo
   await expectNoHorizontalOverflow(page);
   await expectVisibleWithinViewport(page.locator(".bottom-tabs"), 0.98);
   await expectContentShellClearOfBottomDock(page);
+  await expectCriticalActionCentersUnblocked(page);
   await expectNoCriticalTextClipping(page, [
     ".top-bar h1",
     ".save-dot",
@@ -59,6 +60,59 @@ async function expectContentShellClearOfBottomDock(page: Parameters<typeof expec
   expect(metrics.overlap).toBeLessThanOrEqual(1);
 }
 
+async function expectCriticalActionCentersUnblocked(page: Parameters<typeof expectNoHorizontalOverflow>[0]) {
+  const failures = await page.evaluate(() => {
+    const modalOpen = Boolean(document.querySelector(".modal-backdrop"));
+    const selectors = modalOpen
+      ? [".modal-actions button", ".modal-header button"]
+      : [
+          ".capybara-touch",
+          ".home-daily-badge:not(:disabled)",
+          ".next-action-panel button:not(:disabled)",
+          ".quick-buy-mode button:not(:disabled)",
+          ".upgrade-buy-button:not(:disabled)",
+          ".retention-milestone-card button:not(:disabled)",
+          ".quest-card button:not(:disabled)",
+          ".bottom-tabs button:not(:disabled)",
+        ];
+
+    function isVisible(element: Element) {
+      const rect = element.getBoundingClientRect();
+      const style = window.getComputedStyle(element);
+      return rect.width > 0
+        && rect.height > 0
+        && style.visibility !== "hidden"
+        && style.display !== "none";
+    }
+
+    const dockRect = document.querySelector(".bottom-tabs")?.getBoundingClientRect() ?? null;
+
+    return selectors.flatMap((selector) => Array.from(document.querySelectorAll(selector)).map((element, index) => {
+      if (!(element instanceof HTMLElement) || !isVisible(element)) return null;
+      const rect = element.getBoundingClientRect();
+      if (!modalOpen && dockRect && rect.top >= dockRect.top - 2) return null;
+      const centerX = Math.round(rect.left + rect.width / 2);
+      const centerY = Math.round(rect.top + rect.height / 2);
+      if (centerX < 0 || centerY < 0 || centerX > window.innerWidth || centerY > window.innerHeight) return null;
+      const topElement = document.elementFromPoint(centerX, centerY);
+      const unblocked = topElement === element || element.contains(topElement);
+      const pointerEvents = window.getComputedStyle(element).pointerEvents;
+      if (unblocked && pointerEvents !== "none" && rect.width >= 40 && rect.height >= 40) return null;
+      return {
+        selector,
+        index,
+        text: (element.textContent ?? element.getAttribute("aria-label") ?? "").replace(/\s+/g, " ").trim().slice(0, 80),
+        rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
+        center: { x: centerX, y: centerY },
+        top: topElement ? `${topElement.tagName.toLowerCase()}.${(topElement as HTMLElement).className}` : "none",
+        pointerEvents,
+      };
+    }).filter(Boolean));
+  });
+
+  expect(failures).toEqual([]);
+}
+
 async function expectAndroidTextRenderingGuards(page: Parameters<typeof expectNoHorizontalOverflow>[0]) {
   await expectNoCriticalTextClipping(page, [
     ".ui-button",
@@ -73,6 +127,7 @@ async function expectAndroidTextRenderingGuards(page: Parameters<typeof expectNo
     ".upgrade-tier-chip",
     ".upgrade-ready-chip",
     ".upgrade-meta span",
+    ".upgrade-buy-delta",
     ".cost-plaque",
     ".modal-header h2",
     ".modal-actions .btn",
@@ -110,6 +165,8 @@ async function expectAndroidTextRenderingGuards(page: Parameters<typeof expectNo
     ".upgrade-tier-chip",
     ".upgrade-ready-chip",
     ".upgrade-meta span small",
+    ".upgrade-buy-delta strong",
+    ".upgrade-buy-delta em",
     ".currency-display strong",
   ]);
 
@@ -154,6 +211,7 @@ async function expectUpgradeCardSurgeryLayout(page: Parameters<typeof expectNoHo
     const title = rectFor(".upgrade-title-row h3");
     const meta = rectFor(".upgrade-meta");
     const tray = rectFor(".upgrade-buy-slot");
+    const delta = rectFor(".upgrade-buy-delta");
     const cost = rectFor(".cost-plaque");
     const button = rectFor(".upgrade-buy-button");
     const description = rectFor(".upgrade-description");
@@ -171,6 +229,7 @@ async function expectUpgradeCardSurgeryLayout(page: Parameters<typeof expectNoHo
       title,
       meta,
       tray,
+      delta,
       cost,
       button,
       description,
@@ -185,10 +244,11 @@ async function expectUpgradeCardSurgeryLayout(page: Parameters<typeof expectNoHo
   expect(metrics.title).not.toBeNull();
   expect(metrics.meta).not.toBeNull();
   expect(metrics.tray).not.toBeNull();
+  expect(metrics.delta).not.toBeNull();
   expect(metrics.cost).not.toBeNull();
   expect(metrics.button).not.toBeNull();
   expect(metrics.description).not.toBeNull();
-  if (!metrics.body || !metrics.tool || !metrics.copy || !metrics.status || !metrics.title || !metrics.meta || !metrics.tray || !metrics.cost || !metrics.button || !metrics.description) return;
+  if (!metrics.body || !metrics.tool || !metrics.copy || !metrics.status || !metrics.title || !metrics.meta || !metrics.tray || !metrics.delta || !metrics.cost || !metrics.button || !metrics.description) return;
 
   expect(metrics.tool.width / metrics.card.width).toBeLessThanOrEqual(0.31);
   expect(metrics.body.left).toBeGreaterThanOrEqual(metrics.card.left - 1);
@@ -198,10 +258,11 @@ async function expectUpgradeCardSurgeryLayout(page: Parameters<typeof expectNoHo
   expect(metrics.tray.bottom).toBeLessThanOrEqual(metrics.card.bottom + 1);
   expect(metrics.body.bottom).toBeLessThanOrEqual(metrics.tray.top - 2);
   expect(metrics.costButtonOverlap).toBe(false);
+  expect(metrics.delta.height).toBeGreaterThanOrEqual(28);
   expect(metrics.cost.height).toBeGreaterThanOrEqual(40);
   expect(metrics.button.height).toBeGreaterThanOrEqual(44);
 
-  for (const rect of [metrics.status, metrics.title, metrics.meta, metrics.description, metrics.tray]) {
+  for (const rect of [metrics.status, metrics.title, metrics.meta, metrics.description, metrics.tray, metrics.delta]) {
     expect(rect.width).toBeGreaterThan(8);
     expect(rect.height).toBeGreaterThan(8);
   }
@@ -359,6 +420,7 @@ for (const viewport of viewports) {
       await expectNoCriticalTextClipping(page, [
         `.upgrade-list .upgrade-card:nth-child(${index + 1}) .upgrade-title-row h3`,
         `.upgrade-list .upgrade-card:nth-child(${index + 1}) .upgrade-meta span`,
+        `.upgrade-list .upgrade-card:nth-child(${index + 1}) .upgrade-buy-delta`,
         `.upgrade-list .upgrade-card:nth-child(${index + 1}) .cost-plaque`,
         `.upgrade-list .upgrade-card:nth-child(${index + 1}) .upgrade-buy-button`,
       ]);

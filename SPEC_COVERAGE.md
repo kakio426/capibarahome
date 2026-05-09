@@ -15,7 +15,7 @@
 | release blocker 분리 | 완료 | `RELEASE_BLOCKERS.md` |
 | `npm run build` | 완료 | `tsc -b && vite build`, success |
 | `npm test` | 완료 | Vitest 23 files, 502 tests passed |
-| `npm run test:e2e` | 완료 | Playwright 37 tests passed |
+| `npm run test:e2e` | 완료 | Playwright 53 tests passed |
 | Capacitor packaging prep | 완료 | `capacitor.config.ts`, scripts, Android/iOS native shell, `npm run cap:sync` success, Android `assembleDebug`/`lint` success, RC-16 local signed `assembleRelease`/`bundleRelease` success, iOS `cap add`/`sync` success. iOS simulator build, production signing, store upload는 external blocker |
 | 실제 스토어 업로드 미수행 | 완료 | 계정/인증서/프로비저닝 미제공. `RELEASE_CHECKLIST.md`와 `RELEASE_BLOCKERS.md`에 사용자 작업으로 분리 |
 
@@ -94,6 +94,7 @@
 | RC-12 layout regression | 완료: `e2e/layout-regression.spec.ts` | 사용 안 함, critical text clipping, bottom nav/CTA overlap, modal clickability, textarea zoom risk |
 | RC-13/RC-14/RC-17 strengthened layout/store guard | 완료: `e2e/layout-regression.spec.ts`, `e2e/store-screenshot-pack.spec.ts` | 사용 안 함, `data-ui-critical` clipping, toast non-blocking, upgrade-card geometry guard, store PNG dimensions, Google Play feature graphic dimensions |
 | RC-18 Android device font/layout guard | 완료 후보: `e2e/layout-regression.spec.ts`, `e2e/visual-regression.spec.ts` | 사용 안 함, 320px/Android WebView-like viewports, 110/120% font scaling, Korean text/button/chip/modal/currency clipping guard. 실제 physical screenshot은 external QA로 남음 |
+| RC-19 Playability UX flow | 완료 후보: `e2e/playability-flow.spec.ts` | 사용 안 함, 홈 터치 보상/floating feedback, quick-buy max reward delta, quest claim reward, daily modal close/tab clickability, disabled upgrade state, debug-only Device QA overlay gating |
 
 ## Store Submission Artifacts
 
@@ -158,6 +159,7 @@
 | `RC17_UPGRADE_CARD_UI_AUDIT.md` | 완료 | upgrade card DOM/CSS audit, P1/P2 visual overlap classification, implementation notes, layout guard, regenerated screenshot evidence |
 | `RC18_DEVICE_UI_BUG_AUDIT.md` | 완료 | device-qa evidence folder, no incoming physical screenshot note, Android WebView font/layout proactive fixes, 320/Android-ish screenshot evidence, physical retest checklist |
 | `RC19_FULL_SCREEN_UI_UX_AUDIT.md` | 완료 | post-RC18 manual screenshot bug bash, quick-buy visual break fix, prestige result partial clipping fix, store upgrade framing refresh, targeted layout/visual/store verification |
+| `RC19_PLAYABILITY_UX_AUDIT.md` | 완료 | touch reliability, reward clarity, first-10-minutes next action, Device QA tap target overlay, playability E2E, Android APK regeneration 기록. 실제 phone screenshot/video는 external verification |
 | `GOAL_COMPLETION_AUDIT.md` | 완료 | active thread objective를 success criteria, prompt-to-artifact checklist, current evidence, missing physical-device gates로 매핑. RC20 scroll dock polish, RC21 player-facing copy polish, RC22 ADB capture helper, RC23 device evidence intake README 반영. 실제 Android phone screenshot/video 부재로 goal complete 금지 결론 |
 | `RETENTION_PLAN.md` | 완료 | D0/D1/D3/D7 goals, daily/milestone/post-prestige rewards, remaining P2/P3 follow-ups |
 | 기존 문서 최신화 | 완료 | README/DEVELOPER/BALANCE/SAVE/QA/PLAYTEST updated |

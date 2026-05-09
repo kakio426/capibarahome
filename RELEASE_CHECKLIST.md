@@ -66,6 +66,7 @@
 - [x] RC-13 layout regression adds `data-ui-critical` clipping, toast non-blocking, home tap CTA guard, and store screenshot PNG dimension guard
 - [x] RC-14 store guard validates Google Play feature graphic `1024 x 500`
 - [x] RC-19 layout/store guard catches quick-buy vertical-stack regression and prestige result modal partial clipping
+- [x] RC-19 Playability UX guard completed: next-action panel, stronger tap/reward feedback, upgrade before/after delta, debug-only tap target overlay, `e2e/playability-flow.spec.ts`, Android APK regeneration
 
 ## Capacitor Prep
 

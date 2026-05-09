@@ -35,6 +35,12 @@ npx playwright test e2e/layout-regression.spec.ts --reporter=line
 
 npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
 7 passed, RC-17 upgrade/store screenshots regenerated after card surgery
+
+npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
+11 passed, RC-19 playability screenshots regenerated including device QA overlay and store screenshot pack
+
+npx playwright test e2e/layout-regression.spec.ts --reporter=line
+10 passed, RC-19 CTA center hitbox/top-overlay/bottom-dock guards included
 ```
 
 Current asset baseline:
@@ -252,6 +258,27 @@ RC-21 copy and micro-layout polish:
 - `qa-screenshots/390x844-save-modal.png`: visible copy의 `Export/Import`를 제거하고 `저장 코드 보관함`, `내보내기 코드`, `가져오기 코드`, `보관 코드 복사`로 교체했다. save vault의 게임 UI tone은 유지하면서 개발자용 라벨을 줄였다.
 - `qa-screenshots/320x740-upgrades-quick-buy.png`: 첫 업그레이드 설명 두 개를 짧게 다듬어 카드 설명이 좁은 폭에서 덜 답답하게 읽힌다.
 
+## RC-19 Playability UX Visual Check
+
+이번 RC-19 pass는 visual art polish가 아니라 playability visual feedback을 강화했다. 완료 근거는 self-score가 아니라 regenerated screenshots, DOM hitbox checks, and playability E2E다.
+
+| 대상 | RC-19 전 위험 | RC-19 조치 | Evidence |
+| --- | --- | --- | --- |
+| Home first 10 minutes | 여러 panel이 동시에 말해 다음 행동이 약하게 느껴질 수 있음 | hero 하단에 compact `next-action-panel` 배치. 한 번에 하나의 행동, 얻는 것, CTA만 표시 | `qa-screenshots/360x740-home.png`, `qa-screenshots/390x844-home.png` |
+| Tap reward feedback | floating text가 배경 위에서 약하게 보일 수 있음 | pill/banner floating text로 강화하고 `+1 귤` 보상 피드백을 E2E로 고정 | `e2e/playability-flow.spec.ts`, `qa-screenshots/390x844-device-qa-overlay.png` |
+| Upgrade quick-buy reward clarity | max 구매 후 무엇이 얼마나 증가했는지 버튼만으로는 약함 | purchase tray에 `레벨 0 -> 49`, `터치 +0 -> 터치 +49` delta row와 구매 성공 result banner 추가 | `qa-screenshots/390x844-upgrades-quick-buy.png`, `qa-screenshots/360x740-upgrades-quick-buy.png` |
+| Touch hitbox confidence | clipping 통과 후에도 overlay/dock이 CTA center를 막을 수 있음 | `elementFromPoint` 기반 visible CTA center guard 추가, toast/modal/bottom dock 충돌 검사 | `e2e/layout-regression.spec.ts` 10 passed |
+| Device diagnosis | 실제 폰에서 “안 눌림” 제보 시 target 확인이 어려움 | debug-only `?deviceQa=1` overlay에 최근 20개 tap/click target log 추가 | `qa-screenshots/390x844-device-qa-overlay.png` |
+
+RC-19 manual spot check:
+
+- `qa-screenshots/360x740-home.png`: next-action panel은 hero 안에 들어가며 하단 탭이 CTA를 덮지 않는다. visible copy는 1개 목표 중심으로 유지된다.
+- `qa-screenshots/390x844-upgrades-quick-buy.png`: 첫 업그레이드 카드의 레벨/효과 변화와 cost/CTA가 분리되어 보이고, max-buy 행동이 단순 버튼 묶음보다 “구매 결과”로 읽힌다.
+- `qa-screenshots/390x844-daily-reward-claim.png`: reward sheet action button은 modal 안에서 충분한 터치 영역을 유지한다.
+- `qa-screenshots/390x844-collection-milestones.png`: milestone claim CTA는 tab dock에 가려지지 않는다.
+- `qa-screenshots/390x844-prestige-result.png`: 환생 결과 CTA와 배율 ribbon이 겹치지 않는다.
+- `qa-screenshots/390x844-device-qa-overlay.png`: overlay는 debug-only 상태에서 viewport/top-layer/tap target을 보여준다. 일반 유저 화면에는 노출되지 않는다.
+
 ## Manual Spot Check
 
 - `qa-screenshots/390x844-home.png`: 첫인상은 웹 대시보드가 아니라 모바일 게임 home scene이다. 큰 흰 카드가 주인공이 되지 않는다.
@@ -322,4 +349,4 @@ RC-21 copy and micro-layout polish:
 
 ## Remaining Visual Risk
 
-RC-21 기준 기술적 visual overflow P0/P1, CTA/tab occlusion P1, modal clickability P1, store public copy P1은 발견되지 않았다. `RC14_INDEPENDENT_RESCORE.md`는 internal product UI average를 8.1로 기록한다. 남은 P2/P3는 daily reward sheet polish, milestone sticker-board polish, server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, 저장 코드의 본질적 밀도, final commissioned art ownership/legal approval, final adaptive icon foreground/background, feature graphic final approval, 물리 기기 store screenshot 재촬영이다.
+RC-19 playability pass 기준 기술적 visual overflow P0/P1, CTA/tab occlusion P1, modal clickability P1, store public copy P1, visible CTA center blocking P0는 Playwright/DOM/screenshot 기준 발견되지 않았다. `RC14_INDEPENDENT_RESCORE.md`는 internal product UI average를 8.1로 기록한다. 남은 P2/P3는 daily reward sheet polish, milestone sticker-board polish, server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, 저장 코드의 본질적 밀도, final commissioned art ownership/legal approval, final adaptive icon foreground/background, feature graphic final approval, 물리 기기 store screenshot 재촬영이다. 실제 Android phone screenshot/video는 아직 없으므로 physical-device UI 판정은 external verification으로 남는다.

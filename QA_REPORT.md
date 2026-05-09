@@ -18,17 +18,17 @@ Tests       502 passed (502)
 
 ```txt
 npm run test:e2e
-37 passed
+53 passed
 ```
 
 ```txt
 npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
-7 passed
+11 passed, includes device QA overlay screenshot and store screenshot pack
 ```
 
 ```txt
 npx playwright test e2e/layout-regression.spec.ts --reporter=line
-4 passed, includes RC-17 upgrade-card geometry guard
+10 passed, includes Android-ish viewports, font scaling, CTA center hitbox, and RC-19 action-center guards
 ```
 
 ```txt
@@ -76,7 +76,7 @@ passed with warnings; manifest order warning fixed, remaining warnings are depen
 ```txt
 ./gradlew assembleRelease
 BUILD SUCCESSFUL
-artifact: android/app/build/outputs/apk/release/app-release.apk (18M)
+artifact: android/app/build/outputs/apk/release/app-release.apk (18M, regenerated 2026-05-09 23:58 KST)
 ```
 
 ```txt
@@ -200,7 +200,7 @@ Fix:
 - WebView viewport를 위해 safe-area top/bottom CSS 변수, `100dvh`, iOS input zoom 방지, touch-action 보강을 적용했다.
 - `RasterAssetRegistry`에서 runtime UI가 쓰지 않는 `store-key-visual.png`, `app-icon-candidate.png`, `main-capybara-character.png`를 제외했다. 파일은 release/source candidate로 유지하고 integrity test에서 별도 검증한다.
 - `RC8_RELEASE_CANDIDATE_AUDIT.md`와 `BUNDLE_ASSET_AUDIT.md`를 추가했다.
-- Full E2E 중 desktop visual screenshot set이 30초 기본 timeout을 초과해 한 번 실패했다. 기능 결함은 아니며, visual screenshot spec은 의도적으로 많은 화면을 저장하므로 timeout을 60초로 조정했다. RC-8 당시 `visual-regression.spec.ts` 단독 4 passed 및 전체 `npm run test:e2e` 32 passed로 재검증했다. 현재 RC-14 전체 결과는 상단 Final Command Results의 37 passed가 기준이다.
+- Full E2E 중 desktop visual screenshot set이 30초 기본 timeout을 초과해 한 번 실패했다. 기능 결함은 아니며, visual screenshot spec은 의도적으로 많은 화면을 저장하므로 timeout을 60초로 조정했다. RC-8 당시 `visual-regression.spec.ts` 단독 4 passed 및 전체 `npm run test:e2e` 32 passed로 재검증했다. 최신 전체 결과는 상단 Final Command Results의 53 passed가 기준이다.
 - Unit/stress coverage 추가: v1/v2/v3/v4 -> v5 migration, corrupted v5 retention recovery, offline+daily 같은 복귀 세션, daily/milestone export/import, post-prestige goal save/load, max-buy safety cap, large retention reward formatting, localStorage unavailable fallback, 2시간 simulation, 8시간 offline cap, rapid tap 500회, quick-buy 반복, save/load 20회, RAF listener cleanup.
 - E2E coverage 추가: D1 daily+offline 같은 세션, first prestige goal claim/reload, quick-buy max save/reload, 360px settings/save modal overflow, 반복 탭 전환.
 
@@ -631,3 +631,35 @@ Fix:
 
 - `device-qa/README.md`를 추가해 사용자가 실제 기기 screenshot/video를 어디에 넣고 어떤 화면을 최소 캡처해야 하는지 폴더 안에서 바로 확인할 수 있게 했다.
 - README는 `incoming/`, `annotated/`, `fixed/` 역할, ADB helper 명령, 최소 evidence set, P1 판정 기준을 기록한다.
+
+## RC-19 Playability UX Bug Bash
+
+- 이번 RC-19 pass는 새 기능/스토어/아트 확장이 아니라 실제 Android 폰에서 “눌렸는지 모르겠다”, “무엇을 얻었는지 약하다”, “첫 10분에 다음 행동이 끊긴다”로 느껴질 수 있는 P1 UX를 줄이는 데 집중했다.
+- 실제 device evidence:
+  - `device-qa/incoming/`와 `device-qa/fixed/`를 확인했지만 물리 Android screenshot/video는 아직 없다.
+  - 따라서 이번 변경은 physical evidence fix가 아니라 코드/DOM/Playwright screenshot/Android WebView 위험 패턴 기반의 proactive playability hardening이다. 새 APK 설치 후 physical retest가 필요하다.
+- 코드 보강:
+  - `AppShell.tsx`: `?deviceQa=1` 또는 dev `?debug=1`에서만 보이는 Device QA overlay에 최근 20개 pointer/click log, target tag/class/aria-label/data-qa, pointer 좌표, viewport/DPR/visualViewport/top-layer/font/userAgent를 추가했다. 일반 실행에서는 노출되지 않는다.
+  - `MainGameScreen.tsx`: hero 안에 compact `next-action-panel`을 추가해 첫 10분 동안 한 번에 하나의 다음 행동, 얻는 것, CTA를 보여준다. tap/upgrade/album/prestige core loop를 shop/IAP보다 우선 안내한다.
+  - `UpgradePanel.tsx`: quick-buy max 구매 전후에 `레벨 0 -> 49`, `터치 +0 -> 터치 +49`처럼 레벨/효과 delta를 purchase tray에 표시하고, 구매 성공 뒤 card-level result banner를 보여준다.
+  - `effects.css`: floating text를 더 명확한 pill/banner 형태로 강화했고 effects off/reduced motion 설정을 유지한다.
+  - `layout-regression.spec.ts`: visible CTA의 center point가 실제 top element인지 `elementFromPoint`로 확인하고, toast/modal/bottom dock이 CTA 중심을 막는지 검사한다.
+  - `e2e/playability-flow.spec.ts`: 홈 터치 보상, quick-buy max 보상 명확성, quest claim reward feedback, daily modal close/tab clickability, disabled upgrade state, Device QA overlay gating을 추가했다.
+- RC-19 verification:
+  - `npm run build`: success
+  - `npm test -- --run`: success, 23 files / 502 tests
+  - `npm run test:e2e`: success, 53 passed
+  - `npx playwright test e2e/playability-flow.spec.ts --reporter=line`: success, 6 passed
+  - `npx playwright test e2e/layout-regression.spec.ts --reporter=line`: success, 10 passed
+  - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: success, 11 passed
+  - `npm run export:assets`: success
+  - `npm run cap:sync`: success
+  - `npx cap sync android`: success
+  - `cd android && JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home ANDROID_HOME=/opt/homebrew/share/android-commandlinetools ANDROID_SDK_ROOT=/opt/homebrew/share/android-commandlinetools ./gradlew assembleDebug assembleRelease`: success
+  - `git diff --check`: success
+- RC-19 Android APK:
+  - Debug APK: `android/app/build/outputs/apk/debug/app-debug.apk` (`19M`, generated 2026-05-09 23:58 KST)
+  - Release rehearsal APK: `android/app/build/outputs/apk/release/app-release.apk` (`18M`, generated 2026-05-09 23:58 KST)
+- 남은 리스크:
+  - 실제 Android phone screenshot/video는 여전히 미제공이다.
+  - 사용자는 새 APK를 설치하고 홈 터치 20회, 업그레이드 구매 1회, quick-buy max, 보상 claim, daily reward, milestone claim, 환생 결과, 설정 토글, 저장 export/import, 하단 탭 반복 전환, modal 열고 닫기, 앱 종료 후 재실행을 `DEVICE_QA_CHECKLIST.md` 기준으로 확인해야 한다.

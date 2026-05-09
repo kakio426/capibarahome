@@ -1,6 +1,7 @@
 .ui-panel,
 .panel,
 .stats-panel,
+.next-action-panel,
 .today-quest-panel,
 .tier-story-panel,
 .long-term-panel,
@@ -30,6 +31,7 @@
 .ui-panel,
 .panel,
 .stats-panel,
+.next-action-panel,
 .today-quest-panel,
 .tier-story-panel,
 .long-term-panel,
@@ -620,6 +622,7 @@
 .screen-header,
 .panel,
 .stats-panel,
+.next-action-panel,
 .today-quest-panel,
 .tier-story-panel,
 .long-term-panel,
@@ -777,7 +780,7 @@
 }
 /* Custom controls and carved ledger surfaces. */
 .game-shell[data-toast-visible="true"] .content-shell {
-  padding-top: 60px;
+  padding-top: 16px;
 }
 
 .ui-toast-banner,

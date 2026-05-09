@@ -1,4 +1,5 @@
 import { PointerEvent, useState } from "react";
+import { AppTab } from "../../app/routes";
 import { GameConfig } from "../../config/GameConfig";
 import { StoryConfig } from "../../config/StoryConfig";
 import { BigNumberLite } from "../../core/BigNumberLite";
@@ -16,6 +17,7 @@ import { VisualAssetIcon } from "../components/VisualAssetIcon";
 
 type MainGameScreenProps = {
   onTap: (event: PointerEvent<HTMLButtonElement>) => void;
+  onNavigate: (tab: AppTab) => void;
 };
 
 function formatIncomeValue(value: BigNumberLite, format: "short" | "scientific") {
@@ -37,7 +39,17 @@ function getMascotMood(state: GameState) {
   return "default";
 }
 
-export function MainGameScreen({ onTap }: MainGameScreenProps) {
+type NextActionCue = {
+  title: string;
+  detail: string;
+  reward: string;
+  label: string;
+  tab?: AppTab;
+  onClick?: () => void;
+  ready?: boolean;
+};
+
+export function MainGameScreen({ onTap, onNavigate }: MainGameScreenProps) {
   const [dailyClaimMoment, setDailyClaimMoment] = useState<ReturnType<typeof getDailyRewardStatus> | null>(null);
   const state = useGameStore((snapshot) => snapshot);
   const format = state.settings.numberFormat;
@@ -61,6 +73,84 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
   const mascotMood = getMascotMood(state);
   const equippedDecorationClasses = collection.equippedDecorations.map((decoration) => decoration.visualClass).join(" ");
   const highlightedQuest = questBoard.ready[0] ?? questBoard.next;
+  const nextAction: NextActionCue = (() => {
+    if (state.lifetime.totalTaps < 5) {
+      return {
+        title: "귤 주기 리듬 만들기",
+        detail: `큰 카피바라를 ${5 - state.lifetime.totalTaps}번 더 눌러 첫 보상을 열어요.`,
+        reward: `터치마다 +${formatIncomeValue(tapGain, format)} 귤`,
+        label: "터치 위치 보기",
+        onClick: () => document.querySelector(".capybara-touch")?.scrollIntoView({ block: "center", behavior: state.settings.effectsEnabled ? "smooth" : "auto" }),
+        ready: true,
+      };
+    }
+    if (highlightedQuest?.readyToClaim) {
+      return {
+        title: "앨범 보상 수령",
+        detail: highlightedQuest.title,
+        reward: `보상 +${BigNumberLite.from(highlightedQuest.reward.oranges).format(format)} 귤`,
+        label: "보상판 보기",
+        tab: "collection",
+        ready: true,
+      };
+    }
+    if (nextGoal?.canBuy) {
+      return {
+        title: `${nextGoal.name} 구매`,
+        detail: nextGoal.category === "tap" ? "터치 수익을 바로 올릴 수 있어요." : "자동 생산을 시작하거나 키울 수 있어요.",
+        reward: nextGoal.category === "tap" ? `현재 터치당 ${formatIncomeValue(tapGain, format)} 귤` : `현재 초당 ${formatIncomeValue(eps, format)} 귤`,
+        label: "작업대 보기",
+        tab: "upgrades",
+        ready: true,
+      };
+    }
+    if (postPrestigeGoal.canClaim) {
+      return {
+        title: postPrestigeGoal.title,
+        detail: "환생 이후 목표 보상을 받을 수 있어요.",
+        reward: postPrestigeGoal.reward.label,
+        label: "목표 보상 받기",
+        onClick: () => GameActions.claimPostPrestigeGoal(),
+        ready: true,
+      };
+    }
+    if (prestigeGain.gte(1)) {
+      return {
+        title: "첫 환생 보상 준비",
+        detail: "황금 나뭇잎으로 다음 계절의 성장 배율을 올릴 수 있어요.",
+        reward: `예상 +${prestigeGain.format(format)} 황금잎`,
+        label: "새 계절 보기",
+        tab: "prestige",
+        ready: true,
+      };
+    }
+    if (nextGoal) {
+      return {
+        title: `${nextGoal.name} 준비`,
+        detail: nextGoal.description,
+        reward: nextGoal.actionLabel,
+        label: nextGoal.unlocked ? "귤 더 모으기" : "조건 확인",
+        tab: nextGoal.unlocked ? "home" : "upgrades",
+      };
+    }
+    if (dailyReward.eligible) {
+      return {
+        title: "오늘의 복귀 보상",
+        detail: dailyReward.title,
+        reward: dailyReward.reward.label,
+        label: "복귀 보상 받기",
+        onClick: claimDailyReward,
+        ready: true,
+      };
+    }
+    return {
+      title: "장기 목표 이어가기",
+      detail: postPrestigeGoal.title,
+      reward: postPrestigeGoal.canClaim ? postPrestigeGoal.reward.label : "정원 진행률 유지",
+      label: "보상판 보기",
+      tab: "collection",
+    };
+  })();
   const longTermTitle = state.lifetime.totalPrestiges > 0
     ? "환생 이후 정원 재건"
     : prestigeGain.gte(1)
@@ -116,6 +206,31 @@ export function MainGameScreen({ onTap }: MainGameScreenProps) {
             <strong>{formatIncomeValue(eps, format)} 귤/초</strong>
           </div>
         </div>
+
+        <section className={`next-action-panel ${nextAction.ready ? "is-ready" : ""}`} aria-label="다음 행동">
+          <div className="next-action-copy">
+            <span className="app-kicker">지금 할 일</span>
+            <h2 data-ui-critical="next-action-title">{nextAction.title}</h2>
+            <p>{nextAction.detail}</p>
+          </div>
+          <div className="next-action-prize" data-ui-critical="next-action-reward">
+            <span>얻는 것</span>
+            <strong>{nextAction.reward}</strong>
+          </div>
+          <Button
+            variant={nextAction.ready ? "primary" : "secondary"}
+            onClick={() => {
+              if (nextAction.onClick) {
+                nextAction.onClick();
+                return;
+              }
+              if (nextAction.tab) onNavigate(nextAction.tab);
+            }}
+            data-qa="next-action-cta"
+          >
+            {nextAction.label}
+          </Button>
+        </section>
       </div>
 
       <section className="stats-panel home-ledger-panel" aria-label="정원 장부 요약">

@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { BalanceConfig } from "../../config/BalanceConfig";
+import { BigNumberLite } from "../../core/BigNumberLite";
 import { getUpgradePurchasePreview, getUpgradeViewModels, type UpgradePurchaseMode } from "../../systems/UpgradeManager";
 import { ProgressionConfig } from "../../config/ProgressionConfig";
 import { GameActions } from "../../game/GameActions";
@@ -9,8 +11,30 @@ import { Panel } from "../components/Panel";
 import { ProgressBar } from "../components/ProgressBar";
 import { VisualAssetIcon } from "../components/VisualAssetIcon";
 
+type PurchaseFeedback = {
+  id: string;
+  message: string;
+  detail: string;
+};
+
+function effectAtLevel(itemId: string, category: "tap" | "generator", level: number, format: "short" | "scientific") {
+  if (category === "tap") {
+    const config = BalanceConfig.tapUpgrades.find((upgrade) => upgrade.id === itemId);
+    const gain = (config?.tapMultiplierPerLevel ?? 0) * level;
+    return `터치 +${BigNumberLite.from(gain).format(format)}`;
+  }
+  const config = BalanceConfig.generators.find((generator) => generator.id === itemId);
+  if (!config) return `Lv.${level}`;
+  const eps = BigNumberLite.from(config.baseEps).multiply(level);
+  const multiplier = config.generatorMultiplier > 1
+    ? ` · 전체 +${Math.round((config.generatorMultiplier - 1) * level * 100)}%`
+    : "";
+  return `초당 +${eps.format(format)}${multiplier}`;
+}
+
 export function UpgradePanel() {
   const [purchaseMode, setPurchaseMode] = useState<UpgradePurchaseMode>("one");
+  const [purchaseFeedback, setPurchaseFeedback] = useState<PurchaseFeedback | null>(null);
   const state = useGameStore((snapshot) => snapshot);
   const upgrades = getUpgradeViewModels(state);
   const format = state.settings.numberFormat;
@@ -26,6 +50,12 @@ export function UpgradePanel() {
     { id: "max", label: "최대", note: "현재 귤로 가능한 만큼", short: "전력" },
   ];
   const currentMode = purchaseModes.find((mode) => mode.id === purchaseMode) ?? purchaseModes[0];
+
+  useEffect(() => {
+    if (!purchaseFeedback) return;
+    const timeoutId = window.setTimeout(() => setPurchaseFeedback(null), 2200);
+    return () => window.clearTimeout(timeoutId);
+  }, [purchaseFeedback]);
 
   return (
     <main className="screen stack-screen">
@@ -89,11 +119,31 @@ export function UpgradePanel() {
             : item.unlocked
               ? "대기"
               : "잠김";
+          const currentEffect = effectAtLevel(item.id, item.category, item.level, format);
+          const nextEffect = effectAtLevel(item.id, item.category, preview.nextLevel, format);
+          const levelDelta = preview.canBuy
+            ? `레벨 ${item.level} → ${preview.nextLevel}`
+            : item.unlocked
+              ? `다음 레벨 ${item.level + 1}`
+              : item.unlockLabel;
+          const gainDelta = preview.canBuy ? `${currentEffect} → ${nextEffect}` : item.effectText;
+          const isLastPurchase = purchaseFeedback?.id === item.id;
+
+          function handleBuy() {
+            const result = GameActions.buyUpgrade(item.id, purchaseMode);
+            if (!result.ok) return;
+            const afterEffect = effectAtLevel(item.id, item.category, result.nextLevel, format);
+            setPurchaseFeedback({
+              id: item.id,
+              message: `${item.name} ${result.quantity}회 성장`,
+              detail: `레벨 ${item.level} → ${result.nextLevel} · ${afterEffect}`,
+            });
+          }
 
           return (
             <Panel
               key={item.id}
-              className={`upgrade-card upgrade-shelf-card ui-shelf-card ${!item.unlocked ? "is-content-locked" : preview.canBuy ? "is-buyable" : "is-locked"}`}
+              className={`upgrade-card upgrade-shelf-card ui-shelf-card ${!item.unlocked ? "is-content-locked" : preview.canBuy ? "is-buyable" : "is-locked"} ${isLastPurchase ? "has-purchase-feedback" : ""}`}
               data-qa="upgrade-card"
             >
               <div className="upgrade-card-body" data-qa="upgrade-card-body">
@@ -117,7 +167,7 @@ export function UpgradePanel() {
                     </span>
                     <span>
                       <small>효과</small>
-                      {item.effectText}
+                      {currentEffect}
                     </span>
                     {preview.canBuy ? <span className="upgrade-result-chip">구매 후 Lv.{preview.nextLevel}</span> : null}
                   </div>
@@ -127,15 +177,26 @@ export function UpgradePanel() {
                 </div>
               </div>
               <div className="upgrade-buy-slot ui-shelf-card__buy" data-qa="upgrade-purchase-tray">
+                <span className={preview.canBuy ? "upgrade-buy-delta is-ready" : "upgrade-buy-delta"} data-ui-critical="upgrade-buy-delta">
+                  <strong>{levelDelta}</strong>
+                  <em>{gainDelta}</em>
+                </span>
                 <span className="cost-plaque ui-plaque ui-cost-plaque" data-qa="upgrade-cost" data-ui-critical="upgrade-cost">{purchaseLabel}</span>
                 <Button
                   className="upgrade-buy-button"
                   variant={preview.canBuy ? "primary" : "secondary"}
                   disabled={!preview.canBuy}
-                  onClick={() => GameActions.buyUpgrade(item.id, purchaseMode)}
+                  onClick={handleBuy}
+                  data-qa="upgrade-buy-button"
                 >
                   {buyLabel}
                 </Button>
+                {isLastPurchase ? (
+                  <span className="upgrade-purchase-feedback" role="status">
+                    <strong>{purchaseFeedback.message}</strong>
+                    <em>{purchaseFeedback.detail}</em>
+                  </span>
+                ) : null}
               </div>
             </Panel>
           );

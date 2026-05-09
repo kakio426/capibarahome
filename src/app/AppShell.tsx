@@ -50,6 +50,38 @@ function formatTapBurst(value: BigNumberLite, format: "short" | "scientific") {
   return value.format(format);
 }
 
+type DeviceQaTapLog = {
+  id: string;
+  type: string;
+  x: number;
+  y: number;
+  target: string;
+  className: string;
+  ariaLabel: string;
+  qa: string;
+  at: string;
+};
+
+function describeEventTarget(target: EventTarget | null) {
+  if (!(target instanceof Element)) {
+    return {
+      target: "unknown",
+      className: "",
+      ariaLabel: "",
+      qa: "",
+    };
+  }
+  const actionElement = target.closest("button,a,input,textarea,select,[role='button'],[data-qa]");
+  const element = actionElement ?? target;
+  const className = element instanceof HTMLElement ? element.className : "";
+  return {
+    target: element.tagName.toLowerCase(),
+    className: typeof className === "string" ? className : "",
+    ariaLabel: element.getAttribute("aria-label") ?? "",
+    qa: element.getAttribute("data-qa") ?? element.getAttribute("data-ui-critical") ?? "",
+  };
+}
+
 function DeviceQaOverlay({ enabled }: { enabled: boolean }) {
   const [metrics, setMetrics] = useState(() => ({
     viewport: "0x0",
@@ -58,7 +90,9 @@ function DeviceQaOverlay({ enabled }: { enabled: boolean }) {
     safeBottom: "0px",
     fontFamily: "",
     userAgent: "",
+    topLayer: "none",
   }));
+  const [tapLogs, setTapLogs] = useState<DeviceQaTapLog[]>([]);
 
   useEffect(() => {
     if (!enabled) return;
@@ -75,6 +109,11 @@ function DeviceQaOverlay({ enabled }: { enabled: boolean }) {
         safeBottom: rootStyles.getPropertyValue("--safe-bottom").trim() || "0px",
         fontFamily: bodyStyles.fontFamily,
         userAgent: window.navigator.userAgent,
+        topLayer: [
+          document.querySelector(".modal-backdrop") ? "modal" : "",
+          document.querySelector(".toast") ? "toast" : "",
+          document.querySelector(".debug-panel[open]") ? "debug" : "",
+        ].filter(Boolean).join(" + ") || "none",
       });
     }
 
@@ -87,6 +126,35 @@ function DeviceQaOverlay({ enabled }: { enabled: boolean }) {
     };
   }, [enabled]);
 
+  useEffect(() => {
+    if (!enabled) return;
+
+    function record(event: globalThis.PointerEvent | MouseEvent) {
+      const targetInfo = describeEventTarget(event.target);
+      setTapLogs((items) => [
+        {
+          id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+          type: event.type,
+          x: Math.round("clientX" in event ? event.clientX : 0),
+          y: Math.round("clientY" in event ? event.clientY : 0),
+          target: targetInfo.target,
+          className: targetInfo.className.replace(/\s+/g, ".").slice(0, 48),
+          ariaLabel: targetInfo.ariaLabel.slice(0, 48),
+          qa: targetInfo.qa.slice(0, 40),
+          at: new Date().toLocaleTimeString("ko-KR", { hour12: false }),
+        },
+        ...items,
+      ].slice(0, 20));
+    }
+
+    window.addEventListener("pointerdown", record, true);
+    window.addEventListener("click", record, true);
+    return () => {
+      window.removeEventListener("pointerdown", record, true);
+      window.removeEventListener("click", record, true);
+    };
+  }, [enabled]);
+
   if (!enabled) return null;
 
   return (
@@ -96,14 +164,21 @@ function DeviceQaOverlay({ enabled }: { enabled: boolean }) {
       <span>visual {metrics.visualViewport}</span>
       <span>dpr {metrics.dpr}</span>
       <span>safe-bottom {metrics.safeBottom}</span>
+      <span>top-layer {metrics.topLayer}</span>
       <span>font {metrics.fontFamily}</span>
       <span>ua {metrics.userAgent}</span>
+      <strong>Recent taps</strong>
+      {tapLogs.length === 0 ? <span>tap log empty</span> : tapLogs.slice(0, 6).map((log) => (
+        <span key={log.id}>
+          {log.at} {log.type} ({log.x},{log.y}) {log.target}.{log.className || "-"} {log.ariaLabel || log.qa}
+        </span>
+      ))}
     </aside>
   );
 }
 
-function renderTab(activeTab: AppTab, onTap: (event: PointerEvent<HTMLButtonElement>) => void) {
-  if (activeTab === "home") return <MainGameScreen onTap={onTap} />;
+function renderTab(activeTab: AppTab, onTap: (event: PointerEvent<HTMLButtonElement>) => void, onNavigate: (tab: AppTab) => void) {
+  if (activeTab === "home") return <MainGameScreen onTap={onTap} onNavigate={onNavigate} />;
   if (activeTab === "upgrades") return <UpgradePanel />;
   if (activeTab === "prestige") return <PrestigePanel />;
   if (activeTab === "collection") return <CollectionScreen />;
@@ -286,7 +361,7 @@ export function AppShell() {
         </header>
 
         <div className="content-shell">
-          {renderTab(activeTab, handleTap)}
+          {renderTab(activeTab, handleTap, setActiveTab)}
         </div>
 
         <nav className="bottom-tabs ui-tab-dock" aria-label="주요 화면">

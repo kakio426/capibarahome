@@ -167,3 +167,12 @@ for (const viewport of viewports) {
     await expectNoHorizontalOverflow(page);
   });
 }
+
+test("device QA overlay screenshot 390x844", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await openFresh(page, "/?deviceQa=1");
+  await skipTutorial(page);
+  await page.getByRole("button", { name: /귤 주기/ }).click();
+  await expect(page.getByLabel("Device QA diagnostics")).toBeVisible();
+  await page.screenshot({ path: "qa-screenshots/390x844-device-qa-overlay.png", fullPage: false });
+});

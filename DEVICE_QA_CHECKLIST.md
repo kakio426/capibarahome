@@ -2,7 +2,7 @@
 
 기준일: 2026-05-09
 
-이 문서는 제출 전 실제 물리 기기에서 실행할 QA 체크리스트다. RC-18/RC-19 환경에서는 Playwright, Capacitor sync, Android debug/release rehearsal build, Android WebView-like 320/360/393/412 layout regression, 110/120% font scaling guard, quick-buy dial geometry guard, prestige result modal partial-clip guard까지 자동 검증했고, 물리 기기 QA는 수행하지 않았다. 실제 결과는 `DEVICE_QA_RESULTS_TEMPLATE.md`에 기록한다.
+이 문서는 제출 전 실제 물리 기기에서 실행할 QA 체크리스트다. RC-18/RC-19 환경에서는 Playwright, Capacitor sync, Android debug/release rehearsal build, Android WebView-like 320/360/393/412 layout regression, 110/120% font scaling guard, quick-buy dial geometry guard, prestige result modal partial-clip guard, playability touch/reward E2E까지 자동 검증했고, 물리 기기 QA는 수행하지 않았다. 실제 결과는 `DEVICE_QA_RESULTS_TEMPLATE.md`에 기록한다.
 
 ## Automated Coverage Before Physical QA
 
@@ -18,7 +18,7 @@
 | Android debug APK | 완료 후보 | `android/app/build/outputs/apk/debug/app-debug.apk` |
 | iOS native shell | 완료 후보 | `npx cap add ios`, `npx cap sync ios`, `npx cap doctor` 통과 |
 | iOS simulator/native build | 환경 차단 | CoreSimulator out-of-date, iOS 26.4 platform missing |
-| Device QA diagnostics overlay | 완료 | 앱 URL에 `?deviceQa=1` 추가 시 viewport/DPR/visualViewport/safe-bottom/font stack/userAgent 표시 |
+| Device QA diagnostics overlay | 완료 | 앱 URL에 `?deviceQa=1` 추가 시 viewport/DPR/visualViewport/safe-bottom/font stack/userAgent/top-layer와 최근 20개 pointer/click target log 표시 |
 | ADB capture helper | 완료 | `npm run device:qa:devices`, `device:qa:install`, `device:qa:launch`, `device:qa:info`, `device:qa:capture -- <screen>`, `device:qa:record -- <screen> [seconds]` |
 
 ## ADB Capture Helper
@@ -55,7 +55,11 @@ npm run device:qa:record -- tap-and-modal-flow 15
 | TBD | TBD | Android WebView | Debug APK | 첫 실행 | 홈/튜토리얼이 잘리고 겹치지 않음 | 미실행 | 미실행 | TBD | APK: `android/app/build/outputs/apk/debug/app-debug.apk` |
 | TBD | TBD | Android WebView | Debug APK | 폰트 확대 110%/120% | 버튼/탭/칩/가격/모달 글자가 위아래로 잘리지 않음 | 미실행 | 미실행 | TBD | Android 설정 글자 크기 변경 후 확인 |
 | TBD | TBD | Android WebView | Debug APK | 320~360px급 좁은 화면 | home CTA, upgrade first/second CTA, save modal action이 하단 탭/gesture area에 가려지지 않음 | 미실행 | 미실행 | TBD | 작은 화면 또는 display size 확대 |
-| TBD | TBD | Android WebView | Debug APK | `?deviceQa=1` 진단 overlay | viewport/DPR/visualViewport/safe-bottom/font stack/userAgent가 표시되고 일반 실행에서는 표시되지 않음 | 미실행 | 미실행 | TBD | screenshot을 `device-qa/incoming/`에 저장 |
+| TBD | TBD | Android WebView | Debug APK | `?deviceQa=1` 진단 overlay | viewport/DPR/visualViewport/safe-bottom/font stack/userAgent/top-layer와 최근 20개 tap/click target log가 표시되고 일반 실행에서는 표시되지 않음 | 미실행 | 미실행 | TBD | screenshot을 `device-qa/incoming/`에 저장 |
+| TBD | TBD | Android WebView | Debug APK | 홈 터치 20회 | 귤 숫자가 즉시 증가하고 `+N 귤` floating feedback이 보이며 next-action panel이 다음 행동을 하나만 안내함 | 미실행 | 미실행 | TBD | RC-19 playability retest |
+| TBD | TBD | Android WebView | Debug APK | 업그레이드 구매 1회 | 구매 후 카드에 result banner가 뜨고 레벨/효과 delta가 즉시 이해됨 | 미실행 | 미실행 | TBD | `성장` 탭 |
+| TBD | TBD | Android WebView | Debug APK | quick-buy 최대 구매 | `최대 N회` CTA가 눌리고 비용/레벨/효과 변화가 보이며 음수 재화 없음 | 미실행 | 미실행 | TBD | `?deviceQa=1`로 target log 함께 확인 권장 |
+| TBD | TBD | Android WebView | Debug APK | 보상 claim | album/quest reward claim 후 reward banner 또는 sheet가 보여 toast만으로 끝나지 않음 | 미실행 | 미실행 | TBD | 보상 가능 seed 또는 실제 진행 |
 | TBD | TBD | Android WebView | Debug APK | 터치 100회 | 귤 증가, particle cap, UI 멈춤 없음 | 미실행 | 미실행 | TBD | low-end device 포함 |
 | TBD | TBD | Android WebView | Debug APK | quick-buy 1/10/max | 비용/레벨/CTA 정상, 음수 재화 없음 | 미실행 | 미실행 | TBD | 성장 탭 |
 | TBD | TBD | Android WebView | Debug APK | quick-buy panel rendering | `1개/10개/최대`가 한 행의 작업대 레버로 보이고 세로 스택/큰 빈 레일이 없음 | 미실행 | 미실행 | TBD | RC-19 visual fix 확인 |
@@ -68,6 +72,9 @@ npm run device:qa:record -- tap-and-modal-flow 15
 | TBD | TBD | Android/iOS WebView | Native build | 환생 결과 modal | 획득/보유/새 배율/이전→새 계절 리본/CTA가 서로 가리지 않음 | 미실행 | 미실행 | TBD | RC-19 partial-clip fix 확인 |
 | TBD | TBD | Android/iOS WebView | Native build | export/import | code 복사/붙여넣기, 실패 안내 crash 없음 | 미실행 | 미실행 | TBD | keyboard/textarea |
 | TBD | TBD | Android/iOS WebView | Native build | 설정 토글 | effects/sound/music/vibration 즉시 반영 | 미실행 | 미실행 | TBD | toast non-blocking |
+| TBD | TBD | Android/iOS WebView | Native build | 하단 탭 반복 전환 | toast/modal/backdrop이 탭 전환을 막지 않고 active state가 즉시 바뀜 | 미실행 | 미실행 | TBD | 홈/성장/회생/앨범/상점/설정 왕복 |
+| TBD | TBD | Android/iOS WebView | Native build | modal 열고 닫기 | daily/offline/prestige/save modal의 확인/닫기 버튼이 화면 안에서 터치 가능 | 미실행 | 미실행 | TBD | CTA가 하단 탭에 가리지 않는지 확인 |
+| TBD | TBD | Android/iOS WebView | Native build | 앱 종료 후 재실행 | 저장/보상 cooldown/claim 상태가 유지되고 의도치 않은 backdrop이 남지 않음 | 미실행 | 미실행 | TBD | 강제 종료 후 재실행 |
 | TBD | TBD | Android/iOS WebView | Native build | 사운드 mute | muted 상태에서 no-op, crash 없음 | 미실행 | 미실행 | TBD | WebAudio gesture |
 | TBD | TBD | Android/iOS WebView | Native build | safe-area/notch | 헤더/탭/CTA가 시스템 영역에 가려지지 않음 | 미실행 | 미실행 | TBD | notch/gesture nav |
 | TBD | TBD | Android WebView | Debug APK | Android back button | 정책대로 모달 닫기/앱 종료 동작 | 미실행 | 미실행 | TBD | 정책 확정 필요 |
