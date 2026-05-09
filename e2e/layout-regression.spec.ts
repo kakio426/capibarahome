@@ -45,6 +45,92 @@ async function scrollCardIntoSafeView(page: Parameters<typeof expectNoHorizontal
   });
 }
 
+async function expectUpgradeCardSurgeryLayout(page: Parameters<typeof expectNoHorizontalOverflow>[0], cardIndex: number) {
+  const metrics = await page.locator(".upgrade-card").nth(cardIndex).evaluate((cardElement) => {
+    function rectFor(selector: string) {
+      const node = cardElement.querySelector(selector);
+      if (!(node instanceof HTMLElement)) return null;
+      const rect = node.getBoundingClientRect();
+      return {
+        left: rect.left,
+        top: rect.top,
+        right: rect.right,
+        bottom: rect.bottom,
+        width: rect.width,
+        height: rect.height,
+        scrollWidth: node.scrollWidth,
+        clientWidth: node.clientWidth,
+        scrollHeight: node.scrollHeight,
+        clientHeight: node.clientHeight,
+      };
+    }
+
+    const card = cardElement.getBoundingClientRect();
+    const body = rectFor(".upgrade-card-body");
+    const tool = rectFor(".upgrade-tool-slot");
+    const copy = rectFor(".upgrade-copy");
+    const status = rectFor(".upgrade-status-row");
+    const title = rectFor(".upgrade-title-row h3");
+    const meta = rectFor(".upgrade-meta");
+    const tray = rectFor(".upgrade-buy-slot");
+    const cost = rectFor(".cost-plaque");
+    const button = rectFor(".upgrade-buy-button");
+    const description = rectFor(".upgrade-description");
+
+    const costButtonOverlap = cost && button
+      ? !(cost.right <= button.left || button.right <= cost.left || cost.bottom <= button.top || button.bottom <= cost.top)
+      : true;
+
+    return {
+      card: { left: card.left, top: card.top, right: card.right, bottom: card.bottom, width: card.width, height: card.height },
+      body,
+      tool,
+      copy,
+      status,
+      title,
+      meta,
+      tray,
+      cost,
+      button,
+      description,
+      costButtonOverlap,
+    };
+  });
+
+  expect(metrics.body).not.toBeNull();
+  expect(metrics.tool).not.toBeNull();
+  expect(metrics.copy).not.toBeNull();
+  expect(metrics.status).not.toBeNull();
+  expect(metrics.title).not.toBeNull();
+  expect(metrics.meta).not.toBeNull();
+  expect(metrics.tray).not.toBeNull();
+  expect(metrics.cost).not.toBeNull();
+  expect(metrics.button).not.toBeNull();
+  expect(metrics.description).not.toBeNull();
+  if (!metrics.body || !metrics.tool || !metrics.copy || !metrics.status || !metrics.title || !metrics.meta || !metrics.tray || !metrics.cost || !metrics.button || !metrics.description) return;
+
+  expect(metrics.tool.width / metrics.card.width).toBeLessThanOrEqual(0.31);
+  expect(metrics.body.left).toBeGreaterThanOrEqual(metrics.card.left - 1);
+  expect(metrics.body.right).toBeLessThanOrEqual(metrics.card.right + 1);
+  expect(metrics.tray.left).toBeGreaterThanOrEqual(metrics.card.left - 1);
+  expect(metrics.tray.right).toBeLessThanOrEqual(metrics.card.right + 1);
+  expect(metrics.tray.bottom).toBeLessThanOrEqual(metrics.card.bottom + 1);
+  expect(metrics.body.bottom).toBeLessThanOrEqual(metrics.tray.top - 2);
+  expect(metrics.costButtonOverlap).toBe(false);
+  expect(metrics.cost.height).toBeGreaterThanOrEqual(40);
+  expect(metrics.button.height).toBeGreaterThanOrEqual(44);
+
+  for (const rect of [metrics.status, metrics.title, metrics.meta, metrics.description, metrics.tray]) {
+    expect(rect.width).toBeGreaterThan(8);
+    expect(rect.height).toBeGreaterThan(8);
+  }
+
+  for (const rect of [metrics.title, metrics.cost, metrics.button]) {
+    expect(rect.scrollWidth - rect.clientWidth).toBeLessThanOrEqual(2);
+    expect(rect.scrollHeight - rect.clientHeight).toBeLessThanOrEqual(6);
+  }
+}
+
 async function expectTextareasAvoidMobileZoom(page: Parameters<typeof expectNoHorizontalOverflow>[0]) {
   const sizes = await page.locator("textarea").evaluateAll((nodes) => nodes.map((node) => Number.parseFloat(window.getComputedStyle(node).fontSize)));
   expect(sizes.length).toBeGreaterThan(0);
@@ -105,6 +191,7 @@ for (const viewport of viewports) {
       const card = page.locator(".upgrade-card").nth(index);
       await expectVisibleWithinViewport(card.locator(".upgrade-buy-slot"), 0.98);
       await expectClearOfBottomDock(page, card.locator(".upgrade-buy-button"));
+      await expectUpgradeCardSurgeryLayout(page, index);
       await expectNoCriticalTextClipping(page, [
         `.upgrade-list .upgrade-card:nth-child(${index + 1}) .upgrade-title-row h3`,
         `.upgrade-list .upgrade-card:nth-child(${index + 1}) .upgrade-meta span`,

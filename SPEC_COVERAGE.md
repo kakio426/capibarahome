@@ -2,7 +2,7 @@
 
 기준일: 2026-05-09
 
-상태 기준: `완료`는 실제 구현 파일과 테스트, E2E, screenshot, build 산출물 중 하나 이상의 근거가 있을 때만 사용한다. RC-9 독립 감사에서는 product-quality P1이 존재해 release candidate no-go였고, RC-10 integrity pass에서 previous 8.2 self-score를 7.7 no-go로 보정했다. RC-11에서 남은 upgrade quick-buy/shelf와 store screenshot framing P1을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 8.1이다. RC-12에서는 새 self-score 없이 DOM layout regression과 viewport screenshot으로 글자 잘림/CTA 겹침/modal 조작 불가/store public copy P1을 검증했다. RC-13에서는 Android native shell, platform asset export 후보, 공식 문서 확인, 강화된 layout/store dimension guard를 추가했다. RC-14에서는 Vite large chunk warning 제거, Google Play feature graphic 후보, Android/iOS native environment audit, physical QA packet을 추가했다. RC-15에서는 JDK 21/Android SDK/CocoaPods 설치, Android debug APK build/lint, iOS shell add/sync를 실제 명령으로 검증했다. RC-16에서는 local rehearsal key로 signed release APK/AAB 생성과 verification을 검증했다. 실제 App Store/Google Play 제출 완료는 외부 계정/production signing/법무/실기기 QA가 없어 완료로 판단하지 않는다.
+상태 기준: `완료`는 실제 구현 파일과 테스트, E2E, screenshot, build 산출물 중 하나 이상의 근거가 있을 때만 사용한다. RC-9 독립 감사에서는 product-quality P1이 존재해 release candidate no-go였고, RC-10 integrity pass에서 previous 8.2 self-score를 7.7 no-go로 보정했다. RC-11에서 남은 upgrade quick-buy/shelf와 store screenshot framing P1을 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined average는 8.1이다. RC-12에서는 새 self-score 없이 DOM layout regression과 viewport screenshot으로 글자 잘림/CTA 겹침/modal 조작 불가/store public copy P1을 검증했다. RC-13에서는 Android native shell, platform asset export 후보, 공식 문서 확인, 강화된 layout/store dimension guard를 추가했다. RC-14에서는 Vite large chunk warning 제거, Google Play feature graphic 후보, Android/iOS native environment audit, physical QA packet을 추가했다. RC-15에서는 JDK 21/Android SDK/CocoaPods 설치, Android debug APK build/lint, iOS shell add/sync를 실제 명령으로 검증했다. RC-16에서는 local rehearsal key로 signed release APK/AAB 생성과 verification을 검증했다. RC-17에서는 업그레이드 카드 하단 장식/cost/CTA 시각 overlap을 실제 screenshot 기준으로 재수술하고 layout geometry guard를 추가했다. 실제 App Store/Google Play 제출 완료는 외부 계정/production signing/법무/실기기 QA가 없어 완료로 판단하지 않는다.
 
 ## Release Gate
 
@@ -11,7 +11,7 @@
 | `AGENTS.md`, `PROJECT_SPEC.md` 선확인 | 완료 | 구현 전 확인 및 `PROJECT_SPEC.md` RC spec으로 교체 |
 | 원본 0-26 요구사항 누락 방지 | 완료 | `REQUIREMENTS_TRACE.md` |
 | 경쟁작 벤치마크 | 완료 | `COMPETITOR_BENCHMARK.md` |
-| gap backlog와 P0/P1 해결 | 완료 | RC-10 no-go 보정 후 RC-11 independent rescore 기준 product-quality P1 해소: upgrade 8.1, store screenshots 8.1, combined 8.1. RC-12 layout regression 기준 주요 viewport P1 없음 |
+| gap backlog와 P0/P1 해결 | 완료 | RC-10 no-go 보정 후 RC-11 independent rescore 기준 product-quality P1 해소: upgrade 8.1, store screenshots 8.1, combined 8.1. RC-12 layout regression 기준 주요 viewport P1 없음. RC-17 upgrade-card visual overlap P1 별도 수정 및 screenshot 재검증 |
 | release blocker 분리 | 완료 | `RELEASE_BLOCKERS.md` |
 | `npm run build` | 완료 | `tsc -b && vite build`, success |
 | `npm test` | 완료 | Vitest 23 files, 502 tests passed |
@@ -68,7 +68,7 @@
 | 첫 화면부터 실제 게임처럼 보임 | 완료 | v2 raster orchard/capybara integrated scene, carved header, wood currency plaques, next goal, 장기 목표, prestige mini progress, collection shelf, screenshots |
 | 임시 개발자 UI 숨김 | 완료 | Debug panel hidden by default, only `?debug=1` in dev |
 | 360x740 / 390x844 / 430x932 / desktop 중앙 패널 | 완료 | `visual-regression.spec.ts` viewport screenshots, `layout-regression.spec.ts` critical clipping/CTA/modal checks |
-| 버튼/탭/모달/카드/상점/설정/튜토리얼 polish | 완료 | split CSS system in `layout.css`, `shell.css`, `hud.css`, `screens.css`, `effects.css`; `.ui-*` skin classes, custom `Toggle`, upgrade shelf/workbench, RC-6 quick-buy, RC-7 retention panels, settings ledger, save vault modal, save export copy action, reward/prestige/album reveal screenshots, visual QA |
+| 버튼/탭/모달/카드/상점/설정/튜토리얼 polish | 완료 | split CSS system in `layout.css`, `shell.css`, `hud.css`, `screens.css`, `effects.css`; `.ui-*` skin classes, custom `Toggle`, upgrade shelf/workbench, RC-6 quick-buy, RC-7 retention panels, RC-17 upgrade card body/purchase tray surgery, settings ledger, save vault modal, save export copy action, reward/prestige/album reveal screenshots, visual QA |
 | 직접 제작 visual asset | 완료 | 253 generated SVG auxiliary icon/quest/badge/decor/tier assets, 15 raster PNG core/release assets, v2 game HUD skin, `ART_FAILURE_REVIEW.md`, `ASSET_PRODUCTION_BRIEF.md`, `FINAL_ASSET_BRIEF.md` |
 | Playwright screenshots | 완료 | `qa-screenshots/` 88 current PNG files, `store-screenshots/` 10 store 후보 PNG files, `qa-screenshots/rc1-before/` archive |
 | Visual QA document | 완료 | `VISUAL_QA.md` |
@@ -92,7 +92,7 @@
 | RC-3/RC-6 first five-minute playtest | 완료: `e2e/first-five-minute-playtest.spec.ts`, claim reveal 포함 | 사용 안 함, 실제 유저 플로우와 저장/오프라인 복귀 분리 |
 | RC-8 release bug bash | 완료: `e2e/rc8-release-bug-bash.spec.ts` | 사용 안 함, daily+offline, prestige goal reload, quick-buy reload, 360px modal, tab switching |
 | RC-12 layout regression | 완료: `e2e/layout-regression.spec.ts` | 사용 안 함, critical text clipping, bottom nav/CTA overlap, modal clickability, textarea zoom risk |
-| RC-13/RC-14 strengthened layout/store guard | 완료: `e2e/layout-regression.spec.ts`, `e2e/store-screenshot-pack.spec.ts` | 사용 안 함, `data-ui-critical` clipping, toast non-blocking, store PNG dimensions, Google Play feature graphic dimensions |
+| RC-13/RC-14/RC-17 strengthened layout/store guard | 완료: `e2e/layout-regression.spec.ts`, `e2e/store-screenshot-pack.spec.ts` | 사용 안 함, `data-ui-critical` clipping, toast non-blocking, upgrade-card geometry guard, store PNG dimensions, Google Play feature graphic dimensions |
 
 ## Store Submission Artifacts
 
@@ -154,9 +154,10 @@
 | `RC16_SIGNING_SECURITY_AUDIT.md` | 완료 | ignored keystore/secret policy, local key fingerprint, git hygiene evidence |
 | `GOOGLE_PLAY_RELEASE_CHECKLIST.md` | 완료 | Play App Signing/upload key distinction, internal testing runbook, external checklist |
 | `RC16_INDEPENDENT_RESCORE.md` | 완료 | Android signing/release AAB readiness rescore and external blockers |
+| `RC17_UPGRADE_CARD_UI_AUDIT.md` | 완료 | upgrade card DOM/CSS audit, P1/P2 visual overlap classification, implementation notes, layout guard, regenerated screenshot evidence |
 | `RETENTION_PLAN.md` | 완료 | D0/D1/D3/D7 goals, daily/milestone/post-prestige rewards, remaining P2/P3 follow-ups |
 | 기존 문서 최신화 | 완료 | README/DEVELOPER/BALANCE/SAVE/QA/PLAYTEST updated |
 
 ## P0/P1 Blockers
 
-기술/기능 기준의 내부 P0/P1 `미완료`, `검증 불가`, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue는 현재 발견되지 않았다. RC-9 독립 감사와 RC-10 no-go 보정은 before evidence로 보존한다. RC-11에서 upgrade quick-buy/shelf 8.1, store screenshot framing 8.1, combined 8.1로 scoped product-quality P1을 해소했다. RC-14에서 layout regression과 store screenshot/feature graphic guard를 강화해 주요 viewport의 critical text clipping, CTA/tab overlap, modal action clickability, store public copy/dimension을 검증했다. RC-15에서 Android debug APK와 iOS shell/sync를 실제로 검증했고, RC-16에서 local signed release APK/AAB를 검증했다. 실제 스토어 제출 완료를 막는 외부 계정/production signing/Play App Signing/Xcode simulator platform/commissioned art 소유권/final adaptive icon/실기기 QA, 서버 검증 calendar/push notification 항목은 `RELEASE_BLOCKERS.md`에 external readiness로 별도 분리했다.
+기술/기능 기준의 내부 P0/P1 `미완료`, `검증 불가`, 문서 불일치, 모바일 주요 화면 깨짐, 저장/환생/오프라인 보상 blocking issue는 현재 발견되지 않았다. RC-9 독립 감사와 RC-10 no-go 보정은 before evidence로 보존한다. RC-11에서 upgrade quick-buy/shelf 8.1, store screenshot framing 8.1, combined 8.1로 scoped product-quality P1을 해소했다. RC-14에서 layout regression과 store screenshot/feature graphic guard를 강화해 주요 viewport의 critical text clipping, CTA/tab overlap, modal action clickability, store public copy/dimension을 검증했다. RC-15에서 Android debug APK와 iOS shell/sync를 실제로 검증했고, RC-16에서 local signed release APK/AAB를 검증했다. RC-17에서 upgrade card cost/CTA visual overlap P1을 geometry guard와 screenshot evidence로 재검증했다. 실제 스토어 제출 완료를 막는 외부 계정/production signing/Play App Signing/Xcode simulator platform/commissioned art 소유권/final adaptive icon/실기기 QA, 서버 검증 calendar/push notification 항목은 `RELEASE_BLOCKERS.md`에 external readiness로 별도 분리했다.

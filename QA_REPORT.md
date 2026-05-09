@@ -28,7 +28,7 @@ npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec
 
 ```txt
 npx playwright test e2e/layout-regression.spec.ts --reporter=line
-4 passed
+4 passed, includes RC-17 upgrade-card geometry guard
 ```
 
 ```txt
@@ -40,6 +40,11 @@ exported platform asset candidates to platform-assets/
 npm run cap:sync
 npm run build && cap sync
 built successfully; Android and iOS sync finished
+```
+
+```txt
+npx cap sync android
+Android sync finished
 ```
 
 ```txt
@@ -382,6 +387,7 @@ Fix:
 - RC-8 추가 회귀 확인: 360x740 save modal bounding box가 viewport 안에 남고, toast는 pointer event를 막지 않으며, repeated tab switching 뒤 홈 tap CTA가 유지된다. 내부 P0/P1 device-readiness blocker는 없음.
 - RC-12 추가 layout 확인: `layout-regression.spec.ts`가 4 viewport에서 critical text clipping, horizontal overflow, bottom dock/CTA overlap, modal action clickability, save textarea 16px 이상을 검증한다. `visual-regression.spec.ts`는 실제 viewport screenshot으로 전환해 fixed bottom nav fullPage artifact를 제거했다. 내부 P1 layout defect는 현재 발견되지 않는다.
 - RC-13 추가 layout/native 확인: `layout-regression.spec.ts`에 `[data-ui-critical]` clipping, toast non-blocking, home tap CTA visibility를 추가했고 4 passed. Store screenshot pack은 PNG magic/dimension guard를 추가해 iPhone 1290x2796, Android 1080x1920을 검증한다. Android native shell은 생성/동기화됐고, iOS는 CocoaPods 미설치로 external blocker다.
+- RC-17 추가 업그레이드 카드 확인: `layout-regression.spec.ts`에 purchase tray/card bounds, tool tile width ratio, body/tray separation, cost/CTA overlap, 44px CTA height를 검사하는 upgrade-card geometry guard를 추가했다. `360x740`, `390x844`, `430x932`, desktop quick-buy/store upgrade screenshots를 재생성했고, 하단 장식이 cost/CTA를 덮어 보이는 P1은 발견되지 않는다.
 
 ## Source Budget Gate
 
@@ -448,3 +454,31 @@ Fix:
   - `bundletool 1.18.3` via Homebrew.
   - Homebrew also installed `openjdk 25.0.2` as a `bundletool` dependency; Gradle build verification still uses `openjdk@21`.
 - RC-16 does not mean Google Play upload completion. Production upload key, Play App Signing setup, Play Console account, privacy/support URL, Data Safety, age rating, final asset approval, and physical device QA remain external blockers.
+
+## RC-17 Upgrade Card UI Surgery Pass
+
+- 새 게임 기능, save schema, Android release artifact는 변경하지 않았다.
+- `UpgradePanel.tsx`에서 upgrade shelf card를 `.upgrade-card-body`와 `.upgrade-buy-slot`으로 분리했다. tier/status chip은 `.upgrade-status-row`로 이동했고, title/stat/description/purchase tray 순서가 명확해졌다.
+- `screens.css`에서 하단 dark shelf rail pseudo-element를 제거하고 left accent/top highlight로 바꿨다. cost/CTA를 누르거나 덮어 보이던 장식 레이어를 purchase tray 밖으로 옮겼다.
+- tool pedestal는 compact tile로 줄였고, family chip과 repeated UI copy는 shelf card 안에서 숨겨 badge 경쟁을 줄였다.
+- purchase tray는 full-width tray로 고정했고 cost plaque와 CTA 사이에 overlap이 없도록 최소 높이와 grid spacing을 재정리했다.
+- `e2e/layout-regression.spec.ts`에 upgrade-card geometry guard를 추가했다:
+  - purchase tray가 card bounds 안에 있는지
+  - tool tile width가 card width의 31% 이하인지
+  - body와 tray가 수직으로 분리되는지
+  - cost plaque와 CTA가 겹치지 않는지
+  - CTA가 44px 이상인지
+  - title/status/stat/description/tray가 모두 visible인지
+- RC-17 targeted verification:
+  - `npm run build`: success
+  - `npx playwright test e2e/layout-regression.spec.ts --reporter=line`: 4 passed
+  - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: 7 passed
+- Regenerated evidence:
+  - `qa-screenshots/360x740-upgrades-quick-buy.png`
+  - `qa-screenshots/390x844-upgrades-quick-buy.png`
+  - `qa-screenshots/430x932-upgrades-quick-buy.png`
+  - `qa-screenshots/desktop-1280x900-upgrades.png`
+  - `qa-screenshots/desktop-1280x900-upgrades-quick-buy.png`
+  - `store-screenshots/iphone-02-upgrade.png`
+  - `store-screenshots/android-02-upgrade.png`
+- RC-17 기준 업그레이드 카드 하단 장식/cost/CTA 겹침 P1은 발견되지 않는다. 남은 업그레이드 UI 항목은 richer purchase ceremony, optional workbench animation 같은 P2/P3 polish다.

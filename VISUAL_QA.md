@@ -4,7 +4,7 @@
 
 ## Summary
 
-이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면과 정보형 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체했고, RC-4 hardening pass에서는 성장/설정/세이브/앨범 하단 정보 UI까지 wood/parchment/orange game HUD skin으로 묶었다. RC-5에서는 이 방향을 유지하면서 `layout.css` 후반 override 의존을 분리하고 reusable `.ui-*` game skin system으로 안정화했다. RC-6에서는 quick-buy, reward reveal, prestige result, album claim reveal을 추가했고, RC-7에서는 daily reward, D1/D3/D7 badge ledger, post-prestige goal chain을 같은 HUD skin 안에 넣었다. RC-8에서는 safe-area/360px modal/device-readiness regression을 추가 점검했다. RC-9 독립 감사에서는 product-quality P1이 남아 release candidate no-go로 재분류했고, RC-10 구현 후 integrity pass에서 기존 8.2 self-score를 독립 재검토해 combined 7.7로 보정했다. RC-11에서는 남은 P1 두 개만 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined 8.1로 scoped product-quality P1을 해소했다. RC-12에서는 self-score를 추가하지 않고 DOM layout regression과 viewport screenshot으로 글자 잘림, CTA/tab overlap, modal 조작 불가, store copy 금지어를 검증했다. RC-13에서는 Android native shell 준비와 함께 `[data-ui-critical]` clipping, toast non-blocking, store screenshot dimension guard를 추가했고, home stats와 milestone board의 남은 P2 composition을 좁게 보강했다. RC-14에서는 동일한 layout/store guard를 재실행했고 Google Play feature graphic 1024x500 guard를 추가했다.
+이번 visual gate는 PNG 파일 존재가 아니라 390x844 첫 화면과 정보형 화면이 실제 모바일 idle game처럼 보이는지를 기준으로 다시 봤다. 이전 raster pass는 핵심 이미지를 넣었어도 흰 둥근 카드와 웹앱 패널 언어가 화면을 지배해 실패로 재분류했다. v2 pass에서는 핵심 raster illustration을 교체했고, RC-4 hardening pass에서는 성장/설정/세이브/앨범 하단 정보 UI까지 wood/parchment/orange game HUD skin으로 묶었다. RC-5에서는 이 방향을 유지하면서 `layout.css` 후반 override 의존을 분리하고 reusable `.ui-*` game skin system으로 안정화했다. RC-6에서는 quick-buy, reward reveal, prestige result, album claim reveal을 추가했고, RC-7에서는 daily reward, D1/D3/D7 badge ledger, post-prestige goal chain을 같은 HUD skin 안에 넣었다. RC-8에서는 safe-area/360px modal/device-readiness regression을 추가 점검했다. RC-9 독립 감사에서는 product-quality P1이 남아 release candidate no-go로 재분류했고, RC-10 구현 후 integrity pass에서 기존 8.2 self-score를 독립 재검토해 combined 7.7로 보정했다. RC-11에서는 남은 P1 두 개만 좁게 수정했고, `RC11_INDEPENDENT_RESCORE.md` 기준 combined 8.1로 scoped product-quality P1을 해소했다. RC-12에서는 self-score를 추가하지 않고 DOM layout regression과 viewport screenshot으로 글자 잘림, CTA/tab overlap, modal 조작 불가, store copy 금지어를 검증했다. RC-13에서는 Android native shell 준비와 함께 `[data-ui-critical]` clipping, toast non-blocking, store screenshot dimension guard를 추가했고, home stats와 milestone board의 남은 P2 composition을 좁게 보강했다. RC-14에서는 동일한 layout/store guard를 재실행했고 Google Play feature graphic 1024x500 guard를 추가했다. RC-17에서는 업그레이드 카드 하단 레일이 cost/CTA를 덮어 보이는 시각 P1을 별도 수술했고, DOM clipping뿐 아니라 실제 360/390/430/store screenshot 기준으로 재확인했다.
 
 Current evidence:
 
@@ -29,6 +29,12 @@ npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec
 
 npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
 7 passed, RC-14 screenshot/store evidence regenerated with feature graphic guard
+
+npx playwright test e2e/layout-regression.spec.ts --reporter=line
+4 passed, RC-17 upgrade-card geometry guard included
+
+npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
+7 passed, RC-17 upgrade/store screenshots regenerated after card surgery
 ```
 
 Current asset baseline:
@@ -182,18 +188,32 @@ RC-13 기준 내부 UI P1은 발견되지 않는다. Native/submission readiness
 
 RC-14 기준 내부 UI P1은 발견되지 않는다. Native/device readiness는 `RC14_NATIVE_BUILD_AUDIT.md`와 `RC14_DEVICE_QA_PACKET.md`에 별도 분리한다.
 
+## RC-17 Upgrade Card UI Surgery
+
+RC-17은 새 기능이나 save schema 변경 없이 업그레이드 카드 내부 레이어만 좁게 수술했다. 자동 clipping 검사가 통과해도 실제 screenshot에서 하단 장식이 가격/CTA를 덮어 보이면 실패로 간주했다.
+
+| 대상 | RC-17 전 문제 | RC-17 조치 | Evidence |
+| --- | --- | --- | --- |
+| 하단 shelf rail | 두꺼운 나무 레일이 cost/CTA tray를 덮거나 눌러 보임 | bottom rail pseudo-element 제거, left accent/top highlight로 이동, purchase tray full-width 분리 | `qa-screenshots/390x844-upgrades-quick-buy.png`, `qa-screenshots/360x740-upgrades-quick-buy.png` |
+| Tool pedestal | 왼쪽 pedestal가 카드 공간을 과하게 차지 | `.upgrade-card-body`를 compact tool tile + copy column으로 분리, tool ratio guard <= 31% 추가 | `e2e/layout-regression.spec.ts`, `qa-screenshots/430x932-upgrades-quick-buy.png` |
+| Badge 경쟁 | `마당`, `구매 가능`, `현재`, `효과`, `구매 후 Lv`가 모두 큰 버튼처럼 경쟁 | tier/status는 small status row, current/effect/result는 compact stat tags, family chip 숨김 | `src/ui/screens/UpgradePanel.tsx`, `src/ui/styles/screens.css` |
+| Purchase tray | 비용과 `최대 N회` CTA가 카드 하단에 압착 | tray 최소 높이와 44px CTA 보장, cost/button overlap guard 추가 | `layout-regression.spec.ts` 4 passed |
+| Store upgrade frame | store upgrade screenshot이 crowded shelf card를 보여줌 | iPhone/Android store screenshot 재생성, RC-17 shelf layout 반영 | `store-screenshots/iphone-02-upgrade.png`, `store-screenshots/android-02-upgrade.png` |
+
+RC-17 기준 업그레이드 카드 시각 P1은 발견되지 않는다. 남은 항목은 richer purchase ceremony와 optional workbench animation 같은 P2/P3 polish다.
+
 ## Manual Spot Check
 
 - `qa-screenshots/390x844-home.png`: 첫인상은 웹 대시보드가 아니라 모바일 게임 home scene이다. 큰 흰 카드가 주인공이 되지 않는다.
 - `qa-screenshots/390x844-upgrades.png`: 일반 rounded card list보다는 작업대 선반, tool slot, cost plaque, 구매/대기 버튼으로 읽힌다.
-- `qa-screenshots/390x844-upgrades-quick-buy.png`: RC-11 기준 quick-buy가 버튼 묶음이 아니라 작업대 레버 장치로 읽히며, first shelf card의 비용/CTA가 2초 안에 읽힌다.
+- `qa-screenshots/390x844-upgrades-quick-buy.png`: RC-17 기준 하단 장식이 비용/CTA를 덮어 보이지 않고, tool tile/status/stat/purchase tray가 분리되어 first shelf card의 구매 행동이 2초 안에 읽힌다.
 - `qa-screenshots/390x844-collection.png`: portrait sticker room과 companion card가 보이며, score grid/progress도 sticker ledger/groove 방향으로 보정됐다.
 - `qa-screenshots/390x844-prestige.png`: golden leaf ritual art가 화면 성격을 결정한다.
 - `qa-screenshots/390x844-shop.png`: reward banner와 상품 shelf가 개발자용 제어판이 아니라 게임 상점 화면으로 보이게 한다.
 - `qa-screenshots/390x844-settings.png`: browser checkbox가 사라지고 custom ON/OFF switch가 적용됐으며 toast가 제목을 가리지 않는다.
 - `qa-screenshots/390x844-save-modal.png`: export code copy action, sealed code row, vault frame이 적용되어 util dialog 냄새가 줄었고 실제 복구 사용성도 유지된다.
 - `store-screenshots/iphone-01-home.png`: store-facing key art와 gameplay panel이 함께 보여 단순 앱 캡처 수준에서는 벗어났다.
-- `store-screenshots/iphone-02-upgrade.png`: upgrade shelf 장면이 가까이 보이고 first shelf CTA가 도크에 묻히지 않는다.
+- `store-screenshots/iphone-02-upgrade.png`: RC-17 upgrade shelf 장면이 가까이 보이고 first shelf CTA가 도크나 장식에 묻히지 않는다.
 
 ## Viewports
 

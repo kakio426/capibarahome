@@ -91,35 +91,43 @@ export function UpgradePanel() {
               : "잠김";
 
           return (
-            <Panel key={item.id} className={`upgrade-card upgrade-shelf-card ui-shelf-card ${!item.unlocked ? "is-content-locked" : preview.canBuy ? "is-buyable" : "is-locked"}`}>
-              <div className="upgrade-tool-slot ui-tool-slot">
-                <VisualAssetIcon assetKey={item.id} className="upgrade-icon" />
-                <span>{categoryLabel}</span>
-              </div>
-              <div className="upgrade-copy">
-                <div className="upgrade-title-row">
-                  <span className="upgrade-tier-chip">{tierNameById.get(item.tier) ?? item.tier}</span>
-                  {item.canBuy ? <span className="upgrade-ready-chip">구매 가능</span> : null}
-                  <h3>{item.name}</h3>
+            <Panel
+              key={item.id}
+              className={`upgrade-card upgrade-shelf-card ui-shelf-card ${!item.unlocked ? "is-content-locked" : preview.canBuy ? "is-buyable" : "is-locked"}`}
+              data-qa="upgrade-card"
+            >
+              <div className="upgrade-card-body" data-qa="upgrade-card-body">
+                <div className="upgrade-tool-slot ui-tool-slot" data-qa="upgrade-tool-slot">
+                  <VisualAssetIcon assetKey={item.id} className="upgrade-icon" />
+                  <span>{categoryLabel}</span>
                 </div>
-                {!item.unlocked ? <ProgressBar value={item.unlockProgress} label={item.unlockLabel} /> : null}
-                <div className="upgrade-meta">
-                  <span>
-                    <small>현재</small>
-                    Lv.{item.level}
-                  </span>
-                  <span>
-                    <small>효과</small>
-                    {item.effectText}
-                  </span>
-                  {preview.canBuy ? <span className="upgrade-result-chip">구매 후 Lv.{preview.nextLevel}</span> : null}
+                <div className="upgrade-copy">
+                  <div className="upgrade-status-row">
+                    <span className="upgrade-tier-chip">{tierNameById.get(item.tier) ?? item.tier}</span>
+                    {item.canBuy ? <span className="upgrade-ready-chip">구매 가능</span> : null}
+                  </div>
+                  <div className="upgrade-title-row">
+                    <h3>{item.name}</h3>
+                  </div>
+                  {!item.unlocked ? <ProgressBar value={item.unlockProgress} label={item.unlockLabel} /> : null}
+                  <div className="upgrade-meta" data-qa="upgrade-stat-row">
+                    <span>
+                      <small>현재</small>
+                      Lv.{item.level}
+                    </span>
+                    <span>
+                      <small>효과</small>
+                      {item.effectText}
+                    </span>
+                    {preview.canBuy ? <span className="upgrade-result-chip">구매 후 Lv.{preview.nextLevel}</span> : null}
+                  </div>
+                  <p className="upgrade-ui-copy">{item.uiCopy}</p>
+                  <p className="upgrade-description">{item.description}</p>
+                  <span className="upgrade-family-chip">{familyLabel}</span>
                 </div>
-                <p className="upgrade-ui-copy">{item.uiCopy}</p>
-                <p className="upgrade-description">{item.description}</p>
-                <span className="upgrade-family-chip">{familyLabel}</span>
               </div>
-              <div className="upgrade-buy-slot ui-shelf-card__buy">
-                <span className="cost-plaque ui-plaque ui-cost-plaque">{purchaseLabel}</span>
+              <div className="upgrade-buy-slot ui-shelf-card__buy" data-qa="upgrade-purchase-tray">
+                <span className="cost-plaque ui-plaque ui-cost-plaque" data-qa="upgrade-cost">{purchaseLabel}</span>
                 <Button
                   className="upgrade-buy-button"
                   variant={preview.canBuy ? "primary" : "secondary"}

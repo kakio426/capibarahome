@@ -1382,10 +1382,10 @@
 .upgrade-shelf-card {
   isolation: isolate;
   overflow: visible;
-  grid-template-columns: 104px minmax(0, 1fr);
-  gap: 9px 12px;
+  grid-template-columns: 1fr;
+  gap: 9px;
   align-items: stretch;
-  padding: 11px;
+  padding: 10px;
   border-width: 4px;
   border-radius: 12px;
   background:
@@ -1396,41 +1396,49 @@
 
 .ui-shelf-card::before,
 .upgrade-shelf-card::before {
-  inset: auto 10px -10px;
+  inset: 12px auto 12px 8px;
   z-index: 0;
-  width: auto;
-  height: 16px;
-  border: 3px solid #2f1b12;
-  border-radius: 0 0 10px 10px;
-  background: linear-gradient(180deg, #74431f, #2f1b12);
-  opacity: 1;
-  box-shadow: 0 6px 0 rgba(47, 27, 18, 0.18);
+  width: 5px;
+  height: auto;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffd35f, #e8751d 56%, #5b341c);
+  opacity: 0.72;
+  box-shadow: 0 0 0 1px rgba(47, 27, 18, 0.16);
 }
 
 .ui-shelf-card::after,
 .upgrade-shelf-card::after {
   content: "";
   position: absolute;
-  left: 122px;
-  top: 12px;
-  bottom: 18px;
+  left: 22px;
+  right: 12px;
+  top: 9px;
   z-index: 0;
-  width: 4px;
+  height: 3px;
   border-radius: 99px;
-  background: linear-gradient(180deg, rgba(47, 27, 18, 0.45), rgba(255, 235, 170, 0.22));
+  background: linear-gradient(90deg, rgba(255, 246, 207, 0.42), rgba(47, 27, 18, 0.08));
+}
+
+.upgrade-card-body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(76px, 27%) minmax(0, 1fr);
+  gap: 9px;
+  align-items: stretch;
 }
 
 .ui-tool-slot,
 .upgrade-tool-slot {
   position: relative;
   z-index: 1;
-  grid-row: 1 / span 2;
-  min-height: 132px;
+  min-height: 112px;
   display: grid;
   place-items: center;
   align-content: center;
-  padding: 10px 8px 20px;
-  border: 4px solid rgba(47, 27, 18, 0.72);
+  padding: 28px 7px 18px;
+  border: 3px solid rgba(47, 27, 18, 0.72);
   border-radius: 12px;
   background:
     radial-gradient(circle at 50% 22%, rgba(255, 246, 207, 0.82), transparent 50px),
@@ -1442,13 +1450,13 @@
 .ui-tool-slot > span,
 .upgrade-tool-slot > span {
   position: absolute;
-  left: 8px;
-  right: 8px;
-  top: 8px;
+  left: 7px;
+  right: 7px;
+  top: 7px;
   z-index: 2;
   border: 2px solid rgba(255, 235, 170, 0.24);
   border-radius: 8px;
-  padding: 2px 4px;
+  padding: 2px 3px;
   color: rgba(255, 246, 207, 0.88);
   background: rgba(43, 25, 15, 0.28);
   font-size: 0.58rem;
@@ -1462,8 +1470,8 @@
   position: absolute;
   left: 10px;
   right: 10px;
-  bottom: 22px;
-  height: 18px;
+  bottom: 15px;
+  height: 13px;
   border: 3px solid rgba(47, 27, 18, 0.64);
   border-radius: 999px;
   background:
@@ -1477,8 +1485,8 @@
   position: absolute;
   left: 12px;
   right: 12px;
-  bottom: 8px;
-  height: 10px;
+  bottom: 6px;
+  height: 8px;
   border-radius: 50%;
   background: rgba(20, 14, 9, 0.28);
   filter: blur(2px);
@@ -1488,12 +1496,12 @@
 .upgrade-tool-slot .upgrade-icon {
   position: relative;
   z-index: 1;
-  width: 82px;
-  height: 82px;
+  width: 68px;
+  height: 68px;
   border-width: 0;
   background: transparent;
   box-shadow: none;
-  transform: translateY(-4px);
+  transform: translateY(1px);
   filter:
     drop-shadow(0 8px 0 rgba(24, 14, 8, 0.2))
     drop-shadow(0 12px 14px rgba(31, 20, 12, 0.24));
@@ -1501,49 +1509,65 @@
 
 .upgrade-shelf-card .upgrade-copy {
   z-index: 1;
-  gap: 7px;
+  gap: 5px;
+}
+
+.upgrade-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+  min-width: 0;
 }
 
 .upgrade-shelf-card .upgrade-title-row {
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 6px;
+  display: block;
+  min-width: 0;
 }
 
 .upgrade-shelf-card .upgrade-title-row h3 {
-  grid-column: 1 / -1;
   color: #2f1d12;
-  font-size: 1.08rem;
+  font-size: 1.02rem;
+  line-height: 1.06;
   text-shadow: 0 1px 0 rgba(255, 248, 216, 0.52);
+}
+
+.upgrade-shelf-card .upgrade-tier-chip,
+.upgrade-shelf-card .upgrade-ready-chip {
+  grid-column: auto;
+  min-height: 24px;
+  display: inline-grid;
+  place-items: center;
+  border: 2px solid rgba(71, 41, 20, 0.34);
+  border-radius: 8px;
+  padding: 2px 8px;
+  color: #1f5e6b;
+  background: linear-gradient(180deg, rgba(246, 240, 183, 0.94), rgba(214, 184, 101, 0.76));
+  box-shadow: 0 3px 0 rgba(47, 27, 18, 0.18);
+  font-size: 0.64rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.upgrade-shelf-card .upgrade-ready-chip {
+  color: #351e12;
+  background: linear-gradient(180deg, rgba(255, 223, 134, 0.96), rgba(218, 151, 67, 0.8));
 }
 
 .upgrade-description {
   margin: 0;
   color: #4b341f;
-  font-size: 0.69rem;
+  font-size: 0.68rem;
   font-weight: 820;
-  line-height: 1.28;
+  line-height: 1.3;
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
 }
 
 .upgrade-shelf-card .upgrade-ui-copy {
-  margin: 0;
-  border: 3px solid rgba(65, 38, 20, 0.28);
-  border-radius: 9px;
-  padding: 7px 9px;
-  color: #173e32;
-  background:
-    radial-gradient(circle at 92% 30%, rgba(255, 214, 92, 0.42), transparent 72px),
-    linear-gradient(180deg, rgba(255, 246, 207, 0.86), rgba(244, 190, 88, 0.52));
-  font-size: 0.73rem;
-  font-weight: 900;
-  line-height: 1.24;
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
+  display: none;
 }
 
 .upgrade-shelf-card .progress-block {
@@ -1554,40 +1578,44 @@
 }
 
 .upgrade-meta {
-  gap: 6px;
-  grid-template-columns: 0.78fr 1.1fr auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 .upgrade-shelf-card .upgrade-meta span {
-  min-height: 32px;
+  min-height: 29px;
   display: grid;
   align-content: center;
   gap: 1px;
   border-radius: 8px;
-  padding: 5px 7px;
+  padding: 4px 6px;
+  border: 2px solid rgba(65, 38, 20, 0.22);
   background:
-    linear-gradient(180deg, #fff1bd, #d69e50);
+    linear-gradient(180deg, rgba(255, 244, 191, 0.9), rgba(218, 166, 86, 0.58));
   color: #244936;
-  font-size: 0.7rem;
+  font-size: 0.67rem;
   font-weight: 950;
+  box-shadow: inset 0 1px 0 rgba(255, 250, 224, 0.52);
 }
 
 .upgrade-shelf-card .upgrade-meta span small {
   color: rgba(36, 73, 54, 0.74);
-  font-size: 0.52rem;
+  font-size: 0.5rem;
   font-weight: 950;
   line-height: 1;
 }
 
 .upgrade-shelf-card .upgrade-meta .upgrade-result-chip {
-  min-width: 86px;
-  color: #fff4cc;
+  min-width: 84px;
+  color: #5d2a11;
   background:
-    linear-gradient(180deg, rgba(255, 181, 72, 0.95), rgba(161, 69, 24, 0.92));
-  box-shadow: inset 0 1px 0 rgba(255, 246, 207, 0.34);
+    linear-gradient(180deg, rgba(255, 229, 135, 0.96), rgba(224, 153, 62, 0.72));
+  box-shadow: inset 0 1px 0 rgba(255, 246, 207, 0.42);
 }
 
 .upgrade-family-chip {
+  display: none;
   justify-self: start;
   border: 2px solid rgba(47, 27, 18, 0.28);
   border-radius: 999px;
@@ -1602,17 +1630,32 @@
 .upgrade-buy-slot {
   position: relative;
   z-index: 1;
-  grid-column: 2;
+  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(92px, 108px);
+  grid-template-columns: minmax(0, 1fr) minmax(108px, 122px);
   gap: 8px;
   align-items: center;
-  border: 4px solid rgba(47, 27, 18, 0.2);
+  min-height: 58px;
+  border: 3px solid rgba(47, 27, 18, 0.32);
   border-radius: 12px;
-  padding: 6px;
+  padding: 7px;
   background:
-    linear-gradient(180deg, rgba(58, 34, 18, 0.16), rgba(255, 236, 174, 0.36));
-  box-shadow: inset 0 2px 0 rgba(255, 250, 224, 0.32);
+    radial-gradient(circle at 12% 20%, rgba(255, 232, 151, 0.34), transparent 80px),
+    linear-gradient(180deg, rgba(71, 42, 22, 0.18), rgba(255, 236, 174, 0.48));
+  box-shadow: inset 0 2px 0 rgba(255, 250, 224, 0.42), 0 3px 0 rgba(55, 32, 17, 0.15);
+}
+
+.upgrade-buy-slot .cost-plaque {
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  padding-inline: 8px;
+  text-align: center;
+  line-height: 1.12;
+}
+
+.upgrade-buy-slot .upgrade-buy-button {
+  min-height: 44px;
 }
 
 .upgrade-shelf-card.is-buyable {
@@ -2371,26 +2414,39 @@
   }
 
   .upgrade-shelf-card {
-    grid-template-columns: 84px minmax(0, 1fr);
     gap: 8px;
     padding: 9px;
   }
 
-  .upgrade-shelf-card::after {
-    left: 100px;
+  .upgrade-card-body {
+    grid-template-columns: 78px minmax(0, 1fr);
+    gap: 8px;
   }
 
   .upgrade-tool-slot {
-    min-height: 124px;
+    min-height: 104px;
+    padding: 26px 6px 16px;
   }
 
   .upgrade-tool-slot .upgrade-icon {
-    width: 72px;
-    height: 72px;
+    width: 58px;
+    height: 58px;
+  }
+
+  .upgrade-shelf-card .upgrade-tier-chip,
+  .upgrade-shelf-card .upgrade-ready-chip {
+    min-height: 22px;
+    padding-inline: 6px;
+    font-size: 0.6rem;
+  }
+
+  .upgrade-shelf-card .upgrade-title-row h3 {
+    font-size: 0.98rem;
   }
 
   .upgrade-description {
-    font-size: 0.72rem;
+    font-size: 0.66rem;
+    -webkit-line-clamp: 2;
   }
 
   .upgrade-shelf-card .upgrade-ui-copy {
@@ -2398,11 +2454,17 @@
   }
 
   .upgrade-meta {
-    grid-template-columns: 0.7fr 1fr;
+    gap: 4px;
+  }
+
+  .upgrade-shelf-card .upgrade-meta span {
+    min-height: 28px;
+    padding: 3px 5px;
+    font-size: 0.63rem;
   }
 
   .upgrade-shelf-card .upgrade-meta .upgrade-result-chip {
-    grid-column: 1 / -1;
+    min-width: 80px;
   }
 
   .upgrade-family-chip {
@@ -2410,15 +2472,16 @@
   }
 
   .upgrade-buy-slot {
-    grid-template-columns: minmax(0, 1fr) minmax(80px, 92px);
-    padding: 5px;
+    grid-template-columns: minmax(0, 1fr) minmax(96px, 108px);
+    min-height: 56px;
+    padding: 6px;
   }
 
   .upgrade-buy-button {
     width: auto;
-    min-width: 80px;
+    min-width: 96px;
     padding-inline: 7px;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
   }
 
   .prestige-result-grid {
