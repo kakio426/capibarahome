@@ -1,6 +1,6 @@
 # 카피바라 집사기
 
-모바일 브라우저 우선으로 만든 Vite + React + TypeScript 방치형 클리커 게임입니다. 유저는 카피바라 집사가 되어 귤을 모으고, 업그레이드를 구매하고, 환생으로 황금 나뭇잎 영구 배율을 얻습니다.
+모바일 브라우저 우선으로 만든 Vite + React + TypeScript 방치형 클리커 게임입니다. 유저는 카피바라 집사가 되어 귤을 모으고, 성장을 구매하고, 환생으로 황금 나뭇잎 영구 배율을 얻습니다. RC20 기준 UI는 기존 장식형 카드 HUD를 제품 관점에서 재부팅해 밝은 귤 정원, 큰 터치 장면, 한 번에 하나의 다음 행동, 명확한 보상 피드백을 우선합니다.
 
 ## 실행
 
@@ -27,7 +27,9 @@ npm run cap:sync
 - 40개 업적 보상 claim UX: 귤, 황금 나뭇잎, 장식 해금, 친밀도, 영구 multiplier
 - 5개 성장 구간별 unlock toast, 보상 설명, 홈 장기 목표
 - 직접 제작한 SVG auxiliary asset pack 253개와 핵심 raster PNG art pack 15개 연결
-- v2 raster home/prestige/shop/offline/store key visual 후보, wood/parchment/orange game HUD skin, store screenshot 후보 10장
+- v2 raster home/prestige/shop/offline/store key visual 후보와 RC20 bright citrus garden UI, store screenshot 후보 10장
+- RC20 product reboot: `MobileGameShell`, `TopHud`, `BottomNav`, `GameButton`, `GamePanel`, `RewardSheet`, `ActionToast`, `RewardBurst` 기반의 모바일 게임 UI 구조
+- RC20 first-session flow: 홈의 큰 카피바라/귤 터치 장면, 한 가지 next-action CTA, 성장 구매 전후 delta, reward sheet screenshot evidence
 - RC-4 interaction polish: upgrade workbench/shelf UI, settings ledger/drawer, save vault modal, custom settings switches, save export copy action, modal/toast/card HUD polish
 - RC-5 CSS component pass: `layout.css` import manifest, `shell/hud/screens/effects` split, reusable `.ui-*` game skin classes, upgrade/settings/save/album polish
 - RC-6 product feel pass: quick-buy `1개/10개/최대`, purchase/offline/prestige/album reveal, touch variation
@@ -70,7 +72,7 @@ npm run cap:sync
 
 ## Capacitor
 
-`capacitor.config.ts`와 scripts는 준비되어 있습니다. RC-14 기준 Android shell은 생성되어 있고, Gradle build는 이 머신의 Java runtime 부재로 미실행입니다. iOS shell은 CocoaPods/Xcode 환경 준비 전까지 미생성입니다. 플랫폼 asset 후보와 Google Play feature graphic 후보는 `npm run export:assets`로 `platform-assets/`와 `store-screenshots/`에 생성합니다.
+`capacitor.config.ts`와 scripts는 준비되어 있습니다. Android shell은 생성되어 있고 RC15/RC16에서 debug/release rehearsal build를 검증했습니다. iOS shell은 `npx cap add ios`와 sync까지 검증했지만, 실제 simulator/device build와 제출에는 Xcode platform, signing, Apple Developer 계정이 필요합니다. 플랫폼 asset 후보와 Google Play feature graphic 후보는 `npm run export:assets`로 `platform-assets/`와 `store-screenshots/`에 생성합니다.
 
 ```bash
 npm run export:assets
@@ -80,3 +82,9 @@ npm run cap:sync
 새 환경에서 iOS project를 만들려면 CocoaPods 설치 후 `npx cap add ios`를 실행해야 합니다.
 
 제출 전 체크리스트는 `RELEASE_CHECKLIST.md`를 기준으로 확인합니다.
+
+## RC20 Product Reboot Notes
+
+- 기존 RC 문서의 P1 없음 선언은 RC20 제품 만족도의 완료 근거로 사용하지 않습니다.
+- RC20은 game/core/state/systems/save/balance를 보존하고 `src/ui/layout`, `src/ui/primitives`, `src/ui/feedback`, `src/ui/styles/theme.css`, `components.css`, `app.css`를 추가해 표현 계층을 재정리했습니다.
+- 실제 Android 폰 screenshot/video는 아직 `device-qa/incoming/`에 없으므로, 최종 제품 만족 판정은 새 APK 설치 후 물리 기기 재확인이 필요합니다.

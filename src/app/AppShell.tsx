@@ -26,7 +26,10 @@ import { TutorialOverlay } from "../ui/screens/TutorialOverlay";
 import { Modal } from "../ui/components/Modal";
 import { Button } from "../ui/components/Button";
 import { RasterAssetImage } from "../ui/components/RasterAssetImage";
-import { VisualAssetIcon } from "../ui/components/VisualAssetIcon";
+import { ActionToast } from "../ui/primitives/ActionToast";
+import { MobileGameShell } from "../ui/layout/MobileGameShell";
+import { TopHud } from "../ui/layout/TopHud";
+import { BottomNav } from "../ui/layout/BottomNav";
 
 function formatDuration(seconds: number) {
   const hours = Math.floor(seconds / 3600);
@@ -343,46 +346,17 @@ export function AppShell() {
   }
 
   return (
-    <div className="app-frame ui-game-frame">
-      <div
-        className="game-shell ui-game-shell"
-        data-tutorial-active-target={tutorialTarget}
-        data-sound-muted={state.settings.soundMuted ? "true" : "false"}
-        data-effects-enabled={state.settings.effectsEnabled ? "true" : "false"}
-        data-last-action-kind={state.lastAction?.kind ?? "none"}
-        data-toast-visible={state.lastToast ? "true" : "false"}
-      >
-        <header className="top-bar ui-carved-header">
-          <div>
-            <span className="app-kicker">귤 정원 돌봄</span>
-            <h1>카피바라 집사기</h1>
-          </div>
-          <div className="save-dot ui-plaque ui-plaque--save" title="자동 저장 활성">저장</div>
-        </header>
-
-        <div className="content-shell">
-          {renderTab(activeTab, handleTap, setActiveTab)}
-        </div>
-
-        <nav className="bottom-tabs ui-tab-dock" aria-label="주요 화면">
-          {routes.map((route) => (
-            <button
-              key={route.id}
-              type="button"
-              aria-label={route.ariaLabel ?? route.label}
-              className={`ui-tab-dock__item ${activeTab === route.id ? "is-active" : ""}`.trim()}
-              onClick={() => {
-                if (activeTab !== route.id) SoundManager.play("navigation");
-                setActiveTab(route.id);
-              }}
-            >
-              <VisualAssetIcon assetKey={route.icon} className="tab-icon" />
-              <strong>{route.label}</strong>
-            </button>
-          ))}
-        </nav>
-
-        {state.lastToast ? <div className="toast ui-toast-banner" role="status">{state.lastToast}</div> : null}
+    <MobileGameShell
+      top={<TopHud />}
+      bottom={<BottomNav activeTab={activeTab} onNavigate={setActiveTab} />}
+      tutorialTarget={tutorialTarget}
+      soundMuted={state.settings.soundMuted}
+      effectsEnabled={state.settings.effectsEnabled}
+      lastActionKind={state.lastAction?.kind ?? "none"}
+      toastVisible={Boolean(state.lastToast)}
+      overlays={(
+        <>
+        {state.lastToast ? <ActionToast message={state.lastToast} /> : null}
         <FloatingTextLayer items={visibleFloatingTexts} />
         <ParticleLayer items={visibleParticles} />
         <TutorialOverlay />
@@ -426,7 +400,10 @@ export function AppShell() {
           </div>
           <strong className="offline-reward reward-count">+{state.offlineReward?.oranges.format(state.settings.numberFormat)} 귤</strong>
         </Modal>
-      </div>
-    </div>
+        </>
+      )}
+    >
+      {renderTab(activeTab, handleTap, setActiveTab)}
+    </MobileGameShell>
   );
 }

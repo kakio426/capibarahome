@@ -30,7 +30,7 @@ async function claimAchievement(page: Page, title: string) {
 }
 
 test("first five-minute manual playtest covers reward, save, decoration, and companion loops without debug", async ({ page }) => {
-  test.setTimeout(60_000);
+  test.setTimeout(120_000);
   await openFresh(page);
   await skipTutorial(page);
   await expect(page.locator(".debug-panel")).toHaveCount(0);

@@ -22,7 +22,7 @@ test("seeded D1 daily reward can be claimed once and survives reload", async ({ 
 
   await expect(page.locator(".retention-panel")).toContainText("수령 가능");
   await page.getByRole("button", { name: "복귀 보상 받기" }).click();
-  await expect(page.locator(".toast", { hasText: "복귀 보상 수령" })).toBeVisible();
+  await expect(page.getByRole("dialog", { name: "복귀 보상 도장" })).toBeVisible();
   await expect(page.locator(".retention-reveal-banner")).toBeVisible();
 
   await page.reload();

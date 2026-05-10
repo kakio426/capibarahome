@@ -663,3 +663,47 @@ Fix:
 - 남은 리스크:
   - 실제 Android phone screenshot/video는 여전히 미제공이다.
   - 사용자는 새 APK를 설치하고 홈 터치 20회, 업그레이드 구매 1회, quick-buy max, 보상 claim, daily reward, milestone claim, 환생 결과, 설정 토글, 저장 export/import, 하단 탭 반복 전환, modal 열고 닫기, 앱 종료 후 재실행을 `DEVICE_QA_CHECKLIST.md` 기준으로 확인해야 한다.
+
+## RC-20 Product Reboot UI/UX Pass
+
+- 실제 Android 폰 사용 피드백에서 기존 인터페이스가 만족스럽지 않다는 판단을 P1 product issue로 처리했다.
+- 이번 pass는 기존 game/core/state/systems/save/balance 로직을 유지하고, UI shell/primitives/feedback/CSS product layer를 재구성했다.
+- 새 코드 구조:
+  - `src/ui/layout/MobileGameShell.tsx`, `TopHud.tsx`, `BottomNav.tsx`
+  - `src/ui/primitives/GameButton.tsx`, `GamePanel.tsx`, `NumberPill.tsx`, `ProgressMeter.tsx`, `RewardSheet.tsx`, `ActionToast.tsx`
+  - `src/ui/feedback/RewardBurst.tsx`
+  - `src/ui/styles/theme.css`, `components.css`, `app.css`
+  - `e2e/playability-reboot.spec.ts`
+- Product fixes:
+  - 홈을 밝은 귤 정원 중심의 큰 tap scene으로 재구성했다.
+  - next-action panel을 한 번에 하나의 행동만 안내하도록 정돈했다.
+  - 성장 화면은 기존 과장된 카드/레일 느낌을 줄이고, 성장 선택지, level/effect delta, cost tray, CTA를 분리했다.
+  - reward sheet screenshot을 추가해 보상 획득 순간을 toast만으로 끝내지 않게 했다.
+  - toast는 모달 제목/확인 버튼을 덮지 않도록 compact top status로 축소하고 modal backdrop 위에서는 숨긴다.
+- RC-20 visual evidence:
+  - `qa-screenshots/360x740-home.png`
+  - `qa-screenshots/390x844-upgrades-quick-buy.png`
+  - `qa-screenshots/390x844-reward-sheet.png`
+  - `qa-screenshots/390x844-daily-reward-claim.png`
+  - `qa-screenshots/390x844-save-modal.png`
+  - `qa-screenshots/android-webview-360x800-home.png`
+  - `qa-screenshots/android-webview-360x800-upgrades.png`
+- RC-20 verification:
+  - `npx playwright test e2e/layout-regression.spec.ts e2e/playability-reboot.spec.ts --reporter=line`: success, 15 passed
+  - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: success, 11 passed after RC20 screenshot regeneration
+  - `npm test`: success, 23 files / 502 tests
+  - `npm run build`: success
+  - `npm run test:e2e`: success, 58 passed after Playwright worker count was reduced to 2 for stable heavy visual/layout execution
+  - `npx playwright test e2e/layout-regression.spec.ts --reporter=line`: success, 10 passed
+  - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: success, 11 passed
+  - `npm run export:assets`: success
+  - `npm run cap:sync`: success
+  - `npx cap sync android`: success
+  - `cd android && JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home ANDROID_HOME=/opt/homebrew/share/android-commandlinetools ANDROID_SDK_ROOT=/opt/homebrew/share/android-commandlinetools ./gradlew assembleDebug assembleRelease`: success
+  - `git diff --check`: success
+- RC-20 Android APK:
+  - Debug APK: `android/app/build/outputs/apk/debug/app-debug.apk` (`20,411,698 bytes`, generated 2026-05-10 12:02:36 KST)
+  - Release rehearsal APK: `android/app/build/outputs/apk/release/app-release.apk` (`19,369,609 bytes`, generated 2026-05-10 12:02:39 KST)
+- 남은 리스크:
+  - `device-qa/incoming/`에 실제 Android phone screenshot/video가 아직 없다.
+  - RC20 internal screenshot/DOM 기준 P1은 줄였지만, active goal completion은 새 APK physical retest 이후에만 판단한다.

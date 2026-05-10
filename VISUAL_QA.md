@@ -350,3 +350,25 @@ RC-19 manual spot check:
 ## Remaining Visual Risk
 
 RC-19 playability pass 기준 기술적 visual overflow P0/P1, CTA/tab occlusion P1, modal clickability P1, store public copy P1, visible CTA center blocking P0는 Playwright/DOM/screenshot 기준 발견되지 않았다. `RC14_INDEPENDENT_RESCORE.md`는 internal product UI average를 8.1로 기록한다. 남은 P2/P3는 daily reward sheet polish, milestone sticker-board polish, server-verified calendar/push notification, companion room 자유 배치, 더 긴 offline count-up animation, 저장 코드의 본질적 밀도, final commissioned art ownership/legal approval, final adaptive icon foreground/background, feature graphic final approval, 물리 기기 store screenshot 재촬영이다. 실제 Android phone screenshot/video는 아직 없으므로 physical-device UI 판정은 external verification으로 남는다.
+
+## RC-20 Product Reboot Visual Reassessment
+
+사용자가 실제 Android 폰 플레이 후 기존 UI/UX를 만족하지 못한다고 판단했으므로, 이전 "P1 없음" visual 선언은 RC20 제품 만족도 완료 근거로 사용하지 않는다. RC20은 기존 wood/parchment/orange skin을 방어하지 않고, 밝은 귤 정원 중심의 모바일 idle game UI로 핵심 shell/home/growth/reward feedback을 재구성했다.
+
+| Screen | RC20 Result | Evidence |
+| --- | --- | --- |
+| Home | 큰 카피바라/귤 장면과 `귤 주기` CTA가 첫 시선이 되며, next-action은 한 가지 행동만 제시한다. | `qa-screenshots/360x740-home.png`, `qa-screenshots/390x844-home.png` |
+| Growth / quick-buy | 장식 레일이 CTA를 덮던 카드 언어를 줄이고, 성장 선택지, level/effect delta, cost tray, CTA를 분리했다. | `qa-screenshots/360x740-upgrades-quick-buy.png`, `qa-screenshots/390x844-upgrades-quick-buy.png` |
+| Reward sheet | daily/reward claim이 toast만으로 끝나지 않고 획득량/다음 보상 sheet로 보인다. | `qa-screenshots/390x844-reward-sheet.png`, `qa-screenshots/390x844-daily-reward-claim.png` |
+| Save modal | toast가 modal title/action을 덮지 않도록 suppress되며, export/import controls는 mobile width 안에 유지된다. | `qa-screenshots/390x844-save-modal.png` |
+| Settings | toast는 content title을 덮지 않는 compact status로 축소됐다. Save button 위를 잠깐 덮는 것은 P2로 남으며 pointer-events는 없다. | `qa-screenshots/390x844-settings.png` |
+| Android-like viewports | 320/360/393/412/430 guard와 Android WebView-like screenshot set을 유지한다. | `qa-screenshots/android-webview-360x800-home.png`, `qa-screenshots/android-webview-360x800-upgrades.png` |
+
+RC20 screenshot regeneration:
+
+```txt
+npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line
+11 passed
+```
+
+남은 visual gate는 실제 Android phone screenshot/video다. `device-qa/incoming/`이 비어 있으므로 physical-device visual verdict는 아직 완료로 보지 않는다.

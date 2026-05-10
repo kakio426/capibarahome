@@ -1,29 +1,5 @@
-import { ButtonHTMLAttributes, PropsWithChildren } from "react";
+import { GameButton, type GameButtonProps } from "../primitives/GameButton";
 
-type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
-
-type ButtonProps = PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: ButtonVariant;
-  fullWidth?: boolean;
-}>;
-
-export function Button({ children, className = "", variant = "primary", fullWidth = false, ...props }: ButtonProps) {
-  const classes = [
-    "btn",
-    `btn-${variant}`,
-    "ui-button",
-    `ui-button--${variant}`,
-    fullWidth ? "btn-full ui-button--full" : "",
-    className,
-  ].filter(Boolean).join(" ");
-
-  return (
-    <button
-      className={classes}
-      data-ui-critical="button"
-      {...props}
-    >
-      {children}
-    </button>
-  );
+export function Button(props: GameButtonProps) {
+  return <GameButton {...props} />;
 }

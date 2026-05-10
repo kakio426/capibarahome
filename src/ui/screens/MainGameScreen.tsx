@@ -14,6 +14,8 @@ import { Modal } from "../components/Modal";
 import { ProgressBar } from "../components/ProgressBar";
 import { RasterAssetImage } from "../components/RasterAssetImage";
 import { VisualAssetIcon } from "../components/VisualAssetIcon";
+import { RewardBurst } from "../feedback/RewardBurst";
+import { NumberPill } from "../primitives/NumberPill";
 
 type MainGameScreenProps = {
   onTap: (event: PointerEvent<HTMLButtonElement>) => void;
@@ -77,9 +79,9 @@ export function MainGameScreen({ onTap, onNavigate }: MainGameScreenProps) {
     if (state.lifetime.totalTaps < 5) {
       return {
         title: "귤 주기 리듬 만들기",
-        detail: `큰 카피바라를 ${5 - state.lifetime.totalTaps}번 더 눌러 첫 보상을 열어요.`,
+        detail: `${5 - state.lifetime.totalTaps}번 더 눌러 첫 보상을 열어요.`,
         reward: `터치마다 +${formatIncomeValue(tapGain, format)} 귤`,
-        label: "터치 위치 보기",
+        label: "터치 보기",
         onClick: () => document.querySelector(".capybara-touch")?.scrollIntoView({ block: "center", behavior: state.settings.effectsEnabled ? "smooth" : "auto" }),
         ready: true,
       };
@@ -170,8 +172,8 @@ export function MainGameScreen({ onTap, onNavigate }: MainGameScreenProps) {
   }
 
   return (
-    <main className="screen home-screen">
-      <div className={`hero-card ${dailyReward.eligible ? "has-daily-badge" : ""} ${currentTier.backgroundClass} ${equippedDecorationClasses}`}>
+    <main className="screen home-screen rc20-home-screen">
+      <div className={`hero-card rc20-home-stage ${dailyReward.eligible ? "has-daily-badge" : ""} ${currentTier.backgroundClass} ${equippedDecorationClasses}`}>
         <div className="currency-grid">
           <CurrencyDisplay label={GameConfig.currency.orange.name} value={state.currencies.orange} assetKey="orange" format={format} />
           <CurrencyDisplay label={GameConfig.currency.goldenLeaf.name} value={state.currencies.goldenLeaf} assetKey="leaf" format={format} />
@@ -184,6 +186,7 @@ export function MainGameScreen({ onTap, onNavigate }: MainGameScreenProps) {
           </span>
           <span className="tap-copy">귤 주기</span>
         </button>
+        <RewardBurst action={state.lastAction} />
 
         <button
           className={dailyReward.eligible ? "home-daily-badge is-ready" : "home-daily-badge"}
@@ -197,14 +200,8 @@ export function MainGameScreen({ onTap, onNavigate }: MainGameScreenProps) {
         </button>
 
         <div className="income-grid">
-          <div className="metric-tile">
-            <span className="metric-label">터치당</span>
-            <strong>{formatIncomeValue(tapGain, format)} 귤</strong>
-          </div>
-          <div className="metric-tile">
-            <span className="metric-label">초당</span>
-            <strong>{formatIncomeValue(eps, format)} 귤/초</strong>
-          </div>
+          <NumberPill label="터치당" className="metric-tile">{formatIncomeValue(tapGain, format)} 귤</NumberPill>
+          <NumberPill label="초당" className="metric-tile">{formatIncomeValue(eps, format)} 귤/초</NumberPill>
         </div>
 
         <section className={`next-action-panel ${nextAction.ready ? "is-ready" : ""}`} aria-label="다음 행동">
@@ -226,6 +223,7 @@ export function MainGameScreen({ onTap, onNavigate }: MainGameScreenProps) {
               }
               if (nextAction.tab) onNavigate(nextAction.tab);
             }}
+            className="next-action-button"
             data-qa="next-action-cta"
           >
             {nextAction.label}

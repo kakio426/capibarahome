@@ -1,0 +1,30 @@
+:root {
+  --rc20-sky: #e9fbff;
+  --rc20-garden: #dff6dd;
+  --rc20-lawn: #69c886;
+  --rc20-leaf: #23855e;
+  --rc20-leaf-dark: #155a42;
+  --rc20-citrus: #ff9f24;
+  --rc20-citrus-deep: #e85f16;
+  --rc20-cream: #fff8dc;
+  --rc20-paper: #fffef8;
+  --rc20-ink: #213128;
+  --rc20-muted: #607366;
+  --rc20-line: rgba(34, 90, 66, 0.16);
+  --rc20-shadow: 0 18px 44px rgba(31, 70, 52, 0.18);
+  --rc20-soft-shadow: 0 10px 24px rgba(31, 70, 52, 0.12);
+  --rc20-button-shadow: 0 5px 0 rgba(157, 62, 15, 0.4), 0 12px 22px rgba(232, 95, 22, 0.2);
+  --z-content: 1;
+  --z-nav: 20;
+  --z-toast: 35;
+  --z-modal: 45;
+  --z-debug: 60;
+}
+
+body {
+  background:
+    radial-gradient(circle at 18% 8%, rgba(255, 216, 111, 0.58), transparent 24rem),
+    radial-gradient(circle at 88% 18%, rgba(105, 200, 134, 0.42), transparent 22rem),
+    linear-gradient(180deg, #e9fbff 0%, #fff8dc 54%, #dff6dd 100%);
+  color: var(--rc20-ink);
+}

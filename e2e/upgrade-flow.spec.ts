@@ -1,10 +1,11 @@
 import { expect, test } from "@playwright/test";
-import { openFresh, seedSave, setOrange, skipTutorial, tapCapybara } from "./helpers";
+import { seedSave, setOrange } from "./helpers";
 
 test("upgrade purchase states match available oranges", async ({ page }) => {
-  await openFresh(page);
-  await skipTutorial(page);
-  await tapCapybara(page, 50);
+  await seedSave(page, (state) => {
+    setOrange(state, "120");
+    state.lifetime.totalTaps = 120;
+  });
 
   await page.getByRole("button", { name: "업그레이드" }).click();
   await page.locator(".upgrade-card", { hasText: "말랑 앞발" }).getByRole("button").click();

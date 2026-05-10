@@ -45,9 +45,9 @@ export function UpgradePanel() {
   const eps = selectEps(state);
   const tierNameById = new Map<string, string>(ProgressionConfig.tiers.map((tier) => [tier.id, tier.name]));
   const purchaseModes: Array<{ id: UpgradePurchaseMode; label: string; note: string; short: string }> = [
-    { id: "one", label: "1개", note: "한 단계씩 정밀 조정", short: "정밀" },
-    { id: "ten", label: "10개", note: "초반 선반 빠르게 채우기", short: "묶음" },
-    { id: "max", label: "최대", note: "현재 귤로 가능한 만큼", short: "전력" },
+    { id: "one", label: "1개", note: "한 단계 구매", short: "정밀" },
+    { id: "ten", label: "10개", note: "10단계 묶음", short: "묶음" },
+    { id: "max", label: "최대", note: "가능한 만큼", short: "전력" },
   ];
   const currentMode = purchaseModes.find((mode) => mode.id === purchaseMode) ?? purchaseModes[0];
 
@@ -58,12 +58,13 @@ export function UpgradePanel() {
   }, [purchaseFeedback]);
 
   return (
-    <main className="screen stack-screen">
+    <main className="screen stack-screen rc20-growth-screen">
       <header className="screen-header">
-        <h2>업그레이드</h2>
-        <p>귤 생산량을 키우는 시설과 집사 능력입니다.</p>
+        <span className="app-kicker">성장 선택지</span>
+        <h2>정원 성장</h2>
+        <p>지금 살 수 있는 성장부터 크게 보여줍니다.</p>
       </header>
-      <section className="upgrade-summary ui-plaque-row" aria-label="업그레이드 요약">
+      <section className="upgrade-summary growth-summary ui-plaque-row" aria-label="업그레이드 요약">
         <div>
           <span className="metric-label">구매 가능</span>
           <strong>{buyableCount}개</strong>
@@ -77,10 +78,10 @@ export function UpgradePanel() {
           <strong>{eps.format(format)} 귤/초</strong>
         </div>
       </section>
-      <section className="quick-buy-panel ui-panel ui-panel--parchment" aria-label="구매 수량 모드">
+      <section className="quick-buy-panel growth-mode-panel ui-panel ui-panel--parchment" aria-label="구매 수량 모드">
         <div className="quick-buy-head">
-          <span className="app-kicker">작업대 레버</span>
-          <strong>{currentMode.note}</strong>
+          <span className="app-kicker">구매 모드</span>
+          <strong>{currentMode.short} · {currentMode.note}</strong>
         </div>
         <div className="quick-buy-mode ui-segmented">
           {purchaseModes.map((mode) => (
@@ -98,7 +99,7 @@ export function UpgradePanel() {
           ))}
         </div>
       </section>
-      <section className="upgrade-list" data-tutorial-target="upgrade">
+      <section className="upgrade-list growth-choice-list" data-tutorial-target="upgrade">
         {upgrades.map((item) => {
           const categoryLabel = item.category === "tap" ? "터치" : "자동 생산";
           const familyLabel = item.category === "tap" ? `${tapCount}종 터치 성장` : `${generatorCount}종 생산 시설`;
@@ -108,7 +109,7 @@ export function UpgradePanel() {
             : preview.reason === "max_level"
               ? "최대 레벨"
               : preview.canBuy
-                ? `${preview.quantity > 1 ? `${preview.quantity}회 · ` : ""}${preview.totalCost.format(format)} 귤`
+                ? `${preview.totalCost.format(format)} 귤`
                 : `귤 부족 ${preview.totalCost.format(format)}`;
           const buyLabel = preview.canBuy
             ? purchaseMode === "one"
@@ -146,7 +147,7 @@ export function UpgradePanel() {
               className={`upgrade-card upgrade-shelf-card ui-shelf-card ${!item.unlocked ? "is-content-locked" : preview.canBuy ? "is-buyable" : "is-locked"} ${isLastPurchase ? "has-purchase-feedback" : ""}`}
               data-qa="upgrade-card"
             >
-              <div className="upgrade-card-body" data-qa="upgrade-card-body">
+              <div className="upgrade-card-body growth-choice-body" data-qa="upgrade-card-body">
                 <div className="upgrade-tool-slot ui-tool-slot" data-qa="upgrade-tool-slot">
                   <VisualAssetIcon assetKey={item.id} className="upgrade-icon" />
                   <span>{categoryLabel}</span>
@@ -160,7 +161,7 @@ export function UpgradePanel() {
                     <h3 data-ui-critical="upgrade-title">{item.name}</h3>
                   </div>
                   {!item.unlocked ? <ProgressBar value={item.unlockProgress} label={item.unlockLabel} /> : null}
-                  <div className="upgrade-meta" data-qa="upgrade-stat-row" data-ui-critical="upgrade-stat-row">
+                  <div className="upgrade-meta growth-stat-row" data-qa="upgrade-stat-row" data-ui-critical="upgrade-stat-row">
                     <span>
                       <small>현재</small>
                       Lv.{item.level}
@@ -176,12 +177,15 @@ export function UpgradePanel() {
                   <span className="upgrade-family-chip">{familyLabel}</span>
                 </div>
               </div>
-              <div className="upgrade-buy-slot ui-shelf-card__buy" data-qa="upgrade-purchase-tray">
+              <div className="upgrade-buy-slot growth-purchase-tray ui-shelf-card__buy" data-qa="upgrade-purchase-tray">
                 <span className={preview.canBuy ? "upgrade-buy-delta is-ready" : "upgrade-buy-delta"} data-ui-critical="upgrade-buy-delta">
                   <strong>{levelDelta}</strong>
                   <em>{gainDelta}</em>
                 </span>
-                <span className="cost-plaque ui-plaque ui-cost-plaque" data-qa="upgrade-cost" data-ui-critical="upgrade-cost">{purchaseLabel}</span>
+                <span className="cost-plaque ui-plaque ui-cost-plaque" data-qa="upgrade-cost" data-ui-critical="upgrade-cost">
+                  {preview.canBuy && preview.quantity > 1 ? <small>{preview.quantity}회 비용</small> : null}
+                  <strong>{purchaseLabel}</strong>
+                </span>
                 <Button
                   className="upgrade-buy-button"
                   variant={preview.canBuy ? "primary" : "secondary"}

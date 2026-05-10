@@ -2,7 +2,7 @@
 
 기준일: 2026-05-09
 
-이 문서는 제출 전 실제 물리 기기에서 실행할 QA 체크리스트다. RC-18/RC-19 환경에서는 Playwright, Capacitor sync, Android debug/release rehearsal build, Android WebView-like 320/360/393/412 layout regression, 110/120% font scaling guard, quick-buy dial geometry guard, prestige result modal partial-clip guard, playability touch/reward E2E까지 자동 검증했고, 물리 기기 QA는 수행하지 않았다. 실제 결과는 `DEVICE_QA_RESULTS_TEMPLATE.md`에 기록한다.
+이 문서는 제출 전 실제 물리 기기에서 실행할 QA 체크리스트다. RC-18/RC-19 환경에서는 Playwright, Capacitor sync, Android debug/release rehearsal build, Android WebView-like 320/360/393/412 layout regression, 110/120% font scaling guard, quick-buy dial geometry guard, prestige result modal partial-clip guard, playability touch/reward E2E까지 자동 검증했고, RC20에서는 홈/성장/보상 UI를 product reboot했다. 물리 기기 QA는 아직 수행하지 않았다. 실제 결과는 `DEVICE_QA_RESULTS_TEMPLATE.md`에 기록한다.
 
 ## Automated Coverage Before Physical QA
 
@@ -15,10 +15,12 @@
 | Web build | 완료 | `npm run build`, Vite large chunk warning removed |
 | Android Capacitor shell | 완료 후보 | `android/` exists, `npx cap doctor` Android OK |
 | Android Gradle build | 완료 후보 | JDK 21, `./gradlew assembleDebug`, `./gradlew lint` 통과 |
-| Android debug APK | 완료 후보 | `android/app/build/outputs/apk/debug/app-debug.apk` |
+| Android debug APK | 완료 후보 | RC20 regenerated `android/app/build/outputs/apk/debug/app-debug.apk` (`20,411,698 bytes`, 2026-05-10 12:02:36 KST) |
+| Android release rehearsal APK | 완료 후보 | RC20 regenerated `android/app/build/outputs/apk/release/app-release.apk` (`19,369,609 bytes`, 2026-05-10 12:02:39 KST) |
 | iOS native shell | 완료 후보 | `npx cap add ios`, `npx cap sync ios`, `npx cap doctor` 통과 |
 | iOS simulator/native build | 환경 차단 | CoreSimulator out-of-date, iOS 26.4 platform missing |
 | Device QA diagnostics overlay | 완료 | 앱 URL에 `?deviceQa=1` 추가 시 viewport/DPR/visualViewport/safe-bottom/font stack/userAgent/top-layer와 최근 20개 pointer/click target log 표시 |
+| RC20 product reboot playability | 완료 후보 | `e2e/playability-reboot.spec.ts`, `qa-screenshots/360x740-home.png`, `qa-screenshots/390x844-upgrades-quick-buy.png`, `qa-screenshots/390x844-reward-sheet.png` |
 | ADB capture helper | 완료 | `npm run device:qa:devices`, `device:qa:install`, `device:qa:launch`, `device:qa:info`, `device:qa:capture -- <screen>`, `device:qa:record -- <screen> [seconds]` |
 
 ## ADB Capture Helper
@@ -57,6 +59,8 @@ npm run device:qa:record -- tap-and-modal-flow 15
 | TBD | TBD | Android WebView | Debug APK | 320~360px급 좁은 화면 | home CTA, upgrade first/second CTA, save modal action이 하단 탭/gesture area에 가려지지 않음 | 미실행 | 미실행 | TBD | 작은 화면 또는 display size 확대 |
 | TBD | TBD | Android WebView | Debug APK | `?deviceQa=1` 진단 overlay | viewport/DPR/visualViewport/safe-bottom/font stack/userAgent/top-layer와 최근 20개 tap/click target log가 표시되고 일반 실행에서는 표시되지 않음 | 미실행 | 미실행 | TBD | screenshot을 `device-qa/incoming/`에 저장 |
 | TBD | TBD | Android WebView | Debug APK | 홈 터치 20회 | 귤 숫자가 즉시 증가하고 `+N 귤` floating feedback이 보이며 next-action panel이 다음 행동을 하나만 안내함 | 미실행 | 미실행 | TBD | RC-19 playability retest |
+| TBD | TBD | Android WebView | Debug APK | RC20 첫 5초 홈 판단 | 앱을 열자마자 큰 카피바라/귤 터치 장면과 `귤 주기` CTA가 보여 무엇을 눌러야 하는지 즉시 이해됨 | 미실행 | 미실행 | TBD | 기존 UI rejected feedback 재검증 |
+| TBD | TBD | Android WebView | Debug APK | RC20 첫 10분 흐름 | tap -> 성장 구매 -> reward/album/prestige 목표가 한 번에 하나씩 이어지고 shop/IAP가 초반 핵심 루프를 방해하지 않음 | 미실행 | 미실행 | TBD | `RC20_FIRST_10_MINUTES_FLOW.md` 기준 |
 | TBD | TBD | Android WebView | Debug APK | 업그레이드 구매 1회 | 구매 후 카드에 result banner가 뜨고 레벨/효과 delta가 즉시 이해됨 | 미실행 | 미실행 | TBD | `성장` 탭 |
 | TBD | TBD | Android WebView | Debug APK | quick-buy 최대 구매 | `최대 N회` CTA가 눌리고 비용/레벨/효과 변화가 보이며 음수 재화 없음 | 미실행 | 미실행 | TBD | `?deviceQa=1`로 target log 함께 확인 권장 |
 | TBD | TBD | Android WebView | Debug APK | 보상 claim | album/quest reward claim 후 reward banner 또는 sheet가 보여 toast만으로 끝나지 않음 | 미실행 | 미실행 | TBD | 보상 가능 seed 또는 실제 진행 |

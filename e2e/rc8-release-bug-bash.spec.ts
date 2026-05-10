@@ -20,7 +20,7 @@ test("D1 daily reward and offline reward resolve in one normal return session", 
   await expect(page.getByRole("dialog", { name: "오프라인 보상" })).toHaveCount(0);
   await expect(page.locator(".retention-panel")).toContainText("수령 가능");
   await page.getByRole("button", { name: "복귀 보상 받기" }).click();
-  await expect(page.locator(".toast", { hasText: "복귀 보상 수령" })).toBeVisible();
+  await expect(page.getByRole("dialog", { name: "복귀 보상 도장" })).toBeVisible();
 
   await page.reload();
   await expect(page.getByRole("button", { name: "복귀 보상 받기" })).toBeDisabled();

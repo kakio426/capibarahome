@@ -44,6 +44,7 @@ for (const viewport of viewports) {
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-home-daily-available.png`, fullPage: false });
     await page.getByRole("button", { name: "복귀 보상 받기" }).click();
     await page.screenshot({ path: `qa-screenshots/${viewport.name}-daily-reward-claim.png`, fullPage: false });
+    await page.screenshot({ path: `qa-screenshots/${viewport.name}-reward-sheet.png`, fullPage: false });
     await expectNoHorizontalOverflow(page);
     await page.getByRole("dialog", { name: "복귀 보상 도장" }).getByRole("button", { name: "정원으로 돌아가기" }).click();
 

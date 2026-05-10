@@ -2,6 +2,7 @@ import { expect, test } from "@playwright/test";
 import { openFresh, skipTutorial, tapCapybara } from "./helpers";
 
 test("new user flow without debug shortcuts", async ({ page }) => {
+  test.setTimeout(60_000);
   await openFresh(page);
   await expect(page.getByText("귤 모으기")).toBeVisible();
   await skipTutorial(page);

@@ -86,6 +86,7 @@ async function expectCriticalActionCentersUnblocked(page: Parameters<typeof expe
     }
 
     const dockRect = document.querySelector(".bottom-tabs")?.getBoundingClientRect() ?? null;
+    const shellRect = document.querySelector(".content-shell")?.getBoundingClientRect() ?? null;
 
     return selectors.flatMap((selector) => Array.from(document.querySelectorAll(selector)).map((element, index) => {
       if (!(element instanceof HTMLElement) || !isVisible(element)) return null;
@@ -94,6 +95,7 @@ async function expectCriticalActionCentersUnblocked(page: Parameters<typeof expe
       const centerX = Math.round(rect.left + rect.width / 2);
       const centerY = Math.round(rect.top + rect.height / 2);
       if (centerX < 0 || centerY < 0 || centerX > window.innerWidth || centerY > window.innerHeight) return null;
+      if (!modalOpen && shellRect && (centerY < shellRect.top + 2 || centerY > shellRect.bottom - 2)) return null;
       const topElement = document.elementFromPoint(centerX, centerY);
       const unblocked = topElement === element || element.contains(topElement);
       const pointerEvents = window.getComputedStyle(element).pointerEvents;
