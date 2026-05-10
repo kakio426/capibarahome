@@ -18,10 +18,10 @@
 | G4 | Prestige result modal이 320/390에서 reward/ribbon/CTA를 모두 보이고 조작 가능 | `RC19_FULL_SCREEN_UI_UX_AUDIT.md`, `qa-screenshots/320x740-prestige-result.png`, `qa-screenshots/390x844-prestige-result.png` | 완료 후보 |
 | G5 | Save/export modal, daily reward, milestone, offline reward modal이 360/390 계열에서 조작 가능 | `layout-regression.spec.ts`, `qa-screenshots/390x844-save-modal.png`, `qa-screenshots/390x844-daily-reward-claim.png`, `qa-screenshots/390x844-collection-milestones.png`, `qa-screenshots/320x740-offline-reward.png` | 완료 후보 |
 | G6 | Store screenshots public copy/framing이 internal wording 없이 최신 UI를 반영 | `store-screenshots/iphone-*.png`, `store-screenshots/android-*.png`, `STORE_SCREENSHOT_PLAN.md` | 완료 후보 |
-| G7 | Android APK가 최신 UI/UX 수정 후 재생성됨 | `android/app/build/outputs/apk/debug/app-debug.apk`, `android/app/build/outputs/apk/release/app-release.apk`, `QA_REPORT.md`, `RC19_PLAYABILITY_UX_AUDIT.md` | 완료 후보 |
+| G7 | Android APK가 최신 UI/UX 수정 후 재생성됨 | `android/app/build/outputs/apk/debug/app-debug.apk`, `android/app/build/outputs/apk/release/app-release.apk`, `QA_REPORT.md`, `RC20_PRODUCT_REBOOT_AUDIT.md` | 완료 후보 |
 | G8 | 실제 Android physical device screenshot/video 기반 재검증 | `device-qa/incoming/`, `device-qa/fixed/`, `DEVICE_QA_RESULTS_TEMPLATE.md` | 미완료 |
 | G9 | 실제 기기 font scale, gesture nav, notch/safe-area, OEM WebView 차이 확인 | `DEVICE_QA_CHECKLIST.md`, physical QA result rows | 미완료 |
-| G10 | 실제 플레이 감각: 터치 피드백, 보상 명확성, 첫 10분 next action이 자동/스크린샷 기준 검증됨 | `RC19_PLAYABILITY_UX_AUDIT.md`, `e2e/playability-flow.spec.ts`, `qa-screenshots/390x844-device-qa-overlay.png` | 완료 후보, physical retest 필요 |
+| G10 | 실제 플레이 감각: 터치 피드백, 보상 명확성, 첫 10분 next action이 자동/스크린샷 기준 검증됨 | `RC19_PLAYABILITY_UX_AUDIT.md`, `RC20_FIRST_10_MINUTES_FLOW.md`, `e2e/playability-flow.spec.ts`, `e2e/playability-reboot.spec.ts`, `qa-screenshots/390x844-device-qa-overlay.png` | 완료 후보, physical retest 필요 |
 
 ## Prompt-To-Artifact Checklist
 
@@ -36,12 +36,12 @@
 
 ## Current Verification Snapshot
 
-마지막 RC19 playability 검증 결과:
+마지막 RC20 product reboot 검증 결과:
 
 - `npm run build`: pass
-- `npm test -- --run`: pass, 23 files / 502 tests
-- `npm run test:e2e`: pass, 53 tests
-- `npx playwright test e2e/playability-flow.spec.ts --reporter=line`: pass, 6 tests
+- `npm test`: pass, 23 files / 502 tests
+- `npm run test:e2e`: pass, 58 tests
+- `npx playwright test e2e/playability-reboot.spec.ts --reporter=line`: covered inside full E2E, 5 tests
 - `npx playwright test e2e/layout-regression.spec.ts --reporter=line`: pass, 10 tests
 - `npx playwright test e2e/visual-regression.spec.ts e2e/store-screenshot-pack.spec.ts --reporter=line`: pass, 11 tests
 - `npm run export:assets`: pass
@@ -49,9 +49,9 @@
 - `npx cap sync android`: pass
 - Android `assembleDebug assembleRelease`: pass
 - `git diff --check`: pass
-- `npm run device:qa:devices`: command works, no attached devices listed
-- Debug APK: `android/app/build/outputs/apk/debug/app-debug.apk` (`19M`, generated 2026-05-09 23:58 KST)
-- Release rehearsal APK: `android/app/build/outputs/apk/release/app-release.apk` (`18M`, generated 2026-05-09 23:58 KST)
+- `/opt/homebrew/share/android-commandlinetools/platform-tools/adb devices -l`: command works, no attached devices listed
+- Debug APK: `android/app/build/outputs/apk/debug/app-debug.apk` (`20,411,698 bytes`, generated 2026-05-10 12:02:36 KST)
+- Release rehearsal APK: `android/app/build/outputs/apk/release/app-release.apk` (`19,369,609 bytes`, generated 2026-05-10 12:02:39 KST)
 
 ## Manual Screenshot Spot Check
 
@@ -89,12 +89,12 @@
 
 ## Completion Decision
 
-현재 상태는 Playwright/DOM/screenshot/Android build 기준으로 내부 P1 UI layout defect가 발견되지 않는 "완료 후보"다. 그러나 원래 objective가 실제 실행 화면의 깨짐 해결을 요구하고, 실제 Android physical device screenshot/video가 아직 없기 때문에 goal complete로 처리하지 않는다.
+현재 상태는 Playwright/DOM/screenshot/Android build 기준으로 내부 P1 UI layout defect가 발견되지 않는 "완료 후보"다. 그러나 원래 objective가 실제 실행 화면의 깨짐 해결을 요구하고, 실제 Android physical device screenshot/video가 아직 없으며 현재 ADB 연결 기기도 없기 때문에 goal complete로 처리하지 않는다.
 
 다음 완료 조건:
 
-1. 최신 APK(`android/app/build/outputs/apk/debug/app-debug.apk`, 2026-05-09 23:58 KST 생성)를 실제 Android 폰에 설치한다.
-2. `npm run device:qa:devices`, `npm run device:qa:install`, `npm run device:qa:launch`, `npm run device:qa:info`로 연결/설치/기기 정보를 기록한다.
+1. 최신 APK(`android/app/build/outputs/apk/debug/app-debug.apk`, 2026-05-10 12:02:36 KST 생성)를 실제 Android 폰에 설치한다.
+2. `/opt/homebrew/share/android-commandlinetools/platform-tools/adb devices -l`, `npm run device:qa:install`, `npm run device:qa:launch`, `npm run device:qa:info`로 연결/설치/기기 정보를 기록한다.
 3. `DEVICE_QA_CHECKLIST.md` 기준으로 최소 홈, 업그레이드, 저장 modal, daily reward, milestone, prestige result, offline reward, 설정, 하단 탭/safe-area를 캡처한다.
 4. `device-qa/README.md`의 minimum evidence set을 따라 `npm run device:qa:capture -- <screen-name>` 또는 `npm run device:qa:record -- <screen-name> [seconds]`로 캡처 파일을 `device-qa/incoming/`에 저장한다. 사용자가 직접 캡처한 파일도 `device-qa/incoming/` 또는 `device-qa/fixed/`에 넣는다.
 5. 발견된 P1/P2를 `RC18_DEVICE_UI_BUG_AUDIT.md` 또는 후속 audit에 기록하고 수정/재검증한다.
